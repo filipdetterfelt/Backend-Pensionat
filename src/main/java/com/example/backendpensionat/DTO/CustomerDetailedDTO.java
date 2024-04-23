@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Builder
-@RequiredArgsConstructor
 public class CustomerDetailedDTO {
         private String firstName;
         private String lastName;

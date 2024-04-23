@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @Builder
-@RequiredArgsConstructor
 public class BookingDTO {
     private Long id;
 }

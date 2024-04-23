@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Builder
 public class RoomDetailedDTO {
     private Long id;

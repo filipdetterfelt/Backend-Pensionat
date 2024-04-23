@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 
-@RequiredArgsConstructor
 @Builder
 public class BookingDetailedDTO {
     private Long id;
