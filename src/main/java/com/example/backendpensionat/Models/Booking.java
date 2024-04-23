@@ -18,7 +18,7 @@ public class Booking {
 
     private Long Id;
     private int amount;
-    private Long price;
+    private Long totalPrice;
     private String startDate;
     private String endDate;
 
