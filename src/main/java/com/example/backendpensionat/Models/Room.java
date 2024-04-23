@@ -23,10 +23,6 @@ public class Room {
     @Pattern(regexp = "[0-9]+", message = "size can only include digits")
     private int size;
 
-    @OneToOne
-    @JoinColumn
-    private Customer customer;
-
     @OneToMany
     private List<Booking> bookings;
 }
