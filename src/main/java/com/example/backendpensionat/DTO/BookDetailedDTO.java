@@ -19,6 +19,8 @@ public class BookDetailedDTO {
     private CustomerDTO customerDTO;
 
 
+
+
 }
 
 
