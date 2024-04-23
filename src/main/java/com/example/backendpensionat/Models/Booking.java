@@ -35,5 +35,4 @@ public class Booking {
     private Room room;
 
 
-
 }
