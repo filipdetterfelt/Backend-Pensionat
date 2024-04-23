@@ -1,6 +1,5 @@
 package com.example.backendpensionat.DTO;
 
-import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
@@ -8,7 +7,7 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Builder
-public class BookDetailedDTO {
+public class BookingDetailedDTO {
     private Long id;
     private int amount;
     private double totalPrice;
