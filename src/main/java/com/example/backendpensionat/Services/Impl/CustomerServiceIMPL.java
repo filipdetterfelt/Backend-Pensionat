@@ -33,6 +33,13 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public Customer detailToCustomer(CustomerDetailedDTO customerDetailedDTO) {
-        return null;
+        return Customer.builder()
+                .id(customerDetailedDTO.getId())
+                .firstName(customerDetailedDTO.getFirstName())
+                .lastName(customerDetailedDTO.getLastName())
+                .email(customerDetailedDTO.getEmail())
+                .phone(customerDetailedDTO.getPhone())
+                .Ssn(customerDetailedDTO.getSsn())
+                .bookings(customerDetailedDTO.getBookings().stream().map(b -> bookingRepo.findById(b.getId()).orElse(null)).toList()).build();
     }
 }
