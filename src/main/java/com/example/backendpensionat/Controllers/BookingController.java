@@ -9,6 +9,6 @@ public class BookingController {
 
     @GetMapping("booking")
     public String allBookings() {
-        return "booking";
+        return "bookings";
     }
 }
