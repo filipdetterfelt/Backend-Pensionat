@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Builder
-@RequiredArgsConstructor
 @Data
 public class CustomerDetailedDTO {
         private Long id;
