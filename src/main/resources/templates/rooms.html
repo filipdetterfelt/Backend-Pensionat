@@ -4,10 +4,38 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    td{
+        width: 200px;
+    }
+    th{
+    width: 200px;
+}</style>
 <body>
 <h1>Pensionat Koriander !</h1>
 <a th:href="@{/customers}">Customer</a>
 <a th:href="@{/bookings}">Booking</a>
 <a th:href="@{/rooms}">Room</a>
+
+<div>
+    <h3>Våra rum</h3>
+    <table>
+
+        <tr>
+            <th>Id</th>
+            <th>Room number</th>
+            <th>Total price</th>
+            <th>Size</th>
+        </tr>
+
+        <tr th:each="rooms: ${roomsList}">
+            <td th:text="${rooms.getId()}"></td>
+            <td th:text="${rooms.getRoomNumber()}"></td>
+            <td th:text="${rooms.getTotalPrice()}"></td>
+            <td th:text="${rooms.getSize()}"></td>
+        </tr>
+
+    </table>
+</div>
 </body>
 </html>
