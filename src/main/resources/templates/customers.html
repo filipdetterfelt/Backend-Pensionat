@@ -5,9 +5,42 @@
     <title>Customers</title>
 </head>
 <body>
+<div>
+    <!-- Detta är titeln till sidan -->
 <h1>Pensionat Koriander !</h1>
+    <!-- Detta är länkarna till varje sida -->
 <a th:href="@{/customers}">Customer</a>
 <a th:href="@{/bookings}">Booking</a>
 <a th:href="@{/rooms}">Room</a>
+</div>
+
+<!-- Detta är kunderna i fråga till varje sida -->
+<div>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Social security number</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone number</th>
+        </tr>
+        <tr th:each = "customer: ${customersList}">
+            <td th:text = "${customer.getId()}"></td>
+            <td th:text = "${customer.getSsn()}"></td>
+            <td th:text = "${customer.getEmail()}"></td>
+            <td th:text = "${customer.getFirstName()}"></td>
+            <td th:text = "${customer.getLastName()}"></td>
+            <td th:text = "${customer.getPhone()}"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- Detta är Knapparna i till sidan -->
+<div>
+    <a th:href="@{/addNewCustomer}">Customer</a>
+    <a th:href="@{/removeCustomer}">Customer</a>
+</div>
+
 </body>
 </html>
