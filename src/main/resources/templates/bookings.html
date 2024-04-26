@@ -5,9 +5,41 @@
     <title>Bookings</title>
 </head>
 <body>
+<div>
 <h1>Pensionat Koriander !</h1>
 <a th:href="@{/customers}">Customer</a>
 <a th:href="@{/bookings}">Booking</a>
 <a th:href="@{/rooms}">Room</a>
+</div>
+<div>
+    <form>
+        <label for="startDate">Start Date</label><br>
+        <input type="date" id="startDate" name="startDate"><br>
+        <label for="endDate">End Date</label><br>
+        <input type="date" id="endDate" name="endDate"><br>
+        <label for="capacity">Travellers</label><br>
+        <input type="number" id="capacity" name="capacity" value="1" min="1"><br>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+    var todayFormatted = yyyy + '-' + mm + '-' + dd;
+
+    document.getElementById('startDate').value = todayFormatted;
+
+    var tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var tmrdd = String(tomorrow.getDate()).padStart(2, '0');
+    var tmrmm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    var tomorrowFormatted = yyyy + '-' + tmrmm + '-' + tmrdd;
+
+    document.getElementById('endDate').value = tomorrowFormatted;
+</script>
+
 </body>
 </html>
