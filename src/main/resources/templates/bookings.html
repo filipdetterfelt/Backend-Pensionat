@@ -21,6 +21,26 @@
         <input type="number" id="capacity" name="capacity" value="1" min="1"><br>
         <button type="submit">Submit</button>
     </form>
+
+    <table>
+
+        <tr>
+            <th>Booking ID:</th>
+            <th>Room:</th>
+            <th>Start date:</th>
+            <th>End date:</th>
+            <th>Travellers:</th>
+        </tr>
+
+        <tr th:each="bookings: ${bookingsList}">
+            <td th:text="${bookings.getId()}"></td>
+            <td th:text="${bookings.getRoomNumber()}"></td>
+            <td th:text="${bookings.getStartDate()}"></td>
+            <td th:text="${bookings.getEndDate()}"></td>
+            <td th:text="${bookings.getTravellers()}"></td>
+        </tr>
+
+    </table>
 </div>
 
 <script>
