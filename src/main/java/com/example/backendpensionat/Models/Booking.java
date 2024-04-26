@@ -19,20 +19,19 @@ public class Booking {
 
     @Id
     @GeneratedValue
-
     private Long Id;
-    @Pattern(regexp = "[0-9]+", message = "Amount can only include digits")
+  //  @Pattern(regexp = "[0-9]+", message = "Amount can only include digits")
     private int amount;
-    @Pattern(regexp = "[0-9.]+", message = "TotalPrice can only include digits and dots")
+   // @Pattern(regexp = "[0-9.]+", message = "TotalPrice can only include digits and dots")
     private double totalPrice;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Customer customer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Room room;
 

@@ -24,6 +24,7 @@ public class BackendPensionatApplication {
 		SpringApplication.run(BackendPensionatApplication.class, args); }
 
 	@Bean
+	@Transactional
 	public CommandLineRunner add(RoomRepo roomRepo, BookingRepo bookingRepo, CustomerRepo customerRepo) {
 		return (args) -> {
 
@@ -93,13 +94,16 @@ public class BackendPensionatApplication {
 					.room(room2)
 					.build();
 
-			room1.getBookings().add(booking1);
-			room2.getBookings().add(booking2);
 
+
+			//room1.getBookings().add(booking1);
+			//room2.getBookings().add(booking2);
+
+			bookingRepo.saveAll(Arrays.asList(booking1,booking2));
 			//customer1.getBookings().add(booking1);
 			//customer2.getBookings().add(booking2);
 
-			customerRepo.saveAll(Arrays.asList(customer1,customer2));
+			//customerRepo.saveAll(Arrays.asList(customer1,customer2));
 
 		};
 	}
