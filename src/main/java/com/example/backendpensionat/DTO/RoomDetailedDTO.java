@@ -11,6 +11,7 @@ public class RoomDetailedDTO {
     private Long id;
     private Long roomNumber = id;
     private Double price;
+    private int maxBeds;
     private int size;
     List<BookingDTO> bookings;
 }

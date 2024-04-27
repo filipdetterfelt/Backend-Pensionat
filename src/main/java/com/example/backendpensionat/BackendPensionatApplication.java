@@ -62,6 +62,7 @@ public class BackendPensionatApplication {
 					.id(1L)
 					.roomNumber(101L)
 					.price(150.0)
+					.maxBeds(1)
 					.size(20)
 					.bookings(new ArrayList<>()) // En tom lista för bokningar
 					.build();
@@ -70,6 +71,7 @@ public class BackendPensionatApplication {
 					.id(2L)
 					.roomNumber(202L)
 					.price(250.0)
+					.maxBeds(2)
 					.size(30)
 					.bookings(new ArrayList<>()) // En tom lista för bokningar
 					.build();
