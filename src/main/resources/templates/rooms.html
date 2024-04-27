@@ -5,17 +5,38 @@
     <title>Title</title>
 </head>
 <style>
-    td{
+    td {
+        text-align: center;
+        width: 200px;
+        background-color: lightgrey;
+    }
+    th {
+        background-color: black;
+        color: whitesmoke;
         width: 200px;
     }
-    th{
-    width: 200px;
-}</style>
+</style>
 <body>
-<h1>Pensionat Koriander !</h1>
-<a th:href="@{/customers}">Customer</a>
-<a th:href="@{/bookings}">Booking</a>
-<a th:href="@{/rooms}">Room</a>
+<div class="header">
+    <h1>Pensionat Koriander !</h1>
+    <a th:href="@{/customers}">Customer</a>
+    <a th:href="@{/bookings}">Booking</a>
+    <a th:href="@{/rooms}">Room</a>
+</div><br><br>
+
+<div class="form-div">
+    <form action="/rooms/search" method="get"><br>
+        <label for="startDate">From:</label><br>
+        <input type="date" name="startDate" id="startDate" required><br><br>
+        <label for="endDate">To:</label><br>
+        <input type="date" name="endDate" id="endDate" required><br><br>
+        <label for="maxBeds">Maximum beds:</label><br>
+        <input type="number" name="amountOfPeople" id="maxBeds" min="1" max="3" value="1" required><br><br>
+        <button type="submit">Search</button>
+        <br>
+        <br><br>
+    </form>
+</div>
 
 <div>
     <h3>Våra rum</h3>
@@ -25,13 +46,15 @@
             <th>Id</th>
             <th>Room number</th>
             <th>Total price</th>
+            <th>Max beds</th>
             <th>Size</th>
         </tr>
 
         <tr th:each="rooms: ${roomsList}">
             <td th:text="${rooms.getId()}"></td>
             <td th:text="${rooms.getRoomNumber()}"></td>
-            <td th:text="${rooms.getTotalPrice()}"></td>
+            <td th:text="${rooms.getPrice()}"></td>
+            <td th:text="${rooms.getMaxBeds()}"></td>
             <td th:text="${rooms.getSize()}"></td>
         </tr>
 
