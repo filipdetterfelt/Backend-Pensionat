@@ -25,7 +25,7 @@
 </div><br><br>
 
 <div class="form-div">
-    <form action="/rooms/search" method="get"><br>
+    <form action="/rooms" th:object="${roomSearch}" method="post"><br>
         <label for="startDate">From:</label><br>
         <input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required><br><br>
         <label for="endDate">To:</label><br>
