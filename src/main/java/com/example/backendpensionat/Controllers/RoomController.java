@@ -1,11 +1,14 @@
 package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.DTO.RoomDetailedDTO;
+import com.example.backendpensionat.DTO.RoomSearchDTO;
 import com.example.backendpensionat.Services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,9 +23,8 @@ public class RoomController {
 
     @GetMapping("/rooms")
     public String allRooms(Model model) {
-        if(!model.containsAttribute("roomsList")) {
-            model.addAttribute("roomsList", roomService.listAllRooms());
-        }
+        model.addAttribute("roomsList", roomService.listAllRooms());
+        model.addAttribute("roomSearch", new RoomSearchDTO());
         return "rooms";
     }
 
