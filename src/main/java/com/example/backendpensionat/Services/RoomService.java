@@ -4,8 +4,6 @@ import com.example.backendpensionat.DTO.RoomDTO;
 import com.example.backendpensionat.DTO.RoomDetailedDTO;
 import com.example.backendpensionat.DTO.RoomSearchDTO;
 import com.example.backendpensionat.Models.Room;
-
-import java.time.LocalDate;
 import java.util.List;
 
 public interface RoomService {
