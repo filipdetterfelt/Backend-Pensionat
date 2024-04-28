@@ -27,7 +27,7 @@
 <div class="form-div">
     <form action="/rooms/search" method="get"><br>
         <label for="startDate">From:</label><br>
-        <input type="date" name="startDate" id="startDate" required><br><br>
+        <input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required><br><br>
         <label for="endDate">To:</label><br>
         <input type="date" name="endDate" id="endDate" required><br><br>
         <label for="maxBeds">Maximum beds:</label><br>
@@ -39,9 +39,8 @@
 </div>
 
 <div>
-    <h3>Våra rum</h3>
+    <h3>Rooms</h3>
     <table>
-
         <tr>
             <th>Id</th>
             <th>Room number</th>
@@ -57,8 +56,19 @@
             <td th:text="${rooms.getMaxBeds()}"></td>
             <td th:text="${rooms.getSize()}"></td>
         </tr>
-
     </table>
 </div>
+
+<script>
+    function updateEndDateOnChange() {
+        const startDate = new Date(document.getElementById('startDate').value)
+        startDate.setDate(startDate.getDate() + 1)
+
+        const minDate = startDate.toISOString().split("T")[0]
+        const endDate = document.getElementById('endDate');
+        endDate.setAttribute('min', minDate)
+        endDate.value = minDate;
+    }
+</script>
 </body>
 </html>
