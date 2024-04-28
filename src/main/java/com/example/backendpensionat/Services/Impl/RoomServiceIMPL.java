@@ -1,7 +1,6 @@
 package com.example.backendpensionat.Services.Impl;
 
 import com.example.backendpensionat.DTO.BookingDTO;
-import com.example.backendpensionat.DTO.BookingDetailedDTO;
 import com.example.backendpensionat.DTO.RoomDTO;
 import com.example.backendpensionat.DTO.RoomDetailedDTO;
 import com.example.backendpensionat.Models.Room;
@@ -57,12 +56,6 @@ public class RoomServiceIMPL implements RoomService {
                         .bookings(room.getBookings().stream().map(bookingService::bookingToDTO).toList())
                         .build())
                 .toList();
-    }
-
-    @Override
-    public boolean isDateWithinBookingPeriod(LocalDate date, BookingDetailedDTO booking) {
-        return (date.isEqual(booking.getStartDate()) || date.isAfter(booking.getStartDate())) &&
-               (date.isEqual(booking.getEndDate()) || date.isBefore(booking.getEndDate()));
     }
 
     @Override
