@@ -28,19 +28,11 @@ public class RoomController {
         return "rooms";
     }
 
-    @GetMapping("/rooms/search")
-    public String searchRooms(
-            @RequestParam(name = "startDate") LocalDate startDate,
-            @RequestParam(name = "endDate") LocalDate endDate,
-            @RequestParam(name = "amountOfPeople") int amountOfPeople,
-            RedirectAttributes model
-    ) {
-        startDate = startDate == null? LocalDate.now(): startDate;
-        endDate = endDate == null? LocalDate.now(): endDate;
-
-        List<RoomDetailedDTO> filteredRooms = roomService.listFreeRooms(startDate, endDate, amountOfPeople);
-        model.addFlashAttribute("roomsList", filteredRooms);
-        return "redirect:/rooms";
+    @PostMapping("/rooms")
+    public String searchRooms(@ModelAttribute("roomSearch")RoomSearchDTO roomSearch, Model model) {
+        List<RoomDetailedDTO> filteredRooms = roomService.listFreeRooms(roomSearch);
+        model.addAttribute("roomsList", filteredRooms);
+        return "rooms";
     }
 
 }
