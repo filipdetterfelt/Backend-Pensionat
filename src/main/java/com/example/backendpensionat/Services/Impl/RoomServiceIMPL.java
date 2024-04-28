@@ -9,6 +9,8 @@ import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
 import com.example.backendpensionat.Services.BookingService;
 import com.example.backendpensionat.Services.RoomService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ public class RoomServiceIMPL implements RoomService {
     private final RoomRepo roomRepo;
     private final BookingService bookingService;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
     public List<RoomDetailedDTO> listAllRooms() {
         return roomRepo.findAll().stream().map(this::rDetailedToDTO).toList();
@@ -30,24 +35,28 @@ public class RoomServiceIMPL implements RoomService {
 
     @Override
     public List<RoomDetailedDTO> listFreeRooms(LocalDate startDate, LocalDate endDate, int maxBeds  ) {
-        LocalDate[] dates = sortDates(startDate, endDate);
-        return listAllRooms().stream().filter(room -> {
-            List<BookingDetailedDTO> bookings = room.getBookings().stream()
-                    .map(booking -> bookingService.bDetailedToDTO(bookingRepo.findById(booking.getId()).get()))
-                    .toList();
+        String jpqlQuery = "SELECT r FROM Room r " +
+                "WHERE r.maxBeds >= :maxBeds " +
+                "AND NOT EXISTS (" +
+                "SELECT 1 FROM Booking b " +
+                "WHERE b.room = r " +
+                "AND b.startDate <= :endDate " +
+                "AND b.endDate >= :startDate)";
 
-                return bookings.stream().noneMatch(booking ->
-                       isDateWithinBookingPeriod(dates[0], booking) &&
-                       isDateWithinBookingPeriod(dates[1], booking) &&
-                       maxBeds <= room.getMaxBeds() + 1);
-        }).toList();
-    }
 
-    @Override
-    public LocalDate[] sortDates(LocalDate date1, LocalDate date2) {
-        if (date1.isBefore(date2)) return new LocalDate[]{date1, date2};
-        else if (date2.isBefore(date1)) return new LocalDate[]{date2, date1};
-        else return new LocalDate[]{date1, date2};
+        return entityManager.createQuery(jpqlQuery, Room.class)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .setParameter("maxBeds", maxBeds)
+                .getResultList().stream().map(room -> RoomDetailedDTO.builder()
+                        .id(room.getId())
+                        .roomNumber(room.getRoomNumber())
+                        .maxBeds(room.getMaxBeds())
+                        .price(room.getPrice())
+                        .size(room.getSize())
+                        .bookings(room.getBookings().stream().map(bookingService::bookingToDTO).toList())
+                        .build())
+                .toList();
     }
 
     @Override
