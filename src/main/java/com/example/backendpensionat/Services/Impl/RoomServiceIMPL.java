@@ -3,6 +3,7 @@ package com.example.backendpensionat.Services.Impl;
 import com.example.backendpensionat.DTO.BookingDTO;
 import com.example.backendpensionat.DTO.RoomDTO;
 import com.example.backendpensionat.DTO.RoomDetailedDTO;
+import com.example.backendpensionat.DTO.RoomSearchDTO;
 import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
@@ -33,7 +34,7 @@ public class RoomServiceIMPL implements RoomService {
     }
 
     @Override
-    public List<RoomDetailedDTO> listFreeRooms(LocalDate startDate, LocalDate endDate, int maxBeds  ) {
+    public List<RoomDetailedDTO> listFreeRooms(RoomSearchDTO roomSearch) {
         String jpqlQuery = "SELECT r FROM Room r " +
                 "WHERE r.maxBeds >= :maxBeds " +
                 "AND NOT EXISTS (" +
@@ -44,9 +45,9 @@ public class RoomServiceIMPL implements RoomService {
 
 
         return entityManager.createQuery(jpqlQuery, Room.class)
-                .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .setParameter("maxBeds", maxBeds)
+                .setParameter("startDate", roomSearch.getStartDate())
+                .setParameter("endDate", roomSearch.getStartDate())
+                .setParameter("maxBeds", roomSearch.getMaxBeds())
                 .getResultList().stream().map(room -> RoomDetailedDTO.builder()
                         .id(room.getId())
                         .roomNumber(room.getRoomNumber())
