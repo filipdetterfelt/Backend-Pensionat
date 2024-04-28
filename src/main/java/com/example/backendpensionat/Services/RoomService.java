@@ -11,7 +11,6 @@ import java.util.List;
 public interface RoomService {
     List<RoomDetailedDTO> listAllRooms();
     List<RoomDetailedDTO> listFreeRooms(LocalDate startDate, LocalDate endDate, int maxBeds);
-    LocalDate[] sortDates(LocalDate date1, LocalDate date2);
     boolean isDateWithinBookingPeriod(LocalDate date, BookingDetailedDTO booking);
     RoomDTO roomToDTO(Room room);
     RoomDetailedDTO rDetailedToDTO(Room room);
