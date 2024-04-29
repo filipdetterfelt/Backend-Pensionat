@@ -76,5 +76,10 @@ public class CustomerServiceIMPL implements CustomerService {
                 .bookings(customerDetailedDTO.getBookings().stream().map(b -> bookingRepo.findById(b.getId()).orElse(null)).toList()).build();
     }
 
+    @Override
+    public CustomerDetailedDTO findCustomerById(Long id){
+        return cDetailedToDTO(customerRepo.findById(id).get());
+    }
+
 
 }
