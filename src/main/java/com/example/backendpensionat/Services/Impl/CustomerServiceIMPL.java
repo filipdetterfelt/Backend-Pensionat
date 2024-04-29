@@ -21,6 +21,12 @@ public class CustomerServiceIMPL implements CustomerService {
     private final CustomerRepo customerRepo;
 
     @Override
+    public String addCustomer(CustomerDetailedDTO customer){
+         customerRepo.save(detailToCustomer(customer));
+         return "Customer has added";
+    }
+
+    @Override
     public List<CustomerDetailedDTO> listAllCustomers() {
         return customerRepo.findAll().stream().map(this::cDetailedToDTO).toList();
     }
@@ -52,4 +58,6 @@ public class CustomerServiceIMPL implements CustomerService {
                 .Ssn(customerDetailedDTO.getSsn())
                 .bookings(customerDetailedDTO.getBookings().stream().map(b -> bookingRepo.findById(b.getId()).orElse(null)).toList()).build();
     }
+
+
 }
