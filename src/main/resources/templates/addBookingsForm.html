@@ -48,8 +48,16 @@
                 </select>
             </label>
         </td>
-        <td><input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required></td>
-        <td><input type="date" name="endDate" id="endDate" required></td>
+        <td>
+            <label>
+                <input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required>
+            </label>
+        </td>
+        <td>
+            <label>
+                <input type="date" name="endDate" id="endDate" required>
+            </label>
+        </td>
         <td>
             <label>
                 <select>
@@ -66,7 +74,7 @@
                 <select>
                     <option>Number of beds</option>
                     <option th:each="room: ${roomsList}"
-                            th:value="${room.get()}"
+                            th:value="${room.getId()}"
                             th:text="${room.getRoomNumber()}">
                     </option>
                 </select>
