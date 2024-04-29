@@ -28,6 +28,14 @@ public class CustomerServiceIMPL implements CustomerService {
     }
 
     @Override
+    public String changeCustomer(CustomerDetailedDTO customer) {
+        customerRepo.save(detailToCustomer(customer));
+        return "Customer "+ customer + " has been updated";
+    }
+
+
+
+    @Override
     public List<CustomerDetailedDTO> listAllCustomers() {
         return customerRepo.findAll().stream().map(this::cDetailedToDTO).toList();
     }

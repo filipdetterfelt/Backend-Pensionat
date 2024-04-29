@@ -42,7 +42,14 @@ public class CustomerController {
     public String addCustomers(@ModelAttribute("newCustomers") CustomerDetailedDTO customer){
         customer.setBookings(new ArrayList<BookingDTO>());
         customerService.addCustomer(customer);
-        return "index";
+        return "redirect:/customers";
+    }
+
+    @PostMapping("updateCustomer")
+    public String updateCustomer(@ModelAttribute ("updateCustomers") CustomerDetailedDTO customer){
+        customer.setBookings(new ArrayList<BookingDTO>());
+        customerService.changeCustomer(customer);
+        return "redirect:/customers";
     }
 
 
