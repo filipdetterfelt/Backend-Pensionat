@@ -10,6 +10,7 @@ import com.example.backendpensionat.Repos.CustomerRepo;
 import com.example.backendpensionat.Services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.example.backendpensionat.Controllers;
 
+import com.example.backendpensionat.DTO.BookingDTO;
 import com.example.backendpensionat.DTO.CustomerDTO;
 import com.example.backendpensionat.DTO.CustomerDetailedDTO;
 import com.example.backendpensionat.DTO.RoomSearchDTO;
@@ -10,8 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.ArrayList;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,14 +33,16 @@ public class CustomerController {
 
 
     @GetMapping("addNewCustomer")
-    public String addNewCustomer() {
+    public String addNewCustomer(Model model) {
+        model.addAttribute("newCustomers", new CustomerDetailedDTO());
         return "addNewCustomerForm";
     }
 
     @PostMapping("addCustomer")
-    public String addCustomers(@RequestBody CustomerDetailedDTO customer){
+    public String addCustomers(@ModelAttribute("newCustomers") CustomerDetailedDTO customer){
+        customer.setBookings(new ArrayList<BookingDTO>());
         customerService.addCustomer(customer);
-        return "Customer has added";
+        return "index";
     }
 
 

@@ -1,14 +1,14 @@
 package com.example.backendpensionat.DTO;
 
 import com.example.backendpensionat.Models.Booking;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomerDetailedDTO {
         private Long id;
         private String firstName;
