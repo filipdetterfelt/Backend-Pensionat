@@ -21,7 +21,7 @@ public class Booking {
     @GeneratedValue
     private Long Id;
   //  @Pattern(regexp = "[0-9]+", message = "Amount can only include digits")
-    private int amount;
+    private int amountOfBeds;
    // @Pattern(regexp = "[0-9.]+", message = "TotalPrice can only include digits and dots")
     private double totalPrice;
     private LocalDate startDate;

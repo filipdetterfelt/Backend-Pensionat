@@ -4,61 +4,71 @@
     <meta charset="UTF-8">
     <title>Bookings</title>
 </head>
+<style>
+    td {
+        text-align: center;
+        width: 200px;
+        background-color: lightgrey;
+    }
+    th {
+        background-color: black;
+        color: whitesmoke;
+        width: 200px;
+    }
+</style>
 <body>
-<div>
+<div class="header">
 <h1>Pensionat Koriander !</h1>
 <a th:href="@{/customers}">Customer</a>
 <a th:href="@{/bookings}">Booking</a>
 <a th:href="@{/rooms}">Room</a>
 </div>
 <div>
-    <form>
-        <label for="startDate">Start Date</label><br>
-        <input type="date" id="startDate" name="startDate"><br>
-        <label for="endDate">End Date</label><br>
-        <input type="date" id="endDate" name="endDate"><br>
-        <label for="capacity">Travellers</label><br>
-        <input type="number" id="capacity" name="capacity" value="1" min="1"><br>
-        <button type="submit">Submit</button>
-    </form>
+    <h3>Bookings</h3>
+    <button th:data-url="'/bookings/addBookings'"
+            onclick="window.location.href = this.getAttribute('data-url')">Add booking</button>
 
     <table>
-
         <tr>
             <th>Booking ID:</th>
-            <th>Room:</th>
-            <th>Start date:</th>
-            <th>End date:</th>
-            <th>Travellers:</th>
+            <th>Room No.:</th>
+            <th>From:</th>
+            <th>To:</th>
+            <th>Number of beds:</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
 
         <tr th:each="bookings: ${bookingsList}">
             <td th:text="${bookings.getId()}"></td>
-            <td th:text="${bookings.getRoomNumber()}"></td>
+            <td th:text="${bookings.getRoomDTO().getId()}"></td>
             <td th:text="${bookings.getStartDate()}"></td>
             <td th:text="${bookings.getEndDate()}"></td>
-            <td th:text="${bookings.getTravellers()}"></td>
+            <td th:text="${bookings.getAmountOfBeds()}"></td>
+            <td><button>Edit</button></td>
+            <td><button th:data-url="'/bookings/' + ${bookings.getId()} + '/delete'"
+                        onclick="window.location.href = this.getAttribute('data-url')">Delete</button></td>
         </tr>
 
     </table>
 </div>
 
 <script>
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
-    var todayFormatted = yyyy + '-' + mm + '-' + dd;
-
-    document.getElementById('startDate').value = todayFormatted;
-
-    var tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var tmrdd = String(tomorrow.getDate()).padStart(2, '0');
-    var tmrmm = String(tomorrow.getMonth() + 1).padStart(2, '0');
-    var tomorrowFormatted = yyyy + '-' + tmrmm + '-' + tmrdd;
-
-    document.getElementById('endDate').value = tomorrowFormatted;
+    // var today = new Date();
+    // var dd = String(today.getDate()).padStart(2, '0');
+    // var mm = String(today.getMonth() + 1).padStart(2, '0');
+    // var yyyy = today.getFullYear();
+    // var todayFormatted = yyyy + '-' + mm + '-' + dd;
+    //
+    // document.getElementById('startDate').value = todayFormatted;
+    //
+    // var tomorrow = new Date(today);
+    // tomorrow.setDate(tomorrow.getDate() + 1);
+    // var tmrdd = String(tomorrow.getDate()).padStart(2, '0');
+    // var tmrmm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    // var tomorrowFormatted = yyyy + '-' + tmrmm + '-' + tmrdd;
+    //
+    // document.getElementById('endDate').value = tomorrowFormatted;
 </script>
 
 </body>

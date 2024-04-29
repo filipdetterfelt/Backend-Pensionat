@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Bookings</title>
+</head>
+<style>
+    td {
+        text-align: center;
+        width: 200px;
+        background-color: lightgrey;
+    }
+    th {
+        background-color: black;
+        color: whitesmoke;
+        width: 200px;
+    }
+</style>
+<body>
+<div class="header">
+    <h1>Pensionat Koriander !</h1>
+    <a th:href="@{/customers}">Customer</a>
+    <a th:href="@{/bookings}">Booking</a>
+    <a th:href="@{/rooms}">Room</a>
+</div>
+<div><h3>Add Bookings</h3></div>
+<table>
+    <tr>
+        <th>Customer:</th>
+        <th>From:</th>
+        <th>To:</th>
+        <th>Room No.:</th>
+        <th>Number of beds:</th>
+        <th>Add</th>
+    </tr>
+
+    <tr>
+        <td>
+            <label>
+                <select>
+                    <option>Choose customer</option>
+                    <option th:each="customer: ${customersList}"
+                            th:value="${customer.getId()}"
+                            th:text="${customer.getId() + ': '
+                            + customer.getFirstName() + ' '
+                            + customer.getLastName()}">
+                    </option>
+                </select>
+            </label>
+        </td>
+        <td><input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required></td>
+        <td><input type="date" name="endDate" id="endDate" required></td>
+        <td>
+            <label>
+                <select>
+                    <option>Choose room</option>
+                    <option th:each="room: ${roomsList}"
+                            th:value="${room.getId()}"
+                            th:text="${room.getRoomNumber()}">
+                    </option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <select>
+                    <option>Number of beds</option>
+                    <option th:each="room: ${roomsList}"
+                            th:value="${room.get()}"
+                            th:text="${room.getRoomNumber()}">
+                    </option>
+                </select>
+            </label>
+        </td>
+    </tr>
+</table>
+
+<script>
+    function updateEndDateOnChange() {
+        const startDate = new Date(document.getElementById('startDate').value)
+        startDate.setDate(startDate.getDate() + 1)
+
+        const minDate = startDate.toISOString().split("T")[0]
+        const endDate = document.getElementById('endDate');
+        endDate.setAttribute('min', minDate)
+        endDate.value = minDate;
+    }
+</script>
+</body>
+</html>

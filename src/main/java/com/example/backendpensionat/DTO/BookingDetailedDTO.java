@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 public class BookingDetailedDTO {
     private Long id;
-    private int amount;
+    private int amountOfBeds;
     private double totalPrice;
     private LocalDate startDate;
     private LocalDate endDate;

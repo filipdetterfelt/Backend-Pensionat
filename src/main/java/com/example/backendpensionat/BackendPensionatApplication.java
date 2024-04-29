@@ -78,7 +78,7 @@ public class BackendPensionatApplication {
 
 			Booking booking1 = Booking.builder()
 					.Id(1L)
-					.amount(5)
+					.amountOfBeds(5)
 					.totalPrice(500.0)
 					.startDate(LocalDate.of(2024, 5, 1))
 					.endDate(LocalDate.of(2024, 5, 6))
@@ -88,7 +88,7 @@ public class BackendPensionatApplication {
 
 			Booking booking2 = Booking.builder()
 					.Id(2L)
-					.amount(3)
+					.amountOfBeds(3)
 					.totalPrice(600.0)
 					.startDate(LocalDate.of(2024, 6, 10))
 					.endDate(LocalDate.of(2024, 6, 13))
