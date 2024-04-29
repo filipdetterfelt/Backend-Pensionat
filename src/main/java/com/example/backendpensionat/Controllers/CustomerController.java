@@ -8,14 +8,14 @@ import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Services.CustomerService;
 import com.example.backendpensionat.Services.RoomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,12 +44,17 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
-    @PostMapping("updateCustomer")
-    public String updateCustomer(@ModelAttribute ("updateCustomers") CustomerDetailedDTO customer){
+    @PostMapping("UpdateCustomers")
+    public String updateCustomer(@ModelAttribute ("updatedCustomer") CustomerDetailedDTO customer){
         customer.setBookings(new ArrayList<BookingDTO>());
         customerService.changeCustomer(customer);
         return "redirect:/customers";
     }
+
+    /*@PutMapping("changeCustomer")
+    public List<CustomerDetailedDTO> changeCustomerById(@ModelAttribute CustomerDetailedDTO customer) {
+        CustomerDetailedDTO updatedCustomer = customerService.changeCustomer(customer)
+    }*/
 
     @PostMapping("deleteCustomer")
     public String removeCustomer(@ModelAttribute("deleteCustomer") CustomerDetailedDTO customer) {
@@ -59,7 +64,15 @@ public class CustomerController {
     }
 
     @GetMapping("UpdateCustomer")
-    public String updateCustomer() {
+    public String updateCustomer(Model model) {
+        System.out.println(model.containsAttribute("updatedCustomer"));
         return "updateCustomerForm";
+    }
+
+    @GetMapping("customers/{id}")
+    public String editCustomerById(@PathVariable Long id, RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("updatedCustomer",customerService.findCustomerById(id));
+        return "redirect:/UpdateCustomer";
+
     }
 }
