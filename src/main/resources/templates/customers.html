@@ -36,6 +36,7 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Phone number</th>
+            <th>Delete customer</th>
         </tr>
         <tr th:each = "customer: ${customersList}">
             <td th:text = "${customer.getId()}"></td>
@@ -44,6 +45,12 @@
             <td th:text = "${customer.getFirstName()}"></td>
             <td th:text = "${customer.getLastName()}"></td>
             <td th:text = "${customer.getPhone()}"></td>
+            <td>
+                <form th:action="@{/deleteCustomer}" method="post">
+                    <input type="hidden" name="customerId" th:value="${customer.getId()}"/>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
     </table>
 </div>
