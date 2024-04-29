@@ -45,7 +45,8 @@
             <td th:text="${bookings.getStartDate()}"></td>
             <td th:text="${bookings.getEndDate()}"></td>
             <td th:text="${bookings.getAmountOfBeds()}"></td>
-            <td><button>Edit</button></td>
+            <td><button th:data-url="'/bookings/' + ${bookings.getId()} + '/edit'"
+                        onclick="window.location.href = this.getAttribute('data-url')">Edit</button></td>
             <td><button th:data-url="'/bookings/' + ${bookings.getId()} + '/delete'"
                         onclick="window.location.href = this.getAttribute('data-url')">Delete</button></td>
         </tr>

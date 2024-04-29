@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Bookings</title>
+</head>
+<style>
+    td {
+        text-align: center;
+        width: 200px;
+        background-color: lightgrey;
+    }
+    th {
+        background-color: black;
+        color: whitesmoke;
+        width: 200px;
+    }
+</style>
+<body>
+<div class="header">
+    <h1>Pensionat Koriander !</h1>
+    <a th:href="@{/customers}">Customer</a>
+    <a th:href="@{/bookings}">Booking</a>
+    <a th:href="@{/rooms}">Room</a>
+</div>
+<div><h3>Edit Bookings</h3></div>
+<form action="/bookings/update" th:object="${booking}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required/><br><br>
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required/><br><br>
+
+    <label for="amountOfBeds">Number of Beds:</label>
+    <input type="number" id="amountOfBeds" name="amountOfBeds" th:field="*{amountOfBeds}" required/><br><br>
+
+    <input type="submit" value="Save Changes"/>
+</form>
+</body>
+</html>

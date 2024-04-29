@@ -63,4 +63,18 @@ public class BookingServiceIMPL implements BookingService {
     public void deleteBookingById(Long id) {
         bookingRepo.deleteById(id);
     }
+
+    @Override
+    public BookingDetailedDTO findBookingById(Long id) {
+        return bDetailedToDTO(bookingRepo.findById(id).orElse(null));
+    }
+
+    @Override
+    public void updateBooking(BookingDetailedDTO bookingDTO) {
+        Booking existingBooking = bookingRepo.findById(bookingDTO.getId()).orElse(null);
+        existingBooking.setStartDate(bookingDTO.getStartDate());
+        existingBooking.setEndDate(bookingDTO.getEndDate());
+        existingBooking.setAmountOfBeds(bookingDTO.getAmountOfBeds());
+        bookingRepo.save(existingBooking);
+    }
 }

@@ -2,7 +2,6 @@ package com.example.backendpensionat.DTO;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -11,16 +10,12 @@ import java.time.LocalDate;
 public class BookingDetailedDTO {
     private Long id;
     private int amountOfBeds;
-    private double totalPrice;
+    private Double totalPrice;
     private LocalDate startDate;
     private LocalDate endDate;
 
     private RoomDTO roomDTO;
     private CustomerDTO customerDTO;
-
-
-
-
 }
 
 
