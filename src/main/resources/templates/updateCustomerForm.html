@@ -5,11 +5,13 @@
     <title>Update customer</title>
 </head>
 <body>
+
 <!-- Detta är titeln till sidan -->
 <h1>Pensionat Koriander !</h1>
 
 <!-- Detta är uppskapandet av formuläret till sidan -->
 <h2>Update existing customer</h2>
+<form action="/updateCustomer" th:object="${updatedCustomer}" method="post">
 <label for="ssn">Social Security Number:</label>
 <input type="text" id="ssn" name="ssn" required><br><br>
 
@@ -27,5 +29,6 @@
 
 <!--knapp för att lägga till nya kunden-->
 <input type="submit" value="Submit">
+</form>
 </body>
 </html>

@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <title>Customers</title>
 </head>
+<style>
+    td {
+        text-align: center;
+        width: 200px;
+        background-color: lightgrey;
+    }
+    th {
+        background-color: black;
+        color: whitesmoke;
+        width: 200px;
+    }
+</style>
 <body>
 <div>
     <!-- Detta är titeln till sidan -->
@@ -24,6 +36,7 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Phone number</th>
+            <th>Delete customer</th>
         </tr>
         <tr th:each = "customer: ${customersList}">
             <td th:text = "${customer.getId()}"></td>
@@ -32,14 +45,21 @@
             <td th:text = "${customer.getFirstName()}"></td>
             <td th:text = "${customer.getLastName()}"></td>
             <td th:text = "${customer.getPhone()}"></td>
+            <td>
+                <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post">
+                    <input type="hidden" name="id" th:value="${customer.getId()}"/>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
     </table>
 </div>
 
 <!-- Detta är Knapparna i till sidan -->
 <div>
-    <a th:href="@{/addNewCustomer}">Customer</a>
-    <a th:href="@{/removeCustomer}">Customer</a>
+    <a th:href="@{/addNewCustomer}">Add new Customer</a>
+    <a th:href="@{/removeCustomer}">Remove Customer</a>
+    <a th:href="@{/UpdateCustomer}">Update Customer</a>
 </div>
 
 </body>
