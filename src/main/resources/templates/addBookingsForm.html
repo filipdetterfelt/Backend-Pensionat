@@ -66,7 +66,7 @@
                 <select>
                     <option>Number of beds</option>
                     <option th:each="room: ${roomsList}"
-                            th:value="${room.get()}"
+                            th:value="${room.getId()}"
                             th:text="${room.getRoomNumber()}">
                     </option>
                 </select>
