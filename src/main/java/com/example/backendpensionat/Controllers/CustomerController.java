@@ -27,10 +27,9 @@ public class CustomerController {
     @GetMapping("customers")
     public String customers(Model model) {
         model.addAttribute("customersList", customerService.listAllCustomers());
+        model.addAttribute("deleteCustomer", new CustomerDetailedDTO());
         return "customers";
     }
-
-
 
     @GetMapping("addNewCustomer")
     public String addNewCustomer(Model model) {
@@ -45,13 +44,14 @@ public class CustomerController {
         return "index";
     }
 
+    @PostMapping("deleteCustomer")
+    public String removeCustomer(@ModelAttribute("deleteCustomer") CustomerDetailedDTO customer) {
+        customerService.removeCustomer(customer);
+        return "index";
+    }
 
     @GetMapping("UpdateCustomer")
     public String updateCustomer() {
         return "updateCustomerForm";
-    }
-    @GetMapping("removeCustomer")
-    public String removeCustomer() {
-        return "removeCustomerField";
     }
 }
