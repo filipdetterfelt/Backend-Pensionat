@@ -37,8 +37,11 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public String removeCustomer(CustomerDetailedDTO customer){
-        customerRepo.delete(detailToCustomer(customer));
-        return "Customer has been removed";
+        if (customer.getBookings() != null) {
+            customerRepo.delete(detailToCustomer(customer));
+            return "Customer has been removed";
+        }
+        return "Customer " + customer + " has not been removed";
     }
 
     @Override
