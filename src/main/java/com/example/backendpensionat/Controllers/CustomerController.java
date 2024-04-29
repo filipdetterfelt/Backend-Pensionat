@@ -53,6 +53,7 @@ public class CustomerController {
 
     @PostMapping("deleteCustomer")
     public String removeCustomer(@ModelAttribute("deleteCustomer") CustomerDetailedDTO customer) {
+        customer.setBookings(new ArrayList<BookingDTO>());
         customerService.removeCustomer(customer);
         return "index";
     }
