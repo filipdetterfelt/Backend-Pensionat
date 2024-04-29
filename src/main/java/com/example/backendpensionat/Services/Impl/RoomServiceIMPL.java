@@ -36,7 +36,7 @@ public class RoomServiceIMPL implements RoomService {
         String jpqlQuery = "SELECT r FROM Room r " +
                 "WHERE r.maxBeds >= :maxBeds " +
                 "AND NOT EXISTS (" +
-                "SELECT 1 FROM Booking b " +
+                "SELECT b FROM Booking b " +
                 "WHERE b.room = r " +
                 "AND b.startDate <= :endDate " +
                 "AND b.endDate >= :startDate)";
@@ -44,7 +44,7 @@ public class RoomServiceIMPL implements RoomService {
 
         return entityManager.createQuery(jpqlQuery, Room.class)
                 .setParameter("startDate", roomSearch.getStartDate())
-                .setParameter("endDate", roomSearch.getStartDate())
+                .setParameter("endDate", roomSearch.getEndDate())
                 .setParameter("maxBeds", roomSearch.getMaxBeds())
                 .getResultList().stream().map(room -> RoomDetailedDTO.builder()
                         .id(room.getId())
