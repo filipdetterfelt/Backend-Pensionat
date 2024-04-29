@@ -55,7 +55,7 @@ public class CustomerController {
     public String removeCustomer(@ModelAttribute("deleteCustomer") CustomerDetailedDTO customer) {
         customer.setBookings(new ArrayList<BookingDTO>());
         customerService.removeCustomer(customer);
-        return "index";
+        return "customers";
     }
 
     @GetMapping("UpdateCustomer")
