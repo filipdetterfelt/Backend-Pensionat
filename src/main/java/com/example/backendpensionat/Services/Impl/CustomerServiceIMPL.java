@@ -3,7 +3,6 @@ package com.example.backendpensionat.Services.Impl;
 import com.example.backendpensionat.DTO.BookingDTO;
 import com.example.backendpensionat.DTO.CustomerDTO;
 import com.example.backendpensionat.DTO.CustomerDetailedDTO;
-import com.example.backendpensionat.DTO.RoomDetailedDTO;
 import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.CustomerRepo;
