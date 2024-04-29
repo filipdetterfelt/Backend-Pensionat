@@ -46,7 +46,7 @@
             <td th:text = "${customer.getLastName()}"></td>
             <td th:text = "${customer.getPhone()}"></td>
             <td>
-                <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post">
+                <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post" th:if="${#lists.isEmpty(customer.getBookings())}">
                     <input type="hidden" name="id" th:value="${customer.getId()}"/>
                     <button type="submit">Delete</button>
                 </form>

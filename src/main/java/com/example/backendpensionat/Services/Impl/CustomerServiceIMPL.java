@@ -3,7 +3,6 @@ package com.example.backendpensionat.Services.Impl;
 import com.example.backendpensionat.DTO.BookingDTO;
 import com.example.backendpensionat.DTO.CustomerDTO;
 import com.example.backendpensionat.DTO.CustomerDetailedDTO;
-import com.example.backendpensionat.DTO.RoomDetailedDTO;
 import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.CustomerRepo;
@@ -37,8 +36,11 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public String removeCustomer(CustomerDetailedDTO customer){
-        customerRepo.delete(detailToCustomer(customer));
-        return "Customer has been removed";
+        if (customer.getBookings() != null) {
+            customerRepo.delete(detailToCustomer(customer));
+            return "Customer has been removed";
+        }
+        return "Customer " + customer + " has not been removed";
     }
 
     @Override
