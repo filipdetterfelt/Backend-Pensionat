@@ -14,4 +14,5 @@ public interface CustomerService {
     public String addCustomer(CustomerDetailedDTO customer);
     public String removeCustomer(CustomerDetailedDTO customer);
     public String changeCustomer(CustomerDetailedDTO customer);
+    CustomerDetailedDTO findCustomerById(Long id);
 }
