@@ -10,12 +10,10 @@ import com.example.backendpensionat.Services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,11 +42,16 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
-    @PostMapping("updateCustomer")
+    @PostMapping("UpdateCustomers")
     public String updateCustomer(@ModelAttribute ("updateCustomers") CustomerDetailedDTO customer){
         customer.setBookings(new ArrayList<BookingDTO>());
         customerService.changeCustomer(customer);
         return "redirect:/customers";
+    }
+
+    @PutMapping("changeCustomer")
+    public List<CustomerDetailedDTO> changeCustomerById(@RequestBody CustomerDetailedDTO customer) {
+        CustomerDetailedDTO updatedCustomer = customerService.changeCustomer(customer)
     }
 
     @PostMapping("deleteCustomer")
