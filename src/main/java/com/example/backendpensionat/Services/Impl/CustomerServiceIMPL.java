@@ -3,17 +3,28 @@ package com.example.backendpensionat.Services.Impl;
 import com.example.backendpensionat.DTO.BookingDTO;
 import com.example.backendpensionat.DTO.CustomerDTO;
 import com.example.backendpensionat.DTO.CustomerDetailedDTO;
+import com.example.backendpensionat.DTO.RoomDetailedDTO;
 import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Repos.BookingRepo;
+import com.example.backendpensionat.Repos.CustomerRepo;
 import com.example.backendpensionat.Services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @RequiredArgsConstructor
 @Service
 public class CustomerServiceIMPL implements CustomerService {
-    BookingRepo bookingRepo;
+    private final BookingRepo bookingRepo;
+    private final CustomerRepo customerRepo;
+
+    @Override
+    public List<CustomerDetailedDTO> listAllCustomers() {
+        return customerRepo.findAll().stream().map(this::cDetailedToDTO).toList();
+    }
+
 
     @Override
     public CustomerDTO customerToDTO(Customer customer) {
