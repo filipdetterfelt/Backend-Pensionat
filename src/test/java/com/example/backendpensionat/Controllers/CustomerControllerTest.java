@@ -20,11 +20,6 @@ class CustomerControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @BeforeEach
-    public void init() {
-        final CustomerDetailedDTO Micke = new CustomerDetailedDTO();
-    }
-
 
     @Test
     void testcustomers() throws Exception {
