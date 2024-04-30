@@ -1,9 +1,6 @@
 package com.example.backendpensionat.Services.Impl;
 
-import com.example.backendpensionat.DTO.BookingDTO;
-import com.example.backendpensionat.DTO.RoomDTO;
-import com.example.backendpensionat.DTO.RoomDetailedDTO;
-import com.example.backendpensionat.DTO.RoomSearchDTO;
+import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
@@ -29,6 +26,11 @@ public class RoomServiceIMPL implements RoomService {
     @Override
     public List<RoomDetailedDTO> listAllRooms() {
         return roomRepo.findAll().stream().map(this::rDetailedToDTO).toList();
+    }
+
+    @Override
+    public List<RoomDetailedDTOExpanded> listAllRoomsExpanded() {
+        return roomRepo.findAll().stream().map(this::toExpandedDTO).toList();
     }
 
     @Override
@@ -86,5 +88,19 @@ public class RoomServiceIMPL implements RoomService {
                         .stream().map(b -> bookingRepo.findById(b.getId())
                                 .orElse(null))
                         .toList()).build();
+    }
+
+    @Override
+    public RoomDetailedDTOExpanded toExpandedDTO(Room room) {
+        return RoomDetailedDTOExpanded.builder()
+                .id(room.getId())
+                .roomNumber(room.getRoomNumber())
+                .price(room.getPrice())
+                .maxBeds(room.getMaxBeds())
+                .size(room.getSize())
+                .bookings(room.getBookings().stream()
+                        .map(bookingService::bDetailedToDTO)
+                        .toList())
+                .build();
     }
 }

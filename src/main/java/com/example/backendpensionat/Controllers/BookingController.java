@@ -1,6 +1,9 @@
 package com.example.backendpensionat.Controllers;
 
 
+import com.example.backendpensionat.DTO.BookingFilterDTO;
+import com.example.backendpensionat.DTO.RoomDetailedDTO;
+import com.example.backendpensionat.DTO.RoomSearchDTO;
 import com.example.backendpensionat.Models.Booking;
 import com.example.backendpensionat.Services.BookingService;
 import com.example.backendpensionat.Services.CustomerService;
@@ -10,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -35,8 +40,25 @@ public class BookingController {
 
     @GetMapping("/bookings/addBookings")
     public String addBookings(Model model) {
+        if(!model.containsAttribute("setDates")) {
+            System.out.println("setDates does not exist");
+            model.addAttribute("roomsList", roomService.listAllRoomsExpanded());
+        } else {
+            System.out.println("setDates does exist");
+        }
+
         model.addAttribute("customersList", customerService.listAllCustomers());
-        model.addAttribute("roomsList", roomService.listAllRooms());
         return "addBookingsForm";
+    }
+
+    @GetMapping("/bookings/add/{startDate}/{endDate}/{customer}")
+    public String getFilteredRooms(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, @PathVariable String customer, RedirectAttributes rda) {
+        RoomSearchDTO roomSearchDTO = new RoomSearchDTO(startDate, endDate, 1);
+        BookingFilterDTO setDates = new BookingFilterDTO(startDate.toString(), endDate.toString(), customer);
+
+        List<RoomDetailedDTO> roomsList =  roomService.listFreeRooms(roomSearchDTO);
+        rda.addFlashAttribute("roomsList", roomsList);
+        rda.addFlashAttribute("setDates", setDates);
+        return "redirect:/bookings/addBookings";
     }
 }

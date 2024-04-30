@@ -37,7 +37,7 @@
     <tr>
         <td>
             <label>
-                <select>
+                <select id="customerDropDown">
                     <option>Choose customer</option>
                     <option th:each="customer: ${customersList}"
                             th:value="${customer.getId()}"
@@ -48,8 +48,14 @@
                 </select>
             </label>
         </td>
-        <td><input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required></td>
-        <td><input type="date" name="endDate" id="endDate" required></td>
+
+        <td>
+                <label for="startDate"></label>
+                <input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required>
+        </td>
+        <td>
+            <label for="endDate"></label>
+            <input type="date" name="endDate" id="endDate" onchange="redirectOnChange()" required></td>
         <td>
             <label>
                 <select>
@@ -83,8 +89,25 @@
         const minDate = startDate.toISOString().split("T")[0]
         const endDate = document.getElementById('endDate');
         endDate.setAttribute('min', minDate)
-        endDate.value = minDate;
+        //endDate.value = minDate;
     }
+
+    function redirectOnChange() {
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        const customerName = document.getElementById('customerDropDown').value
+        window.location.href = '/bookings/add/' + startDate + '/' + endDate + '/' + customerName;
+    }
+
+   /* window.onload = function() {
+        const startDateInput = document.getElementById('startDateInput');
+        const startDate = startDateInput.getAttribute('data-startdate');
+
+        // Check if startDate has a non-empty value
+        if (startDate) {
+            startDateInput.value = startDate;
+        }
+    };*/
 </script>
 </body>
 </html>

@@ -6,11 +6,11 @@ import java.util.List;
 
 @Builder
 @Data
-public class RoomDetailedDTO {
+public class RoomDetailedDTOExpanded {
     private Long id;
     private Long roomNumber;
     private Double price;
     private int maxBeds;
     private int size;
-    List<BookingDTO> bookings;
+    List<BookingDetailedDTO> bookings;
 }
