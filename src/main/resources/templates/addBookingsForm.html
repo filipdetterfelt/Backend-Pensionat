@@ -60,7 +60,7 @@
             <label>
                 <select>
                     <option>Choose room</option>
-                    <option th:each="room: ${flash.roomsList}"
+                    <option th:each="room: ${roomsList}"
                             th:value="${room.getId()}"
                             th:text="${room.getRoomNumber()}">
                     </option>
@@ -96,8 +96,7 @@
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
         const customerId = document.getElementById('customerDropDown').value
-        const customerName = document.getElementById('customerDropDown').textContent.split("|")[customerId].trim()
-        window.location.href = '/bookings/add/' + startDate + '/' + endDate + '/' + customerName;
+        window.location.href = '/bookings/add/' + startDate + '/' + endDate + '/' + customerId;
     }
 
    /* window.onload = function() {

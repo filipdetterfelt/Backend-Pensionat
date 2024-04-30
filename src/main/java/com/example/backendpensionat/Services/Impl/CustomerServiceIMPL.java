@@ -81,5 +81,12 @@ public class CustomerServiceIMPL implements CustomerService {
         return cDetailedToDTO(customerRepo.findById(id).get());
     }
 
+    @Override
+    public String getCustomerNameById(Long customerId) {
+        Customer customer = customerRepo.findById(customerId)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + customerId));
+        return customer.getFirstName() + " " + customer.getLastName();
+    }
+
 
 }

@@ -54,10 +54,12 @@ public class BookingController {
         return "addBookingsForm";
     }
 
-    @GetMapping("/bookings/add/{startDate}/{endDate}/{customer}")
-    public String getFilteredRooms(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, @PathVariable String customer, RedirectAttributes rda) {
+    @GetMapping("/bookings/add/{startDate}/{endDate}/{customerId}")
+    public String getFilteredRooms(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate, @PathVariable Long customerId, RedirectAttributes rda) {
+        String customerName = customerService.getCustomerNameById(customerId);
+
         RoomSearchDTO roomSearchDTO = new RoomSearchDTO(startDate, endDate, 1);
-        BookingFilterDTO setDates = new BookingFilterDTO(startDate.toString(), endDate.toString(), customer);
+        BookingFilterDTO setDates = new BookingFilterDTO(startDate.toString(), endDate.toString(), customerName);
 
         List<RoomDetailedDTO> roomsList =  roomService.listFreeRooms(roomSearchDTO);
         rda.addFlashAttribute("roomsList", roomsList);
