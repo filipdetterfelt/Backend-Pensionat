@@ -60,7 +60,7 @@
             <label>
                 <select>
                     <option>Choose room</option>
-                    <option th:each="room: ${flash.roomsList}"
+                    <option th:each="room: ${roomsList}"
                             th:value="${room.getId()}"
                             th:text="${room.getRoomNumber()}">
                     </option>
