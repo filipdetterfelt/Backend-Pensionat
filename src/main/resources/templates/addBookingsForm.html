@@ -41,9 +41,9 @@
                     <option>Choose customer</option>
                     <option th:each="customer: ${customersList}"
                             th:value="${customer.getId()}"
-                            th:text="${customer.getId() + ': '
+                            th:text="${'| ' + customer.getId() + ': '
                             + customer.getFirstName() + ' '
-                            + customer.getLastName()}">
+                            + customer.getLastName() + ' |'}">
                     </option>
                 </select>
             </label>
@@ -60,7 +60,7 @@
             <label>
                 <select>
                     <option>Choose room</option>
-                    <option th:each="room: ${roomsList}"
+                    <option th:each="room: ${flash.roomsList}"
                             th:value="${room.getId()}"
                             th:text="${room.getRoomNumber()}">
                     </option>
@@ -95,7 +95,8 @@
     function redirectOnChange() {
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
-        const customerName = document.getElementById('customerDropDown').value
+        const customerId = document.getElementById('customerDropDown').value
+        const customerName = document.getElementById('customerDropDown').textContent.split("|")[customerId].trim()
         window.location.href = '/bookings/add/' + startDate + '/' + endDate + '/' + customerName;
     }
 

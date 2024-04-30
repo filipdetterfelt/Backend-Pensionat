@@ -44,7 +44,10 @@ public class BookingController {
             System.out.println("setDates does not exist");
             model.addAttribute("roomsList", roomService.listAllRoomsExpanded());
         } else {
-            System.out.println("setDates does exist");
+            BookingFilterDTO bfdto = (BookingFilterDTO) model.getAttribute("setDates");
+            System.out.println(bfdto.getStartDate());
+            System.out.println(bfdto.getEndDate());
+            System.out.println(bfdto.getCustomerName());
         }
 
         model.addAttribute("customersList", customerService.listAllCustomers());
