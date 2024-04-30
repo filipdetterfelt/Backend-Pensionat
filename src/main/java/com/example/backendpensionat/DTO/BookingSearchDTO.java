@@ -1,5 +1,6 @@
 package com.example.backendpensionat.DTO;
 
+import com.example.backendpensionat.Enums.RoomType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookingSearchDTO {
+    private Long customerId;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int maxBeds;
+    private RoomType roomType;
 }

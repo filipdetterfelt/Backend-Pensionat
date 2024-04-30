@@ -29,15 +29,16 @@
         <th>Customer:</th>
         <th>From:</th>
         <th>To:</th>
-        <th>Room No.:</th>
-        <th>Number of beds:</th>
+        <th>Room Type:</th>
+        <th>Extra beds:</th>
+        <th>Room Number:</th>
         <th>Add</th>
     </tr>
 
     <tr>
         <td>
             <label>
-                <select>
+                <select id="customerBox">
                     <option>Choose customer</option>
                     <option th:each="customer: ${customersList}"
                             th:value="${customer.getId()}"
@@ -52,11 +53,22 @@
         <td><input type="date" name="endDate" id="endDate" required></td>
         <td>
             <label>
-                <select>
-                    <option>Choose room</option>
+                <select id="roomTypeBox">
+                    <option>Choose Room Type</option>
                     <option th:each="room: ${roomsList}"
                             th:value="${room.getId()}"
-                            th:text="${room.getRoomNumber()}">
+                            th:text="${room.getRoomType()}">
+                    </option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <select onchange="searchRooms()">
+                    <option>Number of beds</option>
+                    <option th:each="room: ${roomsList}"
+                            th:value="${room.getId()}"
+                            th:text="${room.getRoomType().getExtraBeds()}">
                     </option>
                 </select>
             </label>
@@ -64,7 +76,7 @@
         <td>
             <label>
                 <select>
-                    <option>Number of beds</option>
+                    <option>Room Number</option>
                     <option th:each="room: ${roomsList}"
                             th:value="${room.getId()}"
                             th:text="${room.getRoomNumber()}">
@@ -84,6 +96,15 @@
         const endDate = document.getElementById('endDate');
         endDate.setAttribute('min', minDate)
         endDate.value = minDate;
+    }
+
+    function searchRooms() {
+        const customerID = document.getElementById('customerBox').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        const roomType = document.getElementById('roomTypeBox').value;
+
+        window.location.href = "bookings/add/" + customerID + "/" + startDate + "/" + endDate + "/" + roomType;
     }
 </script>
 </body>

@@ -1,5 +1,6 @@
 package com.example.backendpensionat;
 
+import com.example.backendpensionat.Enums.RoomType;
 import com.example.backendpensionat.Models.Booking;
 import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Models.Room;
@@ -59,31 +60,28 @@ public class BackendPensionatApplication {
 			Room room1 = Room.builder()
 					.roomNumber(101L)
 					.price(150.0)
-					.maxBeds(1)
-					.size(20)
+					.roomType(RoomType.SINGLE)
 					.bookings(new ArrayList<>())
 					.build();
 
 			Room room2 = Room.builder()
 					.roomNumber(102L)
 					.price(250.0)
-					.maxBeds(2)
-					.size(30)
+					.roomType(RoomType.DOUBLE)
 					.bookings(new ArrayList<>())
 					.build();
 
 			Room room3 = Room.builder()
 					.roomNumber(103L)
 					.price(350.0)
-					.maxBeds(3)
-					.size(45)
+					.roomType(RoomType.SUITE)
 					.bookings(new ArrayList<>())
 					.build();
 
 			roomRepo.saveAll(List.of(room1, room2, room3));
 
 			Booking booking1 = Booking.builder()
-					.amountOfBeds(1)
+					.amountOfBeds(0)
 					.totalPrice(500.0)
 					.startDate(LocalDate.of(2024, 5, 1))
 					.endDate(LocalDate.of(2024, 5, 6))
@@ -92,7 +90,7 @@ public class BackendPensionatApplication {
 					.build();
 
 			Booking booking2 = Booking.builder()
-					.amountOfBeds(3)
+					.amountOfBeds(1)
 					.totalPrice(600.0)
 					.startDate(LocalDate.of(2024, 6, 10))
 					.endDate(LocalDate.of(2024, 6, 13))
@@ -101,7 +99,7 @@ public class BackendPensionatApplication {
 					.build();
 
 			Booking booking3 = Booking.builder()
-					.amountOfBeds(1)
+					.amountOfBeds(2)
 					.totalPrice(500.0)
 					.startDate(LocalDate.of(2024, 5, 10))
 					.endDate(LocalDate.of(2024, 5, 12))
