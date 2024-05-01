@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,7 +47,7 @@ public class BookingsServiceImplTest {
 
     long bookingId = 1L;
     int amountOfBeds = 2;
-    double totalPrice = 1000;
+    Double totalPrice = 0.0;
     LocalDate startDate = LocalDate.now();
     LocalDate endDate = LocalDate.of(2024,5,02);
 
@@ -59,7 +60,7 @@ public class BookingsServiceImplTest {
 
     long roomId = 1L;
     long roomNumber = roomId;
-    double price = 1000;
+    Double price = 0.0;
 
     List<BookingDTO> bookingDTOList = new ArrayList<>();
     List<Booking> bookingList = new ArrayList<>();
@@ -109,7 +110,10 @@ public class BookingsServiceImplTest {
     }*/
     @Test
     void bookingDetailedToBooking(){
-        Booking actual =serviceIMPL.detailToBooking(bookingDetailedDTO);
+        BookingServiceIMPL service2 = new BookingServiceIMPL(customerRepo , bookingRepo, roomRepo);
+        when(roomRepo.findById(roomId)).thenReturn(Optional.of(room));
+        when(customerRepo.findById(customerId)).thenReturn(Optional.of(customer));
+        Booking actual = service2.detailToBooking(bookingDetailedDTO);
            assertEquals(actual.getId(),booking.getId());
            assertEquals(actual.getAmountOfBeds(), booking.getAmountOfBeds());
            assertEquals(actual.getTotalPrice(),booking.getTotalPrice());
