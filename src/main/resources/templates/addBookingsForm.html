@@ -15,6 +15,9 @@
         color: whitesmoke;
         width: 200px;
     }
+    select {
+        width: 175px;
+    }
 </style>
 <body>
 <div class="header">
@@ -29,37 +32,59 @@
         <th>Customer:</th>
         <th>From:</th>
         <th>To:</th>
-        <th>Room No.:</th>
-        <th>Number of beds:</th>
+        <th>Room Type:</th>
+        <th>Extra beds:</th>
+        <th>Room Number:</th>
         <th>Add</th>
     </tr>
 
     <tr>
         <td>
             <label>
-                <select id="customerDropDown">
-                    <option>Choose customer</option>
-                    <option th:each="customer: ${customersList}"
-                            th:value="${customer.getId()}"
-                            th:text="${'| ' + customer.getId() + ': '
-                            + customer.getFirstName() + ' '
-                            + customer.getLastName() + ' |'}">
+                <select name="customerInfo" id="customerBox">
+                    <option th:value="${bookingSearch != null? bookingSearch.customer.id: ''}"
+                            th:text="${bookingSearch != null ? bookingSearch.customer.id + ': ' + bookingSearch.customer.firstName + ' ' + bookingSearch.customer.lastName : 'Choose customer'}" value="">
+                    </option>
+                    <option th:each="customer : ${customersList}"
+                            th:value="${customer.id}"
+                            th:text="${customer.id + ': ' + customer.firstName + ' ' + customer.lastName}">
                     </option>
                 </select>
             </label>
         </td>
-
         <td>
-                <label for="startDate"></label>
-                <input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required>
+            <label for="startDate">
+                <input type="date" name="startDate" id="startDate" th:value="${bookingSearch != null ? bookingSearch.startDate: ''}" onchange="updateEndDateOnChange()" required>
+            </label>
         </td>
         <td>
-            <label for="endDate"></label>
-            <input type="date" name="endDate" id="endDate" onchange="redirectOnChange()" required></td>
+            <label for="endDate">
+                <input type="date" name="endDate" th:value="${bookingSearch != null ? bookingSearch.endDate: ''}" id="endDate" required>
+            </label>
+        </td>
         <td>
             <label>
-                <select>
-                    <option>Choose room</option>
+                <select id="roomTypeBox" onchange="updateExtraBeds()">
+                    <option th:text="${bookingSearch != null ? bookingSearch.roomType : 'Choose room type'}" value="">
+                    </option>
+                    <option th:each="room: ${roomsList}"
+                            th:value="${room.getId()}"
+                            th:text="${room.getRoomType()}">
+                    </option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <select id="extraBedsBox" name="amountOfBeds" onchange="searchRooms()">
+                    <option th:text="${bookingSearch != null ? bookingSearch.roomType.getExtraBeds() : 'Choose extra beds'}"></option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <select id="roomNumberBox">
+                    <option>Room Number</option>
                     <option th:each="room: ${roomsList}"
                             th:value="${room.getId()}"
                             th:text="${room.getRoomNumber()}">
@@ -68,15 +93,7 @@
             </label>
         </td>
         <td>
-            <label>
-                <select>
-                    <option>Number of beds</option>
-                    <option th:each="room: ${roomsList}"
-                            th:value="${room.getId()}"
-                            th:text="${room.getRoomNumber()}">
-                    </option>
-                </select>
-            </label>
+            <button onclick="addBooking()">Add</button>
         </td>
     </tr>
 </table>
@@ -92,23 +109,46 @@
         //endDate.value = minDate;
     }
 
-    function redirectOnChange() {
+    function searchRooms() {
+        const customerID = document.getElementById('customerBox').value;
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
-        const customerId = document.getElementById('customerDropDown').value
-        const customerName = document.getElementById('customerDropDown').textContent.split("|")[customerId].trim()
-        window.location.href = '/bookings/add/' + startDate + '/' + endDate + '/' + customerName;
+        const roomType = document.getElementById('roomTypeBox').value;
+
+        window.location.href = "/bookings/add/" + customerID + "/" + startDate + "/" + endDate + "/" + roomType;
     }
 
-   /* window.onload = function() {
-        const startDateInput = document.getElementById('startDateInput');
-        const startDate = startDateInput.getAttribute('data-startdate');
+    function addBooking() {
+        const customerID = document.getElementById('customerBox').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        const extraBeds = document.getElementById('extraBedsBox').value;
+        const roomNo = document.getElementById('roomNumberBox').value;
+        console.log(roomNo);
 
-        // Check if startDate has a non-empty value
-        if (startDate) {
-            startDateInput.value = startDate;
+        window.location.href = "/bookings/add/" + customerID + "/" + startDate + "/" + endDate + "/" + extraBeds + "/" + roomNo
+    }
+
+    function updateExtraBeds() {
+        const roomType = parseInt(document.getElementById('roomTypeBox').value)
+        const extraBedsBox = document.getElementById('extraBedsBox')
+
+        if (roomType === 1) {
+            extraBedsBox.disabled = true
+        } else {
+            extraBedsBox.disabled = false
         }
-    };*/
+
+        document.querySelectorAll('.appendedOption').forEach(option => extraBedsBox.removeChild(option))
+
+        for(let i = 0; i < roomType; i++) {
+            const option = document.createElement("option")
+            option.className = 'appendedOption'
+            option.innerText = i.toString()
+
+            extraBedsBox.appendChild(option)
+        }
+    }
 </script>
 </body>
 </html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Bookings</title>
+</head>
+<style>
+    td {
+        text-align: center;
+        width: 200px;
+        background-color: lightgrey;
+    }
+    th {
+        background-color: black;
+        color: whitesmoke;
+        width: 200px;
+    }
+</style>
+<body>
+<div class="header">
+    <h1>Pensionat Koriander !</h1>
+    <a th:href="@{/customers}">Customer</a>
+    <a th:href="@{/bookings}">Booking</a>
+    <a th:href="@{/rooms}">Room</a>
+</div>
+<div><h3>Edit Bookings</h3></div>
+<form action="/bookings/update" th:object="${booking}" method="post">
+    <input type="hidden" id="bookingId" th:field="*{id}"/>
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" th:field="*{startDate}" required/><br><br>
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" onchange="refreshPage()" name="endDate" th:field="*{endDate}" required/><br><br>
+
+    <label for="roomType">Room:</label>
+    <select id="roomType" onchange="updateExtraBeds()" th:field="*{roomNumber}">
+        <option th:text="'Choose room type'" value="">
+        </option>
+        <option th:each="room: ${listFreeRooms}"
+                th:value="${room.getRoomNumber() + ' - ' + room.getRoomType()}"
+                th:text="${room.getRoomNumber() + ' - ' + room.getRoomType()}">
+        </option>
+    </select><br><br>
+
+    <label for="amountOfBeds">Extra Beds:</label>
+    <input type="number" id="amountOfBeds" name="amountOfBeds" min=0 th:field="*{amountOfBeds}" required/><br><br>
+
+    <input type="submit" value="Save Changes"/>
+</form>
+<script>
+    function updateExtraBeds() {
+        const maxAmountOfBeds = document.getElementById('amountOfBeds');
+        const getRoomType = document.getElementById('roomType').value.split(' - ')[1];
+
+        if (getRoomType === "SINGLE") {
+            maxAmountOfBeds.value = 0;
+            maxAmountOfBeds.max = 0;
+        } else if (getRoomType === "DOUBLE") {
+            maxAmountOfBeds.max = 1;
+            maxAmountOfBeds.disabled = false;
+        } else if (getRoomType === "SUITE") {
+            maxAmountOfBeds.max = 2;
+            maxAmountOfBeds.disabled = false;
+        }
+    }
+
+    function refreshPage() {
+        const bookingId = document.getElementById('bookingId').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        window.location.href = "/bookings/edit/refresh/" + startDate + "/" + endDate + "/" + bookingId;
+    }
+
+
+</script>
+</body>
+</html>

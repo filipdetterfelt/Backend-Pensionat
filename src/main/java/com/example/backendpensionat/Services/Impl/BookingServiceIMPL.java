@@ -1,9 +1,6 @@
 package com.example.backendpensionat.Services.Impl;
 
-import com.example.backendpensionat.DTO.BookingDTO;
-import com.example.backendpensionat.DTO.BookingDetailedDTO;
-import com.example.backendpensionat.DTO.CustomerDTO;
-import com.example.backendpensionat.DTO.RoomDTO;
+import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Models.Booking;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.CustomerRepo;
@@ -16,13 +13,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Data
 public class BookingServiceIMPL implements BookingService {
 
     private final CustomerRepo customerRepo;
     private final BookingRepo bookingRepo;
     private final RoomRepo roomRepo;
+
+    public BookingServiceIMPL(CustomerRepo customerRepo, BookingRepo bookingRepo, RoomRepo roomRepo) {
+        this.customerRepo = customerRepo;
+        this.bookingRepo = bookingRepo;
+        this.roomRepo = roomRepo;
+    }
 
     @Override
     public BookingDTO bookingToDTO(Booking booking) {
@@ -32,13 +34,17 @@ public class BookingServiceIMPL implements BookingService {
 
     @Override
     public BookingDetailedDTO bDetailedToDTO(Booking booking) {
-
         return BookingDetailedDTO.builder().id(booking.getId())
                 .amountOfBeds(booking.getAmountOfBeds())
                 .totalPrice(booking.getTotalPrice())
                 .startDate(booking.getStartDate())
                 .endDate(booking.getEndDate())
-                .roomDTO(RoomDTO.builder().id(booking.getRoom().getId()).build())
+                .room(RoomDetailedDTO.builder()
+                        .id(booking.getRoom().getId())
+                        .roomNumber(booking.getRoom().getRoomNumber())
+                        .price(booking.getRoom().getPrice())
+                        .roomType(booking.getRoom().getRoomType())
+                        .build())
                 .customerDTO(CustomerDTO.builder().id(booking.getCustomer().getId()).build()).build();
     }
 
@@ -47,11 +53,10 @@ public class BookingServiceIMPL implements BookingService {
 
         return Booking.builder().Id(bookDTO.getId())
                 .amountOfBeds(bookDTO.getAmountOfBeds())
-                .totalPrice(bookDTO.getTotalPrice())
                 .startDate(bookDTO.getStartDate())
                 .endDate(bookDTO.getEndDate())
                 .customer(customerRepo.findById(bookDTO.getCustomerDTO().getId()).orElse(null))
-                .room(roomRepo.findById(bookDTO.getRoomDTO().getId()).orElse(null)).build();
+                .room(roomRepo.findById(bookDTO.getRoom().getId()).orElse(null)).build();
     }
 
     @Override
@@ -62,5 +67,24 @@ public class BookingServiceIMPL implements BookingService {
     @Override
     public void deleteBookingById(Long id) {
         bookingRepo.deleteById(id);
+    }
+
+    @Override
+    public BookingDetailedDTO findBookingById(Long id) {
+        return bDetailedToDTO(bookingRepo.findById(id).orElse(null));
+    }
+
+    @Override
+    public void updateBooking(BookingDetailedDTO bookingDTO) {
+//        Booking existingBooking = bookingRepo.findById(bookingDTO.getId()).orElse(null);
+//        existingBooking.setStartDate(bookingDTO.getStartDate());
+//        existingBooking.setEndDate(bookingDTO.getEndDate());
+//        existingBooking.setAmountOfBeds(bookingDTO.getAmountOfBeds());
+        bookingRepo.save(detailToBooking(bookingDTO));
+    }
+
+    @Override
+    public void saveBooking(BookingDetailedDTO booking) {
+        bookingRepo.save(detailToBooking(booking));
     }
 }

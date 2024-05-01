@@ -14,22 +14,25 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Service
 public class CustomerServiceIMPL implements CustomerService {
     private final BookingRepo bookingRepo;
     private final CustomerRepo customerRepo;
 
-    @Override
-    public String addCustomer(CustomerDetailedDTO customer){
-         customerRepo.save(detailToCustomer(customer));
-         return "Customer has added";
+    public CustomerServiceIMPL(BookingRepo bookingRepo, CustomerRepo customerRepo) {
+        this.bookingRepo = bookingRepo;
+        this.customerRepo = customerRepo;
     }
 
     @Override
-    public String changeCustomer(CustomerDetailedDTO customer) {
-        customerRepo.save(detailToCustomer(customer));
-        return "Customer "+ customer + " has been updated";
+    public Customer addCustomer(CustomerDetailedDTO customer){
+         return customerRepo.save(detailToCustomer(customer));
+    }
+
+    @Override
+    public Customer changeCustomer(CustomerDetailedDTO customer) {
+        return customerRepo.save(detailToCustomer(customer));
     }
 
 
@@ -79,6 +82,19 @@ public class CustomerServiceIMPL implements CustomerService {
     @Override
     public CustomerDetailedDTO findCustomerById(Long id){
         return cDetailedToDTO(customerRepo.findById(id).get());
+    }
+
+    @Override
+    public CustomerDTO findCustomerByBookingID(Long id) {
+        Customer customer = customerRepo.findAll()
+                .stream()
+                .filter(c -> c.getBookings()
+                        .stream()
+                        .anyMatch(b -> b.getId().equals(id)))
+                .findFirst()
+                .get();
+
+        return customerToDTO(customer);
     }
 
 

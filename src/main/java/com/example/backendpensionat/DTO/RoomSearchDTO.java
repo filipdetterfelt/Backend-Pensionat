@@ -1,9 +1,11 @@
 package com.example.backendpensionat.DTO;
 
+import com.example.backendpensionat.Enums.RoomType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.internal.util.collections.ReadOnlyMap;
 
 import java.time.LocalDate;
 
@@ -14,5 +16,9 @@ import java.time.LocalDate;
 public class RoomSearchDTO {
     private LocalDate startDate;
     private LocalDate endDate;
-    private int maxBeds;
+    private int roomType;
+
+    public RoomType getRoomType() {
+        return RoomType.getRoomType(roomType);
+    }
 }
