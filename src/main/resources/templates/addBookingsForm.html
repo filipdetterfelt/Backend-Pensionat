@@ -41,7 +41,7 @@
     <tr>
         <td>
             <label>
-                <select id="customerBox">
+                <select name="customerInfo" id="customerBox">
                     <option th:value="${bookingSearch != null? bookingSearch.customer.id: ''}"
                             th:text="${bookingSearch != null ? bookingSearch.customer.id + ': ' + bookingSearch.customer.firstName + ' ' + bookingSearch.customer.lastName : 'Choose customer'}" value="">
                     </option>
@@ -76,18 +76,14 @@
         </td>
         <td>
             <label>
-                <select id="extraBedsBox" onchange="searchRooms()">
+                <select id="extraBedsBox" name="amountOfBeds" onchange="searchRooms()">
                     <option th:text="${bookingSearch != null ? bookingSearch.roomType.getExtraBeds() : 'Choose extra beds'}"></option>
-                    <!--<option th:each="room: ${roomsList}"
-                            th:value="${room.getId()}"
-                            th:text="${room.getRoomType().getExtraBeds()}">
-                    </option>-->
                 </select>
             </label>
         </td>
         <td>
             <label>
-                <select>
+                <select id="roomNumberBox">
                     <option>Room Number</option>
                     <option th:each="room: ${roomsList}"
                             th:value="${room.getId()}"
@@ -95,6 +91,9 @@
                     </option>
                 </select>
             </label>
+        </td>
+        <td>
+            <button onclick="addBooking()">Add</button>
         </td>
     </tr>
 </table>
@@ -117,6 +116,17 @@
         const roomType = document.getElementById('roomTypeBox').value;
 
         window.location.href = "/bookings/add/" + customerID + "/" + startDate + "/" + endDate + "/" + roomType;
+    }
+
+    function addBooking() {
+        const customerID = document.getElementById('customerBox').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        const extraBeds = document.getElementById('extraBedsBox').value;
+        const roomNo = document.getElementById('roomNumberBox').value;
+        console.log(roomNo);
+
+        window.location.href = "/bookings/add/" + customerID + "/" + startDate + "/" + endDate + "/" + extraBeds + "/" + roomNo
     }
 
     function updateExtraBeds() {
