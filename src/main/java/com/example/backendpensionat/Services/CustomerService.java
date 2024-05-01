@@ -11,8 +11,8 @@ public interface CustomerService {
     CustomerDetailedDTO cDetailedToDTO(Customer customer);
     Customer detailToCustomer(CustomerDetailedDTO customerDetailedDTO);
     public List<CustomerDetailedDTO> listAllCustomers();
-    public String addCustomer(CustomerDetailedDTO customer);
+    public Customer addCustomer(CustomerDetailedDTO customer);
     public String removeCustomer(CustomerDetailedDTO customer);
-    public String changeCustomer(CustomerDetailedDTO customer);
+    public Customer changeCustomer(CustomerDetailedDTO customer);
     CustomerDetailedDTO findCustomerById(Long id);
 }
