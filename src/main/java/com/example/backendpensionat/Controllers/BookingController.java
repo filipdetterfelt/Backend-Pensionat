@@ -53,11 +53,11 @@ public class BookingController {
     @GetMapping("/bookings/{id}/edit")
     public String editBookingById(@PathVariable Long id, Model model) {
         BookingDetailedDTO bookingDTO = bookingService.findBookingById(id);
-        model.addAttribute("booking", bookingDTO);
         RoomSearchDTO roomSearch = new RoomSearchDTO(bookingDTO.getStartDate(), bookingDTO.getEndDate(), 0);
         List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
+
         model.addAttribute("listFreeRooms", listFreeRooms);
-        System.out.println(bookingDTO.getCustomerDTO());
+        model.addAttribute("booking", bookingDTO);
         return "editBookingsForm";
     }
 
@@ -65,10 +65,12 @@ public class BookingController {
     public String updateBookingPost(@ModelAttribute("booking") BookingDetailedDTO bookingDTO) {
         String roomNo = bookingDTO.getRoomNumber().split(" - ")[0];
         RoomDetailedDTO room = roomService.findRoomNumber(Long.parseLong(roomNo));
+        CustomerDTO customer = customerService.findCustomerByBookingID(bookingDTO.getId());
+
+        bookingDTO.setCustomerDTO(customer);
         bookingDTO.setRoom(room);
+
         bookingService.updateBooking(bookingDTO);
-        System.out.println(bookingDTO.getRoomNumber() + " " + bookingDTO.getRoom().getRoomNumber() + " " + bookingDTO.getAmountOfBeds());
-        System.out.println(bookingDTO.getCustomerDTO());
         return "redirect:/bookings";
     }
 
