@@ -73,6 +73,8 @@ public class RoomControllerTest {
         this.mockMvc.perform(get("/roomz")).andDo(print()).andExpect(status().isNotFound());
     }
 
+
+
    /* @Test public void shouldReturnId101() throws Exception{
         MvcResult result = this.mockMvc.perform(get("/rooms"))
                 .andDo(print()).andExpect(status().isOk()).andReturn();
