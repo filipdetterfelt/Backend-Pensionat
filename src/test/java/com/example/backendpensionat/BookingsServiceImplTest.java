@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static jdk.internal.org.objectweb.asm.util.CheckClassAdapter.verify;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -71,6 +71,10 @@ public class BookingsServiceImplTest {
             .amountOfBeds(amountOfBeds).totalPrice(totalPrice).startDate(startDate).endDate(endDate).build();
 
 
+    private RoomDTO roomDTO;
+    private CustomerDTO customerDTO;
+
+
 
 
 
@@ -112,8 +116,7 @@ public class BookingsServiceImplTest {
            assertEquals(actual.getTotalPrice(),bookingDetailedDTO.getTotalPrice());
            assertEquals(actual.getStartDate(),bookingDetailedDTO.getStartDate());
            assertEquals(actual.getEndDate(),bookingDetailedDTO.getEndDate());
-         //  assertEquals(actual.getCustomer().getId(),detailedBooking.getCustomerDTO().getId());
-           //assertEquals(actual.getRoom().getId(),detailedBooking.getRoomDTO().getId());
+           assertEquals(actual.getRoom().getId(),bookingDetailedDTO.getRoomDTO().getId());
     }
 
     @Test
@@ -126,7 +129,7 @@ public class BookingsServiceImplTest {
     @Test
     void deleteOneBooking(){
     serviceIMPL.deleteBookingById(bookingId);
-    verify()
+   // verify()
     }
 
 }
