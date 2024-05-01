@@ -3,8 +3,6 @@ package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Enums.RoomType;
-import com.example.backendpensionat.Models.Booking;
-import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Services.BookingService;
 import com.example.backendpensionat.Services.CustomerService;
 import com.example.backendpensionat.Services.RoomService;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -124,7 +121,6 @@ public class BookingController {
             @PathVariable int extraBeds,
             @PathVariable Long roomNo) {
         CustomerDTO customer = CustomerDTO.builder().id(customerId).build();
-        System.out.println(roomNo);
         RoomDetailedDTO room = roomService.findRoomById(roomNo);
 
         BookingDetailedDTO booking = BookingDetailedDTO.builder()
