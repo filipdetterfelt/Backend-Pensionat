@@ -92,6 +92,7 @@ class CustomerServiceIMPLTest {
 
     @Test
     void removeCustomer() {
+        when(customerRepo.save(customer)).thenReturn(customer);
     }
 
     @Test
@@ -101,6 +102,14 @@ class CustomerServiceIMPLTest {
         List<CustomerDetailedDTO> allCustomers = service.listAllCustomers();
 
         assertTrue(allCustomers.size() == 1);
+    }
+
+    @Test
+    void testFindCustomerById() {
+        when(customerRepo.findById(id)).thenReturn(Optional.of(customer));
+        CustomerServiceIMPL service = new CustomerServiceIMPL(bookingRepo, customerRepo);
+        CustomerDetailedDTO foundCustomer = service.findCustomerById(id);
+        assertEquals(foundCustomer.getId(), customer.getId());
     }
 
     @Test
@@ -137,7 +146,4 @@ class CustomerServiceIMPLTest {
         assertEquals(actual.getBookings(), customer.getBookings());
     }
 
-    @Test
-    void findCustomerById() {
-    }
 }
