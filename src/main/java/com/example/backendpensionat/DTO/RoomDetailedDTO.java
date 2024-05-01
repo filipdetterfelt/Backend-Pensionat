@@ -1,5 +1,6 @@
 package com.example.backendpensionat.DTO;
 
+import com.example.backendpensionat.Enums.RoomType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,6 @@ public class RoomDetailedDTO {
     private Long id;
     private Long roomNumber = id;
     private Double price;
-    private int maxBeds;
-    private int size;
+    private RoomType roomType;
     List<BookingDTO> bookings;
 }

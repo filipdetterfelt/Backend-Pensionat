@@ -15,6 +15,9 @@
         color: whitesmoke;
         width: 200px;
     }
+    select {
+        width: 175px;
+    }
 </style>
 <body>
 <div class="header">
@@ -29,50 +32,63 @@
         <th>Customer:</th>
         <th>From:</th>
         <th>To:</th>
-        <th>Room No.:</th>
-        <th>Number of beds:</th>
+        <th>Room Type:</th>
+        <th>Extra beds:</th>
+        <th>Room Number:</th>
         <th>Add</th>
     </tr>
 
     <tr>
         <td>
             <label>
-                <select>
-                    <option>Choose customer</option>
-                    <option th:each="customer: ${customersList}"
-                            th:value="${customer.getId()}"
-                            th:text="${customer.getId() + ': '
-                            + customer.getFirstName() + ' '
-                            + customer.getLastName()}">
+                <select id="customerBox">
+                    <option th:value="${bookingSearch != null? bookingSearch.customer.id: ''}"
+                            th:text="${bookingSearch != null ? bookingSearch.customer.id + ': ' + bookingSearch.customer.firstName + ' ' + bookingSearch.customer.lastName : 'Choose customer'}" value="">
+                    </option>
+                    <option th:each="customer : ${customersList}"
+                            th:value="${customer.id}"
+                            th:text="${customer.id + ': ' + customer.firstName + ' ' + customer.lastName}">
                     </option>
                 </select>
             </label>
         </td>
         <td>
-            <label>
-                <input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required>
+            <label for="startDate">
+                <input type="date" name="startDate" id="startDate" th:value="${bookingSearch != null ? bookingSearch.startDate: ''}" onchange="updateEndDateOnChange()" required>
+            </label>
+        </td>
+        <td>
+            <label for="endDate">
+                <input type="date" name="endDate" th:value="${bookingSearch != null ? bookingSearch.endDate: ''}" id="endDate" required>
             </label>
         </td>
         <td>
             <label>
-                <input type="date" name="endDate" id="endDate" required>
-            </label>
-        </td>
-        <td>
-            <label>
-                <select>
-                    <option>Choose room</option>
+                <select id="roomTypeBox" onchange="updateExtraBeds()">
+                    <option th:text="${bookingSearch != null ? bookingSearch.roomType : 'Choose room type'}" value="">
+                    </option>
                     <option th:each="room: ${roomsList}"
                             th:value="${room.getId()}"
-                            th:text="${room.getRoomNumber()}">
+                            th:text="${room.getRoomType()}">
                     </option>
                 </select>
             </label>
         </td>
         <td>
             <label>
+                <select id="extraBedsBox" onchange="searchRooms()">
+                    <option th:text="${bookingSearch != null ? bookingSearch.roomType.getExtraBeds() : 'Choose extra beds'}"></option>
+                    <!--<option th:each="room: ${roomsList}"
+                            th:value="${room.getId()}"
+                            th:text="${room.getRoomType().getExtraBeds()}">
+                    </option>-->
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
                 <select>
-                    <option>Number of beds</option>
+                    <option>Room Number</option>
                     <option th:each="room: ${roomsList}"
                             th:value="${room.getId()}"
                             th:text="${room.getRoomNumber()}">
@@ -92,6 +108,36 @@
         const endDate = document.getElementById('endDate');
         endDate.setAttribute('min', minDate)
         endDate.value = minDate;
+    }
+
+    function searchRooms() {
+        const customerID = document.getElementById('customerBox').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        const roomType = document.getElementById('roomTypeBox').value;
+
+        window.location.href = "/bookings/add/" + customerID + "/" + startDate + "/" + endDate + "/" + roomType;
+    }
+
+    function updateExtraBeds() {
+        const roomType = parseInt(document.getElementById('roomTypeBox').value)
+        const extraBedsBox = document.getElementById('extraBedsBox')
+
+        if (roomType === 1) {
+            extraBedsBox.disabled = true
+        } else {
+            extraBedsBox.disabled = false
+        }
+
+        document.querySelectorAll('.appendedOption').forEach(option => extraBedsBox.removeChild(option))
+
+        for(let i = 0; i < roomType; i++) {
+            const option = document.createElement("option")
+            option.className = 'appendedOption'
+            option.innerText = i.toString()
+
+            extraBedsBox.appendChild(option)
+        }
     }
 </script>
 </body>

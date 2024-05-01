@@ -34,9 +34,9 @@ public class RoomServiceIMPL implements RoomService {
     @Override
     public List<RoomDetailedDTO> listFreeRooms(RoomSearchDTO roomSearch) {
         String jpqlQuery = "SELECT r FROM Room r " +
-                "WHERE r.maxBeds >= :maxBeds " +
+                "WHERE r.roomType >= :roomType " +
                 "AND NOT EXISTS (" +
-                "SELECT 1 FROM Booking b " +
+                "SELECT b FROM Booking b " +
                 "WHERE b.room = r " +
                 "AND b.startDate <= :endDate " +
                 "AND b.endDate >= :startDate)";
@@ -44,14 +44,13 @@ public class RoomServiceIMPL implements RoomService {
 
         return entityManager.createQuery(jpqlQuery, Room.class)
                 .setParameter("startDate", roomSearch.getStartDate())
-                .setParameter("endDate", roomSearch.getStartDate())
-                .setParameter("maxBeds", roomSearch.getMaxBeds())
+                .setParameter("endDate", roomSearch.getEndDate())
+                .setParameter("roomType", roomSearch.getRoomType())
                 .getResultList().stream().map(room -> RoomDetailedDTO.builder()
                         .id(room.getId())
                         .roomNumber(room.getRoomNumber())
-                        .maxBeds(room.getMaxBeds())
                         .price(room.getPrice())
-                        .size(room.getSize())
+                        .roomType(room.getRoomType())
                         .bookings(room.getBookings().stream().map(bookingService::bookingToDTO).toList())
                         .build())
                 .toList();
@@ -67,8 +66,7 @@ public class RoomServiceIMPL implements RoomService {
         return RoomDetailedDTO.builder().id(room.getId())
                 .roomNumber(room.getRoomNumber())
                 .price(room.getPrice())
-                .maxBeds(room.getMaxBeds())
-                .size(room.getSize())
+                .roomType(room.getRoomType())
                 .bookings(room.getBookings()
                         .stream().map(b -> BookingDTO.builder()
                                 .id(b.getId()).build())
@@ -80,8 +78,7 @@ public class RoomServiceIMPL implements RoomService {
         return Room.builder().id(room.getId())
                 .roomNumber(room.getRoomNumber())
                 .price(room.getPrice())
-                .maxBeds(room.getMaxBeds())
-                .size(room.getSize())
+                .roomType(room.getRoomType())
                 .bookings(room.getBookings()
                         .stream().map(b -> bookingRepo.findById(b.getId())
                                 .orElse(null))

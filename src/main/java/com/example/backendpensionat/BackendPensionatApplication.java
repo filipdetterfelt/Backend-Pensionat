@@ -1,5 +1,6 @@
 package com.example.backendpensionat;
 
+import com.example.backendpensionat.Enums.RoomType;
 import com.example.backendpensionat.Models.Booking;
 import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Models.Room;
@@ -14,7 +15,6 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -29,56 +29,59 @@ public class BackendPensionatApplication {
 		return (args) -> {
 
 			Customer customer1 = Customer.builder()
-					.id(1L)
 					.firstName("Anna")
 					.lastName("Svensson")
 					.email("anna.svensson@example.com")
 					.phone("070-123 4567")
 					.Ssn("19901231-1234")
-					.bookings(new ArrayList<>()) // En tom lista för bokningar
+					.bookings(new ArrayList<>())
 					.build();
 
 			Customer customer2 = Customer.builder()
-					.id(2L)
 					.firstName("Erik")
 					.lastName("Johansson")
 					.email("erik.johansson@example.com")
 					.phone("073-987 6543")
 					.Ssn("19850615-5678")
-					.bookings(new ArrayList<>()) // En tom lista för bokningar
+					.bookings(new ArrayList<>())
 					.build();
 
 			Customer customer3 = Customer.builder()
-					.id(3L)
 					.firstName("Karin")
 					.lastName("Nilsson")
 					.email("karin.nilsson@example.com")
 					.phone("08-123 4567")
 					.Ssn("19750310-7890")
-					.bookings(new ArrayList<>()) // En tom lista för bokningar
+					.bookings(new ArrayList<>())
 					.build();
 
+			customerRepo.saveAll(List.of(customer1, customer2, customer3));
+
 			Room room1 = Room.builder()
-					.id(1L)
 					.roomNumber(101L)
 					.price(150.0)
-					.maxBeds(1)
-					.size(20)
-					.bookings(new ArrayList<>()) // En tom lista för bokningar
+					.roomType(RoomType.SINGLE)
+					.bookings(new ArrayList<>())
 					.build();
 
 			Room room2 = Room.builder()
-					.id(2L)
-					.roomNumber(202L)
+					.roomNumber(102L)
 					.price(250.0)
-					.maxBeds(2)
-					.size(30)
-					.bookings(new ArrayList<>()) // En tom lista för bokningar
+					.roomType(RoomType.DOUBLE)
+					.bookings(new ArrayList<>())
 					.build();
 
+			Room room3 = Room.builder()
+					.roomNumber(103L)
+					.price(350.0)
+					.roomType(RoomType.SUITE)
+					.bookings(new ArrayList<>())
+					.build();
+
+			roomRepo.saveAll(List.of(room1, room2, room3));
+
 			Booking booking1 = Booking.builder()
-					.Id(1L)
-					.amountOfBeds(5)
+					.amountOfBeds(0)
 					.totalPrice(500.0)
 					.startDate(LocalDate.of(2024, 5, 1))
 					.endDate(LocalDate.of(2024, 5, 6))
@@ -87,8 +90,7 @@ public class BackendPensionatApplication {
 					.build();
 
 			Booking booking2 = Booking.builder()
-					.Id(2L)
-					.amountOfBeds(3)
+					.amountOfBeds(1)
 					.totalPrice(600.0)
 					.startDate(LocalDate.of(2024, 6, 10))
 					.endDate(LocalDate.of(2024, 6, 13))
@@ -96,17 +98,33 @@ public class BackendPensionatApplication {
 					.room(room2)
 					.build();
 
+			Booking booking3 = Booking.builder()
+					.amountOfBeds(2)
+					.totalPrice(500.0)
+					.startDate(LocalDate.of(2024, 5, 10))
+					.endDate(LocalDate.of(2024, 5, 12))
+					.customer(customer3)
+					.room(room3)
+					.build();
 
+			Booking booking4 = Booking.builder()
+					.amountOfBeds(2)
+					.totalPrice(600.0)
+					.startDate(LocalDate.of(2024, 5, 13))
+					.endDate(LocalDate.of(2024, 5, 16))
+					.customer(customer2)
+					.room(room3)
+					.build();
 
-			//room1.getBookings().add(booking1);
-			//room2.getBookings().add(booking2);
+			customer1.getBookings().add(booking1);
+			customer2.getBookings().add(booking2);
+			customer2.getBookings().add(booking4);
+			customer3.getBookings().add(booking3);
+			room1.getBookings().add(booking1);
+			room2.getBookings().add(booking2);
+			room3.getBookings().add(booking4);
 
-			bookingRepo.saveAll(Arrays.asList(booking1,booking2));
-			//customer1.getBookings().add(booking1);
-			//customer2.getBookings().add(booking2);
-
-			//customerRepo.saveAll(Arrays.asList(customer1,customer2));
-
+			bookingRepo.saveAll(List.of(booking1, booking2, booking3, booking4));
 		};
 	}
 
