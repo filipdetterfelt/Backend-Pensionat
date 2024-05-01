@@ -57,10 +57,28 @@ public class BookingController {
         RoomSearchDTO roomSearch = new RoomSearchDTO(bookingDTO.getStartDate(), bookingDTO.getEndDate(), 0);
         List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
 
-        model.addAttribute("listFreeRooms", listFreeRooms);
+        if(!model.containsAttribute("refreshed")) {
+            model.addAttribute("listFreeRooms", listFreeRooms);
+        }
+
         model.addAttribute("booking", bookingDTO);
         return "editBookingsForm";
     }
+
+    @GetMapping("/bookings/edit/refresh/{startDate}/{endDate}/{bookingId}")
+        public String editRefresh(
+                @PathVariable LocalDate startDate,
+                @PathVariable LocalDate endDate,
+                @PathVariable Long bookingId,
+                RedirectAttributes rda) {
+
+            RoomSearchDTO roomSearch = new RoomSearchDTO(startDate, endDate, 0);
+            List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
+            rda.addFlashAttribute("listFreeRooms", listFreeRooms);
+            rda.addFlashAttribute("refreshed", true);
+
+            return "redirect:/bookings/" + bookingId + "/edit";
+        }
 
     @PostMapping("/bookings/update")
     public String updateBookingPost(@ModelAttribute("booking") BookingDetailedDTO bookingDTO) {
