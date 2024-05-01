@@ -45,17 +45,6 @@ class CustomerServiceIMPLTest {
     //Creating undeatailedCustomerDTO
     CustomerDTO smallDTO = CustomerDTO.builder().id(customer.getId()).build();
 
-    //Creating customer
-    Customer customerWithBuilder = Customer.builder()
-            .id(id)
-            .firstName(firstName)
-            .lastName(lastName)
-            .email(email)
-            .phone(phone)
-            .Ssn(Ssn)
-            .bookings(BookingList)
-            .build();
-
     //Creating detailedCustomerDTO
     CustomerDetailedDTO detailedCustomerDTO = CustomerDetailedDTO.builder()
             .id(id)
