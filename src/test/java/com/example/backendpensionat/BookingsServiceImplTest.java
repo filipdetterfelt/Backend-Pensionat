@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import static jdk.internal.org.objectweb.asm.util.CheckClassAdapter.verify;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -37,6 +38,7 @@ public class BookingsServiceImplTest {
 
     @Mock
     CustomerRepo customerRepo;
+
 
     @InjectMocks
     private BookingServiceIMPL serviceIMPL = new BookingServiceIMPL(customerRepo , bookingRepo, roomRepo);
@@ -64,7 +66,12 @@ public class BookingsServiceImplTest {
     Customer customer = new Customer(customerId,firstname,lastname,mail,phone,ssn,null);
     Room room = new Room(roomId,roomNumber,price,maxBeds,size,null);
     Booking booking = new Booking(bookingId,amountOfBeds,totalPrice,startDate,endDate,customer,room);
-    BookingDetailedDTO detailedBooking = new BookingDetailedDTO(bookingId,amountOfBeds,totalPrice,startDate,endDate,null,null);
+
+    BookingDetailedDTO bookingDetailedDTO = BookingDetailedDTO.builder().id(bookingId)
+            .amountOfBeds(amountOfBeds).totalPrice(totalPrice).startDate(startDate).endDate(endDate).build();
+
+
+
 
 
 
@@ -99,8 +106,14 @@ public class BookingsServiceImplTest {
     }*/
     @Test
     void bookingDetailedToBooking(){
-        Booking actual =serviceIMPL.detailToBooking(detailedBooking);
-
+        Booking actual =serviceIMPL.detailToBooking(bookingDetailedDTO);
+           assertEquals(actual.getId(),bookingDetailedDTO.getId());
+           assertEquals(actual.getAmountOfBeds(), bookingDetailedDTO.getAmountOfBeds());
+           assertEquals(actual.getTotalPrice(),bookingDetailedDTO.getTotalPrice());
+           assertEquals(actual.getStartDate(),bookingDetailedDTO.getStartDate());
+           assertEquals(actual.getEndDate(),bookingDetailedDTO.getEndDate());
+         //  assertEquals(actual.getCustomer().getId(),detailedBooking.getCustomerDTO().getId());
+           //assertEquals(actual.getRoom().getId(),detailedBooking.getRoomDTO().getId());
     }
 
     @Test
@@ -108,6 +121,12 @@ public class BookingsServiceImplTest {
         when(bookingRepo.findAll()).thenReturn(Arrays.asList(booking));
         BookingServiceIMPL bookingServiceIMPL2 = new BookingServiceIMPL(customerRepo,bookingRepo,roomRepo);
         List<BookingDetailedDTO> allBookings = bookingServiceIMPL2.listAllBookings();
+    }
+
+    @Test
+    void deleteOneBooking(){
+    serviceIMPL.deleteBookingById(bookingId);
+    verify()
     }
 
 }
