@@ -114,6 +114,15 @@ class CustomerServiceIMPLTest {
 
     @Test
     void testDetailToCustomer() {
+        Customer actual = customerServiceIMPL.detailToCustomer(detailedCustomerDTO);
+
+        assertEquals(actual.getId(), customer.getId());
+        assertEquals(actual.getFirstName(), customer.getFirstName());
+        assertEquals(actual.getLastName(), customer.getLastName());
+        assertEquals(actual.getEmail(), customer.getEmail());
+        assertEquals(actual.getPhone(), customer.getPhone());
+        assertEquals(actual.getSsn(), customer.getSsn());
+        assertEquals(actual.getBookings(), customer.getBookings());
     }
 
     @Test
