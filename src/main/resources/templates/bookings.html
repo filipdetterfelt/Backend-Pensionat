@@ -46,7 +46,7 @@
             <td th:text="${bookings.getStartDate()}"></td>
             <td th:text="${bookings.getEndDate()}"></td>
             <td th:text="${bookings.getRoom().getRoomType()}"></td>
-            <td th:text="${bookings.getRoom().getRoomType().getExtraBeds()}"></td>
+            <td th:text="${bookings.getAmountOfBeds()}"></td>
             <td><button th:data-url="'/bookings/' + ${bookings.getId()} + '/edit'"
                         onclick="window.location.href = this.getAttribute('data-url')">Edit</button></td>
             <td><button th:data-url="'/bookings/' + ${bookings.getId()} + '/delete'"
@@ -57,21 +57,6 @@
 </div>
 
 <script>
-    // var today = new Date();
-    // var dd = String(today.getDate()).padStart(2, '0');
-    // var mm = String(today.getMonth() + 1).padStart(2, '0');
-    // var yyyy = today.getFullYear();
-    // var todayFormatted = yyyy + '-' + mm + '-' + dd;
-    //
-    // document.getElementById('startDate').value = todayFormatted;
-    //
-    // var tomorrow = new Date(today);
-    // tomorrow.setDate(tomorrow.getDate() + 1);
-    // var tmrdd = String(tomorrow.getDate()).padStart(2, '0');
-    // var tmrmm = String(tomorrow.getMonth() + 1).padStart(2, '0');
-    // var tomorrowFormatted = yyyy + '-' + tmrmm + '-' + tmrdd;
-    //
-    // document.getElementById('endDate').value = tomorrowFormatted;
 </script>
 
 </body>
