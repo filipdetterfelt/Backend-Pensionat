@@ -49,7 +49,6 @@ public class BookingServiceIMPL implements BookingService {
 
         return Booking.builder().Id(bookDTO.getId())
                 .amountOfBeds(bookDTO.getAmountOfBeds())
-                .totalPrice(bookDTO.getTotalPrice())
                 .startDate(bookDTO.getStartDate())
                 .endDate(bookDTO.getEndDate())
                 .customer(customerRepo.findById(bookDTO.getCustomerDTO().getId()).orElse(null))
@@ -73,10 +72,10 @@ public class BookingServiceIMPL implements BookingService {
 
     @Override
     public void updateBooking(BookingDetailedDTO bookingDTO) {
-        Booking existingBooking = bookingRepo.findById(bookingDTO.getId()).orElse(null);
-        existingBooking.setStartDate(bookingDTO.getStartDate());
-        existingBooking.setEndDate(bookingDTO.getEndDate());
-        existingBooking.setAmountOfBeds(bookingDTO.getAmountOfBeds());
-        bookingRepo.save(existingBooking);
+//        Booking existingBooking = bookingRepo.findById(bookingDTO.getId()).orElse(null);
+//        existingBooking.setStartDate(bookingDTO.getStartDate());
+//        existingBooking.setEndDate(bookingDTO.getEndDate());
+//        existingBooking.setAmountOfBeds(bookingDTO.getAmountOfBeds());
+        bookingRepo.save(detailToBooking(bookingDTO));
     }
 }

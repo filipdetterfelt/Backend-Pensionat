@@ -33,10 +33,44 @@
     <label for="endDate">End Date:</label>
     <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required/><br><br>
 
-    <label for="amountOfBeds">Number of Beds:</label>
+    <label for="roomType">Room:</label>
+    <select id="roomType" onchange="updateExtraBeds()" th:field="*{roomNumber}">
+        <option th:text="'Choose room type'" value="">
+        </option>
+        <option th:each="room: ${listFreeRooms}"
+                th:value="${room.getRoomNumber() + ' - ' + room.getRoomType()}"
+                th:text="${room.getRoomNumber() + ' - ' + room.getRoomType()}">
+        </option>
+    </select><br><br>
+
+    <label for="amountOfBeds">Extra Beds:</label>
     <input type="number" id="amountOfBeds" name="amountOfBeds" th:field="*{amountOfBeds}" required/><br><br>
 
     <input type="submit" value="Save Changes"/>
 </form>
+<script>
+    function updateExtraBeds() {
+        const maxAmountOfBeds = document.getElementById('amountOfBeds');
+        const getRoomType = document.getElementById('roomType').value.split(' - ')[1];
+
+        if (getRoomType === "SINGLE") {
+            maxAmountOfBeds.value = 0;
+            maxAmountOfBeds.disabled = false;
+        } else if (getRoomType === "DOUBLE") {
+            maxAmountOfBeds.min = 0;
+            maxAmountOfBeds.max = 1;
+            maxAmountOfBeds.disabled = false;
+        } else if (getRoomType === "SUITE") {
+            maxAmountOfBeds.min = 0;
+            maxAmountOfBeds.max = 2;
+            maxAmountOfBeds.disabled = false;
+        } else {
+            maxAmountOfBeds.max = 0;
+            maxAmountOfBeds.disabled = true;
+        }
+        console.log(getRoomType)
+    }
+
+</script>
 </body>
 </html>

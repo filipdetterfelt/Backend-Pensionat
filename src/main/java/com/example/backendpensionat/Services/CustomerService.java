@@ -15,4 +15,5 @@ public interface CustomerService {
     public String removeCustomer(CustomerDetailedDTO customer);
     public String changeCustomer(CustomerDetailedDTO customer);
     CustomerDetailedDTO findCustomerById(Long id);
+    CustomerDetailedDTO findCustomerByBookingID(Long id);
 }

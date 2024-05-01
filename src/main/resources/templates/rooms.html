@@ -47,7 +47,6 @@
             <th>Room number</th>
             <th>Total price</th>
             <th>Room Type:</th>
-            <th>Extra Beds:</th>
         </tr>
 
         <tr th:each="rooms: ${roomsList}">
@@ -55,7 +54,6 @@
             <td th:text="${rooms.getRoomNumber()}"></td>
             <td th:text="${rooms.getPrice()}"></td>
             <td th:text="${rooms.getRoomType()}"></td>
-            <td th:text="${rooms.getRoomType().getExtraBeds()}"></td>
         </tr>
     </table>
 </div>

@@ -1,5 +1,6 @@
 package com.example.backendpensionat.DTO;
 
+import com.example.backendpensionat.Enums.RoomType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ public class BookingDetailedDTO {
     private Double totalPrice;
     private LocalDate startDate;
     private LocalDate endDate;
+    private String roomNumber = "";
 
     private RoomDetailedDTO room;
     private CustomerDTO customerDTO;

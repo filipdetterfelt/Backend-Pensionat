@@ -12,4 +12,5 @@ public interface RoomService {
     RoomDTO roomToDTO(Room room);
     RoomDetailedDTO rDetailedToDTO(Room room);
     Room detailToRoom(RoomDetailedDTO roomDetailedDTO);
+    RoomDetailedDTO findRoomNumber(Long roomNumber);
 }

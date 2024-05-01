@@ -81,5 +81,10 @@ public class CustomerServiceIMPL implements CustomerService {
         return cDetailedToDTO(customerRepo.findById(id).get());
     }
 
+    @Override
+    public CustomerDetailedDTO findCustomerByBookingID(Long id) {
+        return null;
+    }
+
 
 }

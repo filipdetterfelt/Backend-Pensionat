@@ -1,11 +1,7 @@
 package com.example.backendpensionat.Controllers;
 
 
-import com.example.backendpensionat.DTO.BookingDetailedDTO;
-import com.example.backendpensionat.DTO.BookingSearchDTO;
-import com.example.backendpensionat.DTO.CustomerDetailedDTO;
-import com.example.backendpensionat.DTO.RoomDetailedDTO;
-import com.example.backendpensionat.DTO.RoomSearchDTO;
+import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Enums.RoomType;
 import com.example.backendpensionat.Models.Booking;
 import com.example.backendpensionat.Models.Customer;
@@ -58,12 +54,21 @@ public class BookingController {
     public String editBookingById(@PathVariable Long id, Model model) {
         BookingDetailedDTO bookingDTO = bookingService.findBookingById(id);
         model.addAttribute("booking", bookingDTO);
+        RoomSearchDTO roomSearch = new RoomSearchDTO(bookingDTO.getStartDate(), bookingDTO.getEndDate(), 0);
+        List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
+        model.addAttribute("listFreeRooms", listFreeRooms);
+        System.out.println(bookingDTO.getCustomerDTO());
         return "editBookingsForm";
     }
 
     @PostMapping("/bookings/update")
-    public String updateBooking(@ModelAttribute("booking") BookingDetailedDTO bookingDTO) {
+    public String updateBookingPost(@ModelAttribute("booking") BookingDetailedDTO bookingDTO) {
+        String roomNo = bookingDTO.getRoomNumber().split(" - ")[0];
+        RoomDetailedDTO room = roomService.findRoomNumber(Long.parseLong(roomNo));
+        bookingDTO.setRoom(room);
         bookingService.updateBooking(bookingDTO);
+        System.out.println(bookingDTO.getRoomNumber() + " " + bookingDTO.getRoom().getRoomNumber() + " " + bookingDTO.getAmountOfBeds());
+        System.out.println(bookingDTO.getCustomerDTO());
         return "redirect:/bookings";
     }
 

@@ -14,6 +14,7 @@ import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -83,5 +84,11 @@ public class RoomServiceIMPL implements RoomService {
                         .stream().map(b -> bookingRepo.findById(b.getId())
                                 .orElse(null))
                         .toList()).build();
+    }
+
+    @Override
+    public RoomDetailedDTO findRoomNumber(Long roomNumber) {
+        Room room = roomRepo.findAll().stream().filter(r -> Objects.equals(r.getRoomNumber(), roomNumber)).findFirst().get();
+        return rDetailedToDTO(room);
     }
 }
