@@ -95,7 +95,9 @@ class CustomerServiceIMPLTest {
 
     @Test
     void removeCustomer() {
-        when(customerRepo.save(customer)).thenReturn(customer);
+        CustomerServiceIMPL service = new CustomerServiceIMPL(bookingRepo, customerRepo);
+        String feedback = service.removeCustomer(detailedCustomerDTO);
+        assertTrue(feedback.equalsIgnoreCase("Customer has been removed"));
     }
 
     @Test
