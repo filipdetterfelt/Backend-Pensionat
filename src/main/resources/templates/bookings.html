@@ -42,7 +42,7 @@
 
         <tr th:each="bookings: ${bookingsList}">
             <td th:text="${bookings.getId()}"></td>
-            <td th:text="${bookings.getRoom().getId()}"></td>
+            <td th:text="${bookings.getRoom().getRoomNumber()}"></td>
             <td th:text="${bookings.getStartDate()}"></td>
             <td th:text="${bookings.getEndDate()}"></td>
             <td th:text="${bookings.getRoom().getRoomType()}"></td>

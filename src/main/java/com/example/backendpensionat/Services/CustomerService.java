@@ -10,10 +10,10 @@ public interface CustomerService {
     CustomerDTO customerToDTO(Customer customer);
     CustomerDetailedDTO cDetailedToDTO(Customer customer);
     Customer detailToCustomer(CustomerDetailedDTO customerDetailedDTO);
-    public List<CustomerDetailedDTO> listAllCustomers();
-    public String addCustomer(CustomerDetailedDTO customer);
-    public String removeCustomer(CustomerDetailedDTO customer);
-    public String changeCustomer(CustomerDetailedDTO customer);
+    List<CustomerDetailedDTO> listAllCustomers();
+    String addCustomer(CustomerDetailedDTO customer);
+    String removeCustomer(CustomerDetailedDTO customer);
+    String changeCustomer(CustomerDetailedDTO customer);
     CustomerDetailedDTO findCustomerById(Long id);
-    CustomerDetailedDTO findCustomerByBookingID(Long id);
+    CustomerDTO findCustomerByBookingID(Long id);
 }
