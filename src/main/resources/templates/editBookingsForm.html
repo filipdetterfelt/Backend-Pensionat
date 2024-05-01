@@ -35,7 +35,7 @@
 
     <label for="roomType">Room:</label>
     <select id="roomType" onchange="updateExtraBeds()" th:field="*{roomNumber}">
-        <option th:text="'Choose room type'" value="">
+        <option th:text="${booking.room.getRoomNumber() + ' - ' + booking.room.roomType}" value="">
         </option>
         <option th:each="room: ${listFreeRooms}"
                 th:value="${room.getRoomNumber() + ' - ' + room.getRoomType()}"
@@ -51,6 +51,7 @@
 <script>
     function updateExtraBeds() {
         const maxAmountOfBeds = document.getElementById('amountOfBeds');
+        const currentExtraBeds = parseInt(maxAmountOfBeds.value)
         const getRoomType = document.getElementById('roomType').value.split(' - ')[1];
 
         if (getRoomType === "SINGLE") {
@@ -58,10 +59,14 @@
             maxAmountOfBeds.max = 0;
         } else if (getRoomType === "DOUBLE") {
             maxAmountOfBeds.max = 1;
-            maxAmountOfBeds.disabled = false;
+            if (currentExtraBeds > 1) {
+                maxAmountOfBeds.value = 1
+            }
         } else if (getRoomType === "SUITE") {
             maxAmountOfBeds.max = 2;
-            maxAmountOfBeds.disabled = false;
+            if (currentExtraBeds > 2) {
+                maxAmountOfBeds.value = 2
+            }
         }
     }
 
