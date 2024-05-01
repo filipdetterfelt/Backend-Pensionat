@@ -13,13 +13,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Data
 public class BookingServiceIMPL implements BookingService {
 
     private final CustomerRepo customerRepo;
     private final BookingRepo bookingRepo;
     private final RoomRepo roomRepo;
+
+    public BookingServiceIMPL(CustomerRepo customerRepo, BookingRepo bookingRepo, RoomRepo roomRepo) {
+        this.customerRepo = customerRepo;
+        this.bookingRepo = bookingRepo;
+        this.roomRepo = roomRepo;
+    }
 
     @Override
     public BookingDTO bookingToDTO(Booking booking) {
@@ -29,7 +34,6 @@ public class BookingServiceIMPL implements BookingService {
 
     @Override
     public BookingDetailedDTO bDetailedToDTO(Booking booking) {
-
         return BookingDetailedDTO.builder().id(booking.getId())
                 .amountOfBeds(booking.getAmountOfBeds())
                 .totalPrice(booking.getTotalPrice())

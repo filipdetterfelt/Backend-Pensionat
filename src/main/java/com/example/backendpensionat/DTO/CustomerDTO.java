@@ -1,10 +1,9 @@
 package com.example.backendpensionat.DTO;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Data
 public class CustomerDTO {
