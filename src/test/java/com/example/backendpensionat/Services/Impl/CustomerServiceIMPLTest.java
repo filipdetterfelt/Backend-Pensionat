@@ -87,6 +87,9 @@ class CustomerServiceIMPLTest {
     @Test
     void changeCustomer() {
         when(customerRepo.save(customer)).thenReturn(customer);
+        CustomerServiceIMPL service = new CustomerServiceIMPL(bookingRepo, customerRepo);
+        Customer addedCustomer = service.addCustomer(detailedCustomerDTO);
+        assertTrue(customer.getId().equals(addedCustomer.getId()));
 
     }
 
