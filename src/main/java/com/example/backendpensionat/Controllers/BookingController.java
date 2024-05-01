@@ -45,6 +45,7 @@ public class BookingController {
         if (!model.containsAttribute("bookingSearch")) {
             model.addAttribute("roomsList", roomService.listAllRooms());
             model.addAttribute("customersList", customerService.listAllCustomers());
+            model.addAttribute("bookings", new BookingDetailedDTO());
         }
 
         return "addBookingsForm";
@@ -91,5 +92,29 @@ public class BookingController {
         rda.addFlashAttribute("roomsList", roomList);
 
         return "redirect:/bookings/addBookings";
+    }
+
+    @GetMapping("/bookings/add/{customerId}/{startDate}/{endDate}/{extraBeds}/{roomNo}")
+    public String addBooking(
+            @PathVariable Long customerId,
+            @PathVariable LocalDate startDate,
+            @PathVariable LocalDate endDate,
+            @PathVariable int extraBeds,
+            @PathVariable Long roomNo) {
+        CustomerDTO customer = CustomerDTO.builder().id(customerId).build();
+        System.out.println(roomNo);
+        RoomDetailedDTO room = roomService.findRoomById(roomNo);
+
+        BookingDetailedDTO booking = BookingDetailedDTO.builder()
+                .amountOfBeds(extraBeds)
+                .startDate(startDate)
+                .endDate(endDate)
+                .customerDTO(customer)
+                .room(room)
+                .build();
+
+        bookingService.saveBooking(booking);
+
+        return "redirect:/bookings";
     }
 }
