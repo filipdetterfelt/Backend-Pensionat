@@ -79,7 +79,10 @@ class CustomerServiceIMPLTest {
     }
 
     @Test
-    void customerToDTO() {
+    void testCustomerToDTO() {
+        CustomerDTO actaul = customerServiceIMPL.customerToDTO(customer);
+        assertEquals(actaul.getId(), smallDTO.getId());
+
     }
 
     @Test
@@ -98,7 +101,7 @@ class CustomerServiceIMPLTest {
     }
 
     @Test
-    void detailToCustomer() {
+    void testDetailToCustomer() {
     }
 
     @Test
