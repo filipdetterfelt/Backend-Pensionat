@@ -35,6 +35,7 @@ class CustomerServiceIMPLTest {
     String phone = "0701515151";
     String Ssn = "970217-9797";
     List<Booking> BookingList = new ArrayList<>();
+    List<BookingDTO> BookingListDTO = new ArrayList<>();
 
     //Creating customer, room, booking
     Customer customer = new Customer(id, firstName, lastName, email, phone, Ssn, BookingList);
@@ -42,8 +43,8 @@ class CustomerServiceIMPLTest {
     //Creating undeatailedCustomerDTO
     CustomerDTO smallDTO = CustomerDTO.builder().id(customer.getId()).build();
 
-    //Creating detailedCustomerDTO
-    Customer detailedCustomerDTO = Customer.builder()
+    //Creating customer
+    Customer customerWithBuilder = Customer.builder()
             .id(id)
             .firstName(firstName)
             .lastName(lastName)
@@ -52,6 +53,18 @@ class CustomerServiceIMPLTest {
             .Ssn(Ssn)
             .bookings(BookingList)
             .build();
+
+    //Creating detailedCustomerDTO
+    CustomerDetailedDTO detailedCustomerDTO = CustomerDetailedDTO.builder()
+            .id(id)
+            .firstName(firstName)
+            .lastName(lastName)
+            .email(email)
+            .phone(phone)
+            .Ssn(Ssn)
+            .bookings(BookingListDTO)
+            .build();
+
     @Mock
     private CustomerRepo customerRepo;
     @Mock
@@ -87,7 +100,6 @@ class CustomerServiceIMPLTest {
 
     @Test
     void testCDetailedToDTO() {
-
         CustomerDetailedDTO actual = customerServiceIMPL.cDetailedToDTO(customer);
 
         assertEquals(actual.getId(), detailedCustomerDTO.getId());
