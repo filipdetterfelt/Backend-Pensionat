@@ -59,9 +59,9 @@ public class BookingController {
 
         if(!model.containsAttribute("refreshed")) {
             model.addAttribute("listFreeRooms", listFreeRooms);
+            model.addAttribute("booking", bookingDTO);
         }
 
-        model.addAttribute("booking", bookingDTO);
         return "editBookingsForm";
     }
 
@@ -73,9 +73,13 @@ public class BookingController {
                 RedirectAttributes rda) {
 
             RoomSearchDTO roomSearch = new RoomSearchDTO(startDate, endDate, 0);
+            BookingDetailedDTO booking = bookingService.findBookingById(bookingId);
+            booking.setStartDate(startDate);
+            booking.setEndDate(endDate);
             List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
             rda.addFlashAttribute("listFreeRooms", listFreeRooms);
             rda.addFlashAttribute("refreshed", true);
+            rda.addFlashAttribute("booking", booking);
 
             return "redirect:/bookings/" + bookingId + "/edit";
         }
