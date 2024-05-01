@@ -1,9 +1,6 @@
 package com.example.backendpensionat.Services.Impl;
 
-import com.example.backendpensionat.DTO.BookingDTO;
-import com.example.backendpensionat.DTO.BookingDetailedDTO;
-import com.example.backendpensionat.DTO.CustomerDTO;
-import com.example.backendpensionat.DTO.RoomDTO;
+import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Models.Booking;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.CustomerRepo;
@@ -38,7 +35,12 @@ public class BookingServiceIMPL implements BookingService {
                 .totalPrice(booking.getTotalPrice())
                 .startDate(booking.getStartDate())
                 .endDate(booking.getEndDate())
-                .roomDTO(RoomDTO.builder().id(booking.getRoom().getId()).build())
+                .room(RoomDetailedDTO.builder()
+                        .id(booking.getRoom().getId())
+                        .roomNumber(booking.getRoom().getRoomNumber())
+                        .price(booking.getRoom().getPrice())
+                        .roomType(booking.getRoom().getRoomType())
+                        .build())
                 .customerDTO(CustomerDTO.builder().id(booking.getCustomer().getId()).build()).build();
     }
 
@@ -51,7 +53,7 @@ public class BookingServiceIMPL implements BookingService {
                 .startDate(bookDTO.getStartDate())
                 .endDate(bookDTO.getEndDate())
                 .customer(customerRepo.findById(bookDTO.getCustomerDTO().getId()).orElse(null))
-                .room(roomRepo.findById(bookDTO.getRoomDTO().getId()).orElse(null)).build();
+                .room(roomRepo.findById(bookDTO.getRoom().getId()).orElse(null)).build();
     }
 
     @Override

@@ -19,7 +19,7 @@ public class Room {
     @Id
     @GeneratedValue
     private Long id;
-    private Long roomNumber = id;
+    private Long roomNumber;
 
    // @Pattern(regexp = "[0-9.]+", message = "Price can only include digits and dots")
     private Double price;

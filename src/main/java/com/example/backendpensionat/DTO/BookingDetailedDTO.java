@@ -14,7 +14,7 @@ public class BookingDetailedDTO {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    private RoomDTO roomDTO;
+    private RoomDetailedDTO room;
     private CustomerDTO customerDTO;
 }
 

@@ -34,17 +34,19 @@
             <th>Room No.:</th>
             <th>From:</th>
             <th>To:</th>
-            <th>Number of beds:</th>
+            <th>Room Type:</th>
+            <th>Extra beds:</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
 
         <tr th:each="bookings: ${bookingsList}">
             <td th:text="${bookings.getId()}"></td>
-            <td th:text="${bookings.getRoomDTO().getId()}"></td>
+            <td th:text="${bookings.getRoom().getId()}"></td>
             <td th:text="${bookings.getStartDate()}"></td>
             <td th:text="${bookings.getEndDate()}"></td>
-            <td th:text="${bookings.getAmountOfBeds()}"></td>
+            <td th:text="${bookings.getRoom().getRoomType()}"></td>
+            <td th:text="${bookings.getRoom().getRoomType().getExtraBeds()}"></td>
             <td><button th:data-url="'/bookings/' + ${bookings.getId()} + '/edit'"
                         onclick="window.location.href = this.getAttribute('data-url')">Edit</button></td>
             <td><button th:data-url="'/bookings/' + ${bookings.getId()} + '/delete'"
