@@ -1,5 +1,6 @@
 package com.example.backendpensionat.DTO;
 
+import lombok.AllArgsConstructor;
 import com.example.backendpensionat.Enums.RoomType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

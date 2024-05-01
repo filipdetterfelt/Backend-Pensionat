@@ -11,18 +11,26 @@ import com.example.backendpensionat.Services.BookingService;
 import com.example.backendpensionat.Services.RoomService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 
-@RequiredArgsConstructor
+
 @Service
 public class RoomServiceIMPL implements RoomService {
 
     private final BookingRepo bookingRepo;
     private final RoomRepo roomRepo;
     private final BookingService bookingService;
+
+    public RoomServiceIMPL(BookingRepo bookingRepo, RoomRepo roomRepo, BookingService bookingService) {
+        this.bookingRepo = bookingRepo;
+        this.roomRepo = roomRepo;
+        this.bookingService = bookingService;
+    }
 
     @PersistenceContext
     private EntityManager entityManager;
