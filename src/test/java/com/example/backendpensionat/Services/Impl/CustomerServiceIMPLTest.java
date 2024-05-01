@@ -1,5 +1,6 @@
 package com.example.backendpensionat.Services.Impl;
 
+import com.example.backendpensionat.DTO.BookingDTO;
 import com.example.backendpensionat.DTO.CustomerDTO;
 import com.example.backendpensionat.DTO.CustomerDetailedDTO;
 import com.example.backendpensionat.Models.Booking;
@@ -7,6 +8,7 @@ import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.CustomerRepo;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,10 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class CustomerServiceIMPLTest {
 
+    //Variables for customer
     Long id = 1L;
     String firstName = "Micke";
     String lastName = "Speiner";
@@ -31,11 +36,8 @@ class CustomerServiceIMPLTest {
     String Ssn = "970217-9797";
     List<Booking> BookingList = new ArrayList<>();
 
-
     //Creating customer, room, booking
     Customer customer = new Customer(id, firstName, lastName, email, phone, Ssn, BookingList);
-    Room room = new Room(1L, 101L, 150.0, 2, 20, BookingList);
-    Booking booking = new Booking(1L, 2, 100.0, LocalDate.now(), LocalDate.now().plusDays(3), customer, room);
 
     //Creating undeatailedCustomerDTO
     CustomerDTO smallDTO = CustomerDTO.builder().id(customer.getId()).build();
@@ -48,7 +50,7 @@ class CustomerServiceIMPLTest {
             .email(email)
             .phone(phone)
             .Ssn(Ssn)
-            .bookings(new ArrayList<>())
+            .bookings(BookingList)
             .build();
     @Mock
     private CustomerRepo customerRepo;
@@ -57,8 +59,11 @@ class CustomerServiceIMPLTest {
     @InjectMocks
     private CustomerServiceIMPL customerServiceIMPL = new CustomerServiceIMPL(bookingRepo, customerRepo);
 
+
     @Test
     void addCustomer() {
+        when(customerRepo.save(customer)).thenReturn(customer);
+
     }
 
     @Test
@@ -78,8 +83,18 @@ class CustomerServiceIMPLTest {
     }
 
     @Test
-    void cDetailedToDTO() {
+    void testCDetailedToDTO() {
+
         CustomerDetailedDTO actual = customerServiceIMPL.cDetailedToDTO(customer);
+
+        assertEquals(actual.getId(), detailedCustomerDTO.getId());
+        assertEquals(actual.getFirstName(), detailedCustomerDTO.getFirstName());
+        assertEquals(actual.getLastName(), detailedCustomerDTO.getLastName());
+        assertEquals(actual.getEmail(), detailedCustomerDTO.getEmail());
+        assertEquals(actual.getPhone(), detailedCustomerDTO.getPhone());
+        assertEquals(actual.getSsn(), detailedCustomerDTO.getSsn());
+        assertEquals(actual.getBookings(), detailedCustomerDTO.getBookings());
+
     }
 
     @Test
