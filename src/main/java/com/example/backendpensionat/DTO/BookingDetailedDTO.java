@@ -19,7 +19,7 @@ public class BookingDetailedDTO {
     private Double totalPrice;
     private LocalDate startDate;
     private LocalDate endDate;
-    private final String roomNumber = "";
+    private String roomNumber = "";
 
     private RoomDetailedDTO room;
     private CustomerDTO customerDTO;
