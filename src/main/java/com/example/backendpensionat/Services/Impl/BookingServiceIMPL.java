@@ -78,4 +78,9 @@ public class BookingServiceIMPL implements BookingService {
 //        existingBooking.setAmountOfBeds(bookingDTO.getAmountOfBeds());
         bookingRepo.save(detailToBooking(bookingDTO));
     }
+
+    @Override
+    public void saveBooking(BookingDetailedDTO booking) {
+        bookingRepo.save(detailToBooking(booking));
+    }
 }
