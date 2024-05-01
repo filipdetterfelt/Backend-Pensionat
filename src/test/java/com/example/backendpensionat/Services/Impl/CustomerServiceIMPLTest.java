@@ -18,7 +18,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -76,11 +78,16 @@ class CustomerServiceIMPLTest {
     @Test
     void addCustomer() {
         when(customerRepo.save(customer)).thenReturn(customer);
+        CustomerServiceIMPL service = new CustomerServiceIMPL(bookingRepo, customerRepo);
 
+        Customer addedCustomer = service.addCustomer(detailedCustomerDTO);
+        assertTrue(customer.getId().equals(addedCustomer.getId()));
     }
 
     @Test
     void changeCustomer() {
+        when(customerRepo.save(customer)).thenReturn(customer);
+
     }
 
     @Test
@@ -89,6 +96,11 @@ class CustomerServiceIMPLTest {
 
     @Test
     void listAllCustomers() {
+        when(customerRepo.findAll()).thenReturn(Arrays.asList(customer));
+        CustomerServiceIMPL service = new CustomerServiceIMPL(bookingRepo, customerRepo);
+        List<CustomerDetailedDTO> allCustomers = service.listAllCustomers();
+
+        assertTrue(allCustomers.size() == 1);
     }
 
     @Test

@@ -14,11 +14,16 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Service
 public class CustomerServiceIMPL implements CustomerService {
     private final BookingRepo bookingRepo;
     private final CustomerRepo customerRepo;
+
+    public CustomerServiceIMPL(BookingRepo bookingRepo, CustomerRepo customerRepo) {
+        this.bookingRepo = bookingRepo;
+        this.customerRepo = customerRepo;
+    }
 
     @Override
     public Customer addCustomer(CustomerDetailedDTO customer){
