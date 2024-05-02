@@ -1,6 +1,7 @@
 package com.example.backendpensionat.Services.Impl;
 
 import com.example.backendpensionat.DTO.*;
+import com.example.backendpensionat.Enums.RoomType;
 import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
@@ -8,10 +9,13 @@ import com.example.backendpensionat.Services.BookingService;
 import com.example.backendpensionat.Services.RoomService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,23 +51,11 @@ public class RoomServiceIMPL implements RoomService {
                 "AND b.startDate <= :endDate " +
                 "AND b.endDate >= :startDate)";
 
-
-        return entityManager.createQuery(jpqlQuery, Room.class)
-                .setParameter("startDate", roomSearch.getStartDate())
-                .setParameter("endDate", roomSearch.getEndDate())
-                .setParameter("roomType", roomSearch.getRoomType())
-                .getResultList().stream().map(room -> RoomDetailedDTO.builder()
-                        .id(room.getId())
-                        .roomNumber(room.getRoomNumber())
-                        .price(room.getPrice())
-                        .roomType(room.getRoomType())
-                        .bookings(room.getBookings().stream().map(bookingService::bookingToDTO).toList())
-                        .build())
-                .toList();
+        return getRoomDetailedDTOS(jpqlQuery, roomSearch.getStartDate(), roomSearch.getEndDate(), roomSearch.getRoomType());
     }
 
     @Override
-    public List<RoomDetailedDTO> listFreeRoomsByRoomType(BookingSearchDTO roomSearch) {
+    public List<RoomDetailedDTO> listFreeRoomsByRoomType(BookingSearchDTO bookingSearch) {
         String jpqlQuery = "SELECT r FROM Room r " +
                 "WHERE r.roomType = :roomType " +
                 "AND NOT EXISTS (" +
@@ -72,11 +64,15 @@ public class RoomServiceIMPL implements RoomService {
                 "AND b.startDate <= :endDate " +
                 "AND b.endDate >= :startDate)";
 
+        return getRoomDetailedDTOS(jpqlQuery, bookingSearch.getStartDate(), bookingSearch.getEndDate(), bookingSearch.getRoomType());
+    }
 
+    @NotNull
+    private List<RoomDetailedDTO> getRoomDetailedDTOS(String jpqlQuery, LocalDate startDate, LocalDate endDate, RoomType roomType) {
         return entityManager.createQuery(jpqlQuery, Room.class)
-                .setParameter("startDate", roomSearch.getStartDate())
-                .setParameter("endDate", roomSearch.getEndDate())
-                .setParameter("roomType", roomSearch.getRoomType())
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .setParameter("roomType", roomType)
                 .getResultList().stream().map(room -> RoomDetailedDTO.builder()
                         .id(room.getId())
                         .roomNumber(room.getRoomNumber())
