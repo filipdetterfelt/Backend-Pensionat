@@ -50,6 +50,49 @@ public class BookingController {
         return "addBookingsForm";
     }
 
+    @GetMapping("/bookings/add/{id}/{startDate}/{endDate}/{roomType}")
+    public String searchRoom(
+            @PathVariable Long id,
+            @PathVariable LocalDate startDate,
+            @PathVariable LocalDate endDate,
+            @PathVariable String roomType,
+            RedirectAttributes rda) {
+
+        CustomerDetailedDTO customer = customerService.findCustomerById(id);
+        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, RoomType.getRoomTypeByString(roomType));
+        List<RoomDetailedDTO> roomList = roomService.listFreeRoomsByRoomType(bookingSearch);
+
+        rda.addFlashAttribute("bookingSearch", bookingSearch);
+        rda.addFlashAttribute("roomsList", roomList);
+
+        System.out.println(roomType);
+
+        return "redirect:/bookings/addBookings";
+    }
+
+    @GetMapping("/bookings/add/{customerId}/{startDate}/{endDate}/{extraBeds}/{roomNo}")
+    public String addBooking(
+            @PathVariable Long customerId,
+            @PathVariable LocalDate startDate,
+            @PathVariable LocalDate endDate,
+            @PathVariable int extraBeds,
+            @PathVariable Long roomNo) {
+        CustomerDTO customer = CustomerDTO.builder().id(customerId).build();
+        RoomDetailedDTO room = roomService.findRoomById(roomNo);
+
+        BookingDetailedDTO booking = BookingDetailedDTO.builder()
+                .amountOfBeds(extraBeds)
+                .startDate(startDate)
+                .endDate(endDate)
+                .customerDTO(customer)
+                .room(room)
+                .build();
+
+        bookingService.saveBooking(booking);
+
+        return "redirect:/bookings";
+    }
+
     @GetMapping("/bookings/{id}/edit")
     public String editBookingById(@PathVariable Long id, Model model) {
         BookingDetailedDTO bookingDTO = bookingService.findBookingById(id);
@@ -96,46 +139,7 @@ public class BookingController {
         return "redirect:/bookings";
     }
 
-    @GetMapping("/bookings/add/{id}/{startDate}/{endDate}/{roomType}")
-    public String searchRoom(
-            @PathVariable Long id,
-            @PathVariable LocalDate startDate,
-            @PathVariable LocalDate endDate,
-            @PathVariable String roomType,
-            RedirectAttributes rda) {
 
-        CustomerDetailedDTO customer = customerService.findCustomerById(id);
-        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, RoomType.getRoomTypeByString(roomType));
-        List<RoomDetailedDTO> roomList = roomService.listFreeRoomsByRoomType(bookingSearch);
 
-        rda.addFlashAttribute("bookingSearch", bookingSearch);
-        rda.addFlashAttribute("roomsList", roomList);
 
-        System.out.println(roomType);
-
-        return "redirect:/bookings/addBookings";
-    }
-
-    @GetMapping("/bookings/add/{customerId}/{startDate}/{endDate}/{extraBeds}/{roomNo}")
-    public String addBooking(
-            @PathVariable Long customerId,
-            @PathVariable LocalDate startDate,
-            @PathVariable LocalDate endDate,
-            @PathVariable int extraBeds,
-            @PathVariable Long roomNo) {
-        CustomerDTO customer = CustomerDTO.builder().id(customerId).build();
-        RoomDetailedDTO room = roomService.findRoomById(roomNo);
-
-        BookingDetailedDTO booking = BookingDetailedDTO.builder()
-                .amountOfBeds(extraBeds)
-                .startDate(startDate)
-                .endDate(endDate)
-                .customerDTO(customer)
-                .room(room)
-                .build();
-
-        bookingService.saveBooking(booking);
-
-        return "redirect:/bookings";
-    }
 }
