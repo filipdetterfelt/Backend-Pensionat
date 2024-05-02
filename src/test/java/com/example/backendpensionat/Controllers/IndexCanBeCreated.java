@@ -1,4 +1,4 @@
-package com.example.backendpensionat;
+package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.Controllers.IndexController;
 import org.junit.jupiter.api.Test;

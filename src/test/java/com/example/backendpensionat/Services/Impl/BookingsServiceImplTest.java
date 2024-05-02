@@ -1,4 +1,4 @@
-package com.example.backendpensionat;
+package com.example.backendpensionat.Services.Impl;
 
 import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Enums.RoomType;
