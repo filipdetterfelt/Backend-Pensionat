@@ -1,21 +1,14 @@
 package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.DTO.BookingDTO;
-import com.example.backendpensionat.DTO.CustomerDTO;
 import com.example.backendpensionat.DTO.CustomerDetailedDTO;
-import com.example.backendpensionat.DTO.RoomSearchDTO;
-import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Services.CustomerService;
-import com.example.backendpensionat.Services.RoomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -50,11 +43,6 @@ public class CustomerController {
         customerService.changeCustomer(customer);
         return "redirect:/customers";
     }
-
-    /*@PutMapping("changeCustomer")
-    public List<CustomerDetailedDTO> changeCustomerById(@ModelAttribute CustomerDetailedDTO customer) {
-        CustomerDetailedDTO updatedCustomer = customerService.changeCustomer(customer)
-    }*/
 
     @PostMapping("deleteCustomer")
     public String removeCustomer(@ModelAttribute("deleteCustomer") CustomerDetailedDTO customer) {

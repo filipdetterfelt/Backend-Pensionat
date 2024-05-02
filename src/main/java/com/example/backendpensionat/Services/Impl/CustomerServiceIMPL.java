@@ -7,14 +7,10 @@ import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.CustomerRepo;
 import com.example.backendpensionat.Services.CustomerService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-
 import java.util.List;
 
 
-//@RequiredArgsConstructor
 @Service
 public class CustomerServiceIMPL implements CustomerService {
     private final BookingRepo bookingRepo;
@@ -96,6 +92,4 @@ public class CustomerServiceIMPL implements CustomerService {
 
         return customerToDTO(customer);
     }
-
-
 }

@@ -1,6 +1,5 @@
 package com.example.backendpensionat.DTO;
 
-import com.example.backendpensionat.Models.Booking;
 import lombok.*;
 
 import java.util.List;
