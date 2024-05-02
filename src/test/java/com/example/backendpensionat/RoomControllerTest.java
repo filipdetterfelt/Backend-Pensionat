@@ -65,7 +65,7 @@ public class RoomControllerTest {
     @Test
     public void shouldShowMaxBeds() throws Exception{
         this.mockMvc.perform(get("/rooms")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Max beds")));
+                .andExpect(content().string(containsString("Extra beds")));
     }
 
     @Test
