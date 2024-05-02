@@ -38,8 +38,10 @@
         gap: 20px;
     }
     a{
-        width: 100px;
-        height: 20px;
+        width: 125px;
+        height: 25px;
+        padding-top: 5px;
+        border-radius: 5px;
         background-color: black;
         color: white;
         text-align: center;
@@ -66,10 +68,11 @@
 
 <!-- Detta är kunderna i fråga till varje sida -->
 <div class="table">
+    <h3>Customers</h3>
     <table>
         <tr>
             <th>Id</th>
-            <th>Social security number</th>
+            <th>Social security no.</th>
             <th>Email</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -86,10 +89,8 @@
             <td th:text = "${customer.getPhone()}"></td>
 
             <td>
-
-                    <button th:data-url="'/customers/' + ${customer.id}"
-                            onclick="window.location.href = this.getAttribute('data-url')">Edit</button>
-
+                <button th:data-url="'/customers/' + ${customer.id}"
+                        onclick="window.location.href = this.getAttribute('data-url')">Edit</button>
             </td>
             <td>
                 <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post" th:if="${#lists.isEmpty(customer.getBookings())}">
