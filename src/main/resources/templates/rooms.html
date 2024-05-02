@@ -15,16 +15,58 @@
         color: whitesmoke;
         width: 200px;
     }
+    .header , .table
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .links{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+    a{
+        width: 100px;
+        height: 20px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-family: Arial;
+        font-style: normal;
+        text-decoration: none;
+    }
+    input{
+        width: 150px;
+        height: 30px;
+        text-align: center;
+        font-size: large;
+        font-weight: bold;
+    }
+    .btns{
+        width: 150px;
+        height: 30px;
+        font-size: large;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
 </style>
 <body>
 <div class="header">
     <h1>Pensionat Koriander !</h1>
+    <div class="links">
     <a th:href="@{/customers}">Customer</a>
     <a th:href="@{/bookings}">Booking</a>
     <a th:href="@{/rooms}">Room</a>
+    </div>
 </div><br><br>
 
-<div class="form-div">
+<div class="table">
     <form action="/rooms" th:object="${roomSearch}" method="post"><br>
         <label for="startDate">From:</label><br>
         <input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required><br><br>
@@ -32,14 +74,16 @@
         <input type="date" name="endDate" id="endDate" required><br><br>
         <label for="extraBeds">Extra beds:</label><br>
         <input type="number" value="0" name="roomType" id="extraBeds" min="0" max="2" required><br><br>
+        <div class="btns">
         <button type="submit">Search</button>
         <button type="button" th:onclick="|window.location.href='@{/rooms}'|">Reset</button>
+        </div>
         <br>
         <br><br>
     </form>
 </div>
 
-<div>
+<div class="table">
     <h3>Rooms</h3>
     <table>
         <tr>
