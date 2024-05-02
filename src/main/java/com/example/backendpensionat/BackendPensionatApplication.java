@@ -32,8 +32,8 @@ public class BackendPensionatApplication {
 					.firstName("Anna")
 					.lastName("Svensson")
 					.email("anna.svensson@example.com")
-					.phone("070-123 4567")
-					.Ssn("19901231-1234")
+					.phone("0701234567")
+					.Ssn("199012311234")
 					.bookings(new ArrayList<>())
 					.build();
 
@@ -41,8 +41,8 @@ public class BackendPensionatApplication {
 					.firstName("Erik")
 					.lastName("Johansson")
 					.email("erik.johansson@example.com")
-					.phone("073-987 6543")
-					.Ssn("19850615-5678")
+					.phone("0739876543")
+					.Ssn("198506155678")
 					.bookings(new ArrayList<>())
 					.build();
 
@@ -50,8 +50,8 @@ public class BackendPensionatApplication {
 					.firstName("Karin")
 					.lastName("Nilsson")
 					.email("karin.nilsson@example.com")
-					.phone("08-123 4567")
-					.Ssn("19750310-7890")
+					.phone("081234567")
+					.Ssn("197503107890")
 					.bookings(new ArrayList<>())
 					.build();
 
