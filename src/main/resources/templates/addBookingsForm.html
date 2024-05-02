@@ -64,8 +64,8 @@
         </td>
         <td>
             <label>
-                <select id="roomTypeBox" onchange="searchRooms()">
-                    <option th:text="${bookingSearch != null ? bookingSearch.roomType : 'Choose room type'}" value="">
+                <select id="roomTypeBox" onmousedown="clearDropDown()" onchange="searchRooms()">
+                    <option id="roomTypeSearch" th:text="${bookingSearch != null ? bookingSearch.roomType : 'Choose room type'}" value="">
                     </option>
                     <option th:each="type: ${roomTypeList}"
                             th:value="${type}"
@@ -122,7 +122,8 @@
         const customerID = document.getElementById('customerBox').value;
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
-        const extraBeds = document.getElementById('extraBedsBox').value;
+        const extraBedsBox = document.getElementById('extraBedsBox');
+        const extraBeds = extraBedsBox.value === "Choose extra bed" ? 0 : extraBedsBox.value;
         const roomNo = document.getElementById('roomNumberBox').value;
         console.log(roomNo);
 
@@ -147,7 +148,7 @@
                 max = 0;
         }
 
-        // extraBedsBox.disabled = roomType === 1;
+        extraBedsBox.disabled = roomType === "SINGLE";
 
         document.querySelectorAll('.appendedOption').forEach(option => extraBedsBox.removeChild(option))
 
@@ -158,6 +159,11 @@
 
             extraBedsBox.appendChild(option)
         }
+    }
+
+    function clearDropDown() {
+        const roomTypeBox = document.getElementById('roomTypeSearch')
+        roomTypeBox.textContent = ""
     }
 
     document.addEventListener("DOMContentLoaded", updateExtraBeds);
