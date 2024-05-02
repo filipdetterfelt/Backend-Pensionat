@@ -28,7 +28,6 @@ public class BookingServiceIMPL implements BookingService {
 
     @Override
     public BookingDTO bookingToDTO(Booking booking) {
-
         return BookingDTO.builder().id(booking.getId()).build();
     }
 

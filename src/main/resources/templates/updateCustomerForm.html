@@ -16,16 +16,16 @@
     <input type="hidden" id="id" name="id" th:value="${updatedCustomer.getId()}" required/><br><br>
 
     <label for="Ssn">Social Security Number:</label>
-    <input type="text" id="ssn" name="Ssn" required pattern="[0-9]{10,12}" title="Please enter a 10-digit or 12-digit Social Security Number"><br><br>
+    <input type="text" id="ssn" name="Ssn" th:value="${updatedCustomer.Ssn}" required pattern="[0-9]{10,12}" title="Please enter a 10-digit or 12-digit Social Security Number"><br><br>
 
     <label for="mail">Email:</label>
     <input type="email" id="mail" name="email" th:value="${updatedCustomer.getEmail()}" required><br><br>
 
     <label for="fname">First Name:</label>
-    <input type="text" id="fname" name="firstName" required pattern="[A-Öa-ö]+" title="Please enter letters only for First Name"><br><br>
+    <input type="text" id="fname" name="firstName" th:value="${updatedCustomer.firstName}" required pattern="[A-Öa-ö]+" title="Please enter letters only for First Name"><br><br>
 
     <label for="lname">Last Name:</label>
-    <input type="text" id="lname" name="lastName" required pattern="[A-Öa-ö]+" title="Please enter letters only for Last Name"><br><br>
+    <input type="text" id="lname" name="lastName" th:value="${updatedCustomer.lastName}" required pattern="[A-Öa-ö]+" title="Please enter letters only for Last Name"><br><br>
 
     <label for="phone">Phone number:</label>
     <input type="tel" id="phone" name="phone" th:value="${updatedCustomer.getPhone()}" required pattern="[0-9]{0,10}"
