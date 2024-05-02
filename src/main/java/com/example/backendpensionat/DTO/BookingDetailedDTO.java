@@ -1,12 +1,9 @@
 package com.example.backendpensionat.DTO;
 
 import lombok.AllArgsConstructor;
-import com.example.backendpensionat.Enums.RoomType;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 
 @Builder
@@ -20,7 +17,6 @@ public class BookingDetailedDTO {
     private LocalDate startDate;
     private LocalDate endDate;
     private String roomNumber = "";
-
     private RoomDetailedDTO room;
     private CustomerDTO customerDTO;
 }

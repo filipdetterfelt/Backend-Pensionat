@@ -37,21 +37,11 @@ public class BookingController {
         return "redirect:/bookings";
     }
 
-    @GetMapping("/bookings/addBookings")
-    public String addBookings(Model model) {
-        if (!model.containsAttribute("bookingSearch")) {
-            model.addAttribute("roomsList", roomService.listAllRooms());
-            model.addAttribute("customersList", customerService.listAllCustomers());
-            model.addAttribute("bookings", new BookingDetailedDTO());
-        }
-
-        return "addBookingsForm";
-    }
 
     @GetMapping("/bookings/{id}/edit")
     public String editBookingById(@PathVariable Long id, Model model) {
         BookingDetailedDTO bookingDTO = bookingService.findBookingById(id);
-        RoomSearchDTO roomSearch = new RoomSearchDTO(bookingDTO.getStartDate(), bookingDTO.getEndDate(), 0);
+        RoomSearchDTO roomSearch = new RoomSearchDTO(bookingDTO.getStartDate(), bookingDTO.getEndDate(), "SINGLE");
         List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
 
         if(!model.containsAttribute("refreshed")) {
@@ -69,7 +59,7 @@ public class BookingController {
                 @PathVariable Long bookingId,
                 RedirectAttributes rda) {
 
-            RoomSearchDTO roomSearch = new RoomSearchDTO(startDate, endDate, 0);
+            RoomSearchDTO roomSearch = new RoomSearchDTO(startDate, endDate, "SINGLE");
             BookingDetailedDTO booking = bookingService.findBookingById(bookingId);
             booking.setStartDate(startDate);
             booking.setEndDate(endDate);
@@ -94,19 +84,34 @@ public class BookingController {
         return "redirect:/bookings";
     }
 
-    @GetMapping("/bookings/add/{id}/{startDate}/{endDate}/{roomType}")
+    @GetMapping("/bookings/addBookings")
+    public String addBookings(Model model) {
+
+        if (!model.containsAttribute("updated")) {
+            model.addAttribute("roomsList", roomService.listAllRooms());
+            model.addAttribute("bookings", new BookingDetailedDTO());
+        }
+        model.addAttribute("roomTypeList", List.of(RoomType.SINGLE, RoomType.DOUBLE, RoomType.SUITE));
+        model.addAttribute("customersList", customerService.listAllCustomers());
+
+        return "addBookingsForm";
+    }
+
+    @GetMapping("/bookings/search/{id}/{startDate}/{endDate}/{roomType}/{amountOfBeds}")
     public String searchRoom(
             @PathVariable Long id,
             @PathVariable LocalDate startDate,
             @PathVariable LocalDate endDate,
-            @PathVariable int roomType,
+            @PathVariable String roomType,
+            @PathVariable Integer amountOfBeds,
             RedirectAttributes rda) {
 
         CustomerDetailedDTO customer = customerService.findCustomerById(id);
-        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, RoomType.getRoomType(roomType - 1));
-        RoomSearchDTO roomSearch = new RoomSearchDTO(startDate, endDate, RoomType.getRoomType(roomType - 1).getExtraBeds());
+        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, amountOfBeds, RoomType.getRoomTypeByString(roomType));
+        RoomSearchDTO roomSearch = new RoomSearchDTO(startDate, endDate, roomType);
         List<RoomDetailedDTO> roomList = roomService.listFreeRooms(roomSearch);
 
+        rda.addFlashAttribute("updated", true);
         rda.addFlashAttribute("bookingSearch", bookingSearch);
         rda.addFlashAttribute("roomsList", roomList);
 

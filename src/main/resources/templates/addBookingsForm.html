@@ -27,6 +27,7 @@
     <a th:href="@{/rooms}">Room</a>
 </div>
 <div><h3>Add Bookings</h3></div>
+<form action="">
 <table>
     <tr>
         <th>Customer:</th>
@@ -41,7 +42,7 @@
     <tr>
         <td>
             <label>
-                <select name="customerInfo" id="customerBox">
+                <select name="customerInfo" id="customerBox" required>
                     <option th:value="${bookingSearch != null? bookingSearch.customer.id: ''}"
                             th:text="${bookingSearch != null ? bookingSearch.customer.id + ': ' + bookingSearch.customer.firstName + ' ' + bookingSearch.customer.lastName : 'Choose customer'}" value="">
                     </option>
@@ -64,12 +65,12 @@
         </td>
         <td>
             <label>
-                <select id="roomTypeBox" onchange="updateExtraBeds()">
-                    <option th:text="${bookingSearch != null ? bookingSearch.roomType : 'Choose room type'}" value="">
-                    </option>
-                    <option th:each="room: ${roomsList}"
-                            th:value="${room.getId()}"
-                            th:text="${room.getRoomType()}">
+                <select id="roomTypeBox" onchange="updateExtraBeds()" required>
+                    <option value="">Choose room type</option>
+                    <option th:each="type : ${roomTypeList}"
+                            th:value="${type}"
+                            th:selected="${bookingSearch != null and bookingSearch.roomType == type}"
+                            th:text="${type}">
                     </option>
                 </select>
             </label>
@@ -83,7 +84,7 @@
         </td>
         <td>
             <label>
-                <select id="roomNumberBox">
+                <select id="roomNumberBox" required>
                     <option>Room Number</option>
                     <option th:each="room: ${roomsList}"
                             th:value="${room.getId()}"
@@ -93,11 +94,11 @@
             </label>
         </td>
         <td>
-            <button onclick="addBooking()">Add</button>
+            <button type="submit" onclick="addBooking()">Add</button>
         </td>
     </tr>
 </table>
-
+</form>
 <script>
     function updateEndDateOnChange() {
         const startDate = new Date(document.getElementById('startDate').value)
@@ -114,8 +115,11 @@
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
         const roomType = document.getElementById('roomTypeBox').value;
+        const extraBedBox = document.getElementById('extraBedsBox');
+        const amountOfBeds = extraBedBox.value !== 'Choose extra beds'? extraBedBox.value: '0';
+        console.log(amountOfBeds)
 
-        window.location.href = "/bookings/add/" + customerID + "/" + startDate + "/" + endDate + "/" + roomType;
+        window.location.href = "/bookings/search/" + customerID + "/" + startDate + "/" + endDate + "/" + roomType + "/" + amountOfBeds;
     }
 
     function addBooking() {
@@ -124,7 +128,6 @@
         const endDate = document.getElementById('endDate').value;
         const extraBeds = document.getElementById('extraBedsBox').value;
         const roomNo = document.getElementById('roomNumberBox').value;
-        console.log(roomNo);
 
         window.location.href = "/bookings/add/" + customerID + "/" + startDate + "/" + endDate + "/" + extraBeds + "/" + roomNo
     }

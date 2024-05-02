@@ -16,9 +16,9 @@ import java.time.LocalDate;
 public class RoomSearchDTO {
     private LocalDate startDate;
     private LocalDate endDate;
-    private int roomType;
+    private String roomType;
 
     public RoomType getRoomType() {
-        return RoomType.getRoomType(roomType);
+        return RoomType.getRoomTypeByString(roomType);
     }
 }

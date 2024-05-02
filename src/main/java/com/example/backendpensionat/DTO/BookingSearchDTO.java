@@ -17,5 +17,6 @@ public class BookingSearchDTO {
     private CustomerDetailedDTO customer;
     private LocalDate startDate;
     private LocalDate endDate;
+    private Integer amountOfBeds;
     private RoomType roomType;
 }
