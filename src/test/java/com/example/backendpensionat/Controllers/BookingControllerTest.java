@@ -20,6 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -61,7 +63,7 @@ class BookingControllerTest {
     @Test
     void TestUpdateBookingPost() throws Exception {
         BookingDetailedDTO bookingDetailedDTO = new BookingDetailedDTO();
-        mockMvc.perform(post("/bookings/update").param("").param("")).andDo(print())
+        mockMvc.perform(post("/bookings/update")).andDo(print())
                 .andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/bookings"));
 
     }
@@ -73,12 +75,16 @@ class BookingControllerTest {
     //Filip
     @Test
     void TestAddBooking() throws Exception{
-        int customerId = 1;
-        String startDate = "2024-05-02";
-        String endDate = "2024-05-04";
+        Long customerId = 1L;
+        LocalDate startDate = LocalDate.of(2024,5,2);
+        LocalDate endDate = LocalDate.of(2024,5,3);
         int extraBeds = 1;
         int roomNumber = 2;
-        this.mockMvc.perform(get("/bookings/add/"+customerId+"/"+startDate+"/"+endDate+"/"+extraBeds+"/"+roomNumber))
-                .andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("Bookings")));
+        this.mockMvc.perform(get("/bookings/add/{customerId}/{startDate}/{endDate}/{extraBeds}/{roomNo}"
+                        , customerId,startDate,endDate,extraBeds,roomNumber))
+                .andDo(print()).andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/bookings"));
     }
+
+
 }
