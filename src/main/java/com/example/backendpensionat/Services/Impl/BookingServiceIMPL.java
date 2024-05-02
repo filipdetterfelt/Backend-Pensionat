@@ -7,10 +7,10 @@ import com.example.backendpensionat.Repos.CustomerRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
 import com.example.backendpensionat.Services.BookingService;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Data
@@ -71,15 +71,11 @@ public class BookingServiceIMPL implements BookingService {
 
     @Override
     public BookingDetailedDTO findBookingById(Long id) {
-        return bDetailedToDTO(bookingRepo.findById(id).orElse(null));
+        return bDetailedToDTO(Objects.requireNonNull(bookingRepo.findById(id).orElse(null)));
     }
 
     @Override
     public void updateBooking(BookingDetailedDTO bookingDTO) {
-//        Booking existingBooking = bookingRepo.findById(bookingDTO.getId()).orElse(null);
-//        existingBooking.setStartDate(bookingDTO.getStartDate());
-//        existingBooking.setEndDate(bookingDTO.getEndDate());
-//        existingBooking.setAmountOfBeds(bookingDTO.getAmountOfBeds());
         bookingRepo.save(detailToBooking(bookingDTO));
     }
 

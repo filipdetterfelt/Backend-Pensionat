@@ -1,6 +1,5 @@
 package com.example.backendpensionat.Enums;
 
-import com.example.backendpensionat.Models.Room;
 import lombok.Getter;
 
 @Getter

@@ -3,7 +3,6 @@ package com.example.backendpensionat.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Builder
 @Data
