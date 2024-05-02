@@ -21,7 +21,7 @@ public class Room {
     private Long id;
     private Long roomNumber;
 
-   // @Pattern(regexp = "[0-9.]+", message = "Price can only include digits and dots")
+    //@Pattern(regexp = "[0-9.]+", message = "Price can only include digits and dots")
     private Double price;
     //@Pattern(regexp = "[0-9]+", message = "size can only include digits")
     private RoomType roomType;
