@@ -28,7 +28,7 @@
     <input type="hidden" id="bookingId" th:field="*{id}"/>
 
     <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" th:field="*{startDate}" required/><br><br>
+    <input type="date" id="startDate" th:field="*{startDate}"  onchange="updateEndDateOnChange()" required/><br><br>
 
     <label for="endDate">End Date:</label>
     <input type="date" id="endDate" onchange="refreshPage()" name="endDate" th:field="*{endDate}" required/><br><br>
@@ -49,6 +49,16 @@
     <input type="submit" value="Save Changes"/>
 </form>
 <script>
+    function updateEndDateOnChange() {
+        const startDate = new Date(document.getElementById('startDate').value)
+        startDate.setDate(startDate.getDate() + 1)
+
+        const minDate = startDate.toISOString().split("T")[0]
+        const endDate = document.getElementById('endDate');
+        endDate.setAttribute('min', minDate)
+        endDate.value = minDate;
+    }
+
     function updateExtraBeds() {
         const maxAmountOfBeds = document.getElementById('amountOfBeds');
         const currentExtraBeds = parseInt(maxAmountOfBeds.value)
@@ -83,8 +93,6 @@
         roomTypeBox.textContent = ""
 
     }
-
-
 </script>
 </body>
 </html>
