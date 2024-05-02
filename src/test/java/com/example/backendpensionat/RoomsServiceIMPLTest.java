@@ -3,13 +3,10 @@ package com.example.backendpensionat;
 import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Enums.RoomType;
 import com.example.backendpensionat.Models.Booking;
-import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Repos.BookingRepo;
-import com.example.backendpensionat.Repos.CustomerRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
 import com.example.backendpensionat.Services.BookingService;
-import com.example.backendpensionat.Services.Impl.BookingServiceIMPL;
 import com.example.backendpensionat.Services.Impl.RoomServiceIMPL;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,46 +39,19 @@ public class RoomsServiceIMPLTest {
     @InjectMocks
     private RoomServiceIMPL serviceIMPL = new RoomServiceIMPL(bookingRepo,roomRepo,bookingService);
 
-    long bookingId = 1L;
-    int amountOfBeds = 2;
-    double totalPrice = 1000;
-    LocalDate startDate = LocalDate.now();
-    LocalDate endDate = LocalDate.of(2024,5,02);
 
-    long customerId = 1L;
-    String firstname = "Sven";
-    String lastname = "Svensson";
-    String mail = "sven.svensson@test.se";
-    String phone = "071223231";
-    String ssn = "1321532153";
 
     long roomId = 1L;
     long roomNumber = roomId;
     double price = 1000;
-    RoomDTO roomDTO;
+
     List<BookingDTO> bookingDTOList = new ArrayList<>();
     List<Booking> bookingList = new ArrayList<>();
-    CustomerDTO customerDTO;
 
-
-    Customer customer = new Customer(customerId,firstname,lastname,mail,phone,ssn,bookingList);
     Room room = new Room(roomId,roomNumber,price, RoomType.DOUBLE,bookingList);
-    Booking booking = new Booking(bookingId,amountOfBeds,totalPrice,startDate,endDate,customer,room);
 
-    BookingDetailedDTO bookingDetailedDTO = BookingDetailedDTO.builder().id(bookingId)
-            .amountOfBeds(amountOfBeds).totalPrice(totalPrice).startDate(startDate).endDate(endDate).build();
 
     RoomDetailedDTO roomDetailedDTO = new RoomDetailedDTO(roomId,roomNumber,price,RoomType.DOUBLE,bookingDTOList);
-
-    BookingDTO bookingDTO1 = new BookingDTO(1L);
-    BookingDTO bookingDTO2 = new BookingDTO(2L);
-    BookingDTO bookingDTO3 = new BookingDTO(3L);
-
-    //BookingDetailedDTO bookingDetailedDTO1 = new BookingDetailedDTO(bookingId,amountOfBeds,totalPrice,startDate,endDate,"",roomDetailedDTO,customerDTO);
-
-
-    //List<BookingDTO> bookingDTOList = Arrays.asList(bookingDTO1,bookingDTO2,bookingDTO3);
-    //RoomDetailedDTO roomDetailedDTO = RoomDetailedDTO.builder().id
 
 
     @Test

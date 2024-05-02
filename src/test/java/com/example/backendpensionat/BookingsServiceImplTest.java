@@ -97,17 +97,6 @@ public class BookingsServiceImplTest {
         assertEquals(actual.getCustomerDTO().getId(),booking.getCustomer().getId());
     }
 
-    /*@Override
-    public Booking detailToBooking(BookingDetailedDTO bookDTO) {
-
-        return Booking.builder().Id(bookDTO.getId())
-                .amountOfBeds(bookDTO.getAmountOfBeds())
-                .totalPrice(bookDTO.getTotalPrice())
-                .startDate(bookDTO.getStartDate())
-                .endDate(bookDTO.getEndDate())
-                .customer(customerRepo.findById(bookDTO.getCustomerDTO().getId()).orElse(null))
-                .room(roomRepo.findById(bookDTO.getRoomDTO().getId()).orElse(null)).build();
-    }*/
     @Test
     void bookingDetailedToBooking(){
         BookingServiceIMPL service2 = new BookingServiceIMPL(customerRepo , bookingRepo, roomRepo);
