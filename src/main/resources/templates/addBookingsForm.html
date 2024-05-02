@@ -64,20 +64,20 @@
         </td>
         <td>
             <label>
-                <select id="roomTypeBox" onchange="updateExtraBeds()">
+                <select id="roomTypeBox" onchange="searchRooms()">
                     <option th:text="${bookingSearch != null ? bookingSearch.roomType : 'Choose room type'}" value="">
                     </option>
-                    <option th:each="room: ${roomsList}"
-                            th:value="${room.getId()}"
-                            th:text="${room.getRoomType()}">
+                    <option th:each="type: ${roomTypeList}"
+                            th:value="${type}"
+                            th:text="${type}">
                     </option>
                 </select>
             </label>
         </td>
         <td>
             <label>
-                <select id="extraBedsBox" name="amountOfBeds" onchange="searchRooms()">
-                    <option th:text="${bookingSearch != null ? bookingSearch.roomType.getExtraBeds() : 'Choose extra beds'}"></option>
+                <select id="extraBedsBox" name="amountOfBeds" >
+                    <option>Choose extra bed</option>
                 </select>
             </label>
         </td>
@@ -130,18 +130,28 @@
     }
 
     function updateExtraBeds() {
-        const roomType = parseInt(document.getElementById('roomTypeBox').value)
+        const roomType = document.getElementById('roomTypeBox').options[0].textContent
         const extraBedsBox = document.getElementById('extraBedsBox')
+        console.log(roomType)
 
-        if (roomType === 1) {
-            extraBedsBox.disabled = true
-        } else {
-            extraBedsBox.disabled = false
+        let max = 0;
+
+        switch (roomType) {
+            case "DOUBLE":
+                max = 1;
+                break;
+            case "SUITE":
+                max = 2;
+                break;
+            default:
+                max = 0;
         }
+
+        // extraBedsBox.disabled = roomType === 1;
 
         document.querySelectorAll('.appendedOption').forEach(option => extraBedsBox.removeChild(option))
 
-        for(let i = 0; i < roomType; i++) {
+        for(let i = 0; i <= max; i++) {
             const option = document.createElement("option")
             option.className = 'appendedOption'
             option.innerText = i.toString()
@@ -149,6 +159,8 @@
             extraBedsBox.appendChild(option)
         }
     }
+
+    document.addEventListener("DOMContentLoaded", updateExtraBeds);
 </script>
 </body>
 </html>

@@ -41,9 +41,12 @@ public class BookingController {
     public String addBookings(Model model) {
         if (!model.containsAttribute("bookingSearch")) {
             model.addAttribute("roomsList", roomService.listAllRooms());
-            model.addAttribute("customersList", customerService.listAllCustomers());
             model.addAttribute("bookings", new BookingDetailedDTO());
         }
+        model.addAttribute("customersList", customerService.listAllCustomers());
+
+        List<RoomType> roomTypeList = List.of(RoomType.SINGLE, RoomType.DOUBLE, RoomType.SUITE);
+        model.addAttribute("roomTypeList", roomTypeList);
 
         return "addBookingsForm";
     }
@@ -99,16 +102,17 @@ public class BookingController {
             @PathVariable Long id,
             @PathVariable LocalDate startDate,
             @PathVariable LocalDate endDate,
-            @PathVariable int roomType,
+            @PathVariable String roomType,
             RedirectAttributes rda) {
 
         CustomerDetailedDTO customer = customerService.findCustomerById(id);
-        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, RoomType.getRoomType(roomType - 1));
-        RoomSearchDTO roomSearch = new RoomSearchDTO(startDate, endDate, RoomType.getRoomType(roomType - 1).getExtraBeds());
-        List<RoomDetailedDTO> roomList = roomService.listFreeRooms(roomSearch);
+        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, RoomType.getRoomTypeByString(roomType));
+        List<RoomDetailedDTO> roomList = roomService.listFreeRoomsByRoomType(bookingSearch);
 
         rda.addFlashAttribute("bookingSearch", bookingSearch);
         rda.addFlashAttribute("roomsList", roomList);
+
+        System.out.println(roomType);
 
         return "redirect:/bookings/addBookings";
     }

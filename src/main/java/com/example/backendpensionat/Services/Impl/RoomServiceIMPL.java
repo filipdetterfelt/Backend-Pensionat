@@ -1,9 +1,6 @@
 package com.example.backendpensionat.Services.Impl;
 
-import com.example.backendpensionat.DTO.BookingDTO;
-import com.example.backendpensionat.DTO.RoomDTO;
-import com.example.backendpensionat.DTO.RoomDetailedDTO;
-import com.example.backendpensionat.DTO.RoomSearchDTO;
+import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
@@ -44,6 +41,31 @@ public class RoomServiceIMPL implements RoomService {
     public List<RoomDetailedDTO> listFreeRooms(RoomSearchDTO roomSearch) {
         String jpqlQuery = "SELECT r FROM Room r " +
                 "WHERE r.roomType >= :roomType " +
+                "AND NOT EXISTS (" +
+                "SELECT b FROM Booking b " +
+                "WHERE b.room = r " +
+                "AND b.startDate <= :endDate " +
+                "AND b.endDate >= :startDate)";
+
+
+        return entityManager.createQuery(jpqlQuery, Room.class)
+                .setParameter("startDate", roomSearch.getStartDate())
+                .setParameter("endDate", roomSearch.getEndDate())
+                .setParameter("roomType", roomSearch.getRoomType())
+                .getResultList().stream().map(room -> RoomDetailedDTO.builder()
+                        .id(room.getId())
+                        .roomNumber(room.getRoomNumber())
+                        .price(room.getPrice())
+                        .roomType(room.getRoomType())
+                        .bookings(room.getBookings().stream().map(bookingService::bookingToDTO).toList())
+                        .build())
+                .toList();
+    }
+
+    @Override
+    public List<RoomDetailedDTO> listFreeRoomsByRoomType(BookingSearchDTO roomSearch) {
+        String jpqlQuery = "SELECT r FROM Room r " +
+                "WHERE r.roomType = :roomType " +
                 "AND NOT EXISTS (" +
                 "SELECT b FROM Booking b " +
                 "WHERE b.room = r " +

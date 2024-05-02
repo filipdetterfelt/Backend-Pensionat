@@ -22,4 +22,12 @@ public enum RoomType {
             default -> RoomType.SINGLE;
         };
     }
+
+    public static RoomType getRoomTypeByString(String type) {
+        return switch(type) {
+            case "DOUBLE" -> RoomType.DOUBLE;
+            case "SUITE" -> RoomType.SUITE;
+            default -> RoomType.SINGLE;
+        };
+    }
 }
