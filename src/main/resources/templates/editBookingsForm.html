@@ -34,8 +34,8 @@
     <input type="date" id="endDate" onchange="refreshPage()" name="endDate" th:field="*{endDate}" required/><br><br>
 
     <label for="roomType">Room:</label>
-    <select id="roomType" onchange="updateExtraBeds()" th:field="*{roomNumber}">
-        <option th:text="${booking.room.getRoomNumber() + ' - ' + booking.room.roomType}" value="">
+    <select id="roomType" onmousedown="clearDropDown()" onchange="updateExtraBeds()" th:field="*{roomNumber}">
+        <option id="roomTypeOption" th:text="${booking.room.getRoomNumber() + ' - ' + booking.room.roomType}" value="">
         </option>
         <option th:each="room: ${listFreeRooms}"
                 th:value="${room.getRoomNumber() + ' - ' + room.getRoomType()}"
@@ -76,6 +76,12 @@
         const endDate = document.getElementById('endDate').value;
 
         window.location.href = "/bookings/edit/refresh/" + startDate + "/" + endDate + "/" + bookingId;
+    }
+
+    function clearDropDown() {
+        const roomTypeBox = document.getElementById('roomTypeOption')
+        roomTypeBox.textContent = ""
+
     }
 
 
