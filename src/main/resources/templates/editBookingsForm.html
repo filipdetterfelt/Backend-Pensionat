@@ -28,7 +28,7 @@
     <input type="hidden" id="bookingId" th:field="*{id}"/>
 
     <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" th:field="*{startDate}"  onchange="updateEndDateOnChange()" required/><br><br>
+    <input type="date" id="startDate" th:field="*{startDate}"  onchange="updateEndDateOnChange(); refreshPage()" required/><br><br>
 
     <label for="endDate">End Date:</label>
     <input type="date" id="endDate" onchange="refreshPage()" name="endDate" th:field="*{endDate}" required/><br><br>
