@@ -42,7 +42,7 @@
         font-style: normal;
         text-decoration: none;
     }
-    .addbtn{
+    .addBtn{
         width: 300px;
         height: 40px;
         margin-top: 10px;
@@ -82,7 +82,7 @@
             <td th:text="${bookings.getEndDate()}"></td>
             <td th:text="${bookings.getRoom().getRoomType()}"></td>
             <td th:text="${bookings.getAmountOfBeds()}"></td>
-            <td><button th:data-url="'/bookings/' + ${bookings.getId()} + '/edit'"
+            <td><button th:data-url="'/bookings/edit/' + ${bookings.getId()}"
                         onclick="window.location.href = this.getAttribute('data-url')">Edit</button></td>
             <td><button th:data-url="'/bookings/' + ${bookings.getId()} + '/delete'"
                         onclick="window.location.href = this.getAttribute('data-url')">Delete</button></td>
@@ -90,12 +90,14 @@
 
     </table>
     <div class="add">
-        <button class="addbtn" th:data-url="'/bookings/addBookings'"
-                onclick="window.location.href = this.getAttribute('data-url')">Add booking</button>
+        <button class="addBtn" onclick="addBooking()">Add booking</button>
     </div>
 </div>
 
 <script>
+    function addBooking() {
+        window.location.href = "/bookings/add"
+    }
 </script>
 
 </body>
