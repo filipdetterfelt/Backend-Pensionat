@@ -10,29 +10,32 @@
         width: 200px;
         background-color: lightgrey;
     }
+
     th {
         background-color: black;
         color: whitesmoke;
         width: 200px;
     }
+
     select {
         width: 175px;
     }
 
-    .header
-    {
+    .header {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
-    .links{
+
+    .links {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 20px;
     }
-    a{
+
+    a {
         width: 125px;
         height: 25px;
         padding-top: 5px;
@@ -57,76 +60,85 @@
 
 <div class="header">
     <h3>Add Bookings</h3>
-<table>
-    <tr>
-        <th>Customer:</th>
-        <th>From:</th>
-        <th>To:</th>
-        <th>Room Type:</th>
-        <th>Extra beds:</th>
-        <th>Room Number:</th>
-        <th>Add</th>
-    </tr>
+    <form id="form" action="/bookings/add/save" method="post">
+        <table>
+            <tr>
+                <th>Customer:</th>
+                <th>From:</th>
+                <th>To:</th>
+                <th>Room Type:</th>
+                <th>Extra beds:</th>
+                <th>Room Number:</th>
+                <th>Add</th>
+            </tr>
 
-    <tr>
-        <td>
-            <label>
-                <select name="customerInfo" id="customerBox">
-                    <option th:value="${bookingSearch != null? bookingSearch.customer.id: ''}"
-                            th:text="${bookingSearch != null ? bookingSearch.customer.id + ': ' + bookingSearch.customer.firstName + ' ' + bookingSearch.customer.lastName : 'Choose customer'}" value="">
-                    </option>
-                    <option th:each="customer : ${customersList}"
-                            th:value="${customer.id}"
-                            th:text="${customer.id + ': ' + customer.firstName + ' ' + customer.lastName}">
-                    </option>
-                </select>
-            </label>
-        </td>
-        <td>
-            <label for="startDate">
-                <input type="date" name="startDate" id="startDate" th:value="${bookingSearch != null ? bookingSearch.startDate: ''}" onchange="updateEndDateOnChange()" required>
-            </label>
-        </td>
-        <td>
-            <label for="endDate">
-                <input type="date" name="endDate" th:value="${bookingSearch != null ? bookingSearch.endDate: ''}" id="endDate" required>
-            </label>
-        </td>
-        <td>
-            <label>
-                <select id="roomTypeBox" onmousedown="clearDropDown()" onchange="searchRooms()">
-                    <option id="roomTypeSearch" th:text="${bookingSearch != null ? bookingSearch.roomType : 'Choose room type'}" value="">
-                    </option>
-                    <option th:each="type: ${roomTypeList}"
-                            th:value="${type}"
-                            th:text="${type}">
-                    </option>
-                </select>
-            </label>
-        </td>
-        <td>
-            <label>
-                <select id="extraBedsBox" name="amountOfBeds" >
-                    <option>Choose extra bed</option>
-                </select>
-            </label>
-        </td>
-        <td>
-            <label>
-                <select id="roomNumberBox">
-                    <option>Room Number</option>
-                    <option th:each="room: ${roomsList}"
-                            th:value="${room.getId()}"
-                            th:text="${room.getRoomNumber()}">
-                    </option>
-                </select>
-            </label>
-        </td>
-        <td>
-            <button onclick="addBooking()">Add</button>
-        </td>
-    </tr>
-</table>
+            <tr>
+                <td>
+                    <label>
+                        <select name="customerInfo" id="customerBox">
+                            <option th:value="${bookingSearch != null? bookingSearch.customer.id: ''}"
+                                    th:text="${bookingSearch != null ? bookingSearch.customer.id + ': ' + bookingSearch.customer.firstName + ' ' + bookingSearch.customer.lastName : 'Choose customer'}"
+                                    value="">
+                            </option>
+                            <option th:each="customer : ${customersList}"
+                                    th:value="${customer.id}"
+                                    th:text="${customer.id + ': ' + customer.firstName + ' ' + customer.lastName}">
+                            </option>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <label for="startDate">
+                        <input type="date" name="startDate" id="startDate"
+                               th:value="${bookingSearch != null ? bookingSearch.startDate: ''}"
+                               onchange="updateEndDateOnChange()" required>
+                    </label>
+                </td>
+                <td>
+                    <label for="endDate">
+                        <input type="date" name="endDate"
+                               th:value="${bookingSearch != null ? bookingSearch.endDate: ''}"
+                               id="endDate" required>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <select id="roomTypeBox" name="roomType" onmousedown="clearDropDown()" onchange="alternativeSubmit()">
+                            <option id="roomTypeSearch"
+                                    th:text="${bookingSearch != null ? bookingSearch.roomType : 'Choose room type'}"
+                                    value="">
+                            </option>
+                            <option th:each="type: ${roomTypeList}"
+                                    th:value="${type}"
+                                    th:text="${type}">
+                            </option>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <select id="extraBedsBox" name="amountOfBeds">
+                            <option>Choose extra bed</option>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <select id="roomNumberBox" name="roomNumber">
+                            <option>Room Number</option>
+                            <option th:each="room: ${roomsList}"
+                                    th:value="${room.getId()}"
+                                    th:text="${room.getRoomNumber()}">
+                            </option>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <button type=submit>Add</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>
 </body>
 
@@ -141,25 +153,10 @@
         endDate.value = minDate;
     }
 
-    function searchRooms() {
-        const customerID = document.getElementById('customerBox').value;
-        const startDate = document.getElementById('startDate').value;
-        const endDate = document.getElementById('endDate').value;
-        const roomType = document.getElementById('roomTypeBox').value;
-
-        window.location.href = "/bookings/add/" + customerID + "/" + startDate + "/" + endDate + "/" + roomType;
-    }
-
-    function addBooking() {
-        const customerID = document.getElementById('customerBox').value;
-        const startDate = document.getElementById('startDate').value;
-        const endDate = document.getElementById('endDate').value;
-        const extraBedsBox = document.getElementById('extraBedsBox');
-        const extraBeds = extraBedsBox.value === "Choose extra bed" ? 0 : extraBedsBox.value;
-        const roomNo = document.getElementById('roomNumberBox').value;
-        console.log(roomNo);
-
-        window.location.href = "/bookings/add/" + customerID + "/" + startDate + "/" + endDate + "/" + extraBeds + "/" + roomNo
+    function alternativeSubmit() {
+        const form = document.getElementById('form')
+        form.action = '/bookings/add/refresh'
+        form.submit()
     }
 
     function updateExtraBeds() {
@@ -184,7 +181,7 @@
 
         document.querySelectorAll('.appendedOption').forEach(option => extraBedsBox.removeChild(option))
 
-        for(let i = 0; i <= max; i++) {
+        for (let i = 0; i <= max; i++) {
             const option = document.createElement("option")
             option.className = 'appendedOption'
             option.innerText = i.toString()
