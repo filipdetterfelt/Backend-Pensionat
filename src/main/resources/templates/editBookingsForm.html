@@ -70,18 +70,18 @@
     </div>
 </div>
 <div><h3>Edit Bookings</h3></div>
-<form action="/bookings/update" th:object="${booking}" method="post">
-    <input type="hidden" id="bookingId" th:field="*{id}"/>
+<form id="form" action="/bookings/edit/save" th:object="${booking}" method="post">
+    <input type="hidden" name="bookingId" id="bookingId" th:field="*{id}"/>
 
     <label for="startDate">Start Date:</label><br>
-    <input type="date" id="startDate" th:field="*{startDate}"  onchange="updateEndDateOnChange(); refreshPage()" required/><br><br>
+    <input type="date" id="startDate" name="startDate" th:field="*{startDate}"  onchange="updateEndDateOnChange(); alternativeSubmit()" required/><br><br>
 
     <label for="endDate">End Date:</label><br>
-    <input type="date" id="endDate" onchange="refreshPage()" name="endDate" th:field="*{endDate}" required/><br><br>
+    <input type="date" id="endDate" onchange="alternativeSubmit()" name="endDate" th:field="*{endDate}" required/><br><br>
 
     <label for="roomType">Room:</label><br>
     <select id="roomType" onmousedown="clearDropDown()" onchange="updateExtraBeds()" th:field="*{roomNumber}">
-        <option id="roomTypeOption" th:text="${booking.room.getRoomNumber() + ' - ' + booking.room.roomType}" value="">
+        <option id="roomTypeOption" th:text="${booking.room != null ? booking.room.getRoomNumber() + ' - ' + booking.room.roomType : ' '}" value="">
         </option>
         <option th:each="room: ${listFreeRooms}"
                 th:value="${room.getRoomNumber() + ' - ' + room.getRoomType()}"
@@ -126,12 +126,10 @@
         }
     }
 
-    function refreshPage() {
-        const bookingId = document.getElementById('bookingId').value;
-        const startDate = document.getElementById('startDate').value;
-        const endDate = document.getElementById('endDate').value;
-
-        window.location.href = "/bookings/edit/refresh/" + startDate + "/" + endDate + "/" + bookingId;
+    function alternativeSubmit() {
+        const form = document.getElementById('form')
+        form.action = '/bookings/edit/refresh'
+        form.submit()
     }
 
     function clearDropDown() {
