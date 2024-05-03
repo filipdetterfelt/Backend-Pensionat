@@ -1,7 +1,6 @@
 package com.example.backendpensionat.Controllers;
 
-import com.example.backendpensionat.DTO.BookingDetailedDTO;
-import com.example.backendpensionat.Enums.RoomType;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,11 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import java.time.LocalDate;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -34,7 +31,7 @@ class BookingControllerTest {
 
     @Test
     void TestDeleteBookingById() throws Exception {
-        Long tempId = 1L;
+        long tempId = 1L;
         this.mockMvc.perform(get("/bookings/"+ tempId+"/delete")).andDo(print()).andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/bookings"));
     }
@@ -49,7 +46,7 @@ class BookingControllerTest {
 
     @Test
     void TestEditBookingById() throws Exception {
-        Long tempId = 1L;
+        long tempId = 1L;
         this.mockMvc.perform(get("/bookings/edit/" + tempId)).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Edit Bookings")));
     }
