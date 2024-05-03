@@ -1,13 +1,19 @@
 package com.example.backendpensionat.Controllers;
 
+import com.example.backendpensionat.DTO.BookingDetailedDTO;
+import com.example.backendpensionat.Enums.RoomType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 import java.time.LocalDate;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -35,7 +41,7 @@ class BookingControllerTest {
 
     @Test
     void TestAddBookings() throws Exception {
-        this.mockMvc.perform(get("/bookings/addBookings"))
+        this.mockMvc.perform(get("/bookings/add"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("<option value=\"3\">3: Karin Nilsson</option>")));
@@ -44,7 +50,7 @@ class BookingControllerTest {
     @Test
     void TestEditBookingById() throws Exception {
         Long tempId = 1L;
-        this.mockMvc.perform(get("/bookings/"+tempId+"/edit")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(get("/bookings/edit/" + tempId)).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Edit Bookings")));
     }
 
@@ -52,39 +58,54 @@ class BookingControllerTest {
     void TestEditRefresh() throws Exception {
         LocalDate startDate = LocalDate.of(2024, 5, 1);
         LocalDate endDate = LocalDate.of(2024, 5, 6);
-        Long bookingId = 1L;
+        long bookingId = 1L;
 
-        this.mockMvc.perform(get("/bookings/edit/refresh/{startDate}/{endDate}/{bookingId}", startDate, endDate, bookingId))
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/bookings/edit/refresh")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("startDate", startDate.toString())
+                        .param("endDate", endDate.toString())
+                        .param("id", String.valueOf(bookingId)))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/bookings/" + bookingId + "/edit"));
-
+                .andExpect(redirectedUrl("/bookings/edit/" + bookingId));
     }
+
 
     @Test
     void TestSearchRoom() throws Exception {
-        Long id = 1L;
-        LocalDate startDate = LocalDate.of(2024, 5, 1);
-        LocalDate endDate = LocalDate.of(2024, 5, 6);
-        int roomType = 0;
+        String customerInfo = "1: Anna Svensson";
+        String startDate = "2024-05-01";
+        String endDate = "2024-05-06";
+        String roomType = "SINGLE";
 
-
-        this.mockMvc.perform(get("/bookings/add/{id}/{startDate}/{endDate}/{roomType}", id, startDate, endDate, roomType))
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/bookings/add/refresh")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("customerInfo", customerInfo)
+                        .param("startDate", startDate)
+                        .param("endDate", endDate)
+                        .param("roomType", roomType))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/bookings/addBookings"));
+                .andExpect(redirectedUrl("/bookings/add"));
     }
 
     @Test
     void TestAddBooking() throws Exception{
-        Long customerId = 1L;
-        LocalDate startDate = LocalDate.of(2024,5,2);
-        LocalDate endDate = LocalDate.of(2024,5,3);
-        int extraBeds = 1;
-        int roomNumber = 2;
-        this.mockMvc.perform(get("/bookings/add/{customerId}/{startDate}/{endDate}/{extraBeds}/{roomNo}"
-                        , customerId,startDate,endDate,extraBeds,roomNumber))
-                .andDo(print()).andExpect(status().is3xxRedirection())
+        String customerInfo = "1: Anna Svensson";
+        String startDate = "2024-05-02";
+        String endDate = "2024-05-03";
+        String amountOfBeds = "1";
+        String roomNumber = "1";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/bookings/add/save")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("customerInfo", customerInfo)
+                        .param("startDate", startDate)
+                        .param("endDate", endDate)
+                        .param("amountOfBeds", amountOfBeds)
+                        .param("roomNumber", roomNumber))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/bookings"));
     }
 }
