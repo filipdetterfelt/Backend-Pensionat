@@ -73,7 +73,7 @@
 <form action="/bookings/update" th:object="${booking}" method="post">
     <input type="hidden" id="bookingId" th:field="*{id}"/>
 
-    <label for="startDate">Start Date:</label>
+    <label for="startDate">Start Date:</label><br>
     <input type="date" id="startDate" th:field="*{startDate}"  onchange="updateEndDateOnChange(); refreshPage()" required/><br><br>
 
     <label for="endDate">End Date:</label><br>
