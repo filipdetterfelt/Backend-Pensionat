@@ -8,13 +8,10 @@ import com.example.backendpensionat.Services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
 import java.util.List;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,7 +33,7 @@ public class BookingController {
         return "redirect:/bookings";
     }
 
-    @GetMapping("/bookings/addBookings")
+    @GetMapping("/bookings/add")
     public String addBookings(Model model) {
         if (!model.containsAttribute("bookingSearch")) {
             model.addAttribute("roomsList", roomService.listAllRooms());
@@ -50,16 +47,16 @@ public class BookingController {
         return "addBookingsForm";
     }
 
-    @GetMapping("/bookings/add/{id}/{startDate}/{endDate}/{roomType}")
-    public String searchRoom(
-            @PathVariable Long id,
-            @PathVariable LocalDate startDate,
-            @PathVariable LocalDate endDate,
-            @PathVariable String roomType,
+    @PostMapping("/bookings/add/refresh")
+    public String refreshRoomBox(
+            @RequestParam("customerInfo") String id,
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("roomType") RoomType roomType,
             RedirectAttributes rda) {
 
-        CustomerDetailedDTO customer = customerService.findCustomerById(id);
-        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, RoomType.getRoomTypeByString(roomType));
+        CustomerDetailedDTO customer = customerService.findCustomerById(Long.parseLong(id.split(": ")[0]));
+        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, roomType);
         List<RoomDetailedDTO> roomList = roomService.listFreeRoomsByRoomType(bookingSearch);
 
         rda.addFlashAttribute("bookingSearch", bookingSearch);
@@ -67,16 +64,18 @@ public class BookingController {
 
         System.out.println(roomType);
 
-        return "redirect:/bookings/addBookings";
+        return "redirect:/bookings/add";
     }
 
-    @GetMapping("/bookings/add/{customerId}/{startDate}/{endDate}/{extraBeds}/{roomNo}")
-    public String addBooking(
-            @PathVariable Long customerId,
-            @PathVariable LocalDate startDate,
-            @PathVariable LocalDate endDate,
-            @PathVariable int extraBeds,
-            @PathVariable Long roomNo) {
+    @PostMapping("/bookings/add/save")
+    public String saveBooking(
+            @RequestParam("customerInfo") String id,
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("amountOfBeds") int extraBeds,
+            @RequestParam("roomNumber") Long roomNo) {
+        Long customerId = Long.parseLong(id.split(": ")[0]);
+
         CustomerDTO customer = CustomerDTO.builder().id(customerId).build();
         RoomDetailedDTO room = roomService.findRoomById(roomNo);
 
@@ -93,7 +92,7 @@ public class BookingController {
         return "redirect:/bookings";
     }
 
-    @GetMapping("/bookings/{id}/edit")
+    @GetMapping("/bookings/edit/{id}")
     public String editBookingById(@PathVariable Long id, Model model) {
         BookingDetailedDTO bookingDTO = bookingService.findBookingById(id);
         RoomSearchDTO roomSearch = new RoomSearchDTO(bookingDTO.getStartDate(), bookingDTO.getEndDate(), 0);
@@ -103,30 +102,22 @@ public class BookingController {
             model.addAttribute("listFreeRooms", listFreeRooms);
             model.addAttribute("booking", bookingDTO);
         }
-
         return "editBookingsForm";
     }
 
-    @GetMapping("/bookings/edit/refresh/{startDate}/{endDate}/{bookingId}")
-        public String editRefresh(
-                @PathVariable LocalDate startDate,
-                @PathVariable LocalDate endDate,
-                @PathVariable Long bookingId,
-                RedirectAttributes rda) {
-
-            RoomSearchDTO roomSearch = new RoomSearchDTO(startDate, endDate, 0);
-            BookingDetailedDTO booking = bookingService.findBookingById(bookingId);
-            booking.setStartDate(startDate);
-            booking.setEndDate(endDate);
+    @PostMapping("/bookings/edit/refresh")
+        public String editRefresh(@ModelAttribute BookingDetailedDTO booking, RedirectAttributes rda) {
+            RoomSearchDTO roomSearch = new RoomSearchDTO(booking.getStartDate(), booking.getEndDate(), 0);
             List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
+
             rda.addFlashAttribute("listFreeRooms", listFreeRooms);
             rda.addFlashAttribute("refreshed", true);
             rda.addFlashAttribute("booking", booking);
 
-            return "redirect:/bookings/" + bookingId + "/edit";
+            return "redirect:/bookings/edit/" + booking.getId();
         }
 
-    @PostMapping("/bookings/update")
+    @PostMapping("/bookings/edit/save")
     public String updateBookingPost(@ModelAttribute("booking") BookingDetailedDTO bookingDTO) {
         String roomNo = bookingDTO.getRoomNumber().split(" - ")[0];
         RoomDetailedDTO room = roomService.findRoomNumber(Long.parseLong(roomNo));
@@ -138,8 +129,4 @@ public class BookingController {
         bookingService.updateBooking(bookingDTO);
         return "redirect:/bookings";
     }
-
-
-
-
 }
