@@ -18,15 +18,45 @@
     select {
         width: 175px;
     }
+
+    .header
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .links{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+    a{
+        width: 125px;
+        height: 25px;
+        padding-top: 5px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-family: Arial;
+        font-style: normal;
+        text-decoration: none;
+    }
 </style>
 <body>
 <div class="header">
     <h1>Pensionat Koriander !</h1>
-    <a th:href="@{/customers}">Customer</a>
-    <a th:href="@{/bookings}">Booking</a>
-    <a th:href="@{/rooms}">Room</a>
+    <div class="links">
+        <a th:href="@{/customers}">Customer</a>
+        <a th:href="@{/bookings}">Booking</a>
+        <a th:href="@{/rooms}">Room</a>
+    </div>
 </div>
-<div><h3>Add Bookings</h3></div>
+
+<div class="header">
+    <h3>Add Bookings</h3>
 <table>
     <tr>
         <th>Customer:</th>
@@ -97,6 +127,8 @@
         </td>
     </tr>
 </table>
+</div>
+</body>
 
 <script>
     function updateEndDateOnChange() {

@@ -9,29 +9,63 @@
         text-align: center;
         width: 200px;
         background-color: lightgrey;
+        font-family: Arial;
     }
     th {
         background-color: black;
+        font-family: Arial;
         color: whitesmoke;
         width: 200px;
+    }
+    .header , .table
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .links{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+    a{
+        width: 125px;
+        height: 25px;
+        padding-top: 5px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-family: Arial;
+        font-style: normal;
+        text-decoration: none;
+    }
+    .addbtn{
+        width: 300px;
+        height: 40px;
+        margin-top: 10px;
     }
 </style>
 <body>
 <div class="header">
 <h1>Pensionat Koriander !</h1>
+    <div class="links">
 <a th:href="@{/customers}">Customer</a>
 <a th:href="@{/bookings}">Booking</a>
 <a th:href="@{/rooms}">Room</a>
+    </div>
 </div>
-<div>
+<div class="table">
     <h3>Bookings</h3>
-    <button th:data-url="'/bookings/addBookings'"
-            onclick="window.location.href = this.getAttribute('data-url')">Add booking</button>
+
 
     <table>
         <tr>
             <th>Booking ID:</th>
             <th>Room No.:</th>
+            <th>Customer No.</th>
             <th>From:</th>
             <th>To:</th>
             <th>Room Type:</th>
@@ -43,6 +77,7 @@
         <tr th:each="bookings: ${bookingsList}">
             <td th:text="${bookings.getId()}"></td>
             <td th:text="${bookings.getRoom().getRoomNumber()}"></td>
+            <td th:text="${bookings.getCustomerDTO().getId()}"></td>
             <td th:text="${bookings.getStartDate()}"></td>
             <td th:text="${bookings.getEndDate()}"></td>
             <td th:text="${bookings.getRoom().getRoomType()}"></td>
@@ -54,6 +89,10 @@
         </tr>
 
     </table>
+    <div class="add">
+        <button class="addbtn" th:data-url="'/bookings/addBookings'"
+                onclick="window.location.href = this.getAttribute('data-url')">Add booking</button>
+    </div>
 </div>
 
 <script>
