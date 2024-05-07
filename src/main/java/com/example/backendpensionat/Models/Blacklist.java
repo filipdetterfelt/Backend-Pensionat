@@ -19,6 +19,7 @@ public class Blacklist {
     @Id
     @GeneratedValue
     public Long id;
+    public Long externalID;
     public String email;
     public String name;
     public String group;
