@@ -36,6 +36,22 @@ public class RoomServiceIMPL implements RoomService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @NotNull
+    private List<RoomDetailedDTO> getRoomDetailedDTOS(String jpqlQuery, LocalDate startDate, LocalDate endDate, RoomType roomType) {
+        return entityManager.createQuery(jpqlQuery, Room.class)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .setParameter("roomType", roomType)
+                .getResultList().stream().map(room -> RoomDetailedDTO.builder()
+                        .id(room.getId())
+                        .roomNumber(room.getRoomNumber())
+                        .price(room.getPrice())
+                        .roomType(room.getRoomType())
+                        .bookings(room.getBookings().stream().map(bookingService::bookingToDTO).toList())
+                        .build())
+                .toList();
+    }
+
     @Override
     public List<RoomDetailedDTO> listAllRooms() {
         return roomRepo.findAll().stream().map(this::rDetailedToDTO).toList();
@@ -65,22 +81,6 @@ public class RoomServiceIMPL implements RoomService {
                 "AND b.endDate >= :startDate)";
 
         return getRoomDetailedDTOS(jpqlQuery, bookingSearch.getStartDate(), bookingSearch.getEndDate(), bookingSearch.getRoomType());
-    }
-
-    @NotNull
-    private List<RoomDetailedDTO> getRoomDetailedDTOS(String jpqlQuery, LocalDate startDate, LocalDate endDate, RoomType roomType) {
-        return entityManager.createQuery(jpqlQuery, Room.class)
-                .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .setParameter("roomType", roomType)
-                .getResultList().stream().map(room -> RoomDetailedDTO.builder()
-                        .id(room.getId())
-                        .roomNumber(room.getRoomNumber())
-                        .price(room.getPrice())
-                        .roomType(room.getRoomType())
-                        .bookings(room.getBookings().stream().map(bookingService::bookingToDTO).toList())
-                        .build())
-                .toList();
     }
 
     @Override
