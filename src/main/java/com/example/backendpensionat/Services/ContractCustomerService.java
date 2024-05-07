@@ -9,4 +9,5 @@ import com.example.backendpensionat.Models.Customer;
 public interface ContractCustomerService {
     ContractCustomerDTO CmsToDTO(ContractCustomer ContractCustomer);
     ContractCustomer detailToCms(ContractCustomerDTO ContractCustomerDTO);
+    ContractCustomer saveContractCustomer(ContractCustomerDTO cCustomer);
 }
