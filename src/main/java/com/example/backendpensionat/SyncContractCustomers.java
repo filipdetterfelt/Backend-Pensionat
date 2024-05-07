@@ -6,11 +6,12 @@ import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
 
-@Component
+@ComponentScan
 @RequiredArgsConstructor
 public class SyncContractCustomers implements CommandLineRunner {
 
