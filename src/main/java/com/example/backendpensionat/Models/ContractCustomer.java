@@ -18,7 +18,7 @@ public class ContractCustomer {
     @GeneratedValue
     public Long id;
 
-    public Long internalId;
+    public Long externalId;
     public String companyName;
     public String contactName;
     public String contactTitle;
