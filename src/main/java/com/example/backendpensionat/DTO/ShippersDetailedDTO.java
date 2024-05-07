@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ShippersDetailedDTO {
-    private Long Id;
+    private Long id;
 
-    private String CompanyName;
-    private String Phone;
+    private String companyName;
+    private String phone;
 }

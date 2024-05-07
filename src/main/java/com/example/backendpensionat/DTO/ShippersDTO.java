@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ShippersDTO {
-    private Long Id;
+    private Long id;
 }
