@@ -6,8 +6,8 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import java.util.List;
 
-@JacksonXmlRootElement(localName = "fullBlacklist")
+@JacksonXmlRootElement(localName = "")
 public class BlackListList {
-    @JacksonXmlProperty(localName = "customers")
+    @JacksonXmlProperty(localName = "")
     List <BlacklistDTO> blacklist;
 }
