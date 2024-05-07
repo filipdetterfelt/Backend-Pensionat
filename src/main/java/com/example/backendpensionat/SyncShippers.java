@@ -1,24 +1,30 @@
 package com.example.backendpensionat;
 
-import com.example.backendpensionat.DTO.ShippersDetailedDTO;
 import com.example.backendpensionat.DTO.ShippersList;
-import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.example.backendpensionat.DTO.ShippersTest;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.CommandLineRunner;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Component;
+import com.example.backendpensionat.DTO.ShippersList;
+
+
 
 import java.net.URL;
 
+@Component
 public class SyncShippers implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
-        JacksonXmlModule module = new JacksonXmlModule();
-        module.setDefaultUseWrapper(false);
-        XmlMapper xmlMapper = new XmlMapper(module);
-        ShippersList shippersList = xmlMapper.readValue(new URL("https://javaintegration.systementor.se/shippers"), ShippersList.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
 
-        for (ShippersDetailedDTO shipper : shippersList.shippersDTOList){
-            System.out.println(shipper.getCompanyName());
-            System.out.println(shipper.getPhone());
+        URL url = new URL("https://javaintegration.systementor.se/shippers");
+        ShippersList shippersList = objectMapper.readValue(url,ShippersList.class);
+
+        for (ShippersTest shipper : shippersList.shippersTestList) {
+            System.out.println(shipper.city);
         }
+
     }
 }
