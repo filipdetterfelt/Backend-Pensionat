@@ -1,4 +1,8 @@
 package com.example.backendpensionat.Services.Impl;
 
-public class ShippersServiceIMPL {
+import com.example.backendpensionat.Services.ShippersService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ShippersServiceIMPL implements ShippersService {
 }
