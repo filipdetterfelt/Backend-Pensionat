@@ -10,18 +10,27 @@ import com.example.backendpensionat.Repos.RoomRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @SpringBootApplication
 public class BackendPensionatApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BackendPensionatApplication.class, args); }
+		if (args.length == 0) {
+			SpringApplication.run(BackendPensionatApplication.class, args);
+		} else if (Objects.equals(args[0], "SyncContractCustomers")) {
+			SpringApplication application = new SpringApplication(SyncContractCustomers.class);
+			application.setWebApplicationType(WebApplicationType.NONE);
+			application.run(args);
+		}
+	}
 
 	@Bean
 	@Transactional
@@ -127,5 +136,4 @@ public class BackendPensionatApplication {
 			bookingRepo.saveAll(List.of(booking1, booking2, booking3, booking4));
 		};
 	}
-
 }
