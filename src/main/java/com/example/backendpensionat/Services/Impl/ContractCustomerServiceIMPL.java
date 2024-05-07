@@ -4,11 +4,13 @@ import com.example.backendpensionat.DTO.ContractCustomerDTO;
 import com.example.backendpensionat.Models.ContractCustomer;
 import com.example.backendpensionat.Repos.ContractCustomerRepo;
 import com.example.backendpensionat.Services.ContractCustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ContractCustomerServiceIMPL implements ContractCustomerService {
 
+    @Autowired
     ContractCustomerRepo contractCustomerRepo;
 
     @Override
