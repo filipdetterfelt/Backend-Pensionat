@@ -44,7 +44,8 @@ public class BookingServiceIMPL implements BookingService {
                         .price(booking.getRoom().getPrice())
                         .roomType(booking.getRoom().getRoomType())
                         .build())
-                .customerDTO(CustomerDTO.builder().id(booking.getCustomer().getId()).build()).build();
+                .customerDTO(CustomerDTO.builder().id(booking.getCustomer().getId()).build())
+                .roomNumber(String.valueOf(booking.getRoom().getRoomNumber())).build();
     }
 
     @Override

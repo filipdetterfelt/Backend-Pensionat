@@ -49,153 +49,181 @@
     }
 </style>
 <body>
-<div class="header">
-    <h1>Pensionat Koriander !</h1>
-    <div class="links">
-        <a th:href="@{/customers}">Customer</a>
-        <a th:href="@{/bookings}">Booking</a>
-        <a th:href="@{/rooms}">Room</a>
+    <div class="header">
+        <h1>Pensionat Koriander !</h1>
+        <div class="links">
+            <a th:href="@{/customers}">Customer</a>
+            <a th:href="@{/bookings}">Booking</a>
+            <a th:href="@{/rooms}">Room</a>
+        </div>
     </div>
-</div>
 
-<div class="header">
-    <h3>Add Bookings</h3>
-    <form id="form" action="/bookings/add/save" method="post">
-        <table>
-            <tr>
-                <th>Customer:</th>
-                <th>From:</th>
-                <th>To:</th>
-                <th>Room Type:</th>
-                <th>Extra beds:</th>
-                <th>Room Number:</th>
-                <th>Add</th>
-            </tr>
+    <div class="header">
+        <h3>Add Bookings</h3>
+        <form id="form" action="/bookings/add/save" method="post">
+            <table>
+                <tr>
+                    <th>Customer:</th>
+                    <th>From:</th>
+                    <th>To:</th>
+                    <th>Room Type:</th>
+                    <th>Extra beds:</th>
+                    <th>Room Number:</th>
+                    <th>Add</th>
+                </tr>
 
-            <tr>
-                <td>
-                    <label>
-                        <select name="customerInfo" id="customerBox">
-                            <option th:value="${bookingSearch != null? bookingSearch.customer.id: ''}"
-                                    th:text="${bookingSearch != null ? bookingSearch.customer.id + ': ' + bookingSearch.customer.firstName + ' ' + bookingSearch.customer.lastName : 'Choose customer'}"
-                                    value="">
-                            </option>
-                            <option th:each="customer : ${customersList}"
-                                    th:value="${customer.id}"
-                                    th:text="${customer.id + ': ' + customer.firstName + ' ' + customer.lastName}">
-                            </option>
-                        </select>
-                    </label>
-                </td>
-                <td>
-                    <label for="startDate">
+                <tr>
+                    <td>
+                        <label>
+                            <select name="customerInfo" id="customerBox">
+                                <option th:if="${bookingSearch != null}"
+                                        th:value="${bookingSearch.customer.id}"
+                                        th:text="${bookingSearch.customer.id + ': ' + bookingSearch.customer.firstName + ' ' + bookingSearch.customer.lastName}"
+                                        selected>
+                                </option>
+
+                                <option th:if="${bookingSearch == null}"
+                                        selected
+                                        disabled>Choose customer
+                                </option>
+
+                                <option th:each="customer : ${customersList}"
+                                        th:value="${customer.id}"
+                                        th:text="${customer.id + ': ' + customer.firstName + ' ' + customer.lastName}">
+                                </option>
+                            </select>
+                        </label>
+                    </td>
+                    
+                    <td>
+                        <label for="startDate"></label>
                         <input type="date" name="startDate" id="startDate"
                                th:value="${bookingSearch != null ? bookingSearch.startDate: ''}"
                                onchange="updateEndDateOnChange()" required>
-                    </label>
-                </td>
-                <td>
-                    <label for="endDate">
+                    </td>
+
+                    <td>
+                        <label for="endDate"> </label>
                         <input type="date" name="endDate"
                                th:value="${bookingSearch != null ? bookingSearch.endDate: ''}"
                                id="endDate" required>
-                    </label>
-                </td>
-                <td>
-                    <label>
-                        <select id="roomTypeBox" name="roomType" onmousedown="clearDropDown()" onchange="alternativeSubmit()">
-                            <option id="roomTypeSearch"
-                                    th:text="${bookingSearch != null ? bookingSearch.roomType : 'Choose room type'}"
-                                    value="">
-                            </option>
-                            <option th:each="type: ${roomTypeList}"
-                                    th:value="${type}"
-                                    th:text="${type}">
-                            </option>
-                        </select>
-                    </label>
-                </td>
-                <td>
-                    <label>
-                        <select id="extraBedsBox" name="amountOfBeds">
-                            <option>Choose extra bed</option>
-                        </select>
-                    </label>
-                </td>
-                <td>
-                    <label>
-                        <select id="roomNumberBox" name="roomNumber">
-                            <option>Room Number</option>
-                            <option th:each="room: ${roomsList}"
-                                    th:value="${room.getId()}"
-                                    th:text="${room.getRoomNumber()}">
-                            </option>
-                        </select>
-                    </label>
-                </td>
-                <td>
-                    <button type=submit>Add</button>
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
-</body>
+                    </td>
 
-<script>
-    function updateEndDateOnChange() {
-        const startDate = new Date(document.getElementById('startDate').value)
-        startDate.setDate(startDate.getDate() + 1)
+                    <td>
+                        <label>
+                            <select id="roomTypeBox" name="roomType" onmousedown="clearDropDown()"
+                                    onchange="alternativeSubmit()">
+                                <option id="roomTypeSearch"
+                                        th:if="${bookingSearch != null}"
+                                        th:text="${bookingSearch.roomType}"
+                                        selected
+                                        value="">
+                                </option>
 
-        const minDate = startDate.toISOString().split("T")[0]
-        const endDate = document.getElementById('endDate');
-        endDate.setAttribute('min', minDate)
-        endDate.value = minDate;
-    }
+                                <option th:if="${bookingSearch == null}"
+                                        disabled
+                                        selected
+                                        value="">Choose room type
+                                </option>
 
-    function alternativeSubmit() {
-        const form = document.getElementById('form')
-        form.action = '/bookings/add/refresh'
-        form.submit()
-    }
+                                <option th:each="type: ${roomTypeList}"
+                                        th:value="${type}"
+                                        th:text="${type}">
+                                </option>
+                            </select>
+                        </label>
+                    </td>
 
-    function updateExtraBeds() {
-        const roomType = document.getElementById('roomTypeBox').options[0].textContent
-        const extraBedsBox = document.getElementById('extraBedsBox')
-        console.log(roomType)
+                    <td>
+                        <label>
+                            <input type="hidden" name="amountOfBeds" id="hiddenBedBox" value="0">
+                            <select id="extraBedsBox" onchange="changeHiddenValue()">
+                                <option disabled selected>Choose extra bed</option>
+                            </select>
+                        </label>
+                    </td>
 
-        let max = 0;
+                    <td>
+                        <label>
+                            <select id="roomNumberBox" name="roomNumber">
+                                <option disabled selected>Room Number</option>
+                                <option th:each="room: ${roomsList}"
+                                        th:value="${room.getId()}"
+                                        th:text="${room.getRoomNumber()}">
+                                </option>
+                            </select>
+                        </label>
+                    </td>
 
-        switch (roomType) {
-            case "DOUBLE":
-                max = 1;
-                break;
-            case "SUITE":
-                max = 2;
-                break;
-            default:
-                max = 0;
+                    <td>
+                        <button type=submit>Add</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <script>
+        function updateEndDateOnChange() {
+            const startDate = new Date(document.getElementById('startDate').value)
+            startDate.setDate(startDate.getDate() + 1)
+
+            const minDate = startDate.toISOString().split("T")[0]
+            const endDate = document.getElementById('endDate');
+            endDate.setAttribute('min', minDate)
+            endDate.value = minDate;
         }
 
-        extraBedsBox.disabled = roomType === "SINGLE";
-
-        document.querySelectorAll('.appendedOption').forEach(option => extraBedsBox.removeChild(option))
-
-        for (let i = 0; i <= max; i++) {
-            const option = document.createElement("option")
-            option.className = 'appendedOption'
-            option.innerText = i.toString()
-
-            extraBedsBox.appendChild(option)
+        function alternativeSubmit() {
+            const form = document.getElementById('form')
+            form.action = '/bookings/add/refresh'
+            form.submit()
         }
-    }
 
-    function clearDropDown() {
-        const roomTypeBox = document.getElementById('roomTypeSearch')
-        roomTypeBox.textContent = ""
-    }
+        function updateExtraBeds() {
+            const roomType = document.getElementById('roomTypeBox').options[0].textContent
+            const extraBedsBox = document.getElementById('extraBedsBox')
+            console.log(roomType)
 
-    document.addEventListener("DOMContentLoaded", updateExtraBeds);
-</script>
+            let max = 0;
+
+            switch (roomType) {
+                case "DOUBLE":
+                    max = 1;
+                    break;
+                case "SUITE":
+                    max = 2;
+                    break;
+                default:
+                    max = 0;
+            }
+
+            extraBedsBox.disabled = roomType === "SINGLE";
+
+            document.querySelectorAll('.appendedOption').forEach(option => extraBedsBox.removeChild(option))
+
+            for (let i = 0; i <= max; i++) {
+                const option = document.createElement("option")
+                option.className = 'appendedOption'
+                option.innerText = i.toString()
+
+                extraBedsBox.appendChild(option)
+            }
+        }
+
+        function clearDropDown() {
+            const roomTypeBox = document.getElementById('roomTypeSearch')
+            roomTypeBox.textContent = ""
+        }
+
+        function changeHiddenValue() {
+            const value = document.getElementById('extraBedsBox').value;
+            const hiddenBedBox = document.getElementById('hiddenBedBox');
+
+            hiddenBedBox.value = value;
+        }
+
+        document.addEventListener("DOMContentLoaded", updateExtraBeds);
+    </script>
 </body>
 </html>

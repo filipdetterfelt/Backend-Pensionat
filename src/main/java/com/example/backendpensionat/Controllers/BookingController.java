@@ -95,6 +95,11 @@ public class BookingController {
     @GetMapping("/bookings/edit/{id}")
     public String editBookingById(@PathVariable Long id, Model model) {
         BookingDetailedDTO bookingDTO = bookingService.findBookingById(id);
+
+        String placeholder = bookingDTO.getRoom().getRoomNumber() + " - " + bookingDTO.getRoom().getRoomType();
+        bookingDTO.setRoomNumber(placeholder);
+        System.out.println(bookingDTO.getRoomNumber());
+
         RoomSearchDTO roomSearch = new RoomSearchDTO(bookingDTO.getStartDate(), bookingDTO.getEndDate(), 0);
         List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
 
