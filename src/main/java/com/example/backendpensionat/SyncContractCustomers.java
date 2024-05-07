@@ -1,16 +1,21 @@
 package com.example.backendpensionat;
 
-import com.example.backendpensionat.DTO.ContractCustomerDTO;
 import com.example.backendpensionat.DTO.ContractCustomerList;
+import com.example.backendpensionat.Services.ContractCustomerService;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
 
 @Component
+@RequiredArgsConstructor
 public class SyncContractCustomers implements CommandLineRunner {
+
+    private final ContractCustomerService contractCustomerService;
+
     @Override
     public void run(String... args) throws Exception {
         JacksonXmlModule module = new JacksonXmlModule();
@@ -20,9 +25,7 @@ public class SyncContractCustomers implements CommandLineRunner {
         ContractCustomerList contractCustomerList = xmlMapper.readValue(
                 new URL("https://javaintegration.systementor.se/customers"), ContractCustomerList.class);
 
-        for( ContractCustomerDTO customer : contractCustomerList.contractCustomerDTOList ){
-            System.out.println(customer.contactName);
-            System.out.println(customer.country);
-        }
+        contractCustomerList.contractCustomerDTOList.forEach(customer ->
+                contractCustomerService.save(customer));
     }
 }
