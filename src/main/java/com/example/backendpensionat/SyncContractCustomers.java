@@ -25,7 +25,6 @@ public class SyncContractCustomers implements CommandLineRunner {
         ContractCustomerList contractCustomerList = xmlMapper.readValue(
                 new URL("https://javaintegration.systementor.se/customers"), ContractCustomerList.class);
 
-        contractCustomerList.contractCustomerDTOList.forEach(customer ->
-                contractCustomerService.save(customer));
+        contractCustomerList.contractCustomerDTOList.forEach(contractCustomerService::saveContractCustomer);
     }
 }
