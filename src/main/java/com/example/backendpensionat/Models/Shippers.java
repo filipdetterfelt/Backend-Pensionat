@@ -19,7 +19,7 @@ public class Shippers {
     @GeneratedValue
     private Long Id;
 
+    private Long externalId;
     private String CompanyName;
-
     private String Phone;
 }
