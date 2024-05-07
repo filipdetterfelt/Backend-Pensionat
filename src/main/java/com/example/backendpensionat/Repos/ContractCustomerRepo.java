@@ -1,4 +1,7 @@
 package com.example.backendpensionat.Repos;
 
-public interface ContractCustomerRepo {
+import com.example.backendpensionat.Models.ContractCustomer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ContractCustomerRepo extends JpaRepository<Long, ContractCustomer> {
 }
