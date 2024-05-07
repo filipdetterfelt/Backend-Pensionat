@@ -6,25 +6,28 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.CommandLineRunner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
-import com.example.backendpensionat.DTO.ShippersList;
+import java.net.URL;
 
 
 
 import java.net.URL;
+import java.util.List;
 
 @Component
 public class SyncShippers implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
 
-        URL url = new URL("https://javaintegration.systementor.se/shippers");
-        ShippersList shippersList = objectMapper.readValue(url,ShippersList.class);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
 
-        for (ShippersTest shipper : shippersList.shippersTestList) {
-            System.out.println(shipper.city);
-        }
+            List<ShippersTest> shippersList = objectMapper.readValue(new URL("https://javaintegration.systementor.se/shippers")
+                    , objectMapper.getTypeFactory().constructCollectionType(List.class,ShippersTest.class));
+
+            for (ShippersTest shipper : shippersList){
+                System.out.println("Company name: " + shipper.companyName);
+                System.out.println("Contact name: " + shipper.contactName);
+            }
 
     }
 }
