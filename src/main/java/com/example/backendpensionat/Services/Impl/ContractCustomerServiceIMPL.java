@@ -23,7 +23,7 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
 
     public ContractCustomerDTO CmsToDTO(ContractCustomer ContractCustomer) {
         return ContractCustomerDTO.builder()
-                .id(ContractCustomer.id)
+                .internalId(ContractCustomer.id)
                 .externalId(ContractCustomer.externalId)
                 .companyName(ContractCustomer.companyName)
                 .contactName(ContractCustomer.contactName)
