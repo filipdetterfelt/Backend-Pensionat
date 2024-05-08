@@ -70,23 +70,20 @@
 </div>
 
 <div class="table">
-    <h3>Customers</h3>
+    <h3>Contract Customers</h3>
     <table>
         <tr>
-            <th>Id</th>
-            <th>Social security no.</th>
-            <th>Email</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Phone number</th>
+            <th>Company Name</th>
+            <th>Contact Person</th>
+            <th>Country</th>
             <th>Edit customer</th>
             <th>Delete customer</th>
         </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
+        <tr th:each ="contractCustomer: ${contractCustomersList}">
+            <td th:text="${contractCustomer.companyName}"></td>
+            <td th:text="${contractCustomer.contactName}"> </td>
+            <td th:text="${contractCustomer.country}"></td>
+
         </tr>
     </table>
 </div>
