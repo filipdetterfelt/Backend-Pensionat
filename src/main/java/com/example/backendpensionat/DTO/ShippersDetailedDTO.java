@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShippersDetailedDTO {
+    public Long internalId;
     @JsonProperty("id")
     public Long externalId;
 
