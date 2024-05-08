@@ -32,8 +32,8 @@ public class ShippersServiceIMPL implements ShippersService {
     ShippersRepo shippersRepo;
 
     @Override
-    public ShippersTest saveShipper(ShippersDetailedDTO dto){
-        return shippersRepo.save(detailToCms(dto));
+    public Shippers saveShipper(ShippersDetailedDTO dto){
+        return shippersRepo.save(DTOtoShippers(dto));
 
     }
 }
