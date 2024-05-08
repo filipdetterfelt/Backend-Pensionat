@@ -1,5 +1,6 @@
 package com.example.backendpensionat.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShippersDetailedDTO {
-
-
-    @JacksonXmlProperty(localName = "id")
+    @JsonProperty("id")
     public Long externalId;
+
     public String email;
     public String companyName;
     public String contactName;
