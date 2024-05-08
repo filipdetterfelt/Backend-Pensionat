@@ -29,8 +29,14 @@ public class BackendPensionatApplication {
 			SpringApplication application = new SpringApplication(SyncContractCustomers.class);
 			application.setWebApplicationType(WebApplicationType.NONE);
 			application.run(args);
+		} else if (Objects.equals(args[0], "SyncShippers")) {
+			SpringApplication application = new SpringApplication(SyncShippers.class);
+			application.setWebApplicationType(WebApplicationType.NONE);
+			application.run(args);
 		}
 	}
+
+
 
 	@Bean
 	@Transactional
