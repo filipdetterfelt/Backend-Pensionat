@@ -36,6 +36,20 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
         return "";
     }
 
+   /* public ContractCustomerDTO cCToDto(ContractCustomer cCustomer) {
+        List<ContractCustomer> contractCustomerList = contractCustomerRepo.findAll();
+        ContractCustomer matchcCustomer = contractCustomerList.stream()
+                .filter(contractCustomer -> contractCustomer.externalId
+                        .equals(contractCustomer.externalId)).findFirst()
+                .orElse(new ContractCustomer());
+
+        return ContractCustomer.builder()
+                .internalId(cCustomer.id)
+                .companyName(matchcCustomer.companyName)
+                .contactName(matchcCustomer.contactName)
+                .country(matchcCustomer.country).build();
+    }*/
+
 
     public ContractCustomerDTO CmsToDTO(ContractCustomer ContractCustomer) {
         return ContractCustomerDTO.builder()
