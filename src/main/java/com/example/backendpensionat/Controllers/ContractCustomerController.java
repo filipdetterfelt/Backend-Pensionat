@@ -13,7 +13,7 @@ public class ContractCustomerController {
 
     private final ContractCustomerService contractCustomerService;
 
-    @GetMapping("/contractCustomers")
+    @GetMapping("/ContractCustomers")
     public String contractCustomers(Model model){
         model.addAttribute("contractCustomersList",contractCustomerService.listAllContractCustomers());
         return "contractCustomers";
