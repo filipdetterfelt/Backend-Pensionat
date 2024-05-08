@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JacksonXmlRootElement(localName = "customers")
 public class ContractCustomerDTO {
+    public Long id;
     @JacksonXmlProperty(localName = "id")
     public Long externalId;
-
     public String companyName;
     public String contactName;
     public String contactTitle;

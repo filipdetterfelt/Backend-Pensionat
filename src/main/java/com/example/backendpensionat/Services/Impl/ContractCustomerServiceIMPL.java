@@ -7,6 +7,9 @@ import com.example.backendpensionat.Services.ContractCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Objects;
+
 @Service
 public class ContractCustomerServiceIMPL implements ContractCustomerService {
 
@@ -20,6 +23,7 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
 
     public ContractCustomerDTO CmsToDTO(ContractCustomer ContractCustomer) {
         return ContractCustomerDTO.builder()
+                .id(ContractCustomer.id)
                 .externalId(ContractCustomer.externalId)
                 .companyName(ContractCustomer.companyName)
                 .contactName(ContractCustomer.contactName)
@@ -32,17 +36,23 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
                 .fax(ContractCustomer.fax).build();
     }
 
-    public ContractCustomer detailToCms(ContractCustomerDTO ContractCustomerDTO) {
-        return ContractCustomer.builder()
-                .externalId(ContractCustomerDTO.externalId)
-                .companyName(ContractCustomerDTO.companyName)
-                .contactName(ContractCustomerDTO.contactName)
-                .contactTitle(ContractCustomerDTO.contactTitle)
-                .streetAddress(ContractCustomerDTO.streetAddress)
-                .city(ContractCustomerDTO.city)
-                .postalCode(ContractCustomerDTO.postalCode)
-                .country(ContractCustomerDTO.country)
-                .phone(ContractCustomerDTO.phone)
-                .fax(ContractCustomerDTO.fax).build();
+    public ContractCustomer detailToCms(ContractCustomerDTO contractCustomerDTO) {
+        List<ContractCustomer> contractCustomers = contractCustomerRepo.findAll();
+
+        ContractCustomer matchingCustomer = contractCustomers.stream().filter(customer ->
+                customer.externalId.equals(contractCustomerDTO.externalId)).findFirst().orElse(new ContractCustomer());
+
+            return ContractCustomer.builder()
+                    .id(matchingCustomer.id)
+                    .externalId(contractCustomerDTO.externalId)
+                    .companyName(contractCustomerDTO.companyName)
+                    .contactName(contractCustomerDTO.contactName)
+                    .contactTitle(contractCustomerDTO.contactTitle)
+                    .streetAddress(contractCustomerDTO.streetAddress)
+                    .city(contractCustomerDTO.city)
+                    .postalCode(contractCustomerDTO.postalCode)
+                    .country(contractCustomerDTO.country)
+                    .phone(contractCustomerDTO.phone)
+                    .fax(contractCustomerDTO.fax).build();
     }
 }
