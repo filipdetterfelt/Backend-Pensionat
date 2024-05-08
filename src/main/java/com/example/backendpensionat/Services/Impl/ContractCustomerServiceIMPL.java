@@ -1,6 +1,7 @@
 package com.example.backendpensionat.Services.Impl;
 
 import com.example.backendpensionat.DTO.ContractCustomerDTO;
+import com.example.backendpensionat.DTO.ContractCustomerDetailedDTO;
 import com.example.backendpensionat.Models.ContractCustomer;
 import com.example.backendpensionat.Repos.ContractCustomerRepo;
 import com.example.backendpensionat.Services.ContractCustomerService;
@@ -19,6 +20,11 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
     @Override
     public ContractCustomer saveContractCustomer(ContractCustomerDTO cCustomer) {
         return contractCustomerRepo.save(detailToCms(cCustomer));
+    }
+
+    @Override
+    public List<ContractCustomerDTO> listAllContractCustomers() {
+        return contractCustomerRepo.findAll().stream().map(this::CmsToDTO).toList();
     }
 
     public ContractCustomerDTO CmsToDTO(ContractCustomer ContractCustomer) {
