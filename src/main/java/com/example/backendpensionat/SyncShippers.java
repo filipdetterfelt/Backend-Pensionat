@@ -1,17 +1,23 @@
 package com.example.backendpensionat;
 
 import com.example.backendpensionat.DTO.ShippersDetailedDTO;
+import com.example.backendpensionat.Services.Impl.ShippersServiceIMPL;
+import com.example.backendpensionat.Services.ShippersService;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import java.net.URL;
 
 
 import java.util.List;
 
-@Component
+@ComponentScan
+@RequiredArgsConstructor
 public class SyncShippers implements CommandLineRunner {
+    private final ShippersService shippersService;
     @Override
     public void run(String... args) throws Exception {
 
@@ -23,12 +29,10 @@ public class SyncShippers implements CommandLineRunner {
             List<ShippersDetailedDTO> shippersList = objectMapper.readValue(new URL("https://javaintegration.systementor.se/shippers")
                     , objectMapper.getTypeFactory().constructCollectionType(List.class, ShippersDetailedDTO.class));
 
-            for (ShippersDetailedDTO shipper : shippersList){
-                System.out.println("Company name: " + shipper.companyName);
-                System.out.println("Contact name: " + shipper.contactName);
-            }
 
-        //contractCustomerList.contractCustomerDTOList.forEach(contractCustomerService::saveContractCustomer);
+
+        shippersList.forEach(shippersService::saveShipper);
+
 
     }
 }
