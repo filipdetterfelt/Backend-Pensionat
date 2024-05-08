@@ -14,4 +14,5 @@ public interface ContractCustomerService {
     ContractCustomer detailToCms(ContractCustomerDTO ContractCustomerDTO);
     ContractCustomer saveContractCustomer(ContractCustomerDTO cCustomer);
     List<ContractCustomerDTO> listAllContractCustomers();
+    String removeCCustomer(ContractCustomerDetailedDTO cCustomer);
 }

@@ -27,6 +27,16 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
         return contractCustomerRepo.findAll().stream().map(this::CmsToDTO).toList();
     }
 
+
+    @Override
+    public String removeCCustomer(ContractCustomerDetailedDTO cCustomer) {
+        /*if(cCustomer.getBookings() != null){
+            contractCustomerRepo.delete();
+        }*/
+        return "";
+    }
+
+
     public ContractCustomerDTO CmsToDTO(ContractCustomer ContractCustomer) {
         return ContractCustomerDTO.builder()
                 .internalId(ContractCustomer.id)
