@@ -25,7 +25,6 @@ public class SyncShippers implements CommandLineRunner {
             objectMapper.registerModule(new JavaTimeModule());
 
 
-            //Byt till JsonMapper?
             List<ShippersDetailedDTO> shippersList = objectMapper.readValue(new URL("https://javaintegration.systementor.se/shippers")
                     , objectMapper.getTypeFactory().constructCollectionType(List.class, ShippersDetailedDTO.class));
 
