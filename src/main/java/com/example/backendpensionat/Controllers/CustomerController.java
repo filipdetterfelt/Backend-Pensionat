@@ -61,6 +61,10 @@ public class CustomerController {
     public String editCustomerById(@PathVariable Long id, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("updatedCustomer",customerService.findCustomerById(id));
         return "redirect:/UpdateCustomer";
+    }
 
+    @GetMapping("newCurrentCustomer")
+    public String newCurrentCustomer() {
+        return "newCurrentCustomer";
     }
 }

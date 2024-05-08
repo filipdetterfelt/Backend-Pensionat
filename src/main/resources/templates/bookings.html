@@ -5,15 +5,22 @@
     <title>Bookings</title>
 </head>
 <style>
+    body{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+    }
     td {
         text-align: center;
         width: 200px;
         background-color: lightgrey;
-        font-family: Arial;
+        font-family: "Arial",serif;
     }
     th {
         background-color: black;
-        font-family: Arial;
+        font-family: "Arial",serif;
         color: whitesmoke;
         width: 200px;
     }
@@ -38,7 +45,7 @@
         background-color: black;
         color: white;
         text-align: center;
-        font-family: Arial;
+        font-family: "Arial",serif;
         font-style: normal;
         text-decoration: none;
     }
@@ -57,6 +64,11 @@
 <a th:href="@{/rooms}">Room</a>
     </div>
 </div>
+
+<div class="add">
+    <button class="addBtn" onclick="window.location.href = '/newCurrentCustomer'">Add booking</button>
+</div>
+
 <div class="table">
     <h3>Bookings</h3>
 
@@ -89,15 +101,12 @@
         </tr>
 
     </table>
-    <div class="add">
-        <button class="addBtn" onclick="addBooking()">Add booking</button>
-    </div>
 </div>
 
 <script>
-    function addBooking() {
-        window.location.href = "/bookings/add"
-    }
+    // function addBooking() {
+    //     window.location.href = "/newCurrentCustomer"
+    // }
 </script>
 
 </body>
