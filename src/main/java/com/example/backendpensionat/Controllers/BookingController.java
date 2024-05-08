@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -46,6 +47,25 @@ public class BookingController {
 
         return "addBookingsForm";
     }
+
+    @PostMapping("/bookings/add")
+    public String addBookingFromNewCustomer(@ModelAttribute("newCustomers") CustomerDetailedDTO customer, Model model) {
+        customer.setBookings(new ArrayList<BookingDTO>());
+        customerService.addCustomer(customer);
+
+        if (!model.containsAttribute("bookingSearch")) {
+            model.addAttribute("roomsList", roomService.listAllRooms());
+            model.addAttribute("bookings", new BookingDetailedDTO());
+        }
+        model.addAttribute("customersList", customerService.listAllCustomers());
+
+        List<RoomType> roomTypeList = List.of(RoomType.SINGLE, RoomType.DOUBLE, RoomType.SUITE);
+        model.addAttribute("roomTypeList", roomTypeList);
+
+        return "addBookingsForm";
+    }
+
+
 
     @PostMapping("/bookings/add/refresh")
     public String refreshRoomBox(
