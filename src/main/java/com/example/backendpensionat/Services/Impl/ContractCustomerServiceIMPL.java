@@ -37,6 +37,7 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
                 .externalId(ContractCustomerDTO.externalId)
                 .companyName(ContractCustomerDTO.companyName)
                 .contactName(ContractCustomerDTO.contactName)
+                .contactTitle(ContractCustomerDTO.contactTitle)
                 .streetAddress(ContractCustomerDTO.streetAddress)
                 .city(ContractCustomerDTO.city)
                 .postalCode(ContractCustomerDTO.postalCode)
