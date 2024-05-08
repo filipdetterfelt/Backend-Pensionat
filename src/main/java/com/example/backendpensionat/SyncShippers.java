@@ -21,6 +21,8 @@ public class SyncShippers implements CommandLineRunner {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
 
+
+            //Byt till JsonMapper?
             List<ShippersTest> shippersList = objectMapper.readValue(new URL("https://javaintegration.systementor.se/shippers")
                     , objectMapper.getTypeFactory().constructCollectionType(List.class,ShippersTest.class));
 
@@ -28,6 +30,8 @@ public class SyncShippers implements CommandLineRunner {
                 System.out.println("Company name: " + shipper.companyName);
                 System.out.println("Contact name: " + shipper.contactName);
             }
+
+        //contractCustomerList.contractCustomerDTOList.forEach(contractCustomerService::saveContractCustomer);
 
     }
 }
