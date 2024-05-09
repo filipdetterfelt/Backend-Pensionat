@@ -81,22 +81,17 @@
       <th>Phone</th>
       <th>Fax</th>
     </tr>
-    <tr th:each ="contractCustomer: ${contractCustomersList}">
+    <tr th:each ="contractCustomerFull: ${ContractCustomerFullInfoList}">
 
-      <td th:text="${contractCustomer.contactName}"> </td>
+      <td th:text="${contractCustomer.companyName}"> </td>
+      <td th:text="${contractCustomer.contactName}"></td>
+      <td th:text="${contractCustomer.contactTitle}"></td>
+      <td th:text="${contractCustomer.streetAddress}"></td>
+      <td th:text="${contractCustomer.city}"></td>
+      <td th:text="${contractCustomer.postalCode}"></td>
       <td th:text="${contractCustomer.country}"></td>
-      <td>
-
-        <button th:data-url="'/contractCustomers/' + ${contractCustomer.externalId}"
-                onclick="window.location.href = this.getAttribute('data-url')">Information</button>
-      </td>
-      <td>
-        <!-- <form th:action="@{/deleteContractCustomers}" th:object="${deleteContractCustomers}" method="post" th:if="${#lists.isEmpty(contractCustomer.getBookings())}"></form>
-         <input type="hidden" name="id" th:value="${contractCustomer.getExternalId()}">
-         <button type="submit">Delete</button>
-         </form>
-         -->
-      </td>
+      <td th:text="${contractCustomer.phone}"></td>
+      <td th:text="${contractCustomer.fax}"></td>
 
     </tr>
   </table>
