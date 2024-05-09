@@ -22,8 +22,8 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
     private EntityManager entityManager;
 
     @Override
-    public ContractCustomer saveContractCustomer(ContractCustomerDTO cCustomer) {
-        return contractCustomerRepo.save(detailToCms(cCustomer));
+    public void saveContractCustomer(ContractCustomerDTO cCustomer) {
+        contractCustomerRepo.save(detailToCms(cCustomer));
     }
 
     @Override

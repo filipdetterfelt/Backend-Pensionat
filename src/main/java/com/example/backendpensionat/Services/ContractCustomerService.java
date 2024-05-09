@@ -8,7 +8,7 @@ import java.util.List;
 public interface ContractCustomerService {
     ContractCustomerDTO CmsToDTO(ContractCustomer ContractCustomer);
     ContractCustomer detailToCms(ContractCustomerDTO ContractCustomerDTO);
-    List<ContractCustomerDTO> listSortedContractCustomers(String columnName, String sortingOrder);
+    List<ContractCustomerDTO> listSortedContractCustomers(String searchWord, String columnName, String sortingOrder);
     void saveContractCustomer(ContractCustomerDTO cCustomer);
     List<ContractCustomerDTO> listAllContractCustomers();
     String removeCCustomer(ContractCustomerDetailedDTO cCustomer);
