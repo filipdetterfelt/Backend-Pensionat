@@ -67,7 +67,7 @@
     <h1>Pensionat Koriander !</h1>
     <div class="links">
         <a th:href="@{/customers}">Customer</a>
-        <a th:href="@{/blacklistcustomers}">Blacklist</a>
+        <a th:href="@{/blacklistCustomers}">Blacklist</a>
         <a th:href="@{/bookings}">Booking</a>
         <a th:href="@{/rooms}">Room</a>
         <a th:href="@{/ContractCustomers}">Contract Customers</a>
@@ -77,21 +77,21 @@
 <div id="centerbox">
     <h2>Blacklist a Customer</h2>
     <div style="display: flex;">
-        <form id="blacklistForm" action="/addBlacklistCustomer" method="post">
-            <label for="mail">Email:</label><br>
-            <input type="email" id="mail" name="email" required><br><br>
+        <form id="addForm" action="/blacklist/add" method="post">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
             <input type="submit" value="Add">
+        </form>
+    </div><br>
+    <div style="display: flex;">
+        <form id="updateForm" action="/blacklist/update?_method=PUT" method="post">
+            <label for="emailUpdate">Email:</label><br>
+            <input type="email" id="emailUpdate" name="email" required><br><br>
+            <input type="submit" value="Update">
+            <input type="hidden" name="_method" value="PUT" />
         </form>
     </div>
 </div>
-
-<script>
-    document.getElementById('blacklistForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        var email = document.getElementById('mail').value;
-        window.location.href = '/updateBlacklistStatus/' + email;
-    });
-</script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

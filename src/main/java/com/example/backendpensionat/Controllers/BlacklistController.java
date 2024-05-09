@@ -13,33 +13,31 @@ public class BlacklistController {
 
     private final BlacklistServiceIMPL blacklistService;
 
-    @GetMapping("/blacklistcustomers")
+    @GetMapping("/blacklistCustomers")
     public String showBlacklistForm(Model model) {
-        model.addAttribute("blacklistcustomers", new BlacklistDetailedDTO());
-        return "blacklistcustomers";
+        model.addAttribute("blacklistCustomers", new BlacklistDetailedDTO());
+        return "blacklistCustomers";
     }
 
-    @GetMapping("/updateBlacklistStatus/{email}")
-    public String updateBlacklistStatus(@PathVariable String email) {
-        blacklistService.checkBlackListAndSetOkToFalse(email);
-        return "redirect:/blacklist";
+//    @GetMapping("/updateBlacklistStatus/{email}")
+//    public String updateBlacklistStatus(@PathVariable String email) {
+//        blacklistService.checkBlackListAndSetOkToFalse(email);
+//        return "redirect:/blacklist";
+//    }
+
+    @PostMapping("/blacklist/add")
+    public String addCustomerToBlacklist(@RequestParam String email) {
+        BlacklistDetailedDTO newBlacklistedCustomer = new BlacklistDetailedDTO();
+        newBlacklistedCustomer.setEmail(email);
+        newBlacklistedCustomer.setOk(false);
+        blacklistService.addCustomerToBlacklist(email);
+        return "redirect:/blacklistCustomers";
     }
 
-    @PostMapping("/addBlacklistCustomer")
+    @PutMapping("/blacklist/update")
     @ResponseBody
-    public String addCustomerToBlacklist(@RequestParam BlacklistDetailedDTO blacklistDetailedDTO) {
-        blacklistService.addToBlacklist(blacklistDetailedDTO);
-        return "Customer successfully added to blacklist!";
-    }
-
-    @PutMapping("/updateBlacklistStatus/{email}")
-    @ResponseBody
-    public String updateBlacklistStatus(@PathVariable String email, @RequestParam boolean isOk) {
-        BlacklistDetailedDTO blacklistDTO = new BlacklistDetailedDTO();
-        blacklistDTO.setEmail(email);
-        blacklistDTO.setOk(isOk);
-
-        blacklistService.updateBlacklistStatus(blacklistDTO);
-        return "Blacklist status successfully updated!";
+    public String updateBlacklistStatus(@RequestParam String email) {
+        blacklistService.updateCustomerInBlacklist(email);
+        return "redirect:/blacklistCustomers";
     }
 }
