@@ -2,6 +2,7 @@ package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Enums.RoomType;
+import com.example.backendpensionat.Services.BlacklistService;
 import com.example.backendpensionat.Services.BookingService;
 import com.example.backendpensionat.Services.CustomerService;
 import com.example.backendpensionat.Services.RoomService;
@@ -21,6 +22,7 @@ public class BookingController {
     private final BookingService bookingService;
     private final CustomerService customerService;
     private final RoomService roomService;
+    private final BlacklistService blacklistService;
 
     @GetMapping("bookings")
     public String allBookings(Model model) {
@@ -50,6 +52,11 @@ public class BookingController {
 
     @PostMapping("/bookings/add")
     public String addBookingFromNewCustomer(@ModelAttribute("newCustomers") CustomerDetailedDTO customer, Model model) {
+        BlacklistDetailedDTO blacklist = blacklistService.checkBlackList(customer.getEmail());
+        if(!blacklist.isOk()) {
+            return "redirect:/customers/blacklisted";
+        }
+
         customer.setBookings(new ArrayList<BookingDTO>());
         customerService.addCustomer(customer);
 

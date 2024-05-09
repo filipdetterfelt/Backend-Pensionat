@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.ArrayList;
 
 @Controller
@@ -39,20 +40,14 @@ public class CustomerController {
     }
 
     @PostMapping("addCustomer")
-    public String addCustomers(@ModelAttribute("newCustomers") CustomerDetailedDTO customer){
-        BlacklistDetailedDTO blacklist = blacklistService.checkBlackList(customer.getEmail());
-        if(blacklist.isOk()) {
-            customer.setBookings(new ArrayList<BookingDTO>());
-            customerService.addCustomer(customer);
-            return "redirect:/customers";
-        } else {
-            return "redirect:/customers/blacklisted";
-        }
-
+    public String addCustomers(@ModelAttribute("newCustomers") CustomerDetailedDTO customer) {
+        customer.setBookings(new ArrayList<BookingDTO>());
+        customerService.addCustomer(customer);
+        return "redirect:/customers";
     }
 
     @PostMapping("UpdateCustomers")
-    public String updateCustomer(@ModelAttribute ("updatedCustomer") CustomerDetailedDTO customer){
+    public String updateCustomer(@ModelAttribute("updatedCustomer") CustomerDetailedDTO customer) {
         customer.setBookings(new ArrayList<BookingDTO>());
         customerService.changeCustomer(customer);
         return "redirect:/customers";
@@ -72,8 +67,8 @@ public class CustomerController {
     }
 
     @GetMapping("customers/{id}")
-    public String editCustomerById(@PathVariable Long id, RedirectAttributes redirectAttributes){
-        redirectAttributes.addFlashAttribute("updatedCustomer",customerService.findCustomerById(id));
+    public String editCustomerById(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("updatedCustomer", customerService.findCustomerById(id));
         return "redirect:/UpdateCustomer";
     }
 
