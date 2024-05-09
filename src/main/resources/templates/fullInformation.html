@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
@@ -80,14 +73,16 @@
     <tr>
       <th>Company Name</th>
       <th>Contact Person</th>
+      <th>Contact Title</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>Postal Code</th>
       <th>Country</th>
-      <th>More Information</th>
-      <th>Delete customer</th>
+      <th>Phone</th>
+      <th>Fax</th>
     </tr>
     <tr th:each ="contractCustomer: ${contractCustomersList}">
-      <td>
-        <a th:href="@{fullInformation}" th:text="${contractCustomer.companyName}"></a>
-      </td>
+
       <td th:text="${contractCustomer.contactName}"> </td>
       <td th:text="${contractCustomer.country}"></td>
       <td>
@@ -106,10 +101,6 @@
     </tr>
   </table>
 </div>
-<div>
-  <button class="addbtn" onclick="location.href='/addNewCustomer'">Add customer</button>
-</div>
-</body>
-</html>
+
 </body>
 </html>
