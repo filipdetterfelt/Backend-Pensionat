@@ -5,39 +5,43 @@
     <title>Customers</title>
 </head>
 <style>
-    body{
+    body {
         display: flex;
         align-items: center;
         flex-direction: column;
         justify-content: center;
         gap: 10px;
     }
+
     td {
         text-align: center;
         width: 200px;
         background-color: lightgrey;
-        font-family: "Arial",serif;
+        font-family: "Arial", serif;
     }
+
     th {
         background-color: black;
-        font-family: "Arial",serif;
+        font-family: "Arial", serif;
         color: whitesmoke;
         width: 200px;
     }
-    .header , .table
-    {
+
+    .header, .table {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
-    .links{
+
+    .links {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 20px;
     }
-    a{
+
+    a {
         width: 125px;
         height: 35px;
         padding-top: 5px;
@@ -45,11 +49,12 @@
         background-color: black;
         color: white;
         text-align: center;
-        font-family: "Arial",serif;
+        font-family: "Arial", serif;
         font-style: normal;
         text-decoration: none;
     }
-    .addbtn{
+
+    .addbtn {
         width: 300px;
         height: 40px;
         margin-top: 10px;
@@ -57,11 +62,12 @@
 </style>
 <body>
 <div class="header">
-<h1>Pensionat Koriander !</h1>
+    <h1>Pensionat Koriander !</h1>
     <div class="links">
-<a th:href="@{/customers}">Customer</a>
-<a th:href="@{/bookings}">Booking</a>
-<a th:href="@{/rooms}">Room</a>
+        <a th:href="@{/customers}">Customer</a>
+        <a th:href="@{/blacklistcustomers}">Blacklist</a>
+        <a th:href="@{/bookings}">Booking</a>
+        <a th:href="@{/rooms}">Room</a>
         <a th:href="@{/ContractCustomers}">Contract Customers</a>
     </div>
 </div>
@@ -83,20 +89,22 @@
             <th>Edit customer</th>
             <th>Delete customer</th>
         </tr>
-        <tr th:each = "customer: ${customersList}">
-            <td th:text = "${customer.getId()}"></td>
-            <td th:text = "${customer.getSsn()}"></td>
-            <td th:text = "${customer.getEmail()}"></td>
-            <td th:text = "${customer.getFirstName()}"></td>
-            <td th:text = "${customer.getLastName()}"></td>
-            <td th:text = "${customer.getPhone()}"></td>
+        <tr th:each="customer: ${customersList}">
+            <td th:text="${customer.getId()}"></td>
+            <td th:text="${customer.getSsn()}"></td>
+            <td th:text="${customer.getEmail()}"></td>
+            <td th:text="${customer.getFirstName()}"></td>
+            <td th:text="${customer.getLastName()}"></td>
+            <td th:text="${customer.getPhone()}"></td>
 
             <td>
                 <button th:data-url="'/customers/' + ${customer.id}"
-                        onclick="window.location.href = this.getAttribute('data-url')">Edit</button>
+                        onclick="window.location.href = this.getAttribute('data-url')">Edit
+                </button>
             </td>
             <td>
-                <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post" th:if="${#lists.isEmpty(customer.getBookings())}">
+                <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post"
+                      th:if="${#lists.isEmpty(customer.getBookings())}">
                     <input type="hidden" name="id" th:value="${customer.getId()}"/>
                     <button type="submit">Delete</button>
                 </form>
