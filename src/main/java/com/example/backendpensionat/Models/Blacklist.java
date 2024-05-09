@@ -13,7 +13,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
 @Builder
 public class Blacklist {
     @Id

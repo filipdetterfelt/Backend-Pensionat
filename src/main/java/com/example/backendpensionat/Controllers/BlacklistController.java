@@ -26,7 +26,10 @@ public class BlacklistController {
 
     @GetMapping("/updateBlacklistStatus/{email}")
     public String updateBlacklistStatus(@PathVariable String email) {
-        blacklistService.checkBlackListAndSetOkToFalse(email);
-        return "redirect:/blacklist";
+        BlacklistDetailedDTO blacklistDetailedDTO = blacklistService.checkBlackListAndSetOkToFalse(email);
+        System.out.println(blacklistDetailedDTO.ok + " " + blacklistDetailedDTO.statusText);
+
+        blacklistService.sendBlacklistData(email, String name, blacklistDetailedDTO.ok);
+        return "redirect:/blacklistcustomers";
     }
 }
