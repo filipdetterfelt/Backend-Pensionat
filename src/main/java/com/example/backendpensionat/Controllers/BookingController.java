@@ -51,10 +51,13 @@ public class BookingController {
     }
 
     @PostMapping("/bookings/add")
-    public String addBookingFromNewCustomer(@ModelAttribute("newCustomers") CustomerDetailedDTO customer, Model model) {
+    public String addBookingFromNewCustomer(@ModelAttribute("newCustomers") CustomerDetailedDTO customer,
+                                            Model model,
+                                            RedirectAttributes rda) {
         BlacklistDetailedDTO blacklist = blacklistService.checkBlackList(customer.getEmail());
         if(!blacklist.isOk()) {
-            return "redirect:/customers/blacklisted";
+            rda.addFlashAttribute("wasBlackListed", true);
+            return "redirect:/addNewCustomer";
         }
 
         customer.setBookings(new ArrayList<BookingDTO>());
