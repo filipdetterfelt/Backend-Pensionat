@@ -3,6 +3,7 @@ package com.example.backendpensionat.Controllers;
 import com.example.backendpensionat.DTO.ContractCustomerDTO;
 import com.example.backendpensionat.DTO.ContractCustomersSearchDTO;
 import com.example.backendpensionat.Services.ContractCustomerService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,33 +29,40 @@ public class ContractCustomerController {
     @GetMapping("/ContractCustomers/search")
     public String searchCustomer(
             @ModelAttribute ContractCustomersSearchDTO contractCustomersSearchDTO,
-            RedirectAttributes rda) {
+            RedirectAttributes rda,
+            HttpSession session) {
 
         String column = contractCustomersSearchDTO.orderString.split(" - ")[0];
         String order = contractCustomersSearchDTO.orderString.split(" - ")[1];
 
-        List<ContractCustomerDTO> list = contractCustomerService.listSortedContractCustomers(column, order);
-
-        List<ContractCustomerDTO> filteredList = list.stream().filter(customer ->
-                customer.getCompanyName().contains(contractCustomersSearchDTO.searchWord) ||
-                customer.getContactName().contains(contractCustomersSearchDTO.searchWord) ||
-                customer.getCountry().contains(contractCustomersSearchDTO.searchWord)).toList();
+        List<ContractCustomerDTO> filteredList = contractCustomerService.listSortedContractCustomers(contractCustomersSearchDTO.searchWord, column, order);
 
         rda.addFlashAttribute("contractCustomersList", filteredList);
         rda.addFlashAttribute("sortString", contractCustomersSearchDTO.orderString);
+        session.setAttribute("searchWord", contractCustomersSearchDTO.searchWord);
         return "redirect:/ContractCustomers";
     }
 
     @GetMapping("ContractCustomers/sort/{sortString}")
-    public String sortCustomers(@PathVariable String sortString,
-                                RedirectAttributes rda) {
+    public String sortCustomers(
+            @PathVariable String sortString,
+            RedirectAttributes rda,
+            HttpSession session) {
+
         String column = sortString.split(" - ")[0];
         String order = sortString.split(" - ")[1];
+        String searchWord = session.getAttribute("searchWord") == null ? "" : (String) session.getAttribute("searchWord");
 
-        List<ContractCustomerDTO> sortedCustomers = contractCustomerService.listSortedContractCustomers(column, order);
+        List<ContractCustomerDTO> sortedCustomers = contractCustomerService.listSortedContractCustomers(searchWord, column, order);
 
         rda.addFlashAttribute("contractCustomersList", sortedCustomers);
         rda.addFlashAttribute("sortString", sortString);
+        return "redirect:/ContractCustomers";
+    }
+
+    @GetMapping("/ContractCustomers/reset")
+    public String resetSearch(HttpSession session) {
+        session.removeAttribute("searchWord");
         return "redirect:/ContractCustomers";
     }
 
