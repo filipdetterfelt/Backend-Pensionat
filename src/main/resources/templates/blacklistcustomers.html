@@ -22,6 +22,7 @@
         justify-content: center;
 
     }
+
     #centerbox {
         display: flex;
         flex-direction: column;
@@ -31,11 +32,48 @@
         padding: 20px;
         border-radius: 10px;
     }
+
+    a {
+        width: 125px;
+        height: 35px;
+        padding-top: 5px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-family: "Arial", serif;
+        font-style: normal;
+        text-decoration: none;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
 </style>
 <body>
-
-<h1>Pensionat Koriander !</h1>
+<div class="header">
+    <h1>Pensionat Koriander !</h1>
+    <div class="links"></div>
+    <a th:href="@{/customers}">Customer</a>
+    <a th:href="@{/blacklistcustomers}">Blacklist</a>
+    <a th:href="@{/bookings}">Booking</a>
+    <a th:href="@{/rooms}">Room</a>
+    <a th:href="@{/ContractCustomers}">Contract Customers</a>
+    <div/>
+</div>
 <br><br>
+
 <div id="centerbox">
     <h2>Blacklist a Customer</h2>
     <div style="display: flex;">
@@ -50,7 +88,7 @@
 </form>
 
 <script>
-    document.getElementById('blacklistForm').addEventListener('submit', function(event) {
+    document.getElementById('blacklistForm').addEventListener('submit', function (event) {
         event.preventDefault();
         var email = document.getElementById('mail').value;
         window.location.href = '/updateBlacklistStatus/' + email;
