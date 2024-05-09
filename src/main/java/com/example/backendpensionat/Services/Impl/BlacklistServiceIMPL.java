@@ -15,7 +15,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
 
     @Override
     public BlacklistDetailedDTO checkBlackList(String email) {
-        String url = "https://javabl.systementor.se/api/stefan/blacklistcheck/" + email;
+        String url = "https://javabl.systementor.se/api/Koriander/blacklistcheck/" + email;
         return restTemplate.getForObject(url, BlacklistDetailedDTO.class);
     }
 
@@ -29,6 +29,10 @@ public class BlacklistServiceIMPL implements BlacklistService {
     public BlacklistDetailedDTO checkBlackListAndSetOkToFalse(String email) {
         BlacklistDetailedDTO blacklistDetailedDTO = checkBlackList(email);
         blacklistDetailedDTO.setOk(false);
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put("https://javabl.systementor.se/api/Koriander/blacklist", blacklistDetailedDTO);
+
         return blacklistDetailedDTO;
     }
 }
