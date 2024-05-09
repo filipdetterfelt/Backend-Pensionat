@@ -25,6 +25,11 @@ public class ContractCustomerController {
         return "contractCustomers";
     }
 
+    @GetMapping("/fullInformation")
+    public String fullInfo(Model model){
+        model.addAttribute("fullInfoCCustomer", contractCustomerService)
+    }
+
     /*@PostMapping("deleteContractCustomer")
     public String removeContractCustomer(@ModelAttribute("deleteContractCustomer")ContractCustomerDetailedDTO cCustomer){
         cCustomer.setBookings(new ArrayList<ContractCustomerDTO>());
