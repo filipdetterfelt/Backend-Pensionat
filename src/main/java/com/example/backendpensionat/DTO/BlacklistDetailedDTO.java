@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class BlacklistDetailedDTO {
    public String statusText;
    public boolean ok;
+   public String email;
 }
