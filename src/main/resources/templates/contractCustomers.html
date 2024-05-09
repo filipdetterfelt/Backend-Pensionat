@@ -87,10 +87,11 @@
 <div class="table">
     <h3>Contract Customers</h3>
     <form action="/ContractCustomers/search" method="get">
-        <input type="hidden" name="orderString" id="hiddenInput" th:value="${sortString}">
+        <input type="hidden" name="orderString" id="hiddenSort" th:value="${sortString}">
         <label for="search"></label><br>
         <input type="text" name="searchWord" id="search">
         <button type="submit">Search</button>
+        <button onclick="resetSearch()">Reset</button>
     </form>
     <br><br>
     <table>
@@ -146,6 +147,10 @@
 <script>
     function sortList(sortingKeyWord) {
         window.location.href = "/ContractCustomers/sort/" + sortingKeyWord;
+    }
+
+    function resetSearch() {
+        window.location.href = "/ContractCustomers/reset";
     }
 </script>
 </body>
