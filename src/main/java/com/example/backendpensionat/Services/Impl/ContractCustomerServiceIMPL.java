@@ -2,18 +2,14 @@ package com.example.backendpensionat.Services.Impl;
 
 import com.example.backendpensionat.DTO.ContractCustomerDTO;
 import com.example.backendpensionat.DTO.ContractCustomerDetailedDTO;
-import com.example.backendpensionat.DTO.RoomDetailedDTO;
 import com.example.backendpensionat.Models.ContractCustomer;
-import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Repos.ContractCustomerRepo;
 import com.example.backendpensionat.Services.ContractCustomerService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,11 +20,6 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
 
     @PersistenceContext
     private EntityManager entityManager;
-
-    @Override
-    public void saveContractCustomer(ContractCustomerDTO cCustomer) {
-        contractCustomerRepo.save(detailToCms(cCustomer));
-    }
 
     @Override
     public ContractCustomer saveContractCustomer(ContractCustomerDTO cCustomer) {
