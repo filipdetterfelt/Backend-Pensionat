@@ -81,17 +81,21 @@
       <th>Phone</th>
       <th>Fax</th>
     </tr>
-    <tr th:each ="contractCustomerFull: ${ContractCustomerFullInfoList}">
+    <tr>
 
-      <td th:text="${contractCustomer.companyName}"> </td>
-      <td th:text="${contractCustomer.contactName}"></td>
-      <td th:text="${contractCustomer.contactTitle}"></td>
-      <td th:text="${contractCustomer.streetAddress}"></td>
-      <td th:text="${contractCustomer.city}"></td>
-      <td th:text="${contractCustomer.postalCode}"></td>
-      <td th:text="${contractCustomer.country}"></td>
-      <td th:text="${contractCustomer.phone}"></td>
-      <td th:text="${contractCustomer.fax}"></td>
+      <td th:text="${fullInfoCCustomer.companyName}"> </td>
+      <td th:text="${fullInfoCCustomer.contactName}"></td>
+      <td th:text="${fullInfoCCustomer.contactTitle}"></td>
+      <td th:text="${fullInfoCCustomer.streetAddress}"></td>
+      <td th:text="${fullInfoCCustomer.city}"></td>
+      <td th:text="${fullInfoCCustomer.postalCode}"></td>
+      <td th:text="${fullInfoCCustomer.country}"></td>
+      <td th:text="${fullInfoCCustomer.phone}"></td>
+      <td th:text="${fullInfoCCustomer.fax}"></td>
+
+
+
+
 
     </tr>
   </table>
