@@ -24,7 +24,7 @@
 <h1>Pensionat Koriander !</h1>
 
 <h2>Add customer</h2>
-<form action="/addCustomer" th:object="${newCustomers}" method="post">
+<form action="/bookings/add" th:object="${newCustomers}" method="post">
     <label for="ssn">Social Security Number:</label><br>
     <input type="text" id="ssn" name="Ssn" required pattern="[0-9]{10,12}"
            title="Please enter a 10-digit or 12-digit Social Security Number"><br><br>

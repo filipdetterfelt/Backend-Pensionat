@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Superbokningar</title>
+    <title>New Current Customer</title>
 </head>
 <style>
     body{
@@ -32,8 +32,8 @@
         gap: 20px;
     }
     a{
-        width: 125px;
-        height: 35px;
+        width: 150px;
+        height: 25px;
         padding-top: 5px;
         border-radius: 5px;
         background-color: black;
@@ -45,13 +45,10 @@
     }
 </style>
 <body>
-
     <h1>Pensionat Koriander !</h1>
     <div class="links">
-    <a th:href="@{/customers}">Customer</a>
-    <a th:href="@{/newCurrentCustomer}">Booking</a>
-    <a th:href="@{/rooms}">Room</a>
-        <a th:href="@{/ContractCustomers}">Contract Customers</a>
+    <a th:href="@{/addNewCustomer}">New Customer</a>
+    <a th:href="@{/bookings/add}">Current Customer</a>
     </div>
 </body>
 </html>
