@@ -17,7 +17,7 @@
 
     td {
         text-align: center;
-        width: 200px;
+        width: 300px;
         background-color: lightgrey;
         font-family: "Arial", serif;
     }
@@ -26,7 +26,7 @@
         background-color: black;
         font-family: "Arial", serif;
         color: whitesmoke;
-        width: 200px;
+        width: 300px;
     }
 
     .header, .table {
@@ -60,6 +60,18 @@
         width: 300px;
         height: 40px;
     }
+
+    img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .header-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 10px;
+    }
 </style>
 <body>
 <div class="header">
@@ -75,11 +87,37 @@
 
 <div class="table">
     <h3>Contract Customers</h3>
+    <form action="/ContractCustomers/search" method="get">
+        <input type="hidden" name="orderString" id="hiddenSort" th:value="${sortString}">
+        <label for="search"></label><br>
+        <input type="text" name="searchWord" id="search">
+        <button type="submit">Search</button>
+        <button onclick="resetSearch()">Reset</button>
+    </form>
+    <br><br>
     <table>
         <tr>
-            <th>Company Name</th>
-            <th>Contact Person</th>
-            <th>Country</th>
+            <th>
+                <div class="header-title">
+                    <p>Company name</p>
+                    <img src="/images/ascending_icon.png" alt="" onclick="sortList('companyName - ASC')"/>
+                    <img src="/images/descending_icon.png" alt="" onclick="sortList('companyName - DESC')"/>
+                </div>
+            </th>
+            <th>
+                <div class="header-title">
+                    <p>Contact person</p>
+                    <img src="/images/ascending_icon.png" alt="" onclick="sortList('contactName - ASC')"/>
+                    <img src="/images/descending_icon.png" alt="" onclick="sortList('contactName - DESC')"/>
+                </div>
+            </th>
+            <th>
+                <div class="header-title">
+                    <p>Country</p>
+                    <img src="/images/ascending_icon.png" alt="" onclick="sortList('country - ASC')"/>
+                    <img src="/images/descending_icon.png" alt="" onclick="sortList('country - DESC')"/>
+                </div>
+            </th>
             <th>More Information</th>
         </tr>
         <tr th:each="contractCustomer: ${contractCustomersList}">
@@ -103,8 +141,14 @@
         </tr>
     </table>
 </div>
-<div>
-    <button class="addbtn" onclick="location.href='/addNewCustomer'">Add customer</button>
-</div>
+<script>
+    function sortList(sortingKeyWord) {
+        window.location.href = "/ContractCustomers/sort/" + sortingKeyWord;
+    }
+
+    function resetSearch() {
+        window.location.href = "/ContractCustomers/reset";
+    }
+</script>
 </body>
 </html>

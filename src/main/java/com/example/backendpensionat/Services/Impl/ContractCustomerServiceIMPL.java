@@ -7,9 +7,10 @@ import com.example.backendpensionat.DTO.CustomerDetailedDTO;
 import com.example.backendpensionat.Models.ContractCustomer;
 import com.example.backendpensionat.Repos.ContractCustomerRepo;
 import com.example.backendpensionat.Services.ContractCustomerService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -21,9 +22,12 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
     @Autowired
     ContractCustomerRepo contractCustomerRepo;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
-    public ContractCustomer saveContractCustomer(ContractCustomerDTO cCustomer) {
-        return contractCustomerRepo.save(detailToCms(cCustomer));
+    public void saveContractCustomer(ContractCustomerDTO cCustomer) {
+        contractCustomerRepo.save(detailToCms(cCustomer));
     }
 
     @Override
@@ -33,12 +37,35 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
                 .map(this::CmsToDTO)
                 .distinct()
                 .collect(Collectors.toList());
-
-
-
-
     }
 
+    @Override
+    public List<ContractCustomerDTO> listSortedContractCustomers(String searchWord, String columnName, String sortingOrder) {
+        String jpqlQuery = String.format(
+                "SELECT c FROM ContractCustomer c WHERE " +
+                        "c.companyName LIKE :searchWord OR " +
+                        "c.contactName LIKE :searchWord OR " +
+                        "c.country LIKE :searchWord " +
+                        "ORDER BY %s %s", columnName, sortingOrder);
+
+        return entityManager.createQuery(jpqlQuery, ContractCustomer.class)
+                .setParameter("searchWord", "%" + searchWord + "%")
+                .getResultList().stream()
+                .map(customer -> ContractCustomerDTO.builder()
+                        .internalId(customer.getId())
+                        .externalId(customer.getExternalId())
+                        .companyName(customer.getCompanyName())
+                        .contactName(customer.getContactName())
+                        .contactTitle(customer.getContactTitle())
+                        .streetAddress(customer.getStreetAddress())
+                        .city(customer.getCity())
+                        .postalCode(customer.getPostalCode())
+                        .country(customer.getCountry())
+                        .phone(customer.getPhone())
+                        .fax(customer.getFax())
+                        .build())
+                .toList();
+    }
 
     @Override
     public String removeCCustomer(ContractCustomerDetailedDTO cCustomer) {
