@@ -18,4 +18,17 @@ public class BlacklistServiceIMPL implements BlacklistService {
         String url = "https://javabl.systementor.se/api/stefan/blacklistcheck/" + email;
         return restTemplate.getForObject(url, BlacklistDetailedDTO.class);
     }
+
+    @Override
+    public BlacklistDetailedDTO checkBlackListAndSetOkToTrue(String email) {
+        BlacklistDetailedDTO blacklistDetailedDTO = checkBlackList(email);
+        blacklistDetailedDTO.setOk(true);
+        return blacklistDetailedDTO;
+    }
+    @Override
+    public BlacklistDetailedDTO checkBlackListAndSetOkToFalse(String email) {
+        BlacklistDetailedDTO blacklistDetailedDTO = checkBlackList(email);
+        blacklistDetailedDTO.setOk(false);
+        return blacklistDetailedDTO;
+    }
 }
