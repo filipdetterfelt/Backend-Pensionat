@@ -79,21 +79,22 @@
         </tr>
         <tr th:each ="contractCustomer: ${contractCustomersList}">
             <td>
-                <a th:href="@{fullInformation}" th:text="${contractCustomer.companyName}"></a>
-            </td>
-            <td th:text="${contractCustomer.contactName}"> </td>
-            <td th:text="${contractCustomer.country}"></td>
-            <td>
+                <!--<a th:href="@{fullInformation}" th:text="${contractCustomer.companyName}"></a>-->
+                <a th:href="@{/fullInformation/{id}(id=${contractCustomer.externalId})}" th:text="${contractCustomer.companyName}"></a>
+             </td>
+             <td th:text="${contractCustomer.contactName}"> </td>
+             <td th:text="${contractCustomer.country}"></td>
+             <td>
 
-                <button th:data-url="'/contractCustomers/' + ${contractCustomer.externalId}"
-                        onclick="window.location.href = this.getAttribute('data-url')">Information</button>
-            </td>
-            <td>
-               <!-- <form th:action="@{/deleteContractCustomers}" th:object="${deleteContractCustomers}" method="post" th:if="${#lists.isEmpty(contractCustomer.getBookings())}"></form>
-                <input type="hidden" name="id" th:value="${contractCustomer.getExternalId()}">
-                <button type="submit">Delete</button>
-                </form>
-                -->
+                 <button th:data-url="'/contractCustomers/' + ${contractCustomer.externalId}"
+                         onclick="window.location.href = this.getAttribute('data-url')">Information</button>
+             </td>
+             <td>
+                <!-- <form th:action="@{/deleteContractCustomers}" th:object="${deleteContractCustomers}" method="post" th:if="${#lists.isEmpty(contractCustomer.getBookings())}"></form>
+                 <input type="hidden" name="id" th:value="${contractCustomer.getExternalId()}">
+                 <button type="submit">Delete</button>
+                 </form>
+                 -->
             </td>
 
         </tr>
