@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -25,9 +26,11 @@ public class ContractCustomerController {
         return "contractCustomers";
     }
 
-    @GetMapping("/fullInformation")
-    public String fullInfo(Model model){
-        model.addAttribute("fullInfoCCustomer", contractCustomerService)
+    @GetMapping("/fullInformation/{id}")
+    public String fullInfo(@PathVariable Long id, Model model){
+        ContractCustomer customer = contractCustomerService.findcCustomerById(id);
+        model.addAttribute("fullInfoCCustomer", customer);
+        return "fullInformation";
     }
 
     /*@PostMapping("deleteContractCustomer")
