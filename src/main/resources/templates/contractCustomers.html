@@ -80,10 +80,11 @@
         <tr th:each ="contractCustomer: ${contractCustomersList}">
             <td>
                 <!--<a th:href="@{fullInformation}" th:text="${contractCustomer.companyName}"></a>-->
-                <a th:href="@{/fullInformation/{id}(id=${contractCustomer.externalId})}" th:text="${contractCustomer.companyName}"></a>
+                <a th:href="@{/fullInformation/{id}(id=${contractCustomer.internalId})}" th:text="${contractCustomer.companyName}"></a>
              </td>
              <td th:text="${contractCustomer.contactName}"> </td>
              <td th:text="${contractCustomer.country}"></td>
+
              <td>
 
                  <button th:data-url="'/contractCustomers/' + ${contractCustomer.externalId}"
