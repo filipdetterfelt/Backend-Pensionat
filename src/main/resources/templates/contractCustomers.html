@@ -74,17 +74,19 @@
             <th>Company Name</th>
             <th>Contact Person</th>
             <th>Country</th>
-            <th>Edit customer</th>
+            <th>More Information</th>
             <th>Delete customer</th>
         </tr>
         <tr th:each ="contractCustomer: ${contractCustomersList}">
-            <td th:text="${contractCustomer.companyName}"></td>
+            <td>
+                <a th:href="@{fullInformation}" th:text="${contractCustomer.companyName}"></a>
+            </td>
             <td th:text="${contractCustomer.contactName}"> </td>
             <td th:text="${contractCustomer.country}"></td>
             <td>
 
                 <button th:data-url="'/contractCustomers/' + ${contractCustomer.externalId}"
-                        onclick="window.location.href = this.getAttribute('data-url')">Edit</button>
+                        onclick="window.location.href = this.getAttribute('data-url')">Information</button>
             </td>
             <td>
                <!-- <form th:action="@{/deleteContractCustomers}" th:object="${deleteContractCustomers}" method="post" th:if="${#lists.isEmpty(contractCustomer.getBookings())}"></form>
