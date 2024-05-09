@@ -33,7 +33,7 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
                 "SELECT c FROM ContractCustomer c WHERE " +
                         "c.companyName LIKE :searchWord OR " +
                         "c.contactName LIKE :searchWord OR " +
-                        "c.country LIKE :searchWord OR " +
+                        "c.country LIKE :searchWord " +
                         "ORDER BY %s %s", columnName, sortingOrder);
 
         return entityManager.createQuery(jpqlQuery, ContractCustomer.class)
