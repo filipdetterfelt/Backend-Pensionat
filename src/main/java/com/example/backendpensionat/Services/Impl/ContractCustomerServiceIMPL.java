@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class ContractCustomerServiceIMPL implements ContractCustomerService {
@@ -24,7 +25,15 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
 
     @Override
     public List<ContractCustomerDTO> listAllContractCustomers() {
-        return contractCustomerRepo.findAll().stream().map(this::CmsToDTO).toList();
+        return contractCustomerRepo.findAll()
+                .stream()
+                .map(this::CmsToDTO)
+                .distinct()
+                .collect(Collectors.toList());
+
+
+
+
     }
 
 
