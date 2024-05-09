@@ -2,15 +2,17 @@ package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.DTO.ContractCustomerDTO;
 import com.example.backendpensionat.DTO.ContractCustomersSearchDTO;
+import com.example.backendpensionat.Models.ContractCustomer;
 import com.example.backendpensionat.Services.ContractCustomerService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
-import java.util.Objects;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequiredArgsConstructor
@@ -64,6 +66,13 @@ public class ContractCustomerController {
     public String resetSearch(HttpSession session) {
         session.removeAttribute("searchWord");
         return "redirect:/ContractCustomers";
+    }
+
+    @GetMapping("/fullInformation/{id}")
+    public String fullInfo(@PathVariable Long id, Model model){
+        ContractCustomer customer = contractCustomerService.findcCustomerById(id);
+        model.addAttribute("fullInfoCCustomer", customer);
+        return "fullInformation";
     }
 
     /*@PostMapping("deleteContractCustomer")

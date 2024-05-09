@@ -12,4 +12,6 @@ public interface ContractCustomerService {
     void saveContractCustomer(ContractCustomerDTO cCustomer);
     List<ContractCustomerDTO> listAllContractCustomers();
     String removeCCustomer(ContractCustomerDetailedDTO cCustomer);
+    ContractCustomer findcCustomerById(Long id);
 }
+
