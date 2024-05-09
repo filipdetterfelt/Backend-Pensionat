@@ -23,7 +23,8 @@ public class BlacklistController {
         model.addAttribute("blacklistcustomers", new BlacklistDetailedDTO());
         return "blacklistcustomers";
     }
-    @PostMapping("/updateBlacklistStatus/{email}")
+
+    @GetMapping("/updateBlacklistStatus/{email}")
     public String updateBlacklistStatus(@PathVariable String email) {
         blacklistService.checkBlackListAndSetOkToFalse(email);
         return "redirect:/blacklist";
