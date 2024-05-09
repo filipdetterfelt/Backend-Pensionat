@@ -1,7 +1,9 @@
 package com.example.backendpensionat.Controllers;
 
+import com.example.backendpensionat.DTO.BlacklistDetailedDTO;
 import com.example.backendpensionat.DTO.BookingDTO;
 import com.example.backendpensionat.DTO.CustomerDetailedDTO;
+import com.example.backendpensionat.Services.BlacklistService;
 import com.example.backendpensionat.Services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final BlacklistService blacklistService;
 
 
     @GetMapping("customers")
@@ -30,11 +33,22 @@ public class CustomerController {
         return "addNewCustomerForm";
     }
 
+    @GetMapping("/customers/blacklisted")
+    public String isBlackListed() {
+        return "blacklisted";
+    }
+
     @PostMapping("addCustomer")
     public String addCustomers(@ModelAttribute("newCustomers") CustomerDetailedDTO customer){
-        customer.setBookings(new ArrayList<BookingDTO>());
-        customerService.addCustomer(customer);
-        return "redirect:/customers";
+        BlacklistDetailedDTO blacklist = blacklistService.checkBlackList(customer.getEmail());
+        if(blacklist.isOk()) {
+            customer.setBookings(new ArrayList<BookingDTO>());
+            customerService.addCustomer(customer);
+            return "redirect:/customers";
+        } else {
+            return "redirect:/customers/blacklisted";
+        }
+
     }
 
     @PostMapping("UpdateCustomers")

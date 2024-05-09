@@ -1,13 +1,15 @@
 package com.example.backendpensionat.DTO;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BlacklistDetailedDTO {
-
-    public Long externalID;
-    public String email;
-    public String name;
-    public String group;
-    public Date created;
-    public boolean ok;
+   public String statusText;
+   public boolean ok;
 }
