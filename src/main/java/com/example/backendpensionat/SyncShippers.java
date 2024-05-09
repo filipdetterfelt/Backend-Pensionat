@@ -21,6 +21,7 @@ public class SyncShippers implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
 

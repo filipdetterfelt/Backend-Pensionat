@@ -1,6 +1,7 @@
 package com.example.backendpensionat.Services.Impl;
 
 import com.example.backendpensionat.DTO.ContractCustomerDTO;
+import com.example.backendpensionat.DTO.ContractCustomerDetailedDTO;
 import com.example.backendpensionat.DTO.RoomDetailedDTO;
 import com.example.backendpensionat.Models.ContractCustomer;
 import com.example.backendpensionat.Models.Room;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class ContractCustomerServiceIMPL implements ContractCustomerService {
@@ -25,6 +28,20 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
     @Override
     public void saveContractCustomer(ContractCustomerDTO cCustomer) {
         contractCustomerRepo.save(detailToCms(cCustomer));
+    }
+
+    @Override
+    public ContractCustomer saveContractCustomer(ContractCustomerDTO cCustomer) {
+        return contractCustomerRepo.save(detailToCms(cCustomer));
+    }
+
+    @Override
+    public List<ContractCustomerDTO> listAllContractCustomers() {
+        return contractCustomerRepo.findAll()
+                .stream()
+                .map(this::CmsToDTO)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -56,9 +73,27 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
     }
 
     @Override
-    public List<ContractCustomerDTO> allCustomers() {
-        return contractCustomerRepo.findAll().stream().map(this::CmsToDTO).toList();
+    public String removeCCustomer(ContractCustomerDetailedDTO cCustomer) {
+        /*if(cCustomer.getBookings() != null){
+            contractCustomerRepo.delete();
+        }*/
+        return "";
     }
+
+   /* public ContractCustomerDTO cCToDto(ContractCustomer cCustomer) {
+        List<ContractCustomer> contractCustomerList = contractCustomerRepo.findAll();
+        ContractCustomer matchcCustomer = contractCustomerList.stream()
+                .filter(contractCustomer -> contractCustomer.externalId
+                        .equals(contractCustomer.externalId)).findFirst()
+                .orElse(new ContractCustomer());
+
+        return ContractCustomer.builder()
+                .internalId(cCustomer.id)
+                .companyName(matchcCustomer.companyName)
+                .contactName(matchcCustomer.contactName)
+                .country(matchcCustomer.country).build();
+    }*/
+
 
     public ContractCustomerDTO CmsToDTO(ContractCustomer ContractCustomer) {
         return ContractCustomerDTO.builder()
