@@ -10,6 +10,7 @@
 <style>
     input {
 
+
         min-width: 200px;
         min-height: 30px;
 
@@ -115,11 +116,11 @@
             <input type="submit" value="Add to blacklist">
         </form>
     </div><br><br>
+    <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person has been Greenlisted</p>
+    <p th:if="${isBlacklisted == true}" class="alert alert-danger" role="alert">This person has been Blacklisted</p>
     <div>
         <form id="updateForm" method="get">
             <h3 class="center-header">Update status</h3>
-            <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person has been Greenlisted</p>
-            <p th:if="${isBlacklisted == true}" class="alert alert-danger" role="alert">This person has been Blacklisted</p>
             <label for="emailUpdate">Email:</label><br>
             <input type="email" id="emailUpdate" name="email" required><br><br>
             <div class="buttons-box">
