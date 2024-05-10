@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Contract Customers</title>
+</head>
+
+</head>
+<style>
+  body{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+  td {
+    text-align: center;
+    width: 200px;
+    background-color: lightgrey;
+    font-family: "Arial",serif;
+  }
+  th {
+    background-color: black;
+    font-family: "Arial",serif;
+    color: whitesmoke;
+    width: 200px;
+  }
+  .header , .table
+  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .links{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  a{
+    width: 125px;
+    height: 35px;
+    padding-top: 5px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: "Arial",serif;
+    font-style: normal;
+    text-decoration: none;
+  }
+  .addbtn{
+    width: 300px;
+    height: 40px;
+  }
+</style>
+<body>
+<div class="header">
+  <h1>Pensionat Koriander !</h1>
+  <div class="links">
+    <a th:href="@{/customers}">Customer</a>
+    <a th:href="@{/bookings}">Booking</a>
+    <a th:href="@{/rooms}">Room</a>
+    <a th:href="@{/ContractCustomers}">Contract Customers</a>
+  </div>
+</div>
+
+<div class="table">
+  <h3>Contract Customers</h3>
+  <table>
+    <tr>
+      <th>Company Name</th>
+      <th>Contact Person</th>
+      <th>Contact Title</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>Postal Code</th>
+      <th>Country</th>
+      <th>Phone</th>
+      <th>Fax</th>
+    </tr>
+    <tr>
+
+      <td th:text="${fullInfoCCustomer.companyName}"> </td>
+      <td th:text="${fullInfoCCustomer.contactName}"></td>
+      <td th:text="${fullInfoCCustomer.contactTitle}"></td>
+      <td th:text="${fullInfoCCustomer.streetAddress}"></td>
+      <td th:text="${fullInfoCCustomer.city}"></td>
+      <td th:text="${fullInfoCCustomer.postalCode}"></td>
+      <td th:text="${fullInfoCCustomer.country}"></td>
+      <td th:text="${fullInfoCCustomer.phone}"></td>
+      <td th:text="${fullInfoCCustomer.fax}"></td>
+
+
+
+
+
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>

@@ -1,17 +1,15 @@
 package com.example.backendpensionat.DTO;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class BlacklistDetailedDTO {
-   public String statusText;
-   public boolean ok;
-   public String email;
-   public String name;
+public class ContractCustomersSearchDTO {
+    public String orderString;
+    public String searchWord;
 }
+

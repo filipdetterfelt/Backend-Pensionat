@@ -17,7 +17,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
 
     @Override
     public BlacklistDetailedDTO checkBlackList(String email) {
-        String url = "https://javabl.systementor.se/api/Stefan/blacklistcheck/" + email;
+        String url = "https://javabl.systementor.se/api/koriander/blacklistcheck/" + email;
         return restTemplate.getForObject(url, BlacklistDetailedDTO.class);
     }
 
@@ -33,17 +33,50 @@ public class BlacklistServiceIMPL implements BlacklistService {
         blacklistDetailedDTO.setOk(false);
         return blacklistDetailedDTO;
     }
+
     @Override
-    public void sendBlacklistData(String email, String name, boolean isOk) {
-        BlacklistDetailedDTO blacklistDetailedDTO = checkBlackListAndSetOkToFalse(email);
-        System.out.println(blacklistDetailedDTO.ok + " " + blacklistDetailedDTO.statusText);
-        HttpClient client = HttpClient.newHttpClient();
+    public void addCustomerToBlacklist(String email, String name) {
+        String jsonBody = "{\"email\":\"" + email + "\", \"name\":\"" + name + "\", \"isOk\":\"false\" }";
+
+        BlacklistDetailedDTO newBlacklistedCustomer = new BlacklistDetailedDTO();
+        newBlacklistedCustomer.setEmail(email);
+        newBlacklistedCustomer.setOk(false);
+
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://javabl.systementor.se/api/stefan/blacklist"))
+                .uri(URI.create("https://javabl.systementor.se/api/koriander/blacklist"))
                 .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString("{\"email\":\"" + email + "\", \"name\":\"" + name + "\", \"isOk\":" + isOk + " }"))
+                .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
 
+        HttpClient client = HttpClient.newHttpClient();
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenAccept(System.out::println)
+                .join();
+    }
+
+    @Override
+    public void updateCustomerInBlacklistToTrue(String email) {
+        BlacklistDetailedDTO existingCustomer = checkBlackListAndSetOkToTrue(email);
+        jsonBodyExisting(email, existingCustomer);
+    }
+
+    @Override
+    public void updateCustomerInBlacklistToFalse(String email) {
+        BlacklistDetailedDTO existingCustomer = checkBlackListAndSetOkToFalse(email);
+        jsonBodyExisting(email, existingCustomer);
+    }
+
+    private void jsonBodyExisting(String email, BlacklistDetailedDTO existingCustomer) {
+        String jsonBody = "{\"name\": \"" + existingCustomer.getName() + "\", \"isOk\":\"" + existingCustomer.isOk() + "\"}";
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://javabl.systementor.se/api/koriander/blacklist/" + email))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(jsonBody))
+                .build();
+
+        HttpClient client = HttpClient.newHttpClient();
         client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
                 .thenAccept(System.out::println)

@@ -6,11 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Controller
@@ -18,18 +13,27 @@ public class BlacklistController {
 
     private final BlacklistServiceIMPL blacklistService;
 
-    @GetMapping("/blacklistcustomers")
+    @GetMapping("/blacklistCustomers")
     public String showBlacklistForm(Model model) {
-        model.addAttribute("blacklistcustomers", new BlacklistDetailedDTO());
-        return "blacklistcustomers";
+        model.addAttribute("blacklistCustomers", new BlacklistDetailedDTO());
+        return "blacklistCustomers";
     }
 
-    @GetMapping("/updateBlacklistStatus/{email}")
-    public String updateBlacklistStatus(@PathVariable String email) {
-        BlacklistDetailedDTO blacklistDetailedDTO = blacklistService.checkBlackListAndSetOkToFalse(email);
-        System.out.println(blacklistDetailedDTO.ok + " " + blacklistDetailedDTO.statusText);
+    @PostMapping("/blacklist/add")
+    public String addCustomerToBlacklist(@RequestParam(name = "email") String email, @RequestParam(name = "name")  String name) {
+        blacklistService.addCustomerToBlacklist(email, name);
+        return "redirect:/blacklistCustomers";
+    }
 
-        blacklistService.sendBlacklistData(email, String name, blacklistDetailedDTO.ok);
-        return "redirect:/blacklistcustomers";
+    @GetMapping("/blacklist/updateTrue")
+    public String updateBlacklistStatusTrue(@RequestParam(name = "email") String email) {
+        blacklistService.updateCustomerInBlacklistToTrue(email);
+        return "redirect:/blacklistCustomers";
+    }
+
+    @GetMapping("/blacklist/updateFalse")
+    public String updateBlacklistStatusFalse(@RequestParam(name = "email") String email) {
+        blacklistService.updateCustomerInBlacklistToFalse(email);
+        return "redirect:/blacklistCustomers";
     }
 }
