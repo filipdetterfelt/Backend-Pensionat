@@ -6,7 +6,8 @@ public interface BlacklistService {
     BlacklistDetailedDTO checkBlackList(String email);
     BlacklistDetailedDTO checkBlackListAndSetOkToTrue(String email);
     BlacklistDetailedDTO checkBlackListAndSetOkToFalse(String email);
-    void addCustomerToBlacklist(String email);
-    void updateBlacklistStatus(String email);
-    void updateCustomerInBlacklist(String email);
+    void addCustomerToBlacklist(String email, String name);
+//    void updateBlacklistStatus(String email);
+    void updateCustomerInBlacklistToTrue(String email);
+    void updateCustomerInBlacklistToFalse(String email);
 }

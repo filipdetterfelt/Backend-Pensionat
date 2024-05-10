@@ -78,20 +78,37 @@
     <h2>Blacklist a Customer</h2>
     <div style="display: flex;">
         <form id="addForm" action="/blacklist/add" method="post">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br>
             <label for="email">Email:</label><br>
             <input type="email" id="email" name="email" required><br><br>
-            <input type="submit" value="Add">
+            <input type="submit" value="Add to blacklist">
         </form>
     </div><br>
     <div style="display: flex;">
-        <form id="updateForm" action="/blacklist/update?_method=PUT" method="post">
+        <form id="updateForm" method="get">
             <label for="emailUpdate">Email:</label><br>
             <input type="email" id="emailUpdate" name="email" required><br><br>
-            <input type="submit" value="Update">
-            <input type="hidden" name="_method" value="PUT" />
+            <button onclick="changeAction('blacklist')">Blacklist</button>
+            <button onclick="changeAction('greenlist')">Greenlist</button>
         </form>
     </div>
 </div>
+
+<script>
+    function changeAction(ca) {
+        const uf = document.getElementById('updateForm');
+
+        if (ca === 'blacklist') {
+            uf.action="/blacklist/updateFalse";
+        } else {
+            uf.action="/blacklist/updateTrue"
+        }
+
+        uf.submit();
+    }
+</script>
+
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

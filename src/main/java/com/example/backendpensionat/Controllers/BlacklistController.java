@@ -19,25 +19,21 @@ public class BlacklistController {
         return "blacklistCustomers";
     }
 
-//    @GetMapping("/updateBlacklistStatus/{email}")
-//    public String updateBlacklistStatus(@PathVariable String email) {
-//        blacklistService.checkBlackListAndSetOkToFalse(email);
-//        return "redirect:/blacklist";
-//    }
-
     @PostMapping("/blacklist/add")
-    public String addCustomerToBlacklist(@RequestParam String email) {
-        BlacklistDetailedDTO newBlacklistedCustomer = new BlacklistDetailedDTO();
-        newBlacklistedCustomer.setEmail(email);
-        newBlacklistedCustomer.setOk(false);
-        blacklistService.addCustomerToBlacklist(email);
+    public String addCustomerToBlacklist(@RequestParam(name = "email") String email, @RequestParam(name = "name")  String name) {
+        blacklistService.addCustomerToBlacklist(email, name);
         return "redirect:/blacklistCustomers";
     }
 
-    @PutMapping("/blacklist/update")
-    @ResponseBody
-    public String updateBlacklistStatus(@RequestParam String email) {
-        blacklistService.updateCustomerInBlacklist(email);
+    @GetMapping("/blacklist/updateTrue")
+    public String updateBlacklistStatusTrue(@RequestParam(name = "email") String email) {
+        blacklistService.updateCustomerInBlacklistToTrue(email);
+        return "redirect:/blacklistCustomers";
+    }
+
+    @GetMapping("/blacklist/updateFalse")
+    public String updateBlacklistStatusFalse(@RequestParam(name = "email") String email) {
+        blacklistService.updateCustomerInBlacklistToFalse(email);
         return "redirect:/blacklistCustomers";
     }
 }
