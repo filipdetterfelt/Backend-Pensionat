@@ -7,23 +7,72 @@
 </head>
 
 <style>
-    input{
+    input {
 
         min-width: 200px;
         min-height: 30px;
 
     }
-    body{
+
+    body {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
 
     }
+
+    #centerbox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    a {
+        width: 125px;
+        height: 35px;
+        padding-top: 5px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-family: "Arial", serif;
+        font-style: normal;
+        text-decoration: none;
+        margin: 5px;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
 </style>
 <body>
 
-<h1>Pensionat Koriander !</h1>
+<div class="header">
+    <h1>Pensionat Koriander !</h1>
+    <div class="links">
+        <a th:href="@{/customers}">Customer</a>
+        <a th:href="@{/blacklistCustomers}">Blacklist</a>
+        <a th:href="@{/bookings}">Booking</a>
+        <a th:href="@{/rooms}">Room</a>
+        <a th:href="@{/ContractCustomers}">Contract Customers</a>
+    </div>
+</div>
 
 <h2>Add customer</h2>
 <p th:if="${wasBlackListed == true}" class="alert alert-danger" role="alert">This person was blacklisted</p>

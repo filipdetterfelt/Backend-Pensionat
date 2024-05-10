@@ -61,6 +61,35 @@
         gap: 20px;
     }
 
+    .black {
+        background-color: darkred;
+        color: white;
+        border-radius: 5px;
+        border: 0;
+        padding: 10px;
+    }
+
+    .green {
+        background-color: darkgreen;
+        color: white;
+        border-radius: 5px;
+        border: 0;
+        padding: 10px;
+    }
+
+    .buttons-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .center-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
 </style>
 <body>
 <div class="header">
@@ -76,21 +105,24 @@
 
 <div id="centerbox">
     <h2>Blacklist a Customer</h2>
-    <div style="display: flex;">
+    <div>
         <form id="addForm" action="/blacklist/add" method="post">
             <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" required><br>
+            <input type="text" id="name" name="name" required><br><br>
             <label for="email">Email:</label><br>
             <input type="email" id="email" name="email" required><br><br>
             <input type="submit" value="Add to blacklist">
         </form>
-    </div><br>
-    <div style="display: flex;">
+    </div><br><br>
+    <div>
         <form id="updateForm" method="get">
+            <h3 class="center-header" th:if="${wasBlackListed == true}" class="alert alert-danger" role="alert">Update status</h3>
             <label for="emailUpdate">Email:</label><br>
             <input type="email" id="emailUpdate" name="email" required><br><br>
-            <button onclick="changeAction('blacklist')">Blacklist</button>
-            <button onclick="changeAction('greenlist')">Greenlist</button>
+            <div class="buttons-box">
+                <button class="black" onclick="changeAction('blacklist')">Blacklist</button>
+                <button class="green" onclick="changeAction('greenlist')">Greenlist</button>
+            </div>
         </form>
     </div>
 </div>
