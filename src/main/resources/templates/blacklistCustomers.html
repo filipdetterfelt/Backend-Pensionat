@@ -5,15 +5,149 @@
     <title>Add a new Customer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-reset.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-layout.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons.css" type="text/css" media="all" />
 </head>
 
 <style>
+    body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        background-color: #879589;
+    }
+
+    td {
+        text-align: center;
+        width: 200px;
+        background-color: white;
+        font-family: "Arial", serif;
+        color: #5e775f;
+    }
+
+    th {
+        background-color: #b4c4b5;
+        font-family: "Arial", serif;
+        font-size: 14px;
+        color: #5e775f;
+        width: 200px;
+    }
+
+    h2 {
+        color: white;
+        font-family: "Caveat", sans-serif;
+        font-size: 50px;
+        margin: 0;
+    }
+
+    h3 {
+        color: white;
+        font-family: "Caveat", sans-serif;
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #b4c4b5;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .header button {
+        margin-bottom: 10px;
+    }
+
+    .table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 250px;
+    }
+
+    .links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    a {
+        width: 125px;
+        height: 35px;
+        padding-top: 5px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-family: "Arial", serif;
+        font-style: normal;
+        text-decoration: none;
+    }
+
+    .add-btn-header {
+        width: 190px;
+        height: 40px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 0;
+        background-color: #ccd4bc;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        color: #5e775f;
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+    }
+
+    .add-btn {
+        width: 170px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .logo h1 {
+        margin-top: 15px;
+        font-family: "Caveat", sans-serif;
+        font-size: 70px;
+        letter-spacing: 2px;
+        color: #5e775f;
+    }
+
+    .logo {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        height: 100px;
+    }
+
     input {
-
-
         min-width: 200px;
         min-height: 30px;
-
     }
 
     body {
@@ -24,7 +158,7 @@
 
     }
 
-    #centerbox {
+    .center-box {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -32,6 +166,12 @@
         border: 1px solid black;
         padding: 20px;
         border-radius: 10px;
+        margin-top: 300px;
+        background-color: #b4c4b5;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        color: #5e775f;
+        font-family: "Arial Black", sans-serif;
+        font-size: 12px;
     }
 
     a {
@@ -89,31 +229,40 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        font-family: "Caveat", sans-serif;
     }
 
 </style>
 <body>
 <div class="header">
-    <h1>Pensionat Koriander !</h1>
-    <div class="links">
-        <a th:href="@{/customers}">Customer</a>
-        <a th:href="@{/blacklistCustomers}">Blacklist</a>
-        <a th:href="@{/bookings}">Booking</a>
-        <a th:href="@{/rooms}">Room</a>
-        <a th:href="@{/ContractCustomers}">Contract Customers</a>
+    <div class="logo">
+        <h1>Pensionat Koriander</h1>
     </div>
-</div><br>
 
-<div id="centerbox">
+    <div class="links">
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+    </div>
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
+    </div>
+</div>
+
+<div class="center-box">
     <h2>Blacklist a Customer</h2>
     <p th:if="${isAdded == true}" class="alert alert-danger" role="alert">This person has been blacklisted</p>
     <div>
         <form id="addForm" action="/blacklist/add" method="post">
-            <label for="name">Name:</label><br>
+            <label for="name">NAME:</label><br>
             <input type="text" id="name" name="name" required><br><br>
-            <label for="email">Email:</label><br>
+            <label for="email">EMAIL:</label><br>
             <input type="email" id="email" name="email" required><br><br>
-            <input type="submit" value="Add to blacklist">
+            <input class="black" type="submit" value="Add to blacklist">
         </form>
     </div><br><br>
     <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person has been Greenlisted</p>
@@ -121,7 +270,7 @@
     <div>
         <form id="updateForm" method="get">
             <h3 class="center-header">Update status</h3>
-            <label for="emailUpdate">Email:</label><br>
+            <label for="emailUpdate">EMAIL:</label><br>
             <input type="email" id="emailUpdate" name="email" required><br><br>
             <div class="buttons-box">
                 <button class="black" onclick="changeAction('blacklist')">Blacklist</button>

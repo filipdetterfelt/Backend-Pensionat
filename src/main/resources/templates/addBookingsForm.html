@@ -3,22 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Bookings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-reset.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-layout.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons.css" type="text/css" media="all" />
 </head>
 <style>
+    body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        background-color: #879589;
+    }
+
     td {
         text-align: center;
         width: 200px;
-        background-color: lightgrey;
+        background-color: white;
+        font-family: "Arial", serif;
+        color: #5e775f;
     }
 
     th {
-        background-color: black;
-        color: whitesmoke;
+        background-color: #b4c4b5;
+        font-family: "Arial", serif;
+        font-size: 14px;
+        color: #5e775f;
         width: 200px;
     }
 
-    select {
-        width: 175px;
+    h2 {
+        color: white;
+        font-family: "Caveat", sans-serif;
+        font-size: 50px;
+        margin: 0;
     }
 
     .header {
@@ -26,6 +52,26 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: #b4c4b5;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .header button {
+        margin-bottom: 10px;
+    }
+
+    .table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 250px;
     }
 
     .links {
@@ -37,41 +83,116 @@
 
     a {
         width: 125px;
-        height: 25px;
+        height: 35px;
         padding-top: 5px;
         border-radius: 5px;
         background-color: black;
         color: white;
         text-align: center;
-        font-family: "Arial",serif;
+        font-family: "Arial", serif;
         font-style: normal;
         text-decoration: none;
+    }
+
+    .add-btn-header {
+        width: 190px;
+        height: 40px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 0;
+        background-color: #ccd4bc;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        color: #5e775f;
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+    }
+
+    .add-btn {
+        width: 170px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .edit-btn {
+        width: 50px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .delete-btn {
+        width: 70px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .logo h1 {
+        margin-top: 15px;
+        font-family: "Caveat", sans-serif;
+        font-size: 70px;
+        letter-spacing: 2px;
+        color: #5e775f;
+    }
+
+    .logo {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        height: 100px;
     }
 </style>
 <body>
 <div class="header">
-    <h1>Pensionat Koriander !</h1>
+    <div class="logo">
+        <h1>Pensionat Koriander</h1>
+    </div>
+
     <div class="links">
-        <a th:href="@{/customers}">Customer</a>
-        <a th:href="@{/blacklistCustomers}">Blacklist</a>
-        <a th:href="@{/bookings}">Booking</a>
-        <a th:href="@{/rooms}">Room</a>
-        <a th:href="@{/ContractCustomers}">Contract Customers</a>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+    </div>
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
     </div>
 </div>
 
-    <div class="header">
-        <h3>Add Bookings</h3>
+    <div class="table">
+        <h2>Add Bookings</h2>
         <form id="form" action="/bookings/add/save" method="post">
             <table>
                 <tr>
-                    <th>Customer:</th>
-                    <th>From:</th>
-                    <th>To:</th>
-                    <th>Room Type:</th>
-                    <th>Extra beds:</th>
-                    <th>Room Number:</th>
-                    <th>Add</th>
+                    <th>CUSTOMER</th>
+                    <th>CHECK-IN DATE</th>
+                    <th>CHECK-OUT DATE</th>
+                    <th>ROOM TYPE</th>
+                    <th>EXTRA BEDS</th>
+                    <th>ROOM NO</th>
+                    <th>ADD</th>
                 </tr>
 
                 <tr>
@@ -158,7 +279,7 @@
                     </td>
 
                     <td>
-                        <button type=submit>Add</button>
+                        <button class="edit-btn" type=submit>ADD</button>
                     </td>
                 </tr>
             </table>
