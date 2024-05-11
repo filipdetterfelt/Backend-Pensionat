@@ -107,6 +107,19 @@
         font-size: 12px;
     }
 
+    .add-btn-header:hover {
+        width: 190px;
+        height: 40px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 0;
+        background-color: #b4bda1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        color: #5e775f;
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+    }
+
     .add-btn {
         width: 170px;
         height: 30px;
@@ -118,6 +131,19 @@
         font-size: 12px;
         color: #5e775f;
         background-color: #f5ebd9;
+    }
+
+    .add-btn:hover {
+        width: 170px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #dcd0bb;
     }
 
     .logo h1 {
@@ -198,6 +224,8 @@
         border-radius: 5px;
         border: 0;
         padding: 10px;
+        font-family: "Arial Black", sans-serif;
+        font-size: 12px;
     }
 
     .green {
@@ -206,6 +234,8 @@
         border-radius: 5px;
         border: 0;
         padding: 10px;
+        font-family: "Arial Black", sans-serif;
+        font-size: 12px;
     }
 
     .buttons-box {
@@ -252,7 +282,7 @@
             <input type="text" id="name" name="name" required><br><br>
             <label for="email">EMAIL:</label><br>
             <input type="email" id="email" name="email" required><br><br>
-            <input class="black" type="submit" value="Add to blacklist">
+            <input class="black" type="submit" value="ADD TO BLACKLIST">
         </form>
     </div><br><br>
     <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person has been Greenlisted</p>
@@ -263,8 +293,8 @@
             <label for="emailUpdate">EMAIL:</label><br>
             <input type="email" id="emailUpdate" name="email" required><br><br>
             <div class="buttons-box">
-                <button class="black" onclick="changeAction('blacklist')">Blacklist</button>
-                <button class="green" onclick="changeAction('greenlist')">Greenlist</button>
+                <button class="black" onclick="changeAction('blacklist')">BLACKLIST</button>
+                <button class="green" onclick="changeAction('greenlist')">GREENLIST</button>
             </div>
         </form>
     </div>
