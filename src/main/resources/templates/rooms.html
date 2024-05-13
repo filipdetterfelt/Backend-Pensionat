@@ -3,32 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-reset.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-layout.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons.css" type="text/css" media="all" />
 </head>
 <style>
+    body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        background-color: #879589;
+    }
+
     td {
         text-align: center;
         width: 200px;
-        background-color: lightgrey;
+        background-color: white;
+        font-family: "Arial", serif;
+        color: #5e775f;
     }
+
     th {
-        background-color: black;
-        color: whitesmoke;
-        width: 200px;
+        background-color: #b4c4b5;
+        font-family: "Arial", serif;
+        font-size: 14px;
+        color: #5e775f;
+        width: 150px;
     }
-    .header , .table
-    {
+
+    h2 {
+        color: white;
+        font-family: "Caveat", sans-serif;
+        font-size: 50px;
+        margin: 0;
+    }
+
+    h3 {
+        color: white;
+        font-family: "Caveat", sans-serif;
+        font-size: 30px;
+        margin: 0;
+    }
+
+    .header {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: #b4c4b5;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
-    .links{
+
+    .header button {
+        margin-bottom: 10px;
+    }
+
+    .table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 350px;
+    }
+
+    .links {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 20px;
     }
-    a{
+
+    a {
         width: 125px;
         height: 35px;
         padding-top: 5px;
@@ -36,64 +96,181 @@
         background-color: black;
         color: white;
         text-align: center;
-        font-family: "Arial",serif;
+        font-family: "Arial", serif;
         font-style: normal;
         text-decoration: none;
     }
-    input{
-        width: 150px;
-        height: 30px;
-        text-align: center;
-        font-size: large;
-        font-weight: bold;
+
+    .add-btn-header {
+        width: 190px;
+        height: 40px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 0;
+        background-color: #ccd4bc;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        color: #5e775f;
+        font-family: "Arial Black", serif;
+        font-size: 12px;
     }
-    .btns{
-        width: 150px;
+
+    .add-btn-header:hover {
+        width: 190px;
+        height: 40px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 0;
+        background-color: #b4bda1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        color: #5e775f;
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+    }
+
+    .add-btn {
+        width: 170px;
         height: 30px;
-        font-size: large;
-        font-weight: bold;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .add-btn:hover {
+        width: 170px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #dcd0bb;
+    }
+
+    .logo h1 {
+        margin-top: 15px;
+        font-family: "Caveat", sans-serif;
+        font-size: 70px;
+        letter-spacing: 2px;
+        color: #5e775f;
+    }
+
+    .logo {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        height: 100px;
+    }
+
+    .search-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-box h2 {
+        margin-bottom: 0;
+    }
+
+    .btn-box {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+    }
+
+    .search-reset-btn {
+        width: 60px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .search-reset-btn:hover {
+        width: 60px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #dcd0bb;
     }
 </style>
 <body>
 <div class="header">
-    <h1>Pensionat Koriander !</h1>
-    <div class="links">
-    <a th:href="@{/customers}">Customer</a>
-    <a th:href="@{/bookings}">Booking</a>
-    <a th:href="@{/rooms}">Room</a>
-        <a th:href="@{/ContractCustomers}">Contract Customers</a>
+    <div class="logo">
+        <h1>Pensionat Koriander</h1>
     </div>
-</div><br><br>
-
-<div class="table">
-    <form action="/rooms" th:object="${roomSearch}" method="post"><br>
-        <label for="startDate">From:</label><br>
-        <input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required><br><br>
-        <label for="endDate">To:</label><br>
-        <input type="date" name="endDate" id="endDate" required><br><br>
-        <label for="extraBeds">Extra beds:</label><br>
-        <input type="number" value="0" name="roomType" id="extraBeds" min="0" max="2" required><br><br>
-        <div class="btns">
-        <button type="submit">Search</button>
-        <button type="button" th:onclick="|window.location.href='@{/rooms}'|">Reset</button>
-        </div>
-        <br>
-        <br><br>
-    </form>
+    <div class="links">
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+    </div>
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
+    </div>
+    <div class="search-box">
+        <h3>Search</h3>
+        <form action="/rooms" th:object="${roomSearch}" method="post">
+            <table class="search-table">
+            <tr>
+                <th>
+                    <label for="startDate">CHECK-IN DATE</label>
+                </th>
+                <th>
+                    <label for="endDate">CHECK-OUT DATE</label>
+                </th>
+                <th>
+                    <label for="extraBeds">Extra beds:</label>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required>
+                </th>
+                <th>
+                    <input type="date" name="endDate" id="endDate" required>
+                </th>
+                <th>
+                    <input type="number" value="0" name="roomType" id="extraBeds" min="0" max="2" required>
+                </th>
+            </tr>
+            </table>
+            <div class="btn-box">
+                <button class="search-reset-btn" type="submit">Search</button>
+                <button class="search-reset-btn" type="button" th:onclick="|window.location.href='@{/rooms}'|">Reset</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <div class="table">
-    <h3>Rooms</h3>
+    <h2>Rooms</h2>
     <table>
         <tr>
-            <th>Id</th>
-            <th>Room number</th>
-            <th>Total price</th>
-            <th>Room Type:</th>
+            <th>ID</th>
+            <th>ROOM NO</th>
+            <th>PRICE</th>
+            <th>ROOM TYPE</th>
         </tr>
 
         <tr th:each="rooms: ${roomsList}">

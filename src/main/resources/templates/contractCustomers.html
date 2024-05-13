@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Contract Customers</title>
-</head>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-reset.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-layout.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons.css" type="text/css" media="all" />
 </head>
 <style>
     body {
@@ -13,27 +21,64 @@
         flex-direction: column;
         justify-content: center;
         gap: 10px;
+        background-color: #879589;
     }
 
     td {
         text-align: center;
-        width: 300px;
-        background-color: lightgrey;
+        width: 250px;
+        background-color: white;
         font-family: "Arial", serif;
+        color: #5e775f;
     }
 
     th {
-        background-color: black;
+        background-color: #b4c4b5;
         font-family: "Arial", serif;
-        color: whitesmoke;
-        width: 300px;
+        font-size: 14px;
+        color: #5e775f;
+        width: 200px;
     }
 
-    .header, .table {
+    h2 {
+        color: white;
+        font-family: "Caveat", sans-serif;
+        font-size: 50px;
+        margin: 0;
+    }
+
+    h3 {
+        color: white;
+        font-family: "Caveat", sans-serif;
+        font-size: 30px;
+        margin: 0;
+    }
+
+    .header {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: #b4c4b5;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .header button {
+        margin-bottom: 10px;
+    }
+
+    .table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 320px;
     }
 
     .links {
@@ -56,88 +101,208 @@
         text-decoration: none;
     }
 
-    .addbtn {
-        width: 300px;
+    .add-btn-header {
+        width: 190px;
         height: 40px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 0;
+        background-color: #ccd4bc;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        color: #5e775f;
+        font-family: "Arial Black", serif;
+        font-size: 12px;
     }
 
-    img {
-        width: 18px;
-        height: 18px;
+    .add-btn-header:hover {
+        width: 190px;
+        height: 40px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 0;
+        background-color: #b4bda1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        color: #5e775f;
+        font-family: "Arial Black", serif;
+        font-size: 12px;
     }
 
-    .header-title {
+    .add-btn {
+        width: 170px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .add-btn:hover {
+        width: 170px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #dcd0bb;
+    }
+
+    .search-box {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-around;
-        gap: 10px;
+        justify-content: center;
+    }
+
+    .search-box h2 {
+        margin-bottom: 0;
+    }
+
+    .logo h1 {
+        margin-top: 15px;
+        font-family: "Caveat", sans-serif;
+        font-size: 70px;
+        letter-spacing: 2px;
+        color: #5e775f;
+    }
+
+    .logo {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        height: 100px;
+    }
+
+    .search-reset-btn {
+        width: 60px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .search-reset-btn:hover {
+        width: 60px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #dcd0bb;
+    }
+
+    .more-info-btn {
+        width: 100px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .more-info-btn:hover {
+        width: 100px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #dcd0bb;
     }
 </style>
 <body>
 <div class="header">
-    <h1>Pensionat Koriander !</h1>
+    <div class="logo">
+        <h1>Pensionat Koriander</h1>
+    </div>
+
     <div class="links">
-        <a th:href="@{/customers}">Customer</a>
-        <a th:href="@{/bookings}">Booking</a>
-        <a th:href="@{/rooms}">Room</a>
-        <a th:href="@{/ContractCustomers}">Contract Customers</a>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+    </div>
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
+    </div>
+    <div class="search-box">
+        <h3>Search contracts</h3>
+        <form action="/ContractCustomers/search" method="get">
+            <input type="hidden" name="orderString" id="hiddenSort" th:value="${sortString}">
+            <label for="search"></label>
+            <input type="text" name="searchWord" id="search">
+            <button class="search-reset-btn" type="submit">Search</button>
+            <button class="search-reset-btn" onclick="resetSearch()">Reset</button>
+        </form>
     </div>
 </div>
 
 <div class="table">
-    <h3>Contract Customers</h3>
-    <form action="/ContractCustomers/search" method="get">
-        <input type="hidden" name="orderString" id="hiddenSort" th:value="${sortString}">
-        <label for="search"></label><br>
-        <input type="text" name="searchWord" id="search">
-        <button type="submit">Search</button>
-        <button onclick="resetSearch()">Reset</button>
-    </form>
-    <br><br>
+    <h2>Contract Customers</h2>
     <table>
         <tr>
             <th>
                 <div class="header-title">
-                    <p>Company name</p>
-                    <img src="/images/ascending_icon.png" alt="" onclick="sortList('companyName - ASC')"/>
-                    <img src="/images/descending_icon.png" alt="" onclick="sortList('companyName - DESC')"/>
+                    <p>COMPANY
+                        <img src="/images/ascending_icon.png" alt="" onclick="sortList('companyName - ASC')"/>
+                        <img src="/images/descending_icon.png" alt="" onclick="sortList('companyName - DESC')"/>
+                    </p>
                 </div>
             </th>
             <th>
                 <div class="header-title">
-                    <p>Contact person</p>
-                    <img src="/images/ascending_icon.png" alt="" onclick="sortList('contactName - ASC')"/>
-                    <img src="/images/descending_icon.png" alt="" onclick="sortList('contactName - DESC')"/>
+                    <p>CONTACT PERSON
+                        <img src="/images/ascending_icon.png" alt="" onclick="sortList('contactName - ASC')"/>
+                        <img src="/images/descending_icon.png" alt="" onclick="sortList('contactName - DESC')"/>
+                    </p>
+
                 </div>
             </th>
             <th>
                 <div class="header-title">
-                    <p>Country</p>
-                    <img src="/images/ascending_icon.png" alt="" onclick="sortList('country - ASC')"/>
-                    <img src="/images/descending_icon.png" alt="" onclick="sortList('country - DESC')"/>
+                    <p>COUNTRY
+                        <img src="/images/ascending_icon.png" alt="" onclick="sortList('country - ASC')"/>
+                        <img src="/images/descending_icon.png" alt="" onclick="sortList('country - DESC')"/>
+                    </p>
+
                 </div>
             </th>
-            <th>More Information</th>
+            <th>MORE INFORMATION</th>
         </tr>
-        <tr th:each ="contractCustomer: ${contractCustomersList}">
-
+        <tr th:each="contractCustomer: ${contractCustomersList}">
             <td th:text="${contractCustomer.companyName}"></td>
-             <td th:text="${contractCustomer.contactName}"> </td>
-             <td th:text="${contractCustomer.country}"></td>
+            <td th:text="${contractCustomer.contactName}"></td>
+            <td th:text="${contractCustomer.country}"></td>
+            <td>
 
-             <td>
-
-                 <button th:data-url="'/fullInformation/' + ${contractCustomer.internalId}"
-                         onclick="window.location.href = this.getAttribute('data-url')">Information</button>
-             </td>
-            <!--   <td>
-                   <form th:action="@{/deleteContractCustomers}" th:object="${deleteContractCustomers}" method="post" th:if="${#lists.isEmpty(contractCustomer.getBookings())}"></form>
-                   <input type="hidden" name="id" th:value="${contractCustomer.getExternalId()}">
-                   <button type="submit">Delete</button>
-                   </form>
-            </td>                   -->
-
-
+                <button class="more-info-btn" th:data-url="'/fullInformation/' + ${contractCustomer.internalId}"
+                        onclick="window.location.href = this.getAttribute('data-url')">MORE INFO
+                </button>
+            </td>
         </tr>
     </table>
 </div>

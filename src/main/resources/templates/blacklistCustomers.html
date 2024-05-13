@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-layout.css" type="text/css" media="all" />
     <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons.css" type="text/css" media="all" />
 </head>
+
 <style>
     body {
         display: flex;
@@ -71,14 +72,6 @@
 
     .header button {
         margin-bottom: 10px;
-    }
-
-    .table {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 250px;
     }
 
     .links {
@@ -142,32 +135,6 @@
 
     .add-btn:hover {
         width: 170px;
-        height: 30px;
-        margin: 5px;
-        border-radius: 5px;
-        border: 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        font-family: "Arial Black", serif;
-        font-size: 12px;
-        color: #5e775f;
-        background-color: #dcd0bb;
-    }
-
-    .submit-btn {
-        width: 150px;
-        height: 30px;
-        margin: 5px;
-        border-radius: 5px;
-        border: 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        font-family: "Arial Black", serif;
-        font-size: 12px;
-        color: #5e775f;
-        background-color: #f5ebd9;
-    }
-
-    .submit-btn:hover {
-        width: 150px;
         height: 30px;
         margin: 5px;
         border-radius: 5px;
@@ -250,9 +217,43 @@
         justify-content: center;
         gap: 20px;
     }
+
+    .black {
+        background-color: darkred;
+        color: white;
+        border-radius: 5px;
+        border: 0;
+        padding: 10px;
+        font-family: "Arial Black", sans-serif;
+        font-size: 12px;
+    }
+
+    .green {
+        background-color: darkgreen;
+        color: white;
+        border-radius: 5px;
+        border: 0;
+        padding: 10px;
+        font-family: "Arial Black", sans-serif;
+        font-size: 12px;
+    }
+
+    .buttons-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .center-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Caveat", sans-serif;
+    }
+
 </style>
 <body>
-
 <div class="header">
     <div class="logo">
         <h1>Pensionat Koriander</h1>
@@ -271,36 +272,46 @@
         <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
     </div>
 </div>
+
 <div class="center-box">
-    <h2>Add customer</h2>
-    <p th:if="${wasBlackListed == true}" class="alert alert-danger" role="alert">This person was blacklisted</p>
-    <form action="/bookings/add" th:object="${newCustomers}" method="post">
-        <label for="ssn">SSN:</label><br>
-        <input type="text" id="ssn" name="Ssn" required pattern="[0-9]{10,12}"
-               title="Please enter a 10-digit or 12-digit Social Security Number"><br><br>
-
-        <label for="mail">EMAIL:</label><br>
-        <input type="email" id="mail" name="email" required><br><br>
-
-        <label for="fname">FIRST NAME:</label><br>
-        <input type="text" id="fname" name="firstName" required pattern="[A-Öa-ö]+"
-               title="Please enter letters only for First Name"><br><br>
-
-        <label for="lname">LAST NAME:</label><br>
-        <input type="text" id="lname" name="lastName" required pattern="[A-Öa-ö]+"
-               title="Please enter letters only for Last Name"><br><br>
-
-        <label for="phone">PHONE:</label><br>
-        <input type="tel" id="phone" name="phone" required pattern="[0-9]{0,10}"
-               title="Please enter a 10-digit Phone number"><br><br>
-
-        <input class="submit-btn" type="submit" value="SUBMIT">
-    </form>
+    <h2>Blacklist a Customer</h2>
+    <p th:if="${isAdded == true}" class="alert alert-danger" role="alert">This person has been blacklisted</p>
+    <div>
+        <form id="addForm" action="/blacklist/add" method="post">
+            <label for="name">NAME:</label><br>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">EMAIL:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+            <input class="black" type="submit" value="ADD TO BLACKLIST">
+        </form>
+    </div><br><br>
+    <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person has been Greenlisted</p>
+    <p th:if="${isBlacklisted == true}" class="alert alert-danger" role="alert">This person has been Blacklisted</p>
+    <div>
+        <form id="updateForm" method="get">
+            <h3 class="center-header">Update status</h3>
+            <label for="emailUpdate">EMAIL:</label><br>
+            <input type="email" id="emailUpdate" name="email" required><br><br>
+            <div class="buttons-box">
+                <button class="black" onclick="changeAction('blacklist')">BLACKLIST</button>
+                <button class="green" onclick="changeAction('greenlist')">GREENLIST</button>
+            </div>
+        </form>
+    </div>
 </div>
 
+<script>
+    function changeAction(ca) {
+        const uf = document.getElementById('updateForm');
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        if (ca === 'blacklist') {
+            uf.action="/blacklist/updateFalse";
+        } else {
+            uf.action="/blacklist/updateTrue"
+        }
+
+        uf.submit();
+    }
+</script>
 </body>
 </html>

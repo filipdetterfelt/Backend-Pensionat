@@ -3,41 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <title>Customers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-reset.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-layout.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons.css" type="text/css" media="all" />
 </head>
 <style>
-    body{
+    body {
         display: flex;
         align-items: center;
         flex-direction: column;
         justify-content: center;
         gap: 10px;
+        background-color: #879589;
     }
+
     td {
         text-align: center;
         width: 200px;
-        background-color: lightgrey;
-        font-family: "Arial",serif;
+        background-color: white;
+        font-family: "Arial", serif;
+        color: #5e775f;
     }
+
     th {
-        background-color: black;
-        font-family: "Arial",serif;
-        color: whitesmoke;
+        background-color: #b4c4b5;
+        font-family: "Arial", serif;
+        font-size: 14px;
+        color: #5e775f;
         width: 200px;
     }
-    .header , .table
-    {
+
+    h2 {
+        color: white;
+        font-family: "Caveat", sans-serif;
+        font-size: 50px;
+        margin: 0;
+    }
+
+    .header {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: #b4c4b5;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
-    .links{
+
+    .header button {
+        margin-bottom: 10px;
+    }
+
+    .table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 250px;
+    }
+
+    .links {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 20px;
     }
-    a{
+
+    a {
         width: 125px;
         height: 35px;
         padding-top: 5px;
@@ -45,60 +89,181 @@
         background-color: black;
         color: white;
         text-align: center;
-        font-family: "Arial",serif;
+        font-family: "Arial", serif;
         font-style: normal;
         text-decoration: none;
     }
-    .addbtn{
-        width: 300px;
+
+    .add-btn-header {
+        width: 190px;
         height: 40px;
-        margin-top: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 0;
+        background-color: #ccd4bc;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        color: #5e775f;
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+    }
+
+    .add-btn-header:hover {
+        width: 190px;
+        height: 40px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 0;
+        background-color: #b4bda1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        color: #5e775f;
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+    }
+
+    .add-btn {
+        width: 170px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .add-btn:hover {
+        width: 170px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #dcd0bb;
+    }
+
+    .edit-btn {
+        width: 50px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .edit-btn:hover {
+        width: 50px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #dcd0bb;
+    }
+
+    .delete-btn {
+        width: 70px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .delete-btn:hover {
+        width: 70px;
+        height: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #dcd0bb;
+    }
+
+    .logo h1 {
+        margin-top: 15px;
+        font-family: "Caveat", sans-serif;
+        font-size: 70px;
+        letter-spacing: 2px;
+        color: #5e775f;
+    }
+
+    .logo {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        height: 100px;
     }
 </style>
 <body>
 <div class="header">
-<h1>Pensionat Koriander !</h1>
+    <div class="logo">
+        <h1>Pensionat Koriander</h1>
+    </div>
+
     <div class="links">
-<a th:href="@{/customers}">Customer</a>
-<a th:href="@{/bookings}">Booking</a>
-<a th:href="@{/rooms}">Room</a>
-        <a th:href="@{/ContractCustomers}">Contract Customers</a>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+    </div>
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
     </div>
 </div>
 
-<div>
-    <button class="addbtn" onclick="location.href='/addNewCustomer'">Add customer</button>
-</div>
-
 <div class="table">
-    <h3>Customers</h3>
+    <h2>Customers</h2>
     <table>
         <tr>
-            <th>Id</th>
-            <th>Social security no.</th>
-            <th>Email</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Phone number</th>
-            <th>Edit customer</th>
-            <th>Delete customer</th>
+            <th>ID</th>
+            <th>SSN</th>
+            <th>EMAIL</th>
+            <th>FIRST NAME</th>
+            <th>LAST NAME</th>
+            <th>PHONE</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
         </tr>
-        <tr th:each = "customer: ${customersList}">
-            <td th:text = "${customer.getId()}"></td>
-            <td th:text = "${customer.getSsn()}"></td>
-            <td th:text = "${customer.getEmail()}"></td>
-            <td th:text = "${customer.getFirstName()}"></td>
-            <td th:text = "${customer.getLastName()}"></td>
-            <td th:text = "${customer.getPhone()}"></td>
+        <tr th:each="customer: ${customersList}">
+            <td th:text="${customer.getId()}"></td>
+            <td th:text="${customer.getSsn()}"></td>
+            <td th:text="${customer.getEmail()}"></td>
+            <td th:text="${customer.getFirstName()}"></td>
+            <td th:text="${customer.getLastName()}"></td>
+            <td th:text="${customer.getPhone()}"></td>
 
             <td>
-                <button th:data-url="'/customers/' + ${customer.id}"
-                        onclick="window.location.href = this.getAttribute('data-url')">Edit</button>
+                <button class="edit-btn" th:data-url="'/customers/' + ${customer.id}"
+                        onclick="window.location.href = this.getAttribute('data-url')">EDIT
+                </button>
             </td>
             <td>
-                <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post" th:if="${#lists.isEmpty(customer.getBookings())}">
+                <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post"
+                      th:if="${#lists.isEmpty(customer.getBookings())}">
                     <input type="hidden" name="id" th:value="${customer.getId()}"/>
-                    <button type="submit">Delete</button>
+                    <button class="delete-btn"  type="submit">DELETE</button>
                 </form>
             </td>
         </tr>

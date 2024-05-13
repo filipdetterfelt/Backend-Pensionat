@@ -23,6 +23,7 @@ public class ContractCustomerController {
     @GetMapping("/ContractCustomers")
     public String contractCustomers(Model model){
         if(!model.containsAttribute("contractCustomersList")) {
+            model.addAttribute("sortString", "contactName - ASC");
             model.addAttribute("contractCustomersList", contractCustomerService.listAllContractCustomers());
         }
         return "contractCustomers";

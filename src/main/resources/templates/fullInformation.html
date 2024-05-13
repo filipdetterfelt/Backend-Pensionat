@@ -3,43 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <title>Contract Customers</title>
-</head>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-reset.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons-layout.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="./dist/css/pheasant-demure-buttons.css" type="text/css" media="all" />
 </head>
 <style>
-  body{
+  body {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
     gap: 10px;
+    background-color: #879589;
   }
+
   td {
     text-align: center;
     width: 200px;
-    background-color: lightgrey;
-    font-family: "Arial",serif;
+    background-color: white;
+    font-family: "Arial", serif;
+    color: #5e775f;
   }
+
   th {
-    background-color: black;
-    font-family: "Arial",serif;
-    color: whitesmoke;
+    background-color: #b4c4b5;
+    font-family: "Arial", serif;
+    font-size: 14px;
+    color: #5e775f;
     width: 200px;
   }
-  .header , .table
-  {
+
+  h2 {
+    color: white;
+    font-family: "Caveat", sans-serif;
+    font-size: 50px;
+    margin: 0;
+  }
+
+  .header {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #b4c4b5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
-  .links{
+
+  .header button {
+    margin-bottom: 10px;
+  }
+
+  .table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 250px;
+  }
+
+  .links {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
   }
-  a{
+
+  a {
     width: 125px;
     height: 35px;
     padding-top: 5px;
@@ -47,42 +89,113 @@
     background-color: black;
     color: white;
     text-align: center;
-    font-family: "Arial",serif;
+    font-family: "Arial", serif;
     font-style: normal;
     text-decoration: none;
   }
-  .addbtn{
-    width: 300px;
+
+  .add-btn-header {
+    width: 190px;
     height: 40px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 0;
+    background-color: #ccd4bc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #5e775f;
+    font-family: "Arial Black", serif;
+    font-size: 12px;
+  }
+
+  .add-btn-header:hover {
+    width: 190px;
+    height: 40px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 0;
+    background-color: #b4bda1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #5e775f;
+    font-family: "Arial Black", serif;
+    font-size: 12px;
+  }
+
+  .add-btn {
+    width: 170px;
+    height: 30px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: "Arial Black", serif;
+    font-size: 12px;
+    color: #5e775f;
+    background-color: #f5ebd9;
+  }
+
+  .add-btn:hover {
+    width: 170px;
+    height: 30px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: "Arial Black", serif;
+    font-size: 12px;
+    color: #5e775f;
+    background-color: #dcd0bb;
+  }
+
+  .logo h1 {
+    margin-top: 15px;
+    font-family: "Caveat", sans-serif;
+    font-size: 70px;
+    letter-spacing: 2px;
+    color: #5e775f;
+  }
+
+  .logo {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    height: 100px;
   }
 </style>
 <body>
 <div class="header">
-  <h1>Pensionat Koriander !</h1>
+  <div class="logo">
+    <h1>Pensionat Koriander</h1>
+  </div>
+
   <div class="links">
-    <a th:href="@{/customers}">Customer</a>
-    <a th:href="@{/bookings}">Booking</a>
-    <a th:href="@{/rooms}">Room</a>
-    <a th:href="@{/ContractCustomers}">Contract Customers</a>
+    <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+    <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+    <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+    <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+    <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+  </div>
+  <br>
+  <div>
+    <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+    <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
   </div>
 </div>
 
 <div class="table">
-  <h3>Contract Customers</h3>
+  <h2>Contract Customers</h2>
   <table>
     <tr>
-      <th>Company Name</th>
-      <th>Contact Person</th>
-      <th>Contact Title</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>Postal Code</th>
-      <th>Country</th>
-      <th>Phone</th>
-      <th>Fax</th>
+      <th>COMPANY</th>
+      <th>CONTACT PERSON</th>
+      <th>CONTACT TITLE</th>
+      <th>ADDRESS</th>
+      <th>CITY</th>
+      <th>POSTAL CODE</th>
+      <th>COUNTRY</th>
+      <th>PHONE</th>
+      <th>FAX</th>
     </tr>
     <tr>
-
       <td th:text="${fullInfoCCustomer.companyName}"> </td>
       <td th:text="${fullInfoCCustomer.contactName}"></td>
       <td th:text="${fullInfoCCustomer.contactTitle}"></td>
@@ -92,11 +205,6 @@
       <td th:text="${fullInfoCCustomer.country}"></td>
       <td th:text="${fullInfoCCustomer.phone}"></td>
       <td th:text="${fullInfoCCustomer.fax}"></td>
-
-
-
-
-
     </tr>
   </table>
 </div>
