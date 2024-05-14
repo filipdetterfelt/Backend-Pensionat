@@ -1,6 +1,6 @@
 package com.example.backendpensionat.Models;
 
-import com.example.backendpensionat.Models.RoomEventHappenings.eventType;
+import com.example.backendpensionat.Models.RoomEventHappenings.EventType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -25,7 +25,7 @@ public class RoomEvents {
     private String roomNumber;
     private LocalDateTime date ;
 
-    public RoomEvents(eventType eventType) {
+    public RoomEvents(EventType eventType) {
         this.eventDescription = eventType.getEventType();
         this.date = eventType.getTimeOfEvent();
     }

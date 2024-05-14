@@ -2,11 +2,11 @@ package com.example.backendpensionat.Models.RoomEventHappenings;
 
 import java.time.LocalDateTime;
 
-public abstract class eventType {
+public abstract class EventType {
     LocalDateTime timeOfEvent;
     String eventType;
 
-    public eventType(LocalDateTime timeOfEvent, String eventType) {
+    public EventType(LocalDateTime timeOfEvent, String eventType) {
         this.timeOfEvent = timeOfEvent;
         this.eventType = eventType;
     }
