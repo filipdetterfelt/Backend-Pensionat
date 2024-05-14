@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class CleaningStarted extends EventType {
 
-    public CleaningStarted(LocalDateTime timeOfEvent, String eventType) {
-        super(timeOfEvent, eventType);
+    public CleaningStarted(LocalDateTime timeOfEvent, String eventType, String roomNumber) {
+        super(timeOfEvent, eventType, roomNumber);
     }
 }

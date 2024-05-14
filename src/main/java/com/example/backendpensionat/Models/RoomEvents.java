@@ -21,12 +21,13 @@ public class RoomEvents {
     @GeneratedValue
     private Long id;
 
-    private String eventDescription;
+    private String type;
     private String roomNumber;
-    private LocalDateTime date ;
+    private LocalDateTime timeStamp;
 
     public RoomEvents(EventType eventType) {
-        this.eventDescription = eventType.getEventType();
-        this.date = eventType.getTimeOfEvent();
+        this.type = eventType.getEventType();
+        this.timeStamp = eventType.getTimeOfEvent();
+        this.roomNumber = eventType.getRoomNumber();
     }
 }
