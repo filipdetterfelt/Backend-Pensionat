@@ -40,7 +40,8 @@ public class RoomController {
    @GetMapping("/roomLog/{id}")
    public String showLogs(@PathVariable Long id, Model model){
         model.addAttribute("roomLogList", roomService.findRoomById(id));
-        model.addAttribute("roomSearch", new RoomSearchDTO());
+        model.addAttribute("roomLogAdd", new EventType() {
+        });
         return "roomLog";
    }
 

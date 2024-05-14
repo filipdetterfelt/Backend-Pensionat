@@ -182,29 +182,16 @@
 </div>
 
 <div class="table">
-    <h2>Contract Customers</h2>
+    <h2>Room Log</h2>
     <table>
+
         <tr>
-            <th>COMPANY</th>
-            <th>CONTACT PERSON</th>
-            <th>CONTACT TITLE</th>
-            <th>ADDRESS</th>
-            <th>CITY</th>
-            <th>POSTAL CODE</th>
-            <th>COUNTRY</th>
-            <th>PHONE</th>
-            <th>FAX</th>
-        </tr>
-        <tr>
-            <td th:text="${fullInfoCCustomer.companyName}"> </td>
-            <td th:text="${fullInfoCCustomer.contactName}"></td>
-            <td th:text="${fullInfoCCustomer.contactTitle}"></td>
-            <td th:text="${fullInfoCCustomer.streetAddress}"></td>
-            <td th:text="${fullInfoCCustomer.city}"></td>
-            <td th:text="${fullInfoCCustomer.postalCode}"></td>
-            <td th:text="${fullInfoCCustomer.country}"></td>
-            <td th:text="${fullInfoCCustomer.phone}"></td>
-            <td th:text="${fullInfoCCustomer.fax}"></td>
+            <td th:text="'Room Number: '+ ${roomLogList.roomNumber}"> </td>
+            <td th:text="${roomLogAdd.getType()}"></td>
+            <td th:text="${roomLogAdd.getTimeStamp()}"></td>
+            <td th:text="${roomLogAdd.getCleaningByUser()}"></td>
+            <td th:text="${roomLogAdd.getRoomNo()}"></td>
+
         </tr>
     </table>
 </div>
