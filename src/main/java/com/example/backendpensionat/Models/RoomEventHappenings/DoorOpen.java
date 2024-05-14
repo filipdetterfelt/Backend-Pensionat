@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 @AllArgsConstructor
 public class DoorOpen extends EventType {
-    public DoorOpen(LocalDateTime timeOfEvent, String eventType, String roomNumber) {
-        super(timeOfEvent, eventType, roomNumber);
+    public DoorOpen(LocalDateTime timeOfEvent, String eventType, String roomNumber, String cleaningByUser) {
+        super(timeOfEvent, eventType, roomNumber, cleaningByUser);
     }
 }

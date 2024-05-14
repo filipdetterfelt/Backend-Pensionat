@@ -29,7 +29,7 @@ public class RoomEvents {
     private LocalDateTime timeStamp;
 
     public RoomEvents(EventType eventType) {
-        this.type = eventType.getType() + eventType.getCleaningByUser();
+        this.type = eventType.getCleaningByUser() == null ? eventType.getType() :  eventType.getType() + " by " + eventType.getCleaningByUser();
         this.timeStamp = eventType.getTimeStamp();
         this.roomNumber = eventType.getRoomNo();
     }

@@ -16,7 +16,7 @@ public abstract class EventType {
         this.timeStamp = timeStamp;
         this.type = type;
         this.roomNo = roomNo;
-        this.cleaningByUser = cleaningByUser == null ? "" : "  -  " + cleaningByUser;
+        this.cleaningByUser = cleaningByUser;
     }
 
     public EventType() {
