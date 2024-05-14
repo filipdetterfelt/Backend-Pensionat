@@ -184,15 +184,23 @@
 <div class="table">
     <h2>Room Log</h2>
     <table>
-
         <tr>
-            <td th:text="'Room Number: '+ ${roomLogList.roomNumber}"> </td>
-            <td th:text="${roomLogAdd.getType()}"></td>
-            <td th:text="${roomLogAdd.getTimeStamp()}"></td>
-            <td th:text="${roomLogAdd.getCleaningByUser()}"></td>
-            <td th:text="${roomLogAdd.getRoomNo()}"></td>
-
+            <th>Room Number</th>
+            <th>Type</th>
+            <th>Timestamp</th>
+            <th>Cleaning By User</th>
         </tr>
+
+
+
+        <tr th:each="roomLog : ${roomLogList}">
+              <td th:text="${roomLogList.getRoomNumber()}"></td>
+              <td th:text="${roomLogAdd.getType()}"></td>
+            <td th:text="${#dates.format(roomLogAdd.getTimeStamp(),'yyyy-MM-dd HH:mm:ss')}"></td>
+
+
+    </tr>
+
     </table>
 </div>
 
