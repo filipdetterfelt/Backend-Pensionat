@@ -5,6 +5,9 @@ import com.example.backendpensionat.DTO.RoomDTO;
 import com.example.backendpensionat.DTO.RoomDetailedDTO;
 import com.example.backendpensionat.DTO.RoomSearchDTO;
 import com.example.backendpensionat.Models.Room;
+import com.example.backendpensionat.Models.RoomEventHappenings.EventType;
+import com.example.backendpensionat.Models.RoomEvents;
+
 import java.util.List;
 
 public interface RoomService {
@@ -16,5 +19,5 @@ public interface RoomService {
     Room detailToRoom(RoomDetailedDTO roomDetailedDTO);
     RoomDetailedDTO findRoomNumber(Long roomNumber);
     RoomDetailedDTO findRoomById(Long id);
-
+    List<RoomEvents> findRoomEventsById(Long id);
 }
