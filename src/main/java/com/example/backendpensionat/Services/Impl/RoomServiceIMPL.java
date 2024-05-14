@@ -123,4 +123,5 @@ public class RoomServiceIMPL implements RoomService {
         Room room = roomRepo.findById(id).get();
         return rDetailedToDTO(room);
     }
+
 }
