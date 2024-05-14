@@ -296,6 +296,7 @@
             <th>CHECK-OUT DATE</th>
             <th>ROOM TYPE</th>
             <th>EXTRA BEDS</th>
+            <th>PRICE</th>
             <th>EDIT</th>
             <th>DELETE</th>
         </tr>
@@ -308,6 +309,7 @@
             <td th:text="${bookings.getEndDate()}"></td>
             <td th:text="${bookings.getRoom().getRoomType()}"></td>
             <td th:text="${bookings.getAmountOfBeds()}"></td>
+            <td th:text="${bookings.getTotalPrice()}"></td>
             <td>
                 <button class="edit-btn"  th:data-url="'/bookings/edit/' + ${bookings.getId()}"
                         onclick="window.location.href = this.getAttribute('data-url')">EDIT</button>
@@ -320,12 +322,6 @@
 
     </table>
 </div>
-
-<script>
-    // function addBooking() {
-    //     window.location.href = "/newCurrentCustomer"
-    // }
-</script>
 
 </body>
 </html>
