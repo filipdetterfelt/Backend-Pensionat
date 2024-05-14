@@ -5,6 +5,7 @@ import com.example.backendpensionat.DTO.RoomSearchDTO;
 import com.example.backendpensionat.Models.ContractCustomer;
 import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Models.RoomEventHappenings.EventType;
+import com.example.backendpensionat.Models.RoomEvents;
 import com.example.backendpensionat.Services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -40,11 +41,19 @@ public class RoomController {
    @GetMapping("/roomLog/{id}")
    public String showLogs(@PathVariable Long id, Model model){
         model.addAttribute("roomLogList", roomService.findRoomById(id));
-        model.addAttribute("roomLogAdd", new EventType() {
+        model.addAttribute("roomLogAdd", new RoomEvents() {
         });
         return "roomLog";
    }
 
+
+
+    /*@GetMapping("/roomLog/{id}")
+    public String showLogs2(@PathVariable Long id, Model model){
+        List<EventType> roomEvents = roomService.findRoomEventsById(id);
+        model.addAttribute("roomLogList", roomEvents);
+        return "roomLog";
+    }*/
 
 
 }

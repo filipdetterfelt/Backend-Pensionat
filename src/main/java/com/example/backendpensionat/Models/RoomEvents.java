@@ -22,7 +22,7 @@ public class RoomEvents {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long roomId;
 
     private String type;
     private String roomNumber;

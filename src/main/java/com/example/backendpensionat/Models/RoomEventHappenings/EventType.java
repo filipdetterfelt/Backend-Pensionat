@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public abstract class EventType {
+public abstract class EventType { //TOG BORT ABSTRACT TEST
     LocalDateTime timeStamp;
     String type;
     String roomNo;
