@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -28,12 +29,7 @@ public class RoomEvents {
     private LocalDateTime timeStamp;
 
     public RoomEvents(EventType eventType) {
-        if (eventType instanceof CleaningStarted) {
-            this.type = eventType.getType() + "  -  " + ((CleaningStarted) eventType).getCleaningByUser();
-        } else if (eventType instanceof CleaningEnded) {
-            this.type = eventType.getType() + "  -  " + ((CleaningEnded) eventType).getCleaningByUser();
-        } else
-            this.type = eventType.getType();
+        this.type = eventType.getType() + eventType.getCleaningByUser();
         this.timeStamp = eventType.getTimeStamp();
         this.roomNumber = eventType.getRoomNo();
     }

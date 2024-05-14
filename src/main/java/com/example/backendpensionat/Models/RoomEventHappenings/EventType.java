@@ -10,11 +10,13 @@ public abstract class EventType {
     LocalDateTime timeStamp;
     String type;
     String roomNo;
+    String cleaningByUser;
 
-    public EventType(LocalDateTime timeStamp, String type, String roomNo) {
+    public EventType(LocalDateTime timeStamp, String type, String roomNo, String cleaningByUser) {
         this.timeStamp = timeStamp;
         this.type = type;
         this.roomNo = roomNo;
+        this.cleaningByUser = cleaningByUser == null ? "" : "  -  " + cleaningByUser;
     }
 
     public EventType() {
