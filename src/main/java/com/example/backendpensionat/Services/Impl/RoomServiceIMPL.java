@@ -131,11 +131,7 @@ public class RoomServiceIMPL implements RoomService {
         return rDetailedToDTO(room);
     }
 
-    @Override
-    public List<RoomEvents> findRoomEventsById(Long id){
 
-        return roomEventsRepo.findByRoomId(id);
-    }
 
     @Override
     public List<RoomEvents> findAllRoomEvents(){
@@ -143,9 +139,8 @@ public class RoomServiceIMPL implements RoomService {
     }
 
     @Override
-    public List<RoomEvents> findRoomEventsByRoomnumber(String roomNbr){
-        return findAllRoomEvents().stream().filter(roomEvents -> Objects.equals(roomEvents.getRoomNumber(), roomNbr))
-                .toList();
+    public List<RoomEvents> findRoomByRoomNumber(String roomNbr){
+        return roomEventsRepo.findByRoomNumber(roomNbr);
 
     }
 }
