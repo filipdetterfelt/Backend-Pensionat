@@ -26,6 +26,8 @@ public class SyncContractCustomersIntegrationTest{
         SyncContractCustomers syncContractCustomers = mock(SyncContractCustomers.class);
         when(syncContractCustomers).thenReturn(syncContractCustomers);
 
+
+
         syncContractCustomers.run();
 
         verify(contractCustomer, times(1));
