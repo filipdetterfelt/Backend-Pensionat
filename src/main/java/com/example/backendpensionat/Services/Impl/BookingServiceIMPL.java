@@ -83,10 +83,4 @@ public class BookingServiceIMPL implements BookingService {
     public void saveBooking(BookingDetailedDTO booking) {
         bookingRepo.save(detailToBooking(booking));
     }
-
-    @Override
-    public List<BookingDetailedDTO> findBookingByBookingNo(Long bookingId){
-        System.out.println(bookingRepo.findBookingByNumber(bookingId));
-        return bookingRepo.findBookingByNumber(bookingId);
-    }
 }
