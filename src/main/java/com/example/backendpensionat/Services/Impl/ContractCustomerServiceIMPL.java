@@ -1,18 +1,18 @@
 package com.example.backendpensionat.Services.Impl;
 
-import com.example.backendpensionat.DTO.BookingDetailedDTO;
-import com.example.backendpensionat.DTO.ContractCustomerDTO;
-import com.example.backendpensionat.DTO.ContractCustomerDetailedDTO;
-import com.example.backendpensionat.DTO.CustomerDetailedDTO;
+import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Models.ContractCustomer;
 import com.example.backendpensionat.Repos.ContractCustomerRepo;
 import com.example.backendpensionat.Services.ContractCustomerService;
+import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,6 +24,45 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public List<ContractCustomerDTO> getContractCustomersFromXML(URL url) throws IOException {
+        JacksonXmlModule module = new JacksonXmlModule();
+        module.setDefaultUseWrapper(false);
+        XmlMapper xmlMapper = new XmlMapper(module);
+
+        ContractCustomerList contractCustomerList = xmlMapper.readValue(
+                url, ContractCustomerList.class);
+
+        return contractCustomerList.contractCustomerDTOList;
+    }
+
+    @Override
+    public void getAndSaveContractCustomers(Boolean isTest) throws IOException {
+        URL url;
+        if (isTest) {
+            url = getClass().getClassLoader().getResource("./XmlJsonFiles/contractCustomers.xml");
+        } else {
+            url = new URL("https://javaintegration.systementor.se/contractcustomers");
+        }
+
+        for(ContractCustomerDTO cc: getContractCustomersFromXML(url)) {
+            Optional<ContractCustomer> contractCustomer = contractCustomerRepo.findContractCustomerByExternalId(cc.externalId);
+            if(contractCustomer.isEmpty()) {
+                contractCustomer = Optional.of(new ContractCustomer());
+            }
+            contractCustomer.get().setExternalId(cc.externalId);
+            contractCustomer.get().setCompanyName(cc.companyName);
+            contractCustomer.get().setContactName(cc.contactName);
+            contractCustomer.get().setContactTitle(cc.contactTitle);
+            contractCustomer.get().setStreetAddress(cc.streetAddress);
+            contractCustomer.get().setCity(cc.city);
+            contractCustomer.get().setPostalCode(cc.postalCode);
+            contractCustomer.get().setPhone(cc.phone);
+            contractCustomer.get().setFax(cc.fax);
+            contractCustomerRepo.save(contractCustomer.get());
+        }
+    }
 
     @Override
     public void saveContractCustomer(ContractCustomerDTO cCustomer) {

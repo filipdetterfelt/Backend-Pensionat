@@ -10,12 +10,13 @@ import com.example.backendpensionat.Repos.RoomRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-@Component
+
+
 @ComponentScan
 @RequiredArgsConstructor
 public class SyncMockData implements CommandLineRunner {
