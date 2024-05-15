@@ -42,8 +42,9 @@ public class RoomController {
    @GetMapping("/roomLog/{id}")
    public String showLogs(@PathVariable Long id, Model model){
         RoomDetailedDTO room = roomService.findRoomById(id);
+        Long roomName = room.getRoomNumber();
         model.addAttribute("roomEventList", roomService.findRoomByRoomNumber(String.valueOf(room.getRoomNumber())));
-
+        model.addAttribute("roomName", roomName);
        System.out.println(roomService.findRoomByRoomNumber(String.valueOf(room.getRoomNumber())));
         return "roomLog";
    }
