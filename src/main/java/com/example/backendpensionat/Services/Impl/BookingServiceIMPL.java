@@ -9,6 +9,8 @@ import com.example.backendpensionat.Services.BookingService;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,13 +52,17 @@ public class BookingServiceIMPL implements BookingService {
 
     @Override
     public Booking detailToBooking(BookingDetailedDTO bookDTO) {
+        Double totalPrice = calculateTotalPrice(bookDTO.getStartDate(), bookDTO.getEndDate(), bookDTO.getRoom().getPrice());
 
-        return Booking.builder().Id(bookDTO.getId())
+        return Booking.builder()
+                .id(bookDTO.getId())
                 .amountOfBeds(bookDTO.getAmountOfBeds())
+                .totalPrice(totalPrice)
                 .startDate(bookDTO.getStartDate())
                 .endDate(bookDTO.getEndDate())
                 .customer(customerRepo.findById(bookDTO.getCustomerDTO().getId()).orElse(null))
-                .room(roomRepo.findById(bookDTO.getRoom().getId()).orElse(null)).build();
+                .room(roomRepo.findById(bookDTO.getRoom().getId()).orElse(null))
+                .build();
     }
 
     @Override
@@ -83,4 +89,12 @@ public class BookingServiceIMPL implements BookingService {
     public void saveBooking(BookingDetailedDTO booking) {
         bookingRepo.save(detailToBooking(booking));
     }
+
+    @Override
+    public Double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double roomPrice) {
+        long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate);
+        return numberOfDays * roomPrice;
+    }
+
+
 }

@@ -300,7 +300,8 @@
                                 <option th:each="room: ${roomsList}"
                                         th:value="${room.getId()}"
                                         th:roomPrice="${room.getPrice()}"
-                                        th:text="${room.getRoomNumber()}">
+                                        th:text="${room.getRoomNumber()}"
+                                        data-price="${room.getPrice()}"> <!-- Add data-price attribute -->
                                 </option>
                             </select>
                         </label>
@@ -383,17 +384,32 @@
         function updatePrice() {
             const roomNumberBox = document.getElementById('roomNumberBox');
             const selectedOption = roomNumberBox.options[roomNumberBox.selectedIndex];
-            const roomPrice = parseFloat(selectedOption.getAttribute('roomPrice'));
+            console.log("Selected Option:", selectedOption);
 
-            const startDate = new Date(document.getElementById('startDate').value);
-            const endDate = new Date(document.getElementById('endDate').value);
+            if (selectedOption) {
+                const roomPrice = parseFloat(selectedOption.getAttribute('roomPrice'));
+                console.log("Room Price:", roomPrice);
 
-            const numberOfDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+                const startDate = new Date(document.getElementById('startDate').value);
+                const endDate = new Date(document.getElementById('endDate').value);
+                console.log("Start Date:", startDate);
+                console.log("End Date:", endDate);
 
-            const totalPrice = numberOfDays * roomPrice;
+                const numberOfDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+                console.log("Number of Days:", numberOfDays);
 
-            const priceLabel = document.getElementById('priceLabel');
-            priceLabel.textContent = totalPrice.toFixed(2);
+                const totalPrice = numberOfDays * roomPrice;
+                console.log("Total Price:", totalPrice);
+
+                const priceLabel = document.getElementById('priceLabel');
+                if (priceLabel) {
+                    priceLabel.textContent = isNaN(totalPrice) ? '0.0' : totalPrice.toFixed(2);
+                } else {
+                    console.error("Price label element not found.");
+                }
+            } else {
+                console.error("No room option selected.");
+            }
         }
 
         document.addEventListener("DOMContentLoaded", () => {
