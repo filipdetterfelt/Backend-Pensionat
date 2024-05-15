@@ -1,1 +1,26 @@
-[{"id":1,"email":"stefan6@aaa.com","name":"Stefan Holmberg","group":"stefan","created":"2024-05-06T11:18:24.441769","ok":false},{"id":2,"email":"stefan116@aaa.com","name":"","group":"stefan","created":"2024-05-07T11:04:42.641854","ok":true},{"id":3,"email":"stefa@aaasdadsdsd.com","name":"Karlsson","group":"stefan","created":"2024-05-08T12:40:52.627185","ok":false},{"id":28,"email":"stefan11111111@aaa.com","name":"Stefan Holmberg","group":"stefan","created":"2024-05-08T21:34:15.490389","ok":true},{"id":46,"email":"test","name":"test@gmail.com","group":"stefan","created":"2024-05-09T12:54:28.407668","ok":true},{"id":52,"email":"ttttttt@tttttttt.com","name":"","group":"stefan","created":"2024-05-09T14:27:52.440401","ok":false},{"id":55,"email":"stefa@xxxxx.com","name":"abc","group":"stefan","created":"2024-05-09T19:06:17.218515","ok":true},{"id":56,"email":"email@example.com","name":"testname","group":"stefan","created":"2024-05-09T19:16:38.537943","ok":false},{"id":57,"email":"email@examplexxx.com","name":"testname2","group":"stefan","created":"2024-05-09T19:17:37.831755","ok":true},{"id":58,"email":"stefan6@bbb.com","name":"Harry Lulu","group":"stefan","created":"2024-05-09T19:37:45.385947","ok":true},{"id":59,"email":"email@examplebbb.com","name":"Harry Potter","group":"stefan","created":"2024-05-09T19:40:44.936807","ok":false},{"id":61,"email":"BlacklistDetailedDTO(statusText=null, ok=false, email=lol@lol.se)","name":"Kalle","group":"stefan","created":"2024-05-09T19:56:46.409124","ok":false},{"id":62,"email":"lol@lol.se","name":null,"group":"stefan","created":"2024-05-09T19:58:22.500866","ok":true},{"id":69,"email":"email@exampleaaa.com","name":"Harry Pony","group":"stefan","created":"2024-05-09T21:01:53.436581","ok":false},{"id":70,"email":"stefan7@aaa.com","name":"Happy","group":"stefan","created":"2024-05-09T21:04:28.539704","ok":false},{"id":72,"email":"email@exampleyyy.com","name":"Harryxx","group":"stefan","created":"2024-05-09T22:00:42.792536","ok":false},{"id":73,"email":"stefan77@aaa.com","name":"steve","group":"stefan","created":"2024-05-09T22:09:49.224861","ok":true},{"id":81,"email":"black@adder.co.uk","name":"Black Adder","group":"stefan","created":"2024-05-10T08:39:09.94224","ok":true},{"id":101,"email":"Sarhad94127@hotmail.com","name":"","group":"stefan","created":"2024-05-12T21:05:05.535237","ok":false},{"id":112,"email":"stefan6@bbbbb.com","name":"Gustav","group":"stefan","created":"2024-05-13T10:31:14.987173","ok":true},{"id":113,"email":"stefan7@cccc.com","name":"Göran","group":"stefan","created":"2024-05-13T10:34:01.281147","ok":false},{"id":118,"email":"Sarhad.bahrami@yh.nackademin.se","name":"Sarhad s","group":"stefan","created":"2024-05-13T16:07:43.916663","ok":true},{"id":119,"email":"test@test.test","name":"Stefan Holmberg","group":"stefan","created":"2024-05-13T16:15:55.567369","ok":false},{"id":124,"email":"test@tst.com","name":"Jijasoihfa","group":"stefan","created":"2024-05-14T10:46:57.241012","ok":true}]
+[
+  {
+    "id": 1,
+    "email": "stefan6@aaa.com",
+    "name": "Stefan Holmberg",
+    "group": "stefan",
+    "created": "2024-05-06T11:18:24.441769",
+    "ok": false
+  },
+  {
+    "id": 2,
+    "email": "stefan116@aaa.com",
+    "name": "",
+    "group": "stefan",
+    "created": "2024-05-07T11:04:42.641854",
+    "ok": true
+  },
+  {
+    "id": 3,
+    "email": "stefa@aaasdadsdsd.com",
+    "name": "Karlsson",
+    "group": "stefan",
+    "created": "2024-05-08T12:40:52.627185",
+    "ok": false
+  }
+]
