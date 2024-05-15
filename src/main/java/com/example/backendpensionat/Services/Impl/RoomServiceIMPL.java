@@ -3,7 +3,6 @@ package com.example.backendpensionat.Services.Impl;
 import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Enums.RoomType;
 import com.example.backendpensionat.Models.Room;
-import com.example.backendpensionat.Models.RoomEventHappenings.EventType;
 import com.example.backendpensionat.Models.RoomEvents;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.RoomEventsRepo;
@@ -13,9 +12,6 @@ import com.example.backendpensionat.Services.RoomService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -97,19 +93,20 @@ public class RoomServiceIMPL implements RoomService {
 
     @Override
     public RoomDetailedDTO rDetailedToDTO(Room room) {
-        return RoomDetailedDTO.builder().id(room.getId())
+        return RoomDetailedDTO.builder()
+                .id(room.getId())
                 .roomNumber(room.getRoomNumber())
                 .price(room.getPrice())
                 .roomType(room.getRoomType())
-                .bookings(room.getBookings()
-                        .stream().map(b -> BookingDTO.builder()
-                                .id(b.getId()).build())
+                .bookings(room.getBookings().stream()
+                        .map(b -> BookingDTO.builder().id(b.getId()).build())
                         .toList()).build();
     }
 
     @Override
     public Room detailToRoom(RoomDetailedDTO room) {
-        return Room.builder().id(room.getId())
+        return Room.builder()
+                .id(room.getId())
                 .roomNumber(room.getRoomNumber())
                 .price(room.getPrice())
                 .roomType(room.getRoomType())
@@ -131,8 +128,6 @@ public class RoomServiceIMPL implements RoomService {
         return rDetailedToDTO(room);
     }
 
-
-
     @Override
     public List<RoomEvents> findAllRoomEvents(){
         return roomEventsRepo.findAll();
@@ -141,6 +136,6 @@ public class RoomServiceIMPL implements RoomService {
     @Override
     public List<RoomEvents> findRoomByRoomNumber(String roomNbr){
         return roomEventsRepo.findByRoomNumber(roomNbr);
-
     }
+
 }

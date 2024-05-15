@@ -15,4 +15,5 @@ public interface BookingService {
     BookingDetailedDTO findBookingById(Long id);
     void updateBooking(BookingDetailedDTO bookingDTO);
     void saveBooking(BookingDetailedDTO booking);
+    List<BookingDetailedDTO> findBookingByBookingNo(Long bookingId);
 }

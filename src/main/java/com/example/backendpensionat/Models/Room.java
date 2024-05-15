@@ -2,7 +2,6 @@ package com.example.backendpensionat.Models;
 
 import com.example.backendpensionat.Enums.RoomType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +19,7 @@ public class Room {
     @GeneratedValue
     private Long id;
     private Long roomNumber;
+
     private Double price;
     private RoomType roomType;
 

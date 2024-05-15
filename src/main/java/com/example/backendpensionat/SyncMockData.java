@@ -60,21 +60,21 @@ public class SyncMockData implements CommandLineRunner {
 
             Room room1 = Room.builder()
                     .roomNumber(101L)
-                    .price(150.0)
+                    .price(RoomType.getRoomType(0).getRoomTypePrice())
                     .roomType(RoomType.SINGLE)
                     .bookings(new ArrayList<>())
                     .build();
 
             Room room2 = Room.builder()
                     .roomNumber(102L)
-                    .price(250.0)
+                    .price(RoomType.getRoomType(1).getRoomTypePrice())
                     .roomType(RoomType.DOUBLE)
                     .bookings(new ArrayList<>())
                     .build();
 
             Room room3 = Room.builder()
                     .roomNumber(103L)
-                    .price(350.0)
+                    .price(RoomType.getRoomType(2).getRoomTypePrice())
                     .roomType(RoomType.SUITE)
                     .bookings(new ArrayList<>())
                     .build();
@@ -83,36 +83,36 @@ public class SyncMockData implements CommandLineRunner {
 
             Booking booking1 = Booking.builder()
                     .amountOfBeds(0)
-                    .totalPrice(500.0)
                     .startDate(LocalDate.of(2024, 5, 1))
                     .endDate(LocalDate.of(2024, 5, 6))
+                    .totalPrice(RoomType.getRoomType(0).getRoomTypePrice()*5)
                     .customer(customer1)
                     .room(room1)
                     .build();
 
             Booking booking2 = Booking.builder()
                     .amountOfBeds(1)
-                    .totalPrice(600.0)
                     .startDate(LocalDate.of(2024, 6, 10))
                     .endDate(LocalDate.of(2024, 6, 13))
+                    .totalPrice(RoomType.getRoomType(1).getRoomTypePrice()*3)
                     .customer(customer2)
                     .room(room2)
                     .build();
 
             Booking booking3 = Booking.builder()
                     .amountOfBeds(2)
-                    .totalPrice(500.0)
                     .startDate(LocalDate.of(2024, 5, 10))
                     .endDate(LocalDate.of(2024, 5, 12))
+                    .totalPrice(RoomType.getRoomType(2).getRoomTypePrice()*2)
                     .customer(customer3)
                     .room(room3)
                     .build();
 
             Booking booking4 = Booking.builder()
                     .amountOfBeds(2)
-                    .totalPrice(600.0)
                     .startDate(LocalDate.of(2024, 5, 13))
                     .endDate(LocalDate.of(2024, 5, 16))
+                    .totalPrice(RoomType.getRoomType(2).getRoomTypePrice()*3)
                     .customer(customer2)
                     .room(room3)
                     .build();
