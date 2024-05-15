@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Contract Customers</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
@@ -37,20 +37,13 @@
         font-family: "Arial", serif;
         font-size: 14px;
         color: #5e775f;
-        width: 150px;
+        width: 200px;
     }
 
     h2 {
         color: white;
         font-family: "Caveat", sans-serif;
         font-size: 50px;
-        margin: 0;
-    }
-
-    h3 {
-        color: white;
-        font-family: "Caveat", sans-serif;
-        font-size: 30px;
         margin: 0;
     }
 
@@ -78,7 +71,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-top: 350px;
+        margin-top: 250px;
     }
 
     .links {
@@ -167,55 +160,13 @@
         border: 0;
         height: 100px;
     }
-
-    .search-box {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .search-box h2 {
-        margin-bottom: 0;
-    }
-
-    .btn-box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .search-reset-btn {
-        width: 60px;
-        height: 20px;
-        margin: 5px;
-        border-radius: 5px;
-        border: 0;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        font-family: "Arial Black", serif;
-        font-size: 12px;
-        color: #5e775f;
-        background-color: #f5ebd9;
-    }
-
-    .search-reset-btn:hover {
-        width: 60px;
-        height: 20px;
-        margin: 5px;
-        border-radius: 5px;
-        border: 0;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        font-family: "Arial Black", serif;
-        font-size: 12px;
-        color: #5e775f;
-        background-color: #dcd0bb;
-    }
 </style>
 <body>
 <div class="header">
     <div class="logo">
         <h1>Pensionat Koriander</h1>
     </div>
+
     <div class="links">
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
@@ -228,77 +179,29 @@
         <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
         <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
     </div>
-    <div class="search-box">
-        <h3>Search</h3>
-        <form action="/rooms" th:object="${roomSearch}" method="post">
-            <table class="search-table">
-            <tr>
-                <th>
-                    <label for="startDate">CHECK-IN DATE</label>
-                </th>
-                <th>
-                    <label for="endDate">CHECK-OUT DATE</label>
-                </th>
-                <th>
-                    <label for="extraBeds">Extra beds:</label>
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <input type="date" name="startDate" id="startDate" onchange="updateEndDateOnChange()" required>
-                </th>
-                <th>
-                    <input type="date" name="endDate" id="endDate" required>
-                </th>
-                <th>
-                    <input type="number" value="0" name="roomType" id="extraBeds" min="0" max="2" required>
-                </th>
-            </tr>
-            </table>
-            <div class="btn-box">
-                <button class="search-reset-btn" type="submit">Search</button>
-                <button class="search-reset-btn" type="button" th:onclick="|window.location.href='@{/rooms}'|">Reset</button>
-            </div>
-        </form>
-    </div>
 </div>
 
 <div class="table">
-    <h2>Rooms</h2>
+    <h2>Room Log</h2>
     <table>
         <tr>
-            <th>ID</th>
-            <th>ROOM NO</th>
-            <th>PRICE</th>
-            <th>ROOM TYPE</th>
-            <th>ROOMS LOG</th>
+            <th>Room Number</th>
+            <th>Type</th>
+            <th>Timestamp</th>
         </tr>
 
-        <tr th:each="rooms: ${roomsList}">
-            <td th:text="${rooms.getId()}"></td>
-            <td th:text="${rooms.getRoomNumber()}"></td>
-            <td th:text="${rooms.getPrice()}"></td>
-            <td th:text="${rooms.getRoomType()}"></td>
-            <td>
-                <button class ="room-logs" th:data-url="'/roomLog/' +${rooms.id}"
-                onclick="window.location.href = this.getAttribute('data-url')">ROOM LOG</button>
 
-            </td>
 
-        </tr>
+        <tr th:each="roomLog : ${roomEventList}">
+              <td th:text="${roomLog.roomNumber}"></td>
+              <td th:text="${roomLog.type}"></td>
+            <td th:text="${roomLog.timeStamp}"></td>
+
+
+    </tr>
+
     </table>
 </div>
 
-<script>
-    function updateEndDateOnChange() {
-        const startDate = new Date(document.getElementById('startDate').value)
-        startDate.setDate(startDate.getDate() + 1)
-
-        const minDate = startDate.toISOString().split("T")[0]
-        const endDate = document.getElementById('endDate');
-        endDate.setAttribute('min', minDate)
-        endDate.value = minDate;
-    }
-</script>
 </body>
 </html>
