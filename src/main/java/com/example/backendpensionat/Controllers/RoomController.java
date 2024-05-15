@@ -7,6 +7,7 @@ import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Models.RoomEventHappenings.EventType;
 import com.example.backendpensionat.Models.RoomEvents;
 import com.example.backendpensionat.Services.RoomService;
+import com.rabbitmq.tools.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,17 +41,18 @@ public class RoomController {
 
    @GetMapping("/roomLog/{id}")
    public String showLogs(@PathVariable Long id, Model model){
-        model.addAttribute("roomLogList", roomService.findRoomById(id));
-        model.addAttribute("roomLogAdd", new RoomEvents() {
-        });
+        RoomDetailedDTO room = roomService.findRoomById(id);
+        model.addAttribute("roomEventList", roomService.findRoomByRoomNumber(String.valueOf(room.getRoomNumber())));
+
+       System.out.println(roomService.findRoomByRoomNumber(String.valueOf(room.getRoomNumber())));
         return "roomLog";
    }
 
-   @GetMapping("/roomLogs")
+   /*@GetMapping("/roomLogs")
     public String showLogs(Model model){
         model.addAttribute("roomEventList", roomService.findAllRoomEvents());
         return "roomLog";
-   }
+   }*/
 
 
 
