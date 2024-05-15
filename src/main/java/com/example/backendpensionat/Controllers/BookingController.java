@@ -97,31 +97,6 @@ public class BookingController {
         return "redirect:/bookings/add";
     }
 
-//    @PostMapping("/bookings/add/save")
-//    public String saveBooking(
-//            @RequestParam("customerInfo") String id,
-//            @RequestParam("startDate") LocalDate startDate,
-//            @RequestParam("endDate") LocalDate endDate,
-//            @RequestParam("amountOfBeds") int extraBeds,
-//            @RequestParam("roomNumber") Long roomNo) {
-//        Long customerId = Long.parseLong(id.split(": ")[0]);
-//
-//        CustomerDTO customer = CustomerDTO.builder().id(customerId).build();
-//        RoomDetailedDTO room = roomService.findRoomById(roomNo);
-//
-//        BookingDetailedDTO booking = BookingDetailedDTO.builder()
-//                .amountOfBeds(extraBeds)
-//                .startDate(startDate)
-//                .endDate(endDate)
-//                .customerDTO(customer)
-//                .room(room)
-//                .build();
-//
-//        bookingService.saveBooking(booking);
-//
-//        return "redirect:/bookings";
-//    }
-
     @PostMapping("/bookings/add/save")
     public String saveBooking(
             @RequestParam("customerInfo") String id,
