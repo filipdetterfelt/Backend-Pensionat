@@ -299,7 +299,7 @@
                                 <option disabled selected>Room Number</option>
                                 <option th:each="room: ${roomsList}"
                                         th:value="${room.getId()}"
-                                        th:room-price="${room.getPrice()}"
+                                        th:roomPrice="${room.getPrice()}"
                                         th:text="${room.getRoomNumber()}">
                                 </option>
                             </select>
@@ -383,10 +383,17 @@
         function updatePrice() {
             const roomNumberBox = document.getElementById('roomNumberBox');
             const selectedOption = roomNumberBox.options[roomNumberBox.selectedIndex];
-            const price = selectedOption.getAttribute('room-price');
-            const priceLabel = document.getElementById('priceLabel');
+            const roomPrice = parseFloat(selectedOption.getAttribute('roomPrice'));
 
-            priceLabel.textContent = price;
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+
+            const numberOfDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+            const totalPrice = numberOfDays * roomPrice;
+
+            const priceLabel = document.getElementById('priceLabel');
+            priceLabel.textContent = totalPrice.toFixed(2);
         }
 
         document.addEventListener("DOMContentLoaded", () => {
