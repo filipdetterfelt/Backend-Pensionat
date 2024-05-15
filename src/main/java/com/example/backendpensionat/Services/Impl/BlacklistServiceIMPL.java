@@ -1,13 +1,19 @@
 package com.example.backendpensionat.Services.Impl;
+import com.example.backendpensionat.DTO.BlacklistDTO;
 import com.example.backendpensionat.DTO.BlacklistDetailedDTO;
 import com.example.backendpensionat.Services.BlacklistService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 
 @Service
@@ -32,6 +38,22 @@ public class BlacklistServiceIMPL implements BlacklistService {
         BlacklistDetailedDTO blacklistDetailedDTO = checkBlackList(email);
         blacklistDetailedDTO.setOk(false);
         return blacklistDetailedDTO;
+    }
+
+    @Override
+    public List<BlacklistDTO> getBlacklist(boolean isTest) throws IOException {
+        URL url;
+        if (isTest) {
+            url = getClass().getClassLoader().getResource("./XmlJsonFiles/blacklist.json");
+        } else {
+            url = new URL("https://javabl.systementor.se/api/koriander/blacklist");
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        return objectMapper.readValue(url
+                , objectMapper.getTypeFactory().constructCollectionType(List.class, BlacklistDTO.class));
     }
 
     @Override
