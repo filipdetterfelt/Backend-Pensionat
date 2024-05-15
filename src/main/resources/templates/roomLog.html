@@ -188,15 +188,14 @@
             <th>Room Number</th>
             <th>Type</th>
             <th>Timestamp</th>
-            <th>Cleaning By User</th>
         </tr>
 
 
 
-        <tr th:each="roomLog : ${roomLogList}">
-              <td th:text="${roomLogList.getRoomNumber()}"></td>
-              <td th:text="${roomLogAdd.getType()}"></td>
-            <td th:text="${#dates.format(roomLogAdd.getTimeStamp(),'yyyy-MM-dd HH:mm:ss')}"></td>
+        <tr th:each="roomLog : ${roomEventList}">
+              <td th:text="${roomLog.roomNumber}"></td>
+              <td th:text="${roomLog.type}"></td>
+            <td th:text="${roomLog.timeStamp}"></td>
 
 
     </tr>
