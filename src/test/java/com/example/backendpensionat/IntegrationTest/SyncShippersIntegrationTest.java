@@ -29,7 +29,7 @@ class SyncShippersIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void testRun() throws Exception {
+    public void syncShippersIntegrationTest() throws Exception {
         ShippersDetailedDTO mockShipper = new ShippersDetailedDTO();
         List<ShippersDetailedDTO> mockShippersList = Collections.singletonList(mockShipper);
 

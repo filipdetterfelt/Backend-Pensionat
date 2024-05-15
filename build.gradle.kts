@@ -35,13 +35,14 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("com.rabbitmq:amqp-client:5.21.0")
+    testImplementation("com.h2database:h2")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-val integrationTestTask = tasks.register<Test>("integrationTest") {
+val integrationTestTask = tasks.register<Test>("IntegrationTest") {
     group = "verification"
     filter {
         includeTestsMatching("*IntegrationTest")
