@@ -44,13 +44,12 @@ tasks.withType<Test> {
 val integrationTestTask = tasks.register<Test>("integrationTest") {
     group = "verification"
     filter {
-        includeTestsMatching("*integrationTest")
+        includeTestsMatching("*IntegrationTest")
     }
 }
 
-val unitTestTask = tasks.register<Test>("unitTest") {
-    group = "verification"
-    filter {
-        includeTestsMatching("*unitTest")
+tasks.test{
+    filter{
+        include("*Test")
     }
 }

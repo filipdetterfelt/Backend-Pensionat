@@ -14,7 +14,9 @@ import com.rabbitmq.client.DeliverCallback;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
+@Component
 @ComponentScan
 @RequiredArgsConstructor
 public class ReadEventQueue implements CommandLineRunner {

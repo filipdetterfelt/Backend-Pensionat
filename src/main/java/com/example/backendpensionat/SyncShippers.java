@@ -13,7 +13,7 @@ import java.net.URL;
 
 
 import java.util.List;
-
+@Component
 @ComponentScan
 @RequiredArgsConstructor
 public class SyncShippers implements CommandLineRunner {

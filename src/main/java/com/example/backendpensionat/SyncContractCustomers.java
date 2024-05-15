@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
-
+@Component
 @ComponentScan
 @RequiredArgsConstructor
 public class SyncContractCustomers implements CommandLineRunner {
