@@ -137,4 +137,15 @@ public class RoomServiceIMPL implements RoomService {
         return roomEventsRepo.findByRoomId(id);
     }
 
+    @Override
+    public List<RoomEvents> findAllRoomEvents(){
+        return roomEventsRepo.findAll();
+    }
+
+    @Override
+    public List<RoomEvents> findRoomEventsByRoomnumber(String roomNbr){
+        return findAllRoomEvents().stream().filter(roomEvents -> Objects.equals(roomEvents.getRoomNumber(), roomNbr))
+                .toList();
+
+    }
 }

@@ -20,4 +20,6 @@ public interface RoomService {
     RoomDetailedDTO findRoomNumber(Long roomNumber);
     RoomDetailedDTO findRoomById(Long id);
     List<RoomEvents> findRoomEventsById(Long id);
+    List<RoomEvents> findAllRoomEvents();
+    List<RoomEvents> findRoomEventsByRoomnumber(String roomNbr);
 }
