@@ -218,6 +218,7 @@
                     <th>ROOM TYPE</th>
                     <th>EXTRA BEDS</th>
                     <th>ROOM NO</th>
+                    <th>PRICE</th>
                     <th>ADD</th>
                 </tr>
 
@@ -303,6 +304,8 @@
                             </select>
                         </label>
                     </td>
+
+                    <td th:text="${bookings.getTotalPrice()}"></td>
 
                     <td>
                         <button class="edit-btn" type=submit>ADD</button>
