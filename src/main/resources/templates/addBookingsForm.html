@@ -295,17 +295,22 @@
 
                     <td>
                         <label>
-                            <select id="roomNumberBox" name="roomNumber">
+                            <select id="roomNumberBox" name="roomNumber" onchange="updatePrice()">
                                 <option disabled selected>Room Number</option>
                                 <option th:each="room: ${roomsList}"
                                         th:value="${room.getId()}"
+                                        th:room-price="${room.getPrice()}"
                                         th:text="${room.getRoomNumber()}">
                                 </option>
                             </select>
                         </label>
                     </td>
 
-                    <td th:text="${bookings.getTotalPrice()}"></td>
+                    <td>
+                        <label id="priceLabel">
+                            <input type="number" id="totalPrice" name="totalPrice" required>
+                        </label>
+                    </td>
 
                     <td>
                         <button class="edit-btn" type=submit>ADD</button>
@@ -375,7 +380,19 @@
             hiddenBedBox.value = value;
         }
 
-        document.addEventListener("DOMContentLoaded", updateExtraBeds);
+        function updatePrice() {
+            const roomNumberBox = document.getElementById('roomNumberBox');
+            const selectedOption = roomNumberBox.options[roomNumberBox.selectedIndex];
+            const price = selectedOption.getAttribute('room-price');
+            const priceLabel = document.getElementById('priceLabel');
+
+            priceLabel.textContent = price;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            updateExtraBeds();
+            updatePrice();
+        });
     </script>
 </body>
 </html>
