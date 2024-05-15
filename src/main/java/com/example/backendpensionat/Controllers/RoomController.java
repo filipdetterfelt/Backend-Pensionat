@@ -46,6 +46,12 @@ public class RoomController {
         return "roomLog";
    }
 
+   @GetMapping("/roomLogs")
+    public String showLogs(Model model){
+        model.addAttribute("roomEventList", roomService.findAllRoomEvents());
+        return "roomLog";
+   }
+
 
 
     /*@GetMapping("/roomLog/{id}")
