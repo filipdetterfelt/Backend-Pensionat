@@ -6,23 +6,19 @@ import com.example.backendpensionat.Models.Booking;
 import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Repos.BookingRepo;
-import com.example.backendpensionat.Repos.CustomerRepo;
+import com.example.backendpensionat.Repos.RoomEventsRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
 import com.example.backendpensionat.Services.BookingService;
-import com.example.backendpensionat.Services.Impl.BookingServiceIMPL;
-import com.example.backendpensionat.Services.Impl.RoomServiceIMPL;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -39,8 +35,11 @@ public class RoomsServiceIMPLTest {
     @Mock
     BookingService bookingService;
 
+    @Mock
+    RoomEventsRepo roomEventsRepo;
+
     @InjectMocks
-    private RoomServiceIMPL serviceIMPL = new RoomServiceIMPL(bookingRepo,roomRepo,bookingService);
+    private RoomServiceIMPL serviceIMPL = new RoomServiceIMPL(bookingRepo,roomRepo,bookingService, roomEventsRepo);
 
     long bookingId = 1L;
     int amountOfBeds = 2;
@@ -114,7 +113,7 @@ public class RoomsServiceIMPLTest {
     @Test
     void showAllRooms(){
         when(roomRepo.findAll()).thenReturn(Arrays.asList(room));
-        RoomServiceIMPL roomServiceIMPL2 = new RoomServiceIMPL(bookingRepo,roomRepo,bookingService);
+        RoomServiceIMPL roomServiceIMPL2 = new RoomServiceIMPL(bookingRepo,roomRepo,bookingService, roomEventsRepo);
         List<RoomDetailedDTO> allRooms = roomServiceIMPL2.listAllRooms();
     }
 
