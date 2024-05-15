@@ -65,4 +65,23 @@ public class BlacklistServiceIntegrationTest {
         assertEquals("stefan", result.get(2).group);
         assertFalse(result.get(2).ok);
     }
+
+    @Test
+    public void addCustomerToBlacklist() throws IOException {
+        assertDoesNotThrow(() -> sut.getBlacklist(false));
+        List<BlacklistDTO> result = sut.getBlacklist(false);
+
+        int sizeBefore = result.size();
+
+        String randomNumber = String.valueOf((int) (Math.random() * 10000) + 1000);
+
+        sut.addCustomerToBlacklist("1111@2222." + randomNumber, "addCustomerToBlacklistTest");
+        result = sut.getBlacklist(false);
+
+        int sizeAfter = result.size();
+
+        assertEquals(sizeBefore + 1, sizeAfter);
+        assertEquals("addCustomerToBlacklistTest", result.get(sizeAfter - 1).name);
+        assertEquals("1111@2222." + randomNumber, result.get(sizeAfter - 1).email);
+    }
 }
