@@ -1,0 +1,24 @@
+[
+  {
+    "roomNo": "101",
+    "type": "RoomOpened",
+    "timeStamp": "2018-01-01T00:00:00Z"
+  },
+  {
+    "roomNo": "101",
+    "type": "RoomClosed",
+    "timeStamp": "2018-01-01T00:00:00Z"
+  },
+  {
+    "roomNo": "102",
+    "type": "CleaningStarted",
+    "timeStamp": "2018-01-01T00:00:00Z",
+    "cleaningByUser": "John Doe"
+  },
+  {
+    "roomNo": "102",
+    "type": "CleaningFinished",
+    "timeStamp": "2018-01-01T00:00:00Z",
+    "cleaningByUser": "John Doe"
+  }
+]
