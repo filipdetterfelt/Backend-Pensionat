@@ -43,7 +43,7 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
         if (isTest) {
             url = getClass().getClassLoader().getResource("./XmlJsonFiles/contractCustomers.xml");
         } else {
-            url = new URL("https://javaintegration.systementor.se/contractcustomers");
+            url = new URL("https://javaintegration.systementor.se/customers");
         }
 
         for(ContractCustomerDTO cc: getContractCustomersFromXML(url)) {
