@@ -50,7 +50,7 @@ public class BookingController {
         return "addBookingsForm";
     }
 
-    /*@PostMapping("/bookings/add")
+    @PostMapping("/bookings/add")
     public String addBookingFromNewCustomer(@ModelAttribute("newCustomers") CustomerDetailedDTO customer,
                                             Model model,
                                             RedirectAttributes rda) {
@@ -73,9 +73,7 @@ public class BookingController {
         model.addAttribute("roomTypeList", roomTypeList);
 
         return "addBookingsForm";
-    }*/
-
-
+    }
 
     @PostMapping("/bookings/add/refresh")
     public String refreshRoomBox(
