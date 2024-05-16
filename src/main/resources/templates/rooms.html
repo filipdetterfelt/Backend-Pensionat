@@ -153,6 +153,32 @@
         background-color: #dcd0bb;
     }
 
+    .room-logs-btn {
+        width: 100px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #f5ebd9;
+    }
+
+    .room-logs-btn:hover {
+        width: 100px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", serif;
+        font-size: 12px;
+        color: #5e775f;
+        background-color: #dcd0bb;
+    }
+
     .logo h1 {
         margin-top: 15px;
         font-family: "Caveat", sans-serif;
@@ -214,7 +240,9 @@
 <body>
 <div class="header">
     <div class="logo">
-        <h1>Pensionat Koriander</h1>
+        <a th:href="@{http://localhost:8080}">
+            <h1>Pensionat Koriander</h1>
+        </a>
     </div>
     <div class="links">
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
@@ -280,7 +308,7 @@
             <td th:text="${rooms.getPrice()}"></td>
             <td th:text="${rooms.getRoomType()}"></td>
             <td>
-                <button class ="room-logs" th:data-url="'/roomLog/' +${rooms.id}"
+                <button class ="room-logs-btn" th:data-url="'/roomLog/' +${rooms.id}"
                 onclick="window.location.href = this.getAttribute('data-url')">ROOM LOG</button>
 
             </td>
