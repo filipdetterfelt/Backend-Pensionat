@@ -53,12 +53,10 @@ public class BookingServiceIMPL implements BookingService {
 
     @Override
     public Booking detailToBooking(BookingDetailedDTO bookDTO) {
-        Double totalPrice = calculateTotalPrice(bookDTO.getStartDate(), bookDTO.getEndDate(), bookDTO.getRoom().getPrice());
-
         return Booking.builder()
                 .id(bookDTO.getId())
                 .amountOfBeds(bookDTO.getAmountOfBeds())
-                .totalPrice(totalPrice)
+                .totalPrice(bookDTO.getTotalPrice())
                 .startDate(bookDTO.getStartDate())
                 .endDate(bookDTO.getEndDate())
                 .customer(customerRepo.findById(bookDTO.getCustomerDTO().getId()).orElse(null))
@@ -92,38 +90,54 @@ public class BookingServiceIMPL implements BookingService {
     }
 
     @Override
-    public Double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double roomPrice) {
+    public Double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double roomPrice, CustomerDetailedDTO customer) {
         long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate);
-        List<Double> taxedDays = new ArrayList<>();
-        System.out.println(roomPrice);
+        List<Double> dayPrices = new ArrayList<>();
 
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
-            System.out.println("inside for loop");
-            Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
-            Date d = Date.from(instant);
-            Calendar c = Calendar.getInstance();
-            c.setTime(d);
-            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-            System.out.println("Day of week: " + dayOfWeek);
-
-            if(dayOfWeek == 1) {
-                taxedDays.add(roomPrice - (roomPrice * 0.02));
+            if(dateIsSunday(date)) {
+                dayPrices.add(twoPercentOff(roomPrice));
             } else {
-                taxedDays.add(roomPrice);
+                dayPrices.add(roomPrice);
             }
         }
-        System.out.println("list size: " + taxedDays.size());
-        double totalPrice = taxedDays.stream().reduce(Double::sum).get();
-        System.out.println("after price:" + totalPrice);
+        double totalPrice = dayPrices.stream().reduce(Double::sum).orElse(0.0);
 
-        if(numberOfDays >= 2) {
-            System.out.println("days is more than 2");
-            return totalPrice - (totalPrice * 0.005);
-        } else {
-            return totalPrice;
-        }
+        totalPrice =  numberOfDays >= 2? halfPercentOff(totalPrice): totalPrice;
+        totalPrice = hasBookedTenDaysThisYear(customer.getBookings())? twoPercentOff(totalPrice): totalPrice;
+
+        return totalPrice;
     }
 
+    public boolean dateIsSunday(LocalDate date) {
+        Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Date d = Date.from(instant);
+        Calendar c = Calendar.getInstance();
+        c.setTime(d);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        return dayOfWeek == 1;
+    }
+
+    public Double twoPercentOff(Double price) {
+        return price * 0.98;
+    }
+
+    public Double halfPercentOff(Double price) {
+        return price * 0.995;
+    }
+
+    public boolean hasBookedTenDaysThisYear(List<BookingDTO> customerBookings) {
+        List<Booking> bookings = customerBookings.stream().map(booking -> bookingRepo.findById(booking.getId()).orElse(null)).toList();
+        long count = 0;
+        for (Booking b: bookings) {
+            for (LocalDate date = b.getStartDate(); date.isBefore(b.getEndDate()); date = date.plusDays(1)) {
+                if (date.isAfter(LocalDate.now().minusYears(1))) {
+                    count++;
+                }
+            }
+        }
+        return count >= 10;
+    }
 
 
 
