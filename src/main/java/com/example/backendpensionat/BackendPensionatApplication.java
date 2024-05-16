@@ -24,7 +24,7 @@ public class BackendPensionatApplication {
 			SpringApplication application = new SpringApplication(SyncMockData.class);
 			application.setWebApplicationType(WebApplicationType.NONE);
 			application.run(args);
-		}else if (Objects.equals(args[0], "ReadEventQueue")) {
+		} else if (Objects.equals(args[0], "ReadEventQueue")) {
 			SpringApplication application = new SpringApplication(ReadEventQueue.class);
 			application.setWebApplicationType(WebApplicationType.NONE);
 			application.run(args);
