@@ -2,15 +2,18 @@ package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Enums.RoomType;
+import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Services.BlacklistService;
 import com.example.backendpensionat.Services.BookingService;
 import com.example.backendpensionat.Services.CustomerService;
 import com.example.backendpensionat.Services.RoomService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +58,7 @@ public class BookingController {
                                             Model model,
                                             RedirectAttributes rda) {
         BlacklistDetailedDTO blacklist = blacklistService.checkBlackList(customer.getEmail());
-        if(!blacklist.isOk()) {
+        if (!blacklist.isOk()) {
             rda.addFlashAttribute("wasBlackListed", true);
             return "redirect:/addNewCustomer";
         }
@@ -132,34 +135,43 @@ public class BookingController {
     }
 
     @GetMapping("/bookings/edit/{id}")
-    public String editBookingById(@PathVariable Long id, Model model) {
+    public String editBookingById(@PathVariable Long id, HttpSession session, Model model) {
         BookingDetailedDTO bookingDTO = bookingService.findBookingById(id);
+
 
         String placeholder = bookingDTO.getRoom().getRoomNumber() + " - " + bookingDTO.getRoom().getRoomType();
         bookingDTO.setRoomNumber(placeholder);
-        System.out.println(bookingDTO.getRoomNumber());
 
         RoomSearchDTO roomSearch = new RoomSearchDTO(bookingDTO.getStartDate(), bookingDTO.getEndDate(), 0);
         List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
 
-        if(!model.containsAttribute("refreshed")) {
+        if (!model.containsAttribute("refreshed")) {
             model.addAttribute("listFreeRooms", listFreeRooms);
             model.addAttribute("booking", bookingDTO);
+            session.setAttribute("customer", bookingDTO.getCustomerDTO());
+            session.setAttribute("room", bookingDTO.getRoom());
         }
         return "editBookingsForm";
     }
 
     @PostMapping("/bookings/edit/refresh")
-        public String editRefresh(@ModelAttribute BookingDetailedDTO booking, RedirectAttributes rda) {
-            RoomSearchDTO roomSearch = new RoomSearchDTO(booking.getStartDate(), booking.getEndDate(), 0);
-            List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
+    public String editRefresh(@ModelAttribute BookingDetailedDTO booking, RedirectAttributes rda, HttpSession session) {
+        RoomSearchDTO roomSearch = new RoomSearchDTO(booking.getStartDate(), booking.getEndDate(), 0);
+        List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
+        CustomerDetailedDTO customer = customerService.findCustomerById(((CustomerDTO) session.getAttribute("customer")).getId());
 
-            rda.addFlashAttribute("listFreeRooms", listFreeRooms);
-            rda.addFlashAttribute("refreshed", true);
-            rda.addFlashAttribute("booking", booking);
+        booking.setCustomerDTO((CustomerDTO) session.getAttribute("customer"));
+        booking.setRoom((RoomDetailedDTO) session.getAttribute("room"));
+        Double totalPrice = bookingService.calculateTotalPrice(booking.getStartDate(), booking.getEndDate(), booking.getRoom().getRoomType().getRoomTypePrice(), customer);
 
-            return "redirect:/bookings/edit/" + booking.getId();
-        }
+        booking.setTotalPrice(totalPrice);
+
+        rda.addFlashAttribute("listFreeRooms", listFreeRooms);
+        rda.addFlashAttribute("refreshed", true);
+        rda.addFlashAttribute("booking", booking);
+        System.out.println(booking.getTotalPrice());
+        return "redirect:/bookings/edit/" + booking.getId();
+    }
 
     @PostMapping("/bookings/edit/save")
     public String updateBookingPost(@ModelAttribute("booking") BookingDetailedDTO bookingDTO) {
