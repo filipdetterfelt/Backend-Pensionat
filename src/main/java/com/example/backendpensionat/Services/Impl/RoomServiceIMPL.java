@@ -118,8 +118,7 @@ public class RoomServiceIMPL implements RoomService {
 
     @Override
     public RoomDetailedDTO findRoomNumber(Long roomNumber) {
-        Room room = roomRepo.findAll().stream().filter(r -> Objects.equals(r.getRoomNumber(), roomNumber)).findFirst().get();
-        return rDetailedToDTO(room);
+        return rDetailedToDTO(roomRepo.findByRoomNumber(roomNumber));
     }
 
     @Override

@@ -50,7 +50,7 @@ public class BookingController {
         return "addBookingsForm";
     }
 
-    @PostMapping("/bookings/add")
+    /*@PostMapping("/bookings/add")
     public String addBookingFromNewCustomer(@ModelAttribute("newCustomers") CustomerDetailedDTO customer,
                                             Model model,
                                             RedirectAttributes rda) {
@@ -73,7 +73,7 @@ public class BookingController {
         model.addAttribute("roomTypeList", roomTypeList);
 
         return "addBookingsForm";
-    }
+    }*/
 
 
 
@@ -83,17 +83,18 @@ public class BookingController {
             @RequestParam("startDate") LocalDate startDate,
             @RequestParam("endDate") LocalDate endDate,
             @RequestParam("roomType") RoomType roomType,
-            @RequestParam("totalPrice") Double totalPrice,
+            @RequestParam(value = "roomNumber", required = false, defaultValue = "0") Long roomNumber,
+            @RequestParam(value = "amountOfBeds", required = false, defaultValue = "0") int amountOfBeds,
+            @RequestParam(value = "totalPrice", required = false, defaultValue = "0.0") Double totalPrice,
             RedirectAttributes rda) {
 
-        System.out.println(totalPrice);
         CustomerDetailedDTO customer = customerService.findCustomerById(Long.parseLong(id.split(": ")[0]));
-        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, roomType, 0.0);
+        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, roomType, roomNumber, amountOfBeds, totalPrice);
         List<RoomDetailedDTO> roomList = roomService.listFreeRoomsByRoomType(bookingSearch);
 
-        if(totalPrice == 0.0) {
-            bookingSearch.setTotalPrice(bookingService.calculateTotalPrice(bookingSearch.getStartDate(), bookingSearch.getEndDate(), bookingSearch.getRoomType().getRoomTypePrice()));
-        }
+        bookingSearch.setTotalPrice(bookingService.calculateTotalPrice(bookingSearch.getStartDate(), bookingSearch.getEndDate(), bookingSearch.getRoomType().getRoomTypePrice()));
+
+        System.out.println(totalPrice);
         System.out.println(bookingSearch.getTotalPrice());
 
         rda.addFlashAttribute("bookingSearch", bookingSearch);
@@ -114,7 +115,8 @@ public class BookingController {
         Long customerId = Long.parseLong(id.split(": ")[0]);
 
         CustomerDTO customer = CustomerDTO.builder().id(customerId).build();
-        RoomDetailedDTO room = roomService.findRoomById(roomNo);
+        System.out.println(roomNo);
+        RoomDetailedDTO room = roomService.findRoomNumber(roomNo);
 
         Double totalPrice = bookingService.calculateTotalPrice(startDate, endDate, room.getPrice());
         System.out.println("1: " + totalPrice);

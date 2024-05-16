@@ -17,5 +17,7 @@ public class BookingSearchDTO {
     private LocalDate startDate;
     private LocalDate endDate;
     private RoomType roomType;
+    private Long roomNumber;
+    private int amountOfBeds;
     private Double totalPrice = 0.0;
 }

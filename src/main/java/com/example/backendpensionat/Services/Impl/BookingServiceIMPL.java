@@ -95,24 +95,30 @@ public class BookingServiceIMPL implements BookingService {
     public Double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double roomPrice) {
         long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate);
         List<Double> taxedDays = new ArrayList<>();
+        System.out.println(roomPrice);
 
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+            System.out.println("inside for loop");
             Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
             Date d = Date.from(instant);
             Calendar c = Calendar.getInstance();
             c.setTime(d);
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+            System.out.println("Day of week: " + dayOfWeek);
 
-            if(dayOfWeek == 7) {
-                taxedDays.add(roomPrice * 0.02);
+            if(dayOfWeek == 1) {
+                taxedDays.add(roomPrice - (roomPrice * 0.02));
             } else {
                 taxedDays.add(roomPrice);
             }
         }
-        double totalPrice = numberOfDays * (taxedDays.stream().reduce(0.0, Double::sum));
+        System.out.println("list size: " + taxedDays.size());
+        double totalPrice = taxedDays.stream().reduce(Double::sum).get();
+        System.out.println("after price:" + totalPrice);
 
         if(numberOfDays >= 2) {
-            return totalPrice * 0.005;
+            System.out.println("days is more than 2");
+            return totalPrice - (totalPrice * 0.005);
         } else {
             return totalPrice;
         }

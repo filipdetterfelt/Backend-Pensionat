@@ -289,7 +289,9 @@
                         <label>
                             <input type="hidden" name="amountOfBeds" id="hiddenBedBox" value="0">
                             <select id="extraBedsBox" onchange="changeHiddenValue()">
-                                <option disabled selected>Choose extra bed</option>
+                                <option disabled selected th:if="${bookingSearch == null}" th:value="${'Choose extra beds'}" th:text="${'Choose extra beds'}"></option>
+                                <option selected th:if="${bookingSearch != null}" th:value="${bookingSearch.amountOfBeds}" th:text="${bookingSearch.amountOfBeds}"></option>
+                                <option disabled selected th:if="${bookingSearch != null && bookingSearch.roomNumber == 0}" th:value="${'Choose extra beds'}" th:text="${'Choose extra beds'}"></option>
                             </select>
                         </label>
                     </td>
@@ -297,9 +299,13 @@
                     <td>
                         <label>
                             <select id="roomNumberBox" name="roomNumber" onchange="updatePrice(); alternativeSubmit()">
-                                <option disabled selected>Room Number</option>
+                                <option disabled selected th:if="${bookingSearch == null}" th:value="${'Room Number'}" th:text="${'Room Number'}"></option>
+                                <option selected th:if="${bookingSearch != null}" th:value="${bookingSearch.roomNumber}" th:text="${bookingSearch.roomNumber}"></option>
+                                <option disabled selected th:if="${bookingSearch != null && bookingSearch.roomNumber == 0}" th:value="${'Room Number'}" th:text="${'Room Number'}"></option>
+
+
                                 <option th:each="room: ${roomsList}"
-                                        th:value="${room.getId()}"
+                                        th:value="${room.roomNumber}"
                                         th:roomPrice="${room.getPrice()}"
                                         th:text="${room.getRoomNumber()}"
                                         data-price="${room.getPrice()}"> <!-- Add data-price attribute -->
@@ -316,9 +322,9 @@
                                     th:value="${bookingSearch.getTotalPrice()}"
                                     th:text="${bookingSearch.getTotalPrice()}"></option>
                             <option disabled selected
-                                    th:if="${bookingSearch == null}"
-                                    th:value="0.0"
-                                    th:text="0.0"></option>
+                                    th:unless="${bookingSearch != null}"
+                                    th:value="${0.0}"
+                                    th:text="${0.0}"></option>
                         </select>
                     </td>
 
