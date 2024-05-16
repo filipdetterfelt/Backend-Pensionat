@@ -317,7 +317,7 @@
                     <td>
                         <label for="priceBox"></label>
                         <select id="priceBox" name="totalPrice">
-                            <option disabled selected
+                            <option selected
                                     th:if="${bookingSearch != null}"
                                     th:value="${bookingSearch.getTotalPrice()}"
                                     th:text="${bookingSearch.getTotalPrice()}"></option>
@@ -329,7 +329,7 @@
                     </td>
 
                     <td>
-                        <button class="edit-btn" type=submit>ADD</button>
+                        <button class="edit-btn" type="submit">ADD</button>
                     </td>
                 </tr>
             </table>
@@ -396,44 +396,8 @@
             hiddenBedBox.value = value;
         }
 
-        function updatePrice() {
-           /* const roomNumberBox = document.getElementById('roomNumberBox');
-            const selectedOption = roomNumberBox.options[roomNumberBox.selectedIndex];
-            console.log("Selected Option:", selectedOption);
-
-            if (selectedOption) {
-                const roomPrice = parseFloat(selectedOption.getAttribute('roomPrice'));
-                console.log("Room Price:", roomPrice);
-
-                const startDate = new Date(document.getElementById('startDate').value);
-                const endDate = new Date(document.getElementById('endDate').value);
-                console.log("Start Date:", startDate);
-                console.log("End Date:", endDate);
-
-                const numberOfDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-                console.log("Number of Days:", numberOfDays);
-
-                const totalPrice = numberOfDays * roomPrice;
-                console.log("Total Price:", totalPrice);
-
-                const priceLabel = document.getElementById('priceLabel');
-                if (priceLabel) {
-                    priceLabel.textContent = isNaN(totalPrice) ? '0.0' : totalPrice.toFixed(2);
-                } else {
-                    console.error("Price label element not found.");
-                }
-            } else {
-                console.error("No room option selected.");
-            }*/
-
-
-        }
-
         document.addEventListener("DOMContentLoaded", () => {
             updateExtraBeds();
-            updatePrice();
-            const totalPrice = document.getElementById("priceBox").value
-            console.log(totalPrice)
         });
     </script>
 </body>
