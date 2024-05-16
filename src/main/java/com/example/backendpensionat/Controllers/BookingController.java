@@ -83,11 +83,18 @@ public class BookingController {
             @RequestParam("startDate") LocalDate startDate,
             @RequestParam("endDate") LocalDate endDate,
             @RequestParam("roomType") RoomType roomType,
+            @RequestParam("totalPrice") Double totalPrice,
             RedirectAttributes rda) {
 
+        System.out.println(totalPrice);
         CustomerDetailedDTO customer = customerService.findCustomerById(Long.parseLong(id.split(": ")[0]));
-        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, roomType);
+        BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, roomType, 0.0);
         List<RoomDetailedDTO> roomList = roomService.listFreeRoomsByRoomType(bookingSearch);
+
+        if(totalPrice == 0.0) {
+            bookingSearch.setTotalPrice(bookingService.calculateTotalPrice(bookingSearch.getStartDate(), bookingSearch.getEndDate(), bookingSearch.getRoomType().getRoomTypePrice()));
+        }
+        System.out.println(bookingSearch.getTotalPrice());
 
         rda.addFlashAttribute("bookingSearch", bookingSearch);
         rda.addFlashAttribute("roomsList", roomList);

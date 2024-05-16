@@ -266,6 +266,7 @@
                                 <option id="roomTypeSearch"
                                         th:if="${bookingSearch != null}"
                                         th:text="${bookingSearch.roomType}"
+                                        th:value="${bookingSearch.roomType}"
                                         selected
                                         value="">
                                 </option>
@@ -295,7 +296,7 @@
 
                     <td>
                         <label>
-                            <select id="roomNumberBox" name="roomNumber" onchange="updatePrice()">
+                            <select id="roomNumberBox" name="roomNumber" onchange="updatePrice(); alternativeSubmit()">
                                 <option disabled selected>Room Number</option>
                                 <option th:each="room: ${roomsList}"
                                         th:value="${room.getId()}"
@@ -308,9 +309,17 @@
                     </td>
 
                     <td>
-                        <label id="priceLabel">
-                            0.0
-                        </label>
+                        <label for="priceBox"></label>
+                        <select id="priceBox" name="totalPrice">
+                            <option disabled selected
+                                    th:if="${bookingSearch != null}"
+                                    th:value="${bookingSearch.getTotalPrice()}"
+                                    th:text="${bookingSearch.getTotalPrice()}"></option>
+                            <option disabled selected
+                                    th:if="${bookingSearch == null}"
+                                    th:value="0.0"
+                                    th:text="0.0"></option>
+                        </select>
                     </td>
 
                     <td>
@@ -382,7 +391,7 @@
         }
 
         function updatePrice() {
-            const roomNumberBox = document.getElementById('roomNumberBox');
+           /* const roomNumberBox = document.getElementById('roomNumberBox');
             const selectedOption = roomNumberBox.options[roomNumberBox.selectedIndex];
             console.log("Selected Option:", selectedOption);
 
@@ -409,12 +418,16 @@
                 }
             } else {
                 console.error("No room option selected.");
-            }
+            }*/
+
+
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             updateExtraBeds();
             updatePrice();
+            const totalPrice = document.getElementById("priceBox").value
+            console.log(totalPrice)
         });
     </script>
 </body>

@@ -9,10 +9,11 @@ import com.example.backendpensionat.Services.BookingService;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @Data
@@ -93,8 +94,31 @@ public class BookingServiceIMPL implements BookingService {
     @Override
     public Double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double roomPrice) {
         long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate);
-        return numberOfDays * roomPrice;
+        List<Double> taxedDays = new ArrayList<>();
+
+        for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+            Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+            Date d = Date.from(instant);
+            Calendar c = Calendar.getInstance();
+            c.setTime(d);
+            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+
+            if(dayOfWeek == 7) {
+                taxedDays.add(roomPrice * 0.02);
+            } else {
+                taxedDays.add(roomPrice);
+            }
+        }
+        double totalPrice = numberOfDays * (taxedDays.stream().reduce(0.0, Double::sum));
+
+        if(numberOfDays >= 2) {
+            return totalPrice * 0.005;
+        } else {
+            return totalPrice;
+        }
     }
+
+
 
 
 }
