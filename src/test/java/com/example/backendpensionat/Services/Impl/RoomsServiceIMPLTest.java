@@ -7,6 +7,7 @@ import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.RoomEventsRepo;
+import com.example.backendpensionat.Repos.RoomEventsRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
 import com.example.backendpensionat.Services.BookingService;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ public class RoomsServiceIMPLTest {
     int amountOfBeds = 2;
     double totalPrice = 1000;
     LocalDate startDate = LocalDate.now();
-    LocalDate endDate = LocalDate.of(2024,5,02);
+    LocalDate endDate = LocalDate.of(2024,5,2);
 
     long customerId = 1L;
     String firstname = "Sven";

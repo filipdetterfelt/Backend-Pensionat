@@ -8,12 +8,12 @@ import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.CustomerRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
-import com.example.backendpensionat.Services.Impl.BookingServiceIMPL;
-import com.example.backendpensionat.Services.Impl.CustomerServiceIMPL;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -25,7 +25,6 @@ import java.util.Optional;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,7 +48,7 @@ public class BookingsServiceImplTest {
     int amountOfBeds = 2;
     Double totalPrice = 0.0;
     LocalDate startDate = LocalDate.now();
-    LocalDate endDate = LocalDate.of(2024,5,02);
+    LocalDate endDate = LocalDate.of(2024,5,2);
 
     long customerId = 1L;
     String firstname = "Sven";
@@ -130,4 +129,8 @@ public class BookingsServiceImplTest {
         List<BookingDetailedDTO> allBookings = bookingServiceIMPL2.listAllBookings();
     }
 
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 }

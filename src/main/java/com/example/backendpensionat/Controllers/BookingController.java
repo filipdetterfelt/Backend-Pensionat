@@ -109,15 +109,23 @@ public class BookingController {
         CustomerDTO customer = CustomerDTO.builder().id(customerId).build();
         RoomDetailedDTO room = roomService.findRoomById(roomNo);
 
+        Double totalPrice = bookingService.calculateTotalPrice(startDate, endDate, room.getPrice());
+        System.out.println("1: " + totalPrice);
+
         BookingDetailedDTO booking = BookingDetailedDTO.builder()
                 .amountOfBeds(extraBeds)
                 .startDate(startDate)
                 .endDate(endDate)
+                .totalPrice(totalPrice)
                 .customerDTO(customer)
                 .room(room)
                 .build();
 
+        System.out.println("2: " + totalPrice);
+
         bookingService.saveBooking(booking);
+
+        System.out.println("3: " + totalPrice);
 
         return "redirect:/bookings";
     }

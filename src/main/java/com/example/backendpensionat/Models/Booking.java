@@ -16,7 +16,8 @@ public class Booking {
 
     @Id
     @GeneratedValue
-    private Long Id;
+    private Long id;
+
     private int amountOfBeds;
     private double totalPrice;
     private LocalDate startDate;
@@ -29,6 +30,4 @@ public class Booking {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn
     private Room room;
-
-
 }
