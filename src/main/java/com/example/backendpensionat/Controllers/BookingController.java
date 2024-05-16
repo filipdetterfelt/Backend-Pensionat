@@ -92,7 +92,7 @@ public class BookingController {
         BookingSearchDTO bookingSearch = new BookingSearchDTO(customer, startDate, endDate, roomType, roomNumber, amountOfBeds, totalPrice);
         List<RoomDetailedDTO> roomList = roomService.listFreeRoomsByRoomType(bookingSearch);
 
-        bookingSearch.setTotalPrice(bookingService.calculateTotalPrice(bookingSearch.getStartDate(), bookingSearch.getEndDate(), bookingSearch.getRoomType().getRoomTypePrice()));
+        bookingSearch.setTotalPrice(bookingService.calculateTotalPrice(bookingSearch.getStartDate(), bookingSearch.getEndDate(), bookingSearch.getRoomType().getRoomTypePrice(), customer));
 
         System.out.println(totalPrice);
         System.out.println(bookingSearch.getTotalPrice());
@@ -111,15 +111,13 @@ public class BookingController {
             @RequestParam("startDate") LocalDate startDate,
             @RequestParam("endDate") LocalDate endDate,
             @RequestParam("amountOfBeds") int extraBeds,
-            @RequestParam("roomNumber") Long roomNo) {
+            @RequestParam("roomNumber") Long roomNo,
+            @RequestParam("totalPrice") Double totalPrice) {
+
         Long customerId = Long.parseLong(id.split(": ")[0]);
 
         CustomerDTO customer = CustomerDTO.builder().id(customerId).build();
-        System.out.println(roomNo);
         RoomDetailedDTO room = roomService.findRoomNumber(roomNo);
-
-        Double totalPrice = bookingService.calculateTotalPrice(startDate, endDate, room.getPrice());
-        System.out.println("1: " + totalPrice);
 
         BookingDetailedDTO booking = BookingDetailedDTO.builder()
                 .amountOfBeds(extraBeds)
@@ -130,11 +128,7 @@ public class BookingController {
                 .room(room)
                 .build();
 
-        System.out.println("2: " + totalPrice);
-
         bookingService.saveBooking(booking);
-
-        System.out.println("3: " + totalPrice);
 
         return "redirect:/bookings";
     }
