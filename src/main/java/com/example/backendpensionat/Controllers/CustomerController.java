@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class CustomerController {
 
     private final CustomerService customerService;
-    private final BlacklistService blacklistService;
 
 
     @GetMapping("customers")
@@ -41,28 +40,30 @@ public class CustomerController {
 
     @PostMapping("addCustomer")
     public String addCustomers(@ModelAttribute("newCustomers") CustomerDetailedDTO customer) {
-        customer.setBookings(new ArrayList<BookingDTO>());
+        customer.setBookings(new ArrayList<>());
         customerService.addCustomer(customer);
         return "redirect:/customers";
     }
 
     @PostMapping("UpdateCustomers")
     public String updateCustomer(@ModelAttribute("updatedCustomer") CustomerDetailedDTO customer) {
-        customer.setBookings(new ArrayList<BookingDTO>());
+        customer.setBookings(new ArrayList<>());
         customerService.changeCustomer(customer);
         return "redirect:/customers";
     }
 
     @PostMapping("deleteCustomer")
     public String removeCustomer(@ModelAttribute("deleteCustomer") CustomerDetailedDTO customer) {
-        customer.setBookings(new ArrayList<BookingDTO>());
+        customer.setBookings(new ArrayList<>());
         customerService.removeCustomer(customer);
         return "redirect:/customers";
     }
 
     @GetMapping("UpdateCustomer")
     public String updateCustomer(Model model) {
-        System.out.println(model.containsAttribute("updatedCustomer"));
+        model.containsAttribute("updatedCustomer");
+        CustomerDetailedDTO cd = (CustomerDetailedDTO) model.getAttribute("updatedCustomer");
+        System.out.println(cd.getSsn());
         return "updateCustomerForm";
     }
 
