@@ -198,7 +198,7 @@
         <br><br>
 
         <label for="ssn">Social Security Number:</label><br>
-        <input type="text" id="ssn" name="ssn" th:field="*{ssn}" required pattern="[0-9]{12}" title="Please enter a 12-digit Social Security Number">
+        <input type="text" id="ssn" name="ssn" th:field="*{ssn}" required pattern="[0-9]{12}" title="Please enter a 12-digit Social Security Number" disabled>
         <br><br>
 
         <label for="mail">Email:</label><br>
@@ -221,8 +221,6 @@
         <input class="add-btn" type="submit" value="SUBMIT">
     </form>
 </div>
-
-
 
 </body>
 </html>
