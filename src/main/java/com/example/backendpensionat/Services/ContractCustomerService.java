@@ -15,7 +15,6 @@ public interface ContractCustomerService {
     List<ContractCustomerDTO> listSortedContractCustomers(String searchWord, String columnName, String sortingOrder);
     void saveContractCustomer(ContractCustomerDTO cCustomer);
     List<ContractCustomerDTO> listAllContractCustomers();
-    String removeCCustomer(ContractCustomerDetailedDTO cCustomer);
     ContractCustomer findcCustomerById(Long id);
     List<ContractCustomerDTO> getContractCustomersFromXML(URL url) throws IOException;
     void getAndSaveContractCustomers(Boolean isTest) throws IOException;
