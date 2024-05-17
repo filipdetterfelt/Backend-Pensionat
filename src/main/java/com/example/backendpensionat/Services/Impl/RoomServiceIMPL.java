@@ -3,7 +3,6 @@ package com.example.backendpensionat.Services.Impl;
 import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Enums.RoomType;
 import com.example.backendpensionat.Models.Room;
-import com.example.backendpensionat.Models.RoomEvents;
 import com.example.backendpensionat.Repos.BookingRepo;
 import com.example.backendpensionat.Repos.RoomEventsRepo;
 import com.example.backendpensionat.Repos.RoomRepo;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 
 @Service
@@ -25,15 +23,13 @@ public class RoomServiceIMPL implements RoomService {
     private final BookingRepo bookingRepo;
     private final RoomRepo roomRepo;
     private final BookingService bookingService;
-    private final RoomEventsRepo roomEventsRepo;
 
 
 
-    public RoomServiceIMPL(BookingRepo bookingRepo, RoomRepo roomRepo, BookingService bookingService, RoomEventsRepo roomEventsRepo) {
+    public RoomServiceIMPL(BookingRepo bookingRepo, RoomRepo roomRepo, BookingService bookingService) {
         this.bookingRepo = bookingRepo;
         this.roomRepo = roomRepo;
         this.bookingService = bookingService;
-        this.roomEventsRepo = roomEventsRepo;
     }
 
     @PersistenceContext
@@ -126,15 +122,4 @@ public class RoomServiceIMPL implements RoomService {
         Room room = roomRepo.findById(id).get();
         return rDetailedToDTO(room);
     }
-
-    @Override
-    public List<RoomEvents> findAllRoomEvents(){
-        return roomEventsRepo.findAll();
-    }
-
-    @Override
-    public List<RoomEvents> findRoomByRoomNumber(String roomNbr){
-        return roomEventsRepo.findByRoomNumber(roomNbr);
-    }
-
 }
