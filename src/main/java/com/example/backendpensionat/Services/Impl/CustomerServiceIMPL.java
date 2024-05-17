@@ -27,11 +27,11 @@ public class CustomerServiceIMPL implements CustomerService {
     }
 
     @Override
-    public Customer changeCustomer(CustomerDetailedDTO customer) {
-        return customerRepo.save(detailToCustomer(customer));
+    public void changeCustomer(CustomerDetailedDTO customer) {
+        Customer c = customerRepo.findCustomerBySsn(customer.getSsn()).get();
+        customer.setId(c.getId());
+        customerRepo.save(detailToCustomer(customer));
     }
-
-
 
     @Override
     public String removeCustomer(CustomerDetailedDTO customer){
@@ -47,7 +47,6 @@ public class CustomerServiceIMPL implements CustomerService {
         return customerRepo.findAll().stream().map(this::cDetailedToDTO).toList();
     }
 
-
     @Override
     public CustomerDTO customerToDTO(Customer customer) {
         return CustomerDTO.builder().id(customer.getId()).build();
@@ -59,7 +58,7 @@ public class CustomerServiceIMPL implements CustomerService {
                 .id(customer.getId())
                 .firstName(customer
                         .getFirstName())
-                .lastName(customer.getLastName()).email(customer.getEmail()).phone(customer.getPhone()).Ssn(customer.getSsn())
+                .lastName(customer.getLastName()).email(customer.getEmail()).phone(customer.getPhone()).ssn(customer.getSsn())
                 .bookings(customer.getBookings().stream().map(b -> BookingDTO.builder().id(b.getId()).build()).toList()).build();
     }
 
@@ -71,7 +70,7 @@ public class CustomerServiceIMPL implements CustomerService {
                 .lastName(customerDetailedDTO.getLastName())
                 .email(customerDetailedDTO.getEmail())
                 .phone(customerDetailedDTO.getPhone())
-                .Ssn(customerDetailedDTO.getSsn())
+                .ssn(customerDetailedDTO.getSsn())
                 .bookings(customerDetailedDTO.getBookings().stream().map(b -> bookingRepo.findById(b.getId()).orElse(null)).toList()).build();
     }
 
@@ -91,5 +90,10 @@ public class CustomerServiceIMPL implements CustomerService {
                 .get();
 
         return customerToDTO(customer);
+    }
+
+    @Override
+    public boolean doesCustomerExist(String ssn) {
+        return customerRepo.findCustomerBySsn(ssn).isPresent();
     }
 }

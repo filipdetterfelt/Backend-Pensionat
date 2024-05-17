@@ -369,6 +369,7 @@
 <div class="center-box">
     <h2>Blacklist a Customer</h2>
     <p th:if="${isAdded == true}" class="alert alert-danger" role="alert">This person has been blacklisted</p>
+    <p th:if="${blacklistExists == true}" class="alert alert-danger" role="alert">This person already exist in blacklist</p>
     <div>
         <form id="addForm" action="/blacklist/add" method="post">
             <label for="name">NAME:</label><br>

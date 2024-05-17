@@ -13,7 +13,8 @@ public interface CustomerService {
     List<CustomerDetailedDTO> listAllCustomers();
     Customer addCustomer(CustomerDetailedDTO customer);
     String removeCustomer(CustomerDetailedDTO customer);
-    Customer changeCustomer(CustomerDetailedDTO customer);
+    void changeCustomer(CustomerDetailedDTO customer);
     CustomerDetailedDTO findCustomerById(Long id);
     CustomerDTO findCustomerByBookingID(Long id);
+    boolean doesCustomerExist(String ssn);
 }

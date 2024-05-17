@@ -26,7 +26,7 @@ public class SyncMockData implements CommandLineRunner {
     private final CustomerRepo customerRepo;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         if (roomRepo.count() > 0 && bookingRepo.count() > 0 && customerRepo.count() > 0) {
             return;
@@ -37,7 +37,7 @@ public class SyncMockData implements CommandLineRunner {
                     .lastName("Svensson")
                     .email("anna.svensson@example.com")
                     .phone("0701234567")
-                    .Ssn("199012311234")
+                    .ssn("199012311234")
                     .bookings(new ArrayList<>())
                     .build();
 
@@ -46,7 +46,7 @@ public class SyncMockData implements CommandLineRunner {
                     .lastName("Johansson")
                     .email("erik.johansson@example.com")
                     .phone("0739876543")
-                    .Ssn("198506155678")
+                    .ssn("198506155678")
                     .bookings(new ArrayList<>())
                     .build();
 
@@ -55,7 +55,7 @@ public class SyncMockData implements CommandLineRunner {
                     .lastName("Nilsson")
                     .email("karin.nilsson@example.com")
                     .phone("081234567")
-                    .Ssn("197503107890")
+                    .ssn("197503107890")
                     .bookings(new ArrayList<>())
                     .build();
 

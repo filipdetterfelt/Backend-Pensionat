@@ -2,7 +2,6 @@ package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Enums.RoomType;
-import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Services.BlacklistService;
 import com.example.backendpensionat.Services.BookingService;
 import com.example.backendpensionat.Services.CustomerService;
@@ -63,8 +62,15 @@ public class BookingController {
             return "redirect:/addNewCustomer";
         }
 
-        customer.setBookings(new ArrayList<BookingDTO>());
-        customerService.addCustomer(customer);
+        customer.setBookings(new ArrayList<>());
+
+        if (customerService.doesCustomerExist(customer.getSsn())) {
+            customerService.changeCustomer(customer);
+            System.out.println("kund finns redan");
+        } else {
+            customerService.addCustomer(customer);
+            System.out.println("ny kund skapad");
+        }
 
         if (!model.containsAttribute("bookingSearch")) {
             model.addAttribute("roomsList", roomService.listAllRooms());

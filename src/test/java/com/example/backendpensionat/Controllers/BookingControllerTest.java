@@ -91,8 +91,9 @@ class BookingControllerTest {
         String customerInfo = "1: Anna Svensson";
         String startDate = "2024-05-02";
         String endDate = "2024-05-03";
-        String amountOfBeds = "1";
-        String roomNumber = "1";
+        String amountOfBeds = "0";
+        String roomNumber = "101";
+        String totalPrice = "150";
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/bookings/add/save")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -100,7 +101,8 @@ class BookingControllerTest {
                         .param("startDate", startDate)
                         .param("endDate", endDate)
                         .param("amountOfBeds", amountOfBeds)
-                        .param("roomNumber", roomNumber))
+                        .param("roomNumber", roomNumber)
+                        .param("totalPrice", totalPrice))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/bookings"));

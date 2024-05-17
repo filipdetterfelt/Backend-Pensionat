@@ -367,11 +367,12 @@
 </div>
 <div class="center-box">
     <h2>Add customer</h2>
+    <p th:if="${isAdded == false}" class="alert alert-danger" role="alert">This is updated</p>
     <p th:if="${wasBlackListed == true}" class="alert alert-danger" role="alert">This person is blacklisted</p>
     <form action="/bookings/add" th:object="${newCustomers}" method="post">
         <label for="ssn">SSN:</label><br>
-        <input type="text" id="ssn" name="Ssn" required pattern="[0-9]{10,12}"
-               title="Please enter a 10-digit or 12-digit Social Security Number"><br><br>
+        <input type="text" id="ssn" name="ssn" required pattern="[0-9]{12}"
+               title="Please enter a 12-digit Social Security Number"><br><br>
 
         <label for="mail">EMAIL:</label><br>
         <input type="email" id="mail" name="email" required><br><br>

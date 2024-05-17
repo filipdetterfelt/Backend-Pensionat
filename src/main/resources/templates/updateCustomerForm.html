@@ -194,8 +194,8 @@
     <form action="/UpdateCustomers" th:object="${updatedCustomer}" method="post">
         <input type="hidden" id="id" name="id" th:value="${updatedCustomer.getId()}" required/><br><br>
 
-        <label for="Ssn">Social Security Number:</label><br>
-        <input type="text" id="ssn" name="Ssn" th:value="${updatedCustomer.Ssn}" required pattern="[0-9]{10,12}" title="Please enter a 10-digit or 12-digit Social Security Number"><br><br>
+        <label for="ssn">Social Security Number:</label><br>
+        <input type="text" id="ssn" name="ssn" th:value="${updatedCustomer.Ssn}" required pattern="[0-9]{10,12}" title="Please enter a 10-digit or 12-digit Social Security Number"><br><br>
 
         <label for="mail">Email:</label><br>
         <input type="email" id="mail" name="email" th:value="${updatedCustomer.getEmail()}" required><br><br>
