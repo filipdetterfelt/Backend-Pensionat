@@ -1,4 +1,4 @@
-package com.example.backendpensionat.UnitTest;
+package com.exampleCustomer.backendpensionat.UnitTest;
 
 import com.example.backendpensionat.DTO.ContractCustomerDTO;
 import com.example.backendpensionat.Models.ContractCustomer;
@@ -31,15 +31,16 @@ public class ContractCustomerServiceUnitTest {
         List<ContractCustomerDTO> result = sut.getContractCustomersFromXML(localUrl);
 
         assertEquals(3, result.size());
-        assertEquals("Persson Kommanditbolag", result.getFirst().companyName);
-        assertEquals("Maria Åslund", result.getFirst().contactName);
-        assertEquals("gardener", result.getFirst().contactTitle);
-        assertEquals("Anderssons Gata 259", result.getFirst().streetAddress);
-        assertEquals("Kramland", result.getFirst().city);
-        assertEquals(60843, result.getFirst().postalCode);
-        assertEquals("Sverige", result.getFirst().country);
-        assertEquals("076-340-7143", result.getFirst().phone);
-        assertEquals("1500-16026", result.getFirst().fax);
+        ContractCustomerDTO exampleCustomer = result.get(0);
+        assertEquals("Persson Kommanditbolag", exampleCustomer.companyName);
+        assertEquals("Maria Åslund", exampleCustomer.contactName);
+        assertEquals("gardener", exampleCustomer.contactTitle);
+        assertEquals("Anderssons Gata 259", exampleCustomer.streetAddress);
+        assertEquals("Kramland", exampleCustomer.city);
+        assertEquals(60843, exampleCustomer.postalCode);
+        assertEquals("Sverige", exampleCustomer.country);
+        assertEquals("076-340-7143", exampleCustomer.phone);
+        assertEquals("1500-16026", exampleCustomer.fax);
     }
 
     @Test
@@ -62,7 +63,7 @@ public class ContractCustomerServiceUnitTest {
 
         sut.getAndSaveContractCustomers(true);
 
-        verify(contractCustomerRepo, times(2)).save(argThat(customer -> customer.id == null));
+        verify(contractCustomerRepo, times(2)).save(argThat(customer -> customer.externalId != 1L));
         verify(contractCustomerRepo, times(1)).save(argThat(customer -> customer.externalId == 1L));
     }
 
