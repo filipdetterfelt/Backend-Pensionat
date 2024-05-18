@@ -62,6 +62,7 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
             contractCustomer.get().setStreetAddress(cc.streetAddress);
             contractCustomer.get().setCity(cc.city);
             contractCustomer.get().setPostalCode(cc.postalCode);
+            contractCustomer.get().setCountry(cc.country);
             contractCustomer.get().setPhone(cc.phone);
             contractCustomer.get().setFax(cc.fax);
             contractCustomerRepo.save(contractCustomer.get());
@@ -111,36 +112,9 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
     }
 
     @Override
-    public String removeCCustomer(ContractCustomerDetailedDTO cCustomer) {
-        /*if(cCustomer.getBookings() != null){
-            contractCustomerRepo.delete();
-        }*/
-        return "";
-    }
-
-    @Override
     public ContractCustomer findcCustomerById(Long id) {
-        ContractCustomer cC = contractCustomerRepo.findById(id).get();
-
-        ContractCustomerDetailedDTO cCD = dtoToDetailedcCustomer(cC);
-        return cC;
+        return contractCustomerRepo.findById(id).get();
     }
-
-
-
-   /* public ContractCustomerDTO cCToDto(ContractCustomer cCustomer) {
-        List<ContractCustomer> contractCustomerList = contractCustomerRepo.findAll();
-        ContractCustomer matchcCustomer = contractCustomerList.stream()
-                .filter(contractCustomer -> contractCustomer.externalId
-                        .equals(contractCustomer.externalId)).findFirst()
-                .orElse(new ContractCustomer());
-
-        return ContractCustomer.builder()
-                .internalId(cCustomer.id)
-                .companyName(matchcCustomer.companyName)
-                .contactName(matchcCustomer.contactName)
-                .country(matchcCustomer.country).build();
-    }*/
 
     public ContractCustomerDetailedDTO dtoToDetailedcCustomer(ContractCustomer cC){
         return ContractCustomerDetailedDTO.builder()
@@ -154,7 +128,6 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
                 .country(cC.country)
                 .phone(cC.phone)
                 .fax(cC.fax).build();
-
     }
 
 

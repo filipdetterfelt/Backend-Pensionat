@@ -9,8 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
+import java.util.List;
 
 @Service
 public class RoomEventServiceIMPL implements RoomEventService {
@@ -43,5 +42,15 @@ public class RoomEventServiceIMPL implements RoomEventService {
     public void saveRoomEvent(String message) throws JsonProcessingException {
         EventType eventType = convertJSONtoEventType(message);
         roomEventsRepo.save(new RoomEvents(eventType));
+    }
+
+    @Override
+    public List<RoomEvents> findAllRoomEvents(){
+        return roomEventsRepo.findAll();
+    }
+
+    @Override
+    public List<RoomEvents> findRoomByRoomNumber(String roomNbr){
+        return roomEventsRepo.findByRoomNumber(roomNbr);
     }
 }

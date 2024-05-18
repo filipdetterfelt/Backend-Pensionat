@@ -14,7 +14,7 @@ public class CustomerDetailedDTO {
         private String lastName;
         private String email;
         private String phone;
-        private String Ssn;
+        private String ssn;
 
         List<BookingDTO> bookings;
 }

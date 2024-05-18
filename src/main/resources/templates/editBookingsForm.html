@@ -180,7 +180,9 @@
 <body>
 <div class="header">
     <div class="logo">
-        <h1>Pensionat Koriander</h1>
+        <a th:href="@{http://localhost:8080}">
+            <h1>Pensionat Koriander</h1>
+        </a>
     </div>
 
     <div class="links">
@@ -200,6 +202,7 @@
 <div class="center-box"><h2>Edit Bookings</h2>
     <form id="form" action="/bookings/edit/save" th:object="${booking}" method="post">
         <input type="hidden" name="bookingId" id="bookingId" th:field="*{id}"/>
+        <input type="hidden" name="totalPrice" id="totalPrice" th:field="*{totalPrice}"/>
 
         <label for="startDate">Start Date:</label><br>
         <input type="date" id="startDate" name="startDate" th:field="*{startDate}"  onchange="updateEndDateOnChange(); alternativeSubmit()" required/><br><br>

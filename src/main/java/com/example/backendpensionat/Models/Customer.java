@@ -2,7 +2,6 @@ package com.example.backendpensionat.Models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +28,7 @@ public class Customer {
     @Email(message = "Must be an email")
     private String email;
     private String phone;
-    private String Ssn;
+    private String ssn;
 
     @OneToMany(mappedBy = "customer")
     List<Booking> bookings;

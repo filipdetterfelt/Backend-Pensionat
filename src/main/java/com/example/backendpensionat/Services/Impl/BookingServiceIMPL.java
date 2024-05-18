@@ -9,10 +9,11 @@ import com.example.backendpensionat.Services.BookingService;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @Data
@@ -52,12 +53,10 @@ public class BookingServiceIMPL implements BookingService {
 
     @Override
     public Booking detailToBooking(BookingDetailedDTO bookDTO) {
-        Double totalPrice = calculateTotalPrice(bookDTO.getStartDate(), bookDTO.getEndDate(), bookDTO.getRoom().getPrice());
-
         return Booking.builder()
                 .id(bookDTO.getId())
                 .amountOfBeds(bookDTO.getAmountOfBeds())
-                .totalPrice(totalPrice)
+                .totalPrice(bookDTO.getTotalPrice())
                 .startDate(bookDTO.getStartDate())
                 .endDate(bookDTO.getEndDate())
                 .customer(customerRepo.findById(bookDTO.getCustomerDTO().getId()).orElse(null))
@@ -91,10 +90,55 @@ public class BookingServiceIMPL implements BookingService {
     }
 
     @Override
-    public Double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double roomPrice) {
+    public Double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double roomPrice, CustomerDetailedDTO customer) {
         long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate);
-        return numberOfDays * roomPrice;
+        List<Double> dayPrices = new ArrayList<>();
+
+        for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+            if(dateIsSunday(date)) {
+                dayPrices.add(twoPercentOff(roomPrice));
+            } else {
+                dayPrices.add(roomPrice);
+            }
+        }
+        double totalPrice = dayPrices.stream().reduce(Double::sum).orElse(0.0);
+
+        totalPrice =  numberOfDays >= 2? halfPercentOff(totalPrice): totalPrice;
+        totalPrice = hasBookedTenDaysThisYear(customer.getBookings())? twoPercentOff(totalPrice): totalPrice;
+
+        return totalPrice;
     }
+
+    public boolean dateIsSunday(LocalDate date) {
+        Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Date d = Date.from(instant);
+        Calendar c = Calendar.getInstance();
+        c.setTime(d);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        return dayOfWeek == 1;
+    }
+
+    public Double twoPercentOff(Double price) {
+        return price * 0.98;
+    }
+
+    public Double halfPercentOff(Double price) {
+        return price * 0.995;
+    }
+
+    public boolean hasBookedTenDaysThisYear(List<BookingDTO> customerBookings) {
+        List<Booking> bookings = customerBookings.stream().map(booking -> bookingRepo.findById(booking.getId()).orElse(null)).toList();
+        long count = 0;
+        for (Booking b: bookings) {
+            for (LocalDate date = b.getStartDate(); date.isBefore(b.getEndDate()); date = date.plusDays(1)) {
+                if (date.isAfter(LocalDate.now().minusYears(1))) {
+                    count++;
+                }
+            }
+        }
+        return count >= 10;
+    }
+
 
 
 }

@@ -1,10 +1,9 @@
 package com.example.backendpensionat.Controllers;
 
-import com.example.backendpensionat.DTO.BlacklistDetailedDTO;
-import com.example.backendpensionat.DTO.BookingDTO;
 import com.example.backendpensionat.DTO.CustomerDetailedDTO;
-import com.example.backendpensionat.Services.BlacklistService;
+import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Services.CustomerService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 public class CustomerController {
 
     private final CustomerService customerService;
-    private final BlacklistService blacklistService;
 
 
     @GetMapping("customers")
@@ -41,34 +39,39 @@ public class CustomerController {
 
     @PostMapping("addCustomer")
     public String addCustomers(@ModelAttribute("newCustomers") CustomerDetailedDTO customer) {
-        customer.setBookings(new ArrayList<BookingDTO>());
+
+        customer.setBookings(new ArrayList<>());
         customerService.addCustomer(customer);
         return "redirect:/customers";
     }
 
     @PostMapping("UpdateCustomers")
-    public String updateCustomer(@ModelAttribute("updatedCustomer") CustomerDetailedDTO customer) {
-        customer.setBookings(new ArrayList<BookingDTO>());
+    public String updateCustomer(@ModelAttribute("updatedCustomer") CustomerDetailedDTO customer, HttpSession session) {
+        CustomerDetailedDTO c = (CustomerDetailedDTO)session.getAttribute("updatedCustomer");
+        customer.setBookings(c.getBookings());
+        customer.setSsn(c.getSsn());
         customerService.changeCustomer(customer);
         return "redirect:/customers";
     }
 
     @PostMapping("deleteCustomer")
     public String removeCustomer(@ModelAttribute("deleteCustomer") CustomerDetailedDTO customer) {
-        customer.setBookings(new ArrayList<BookingDTO>());
+        customer.setBookings(new ArrayList<>());
         customerService.removeCustomer(customer);
         return "redirect:/customers";
     }
 
     @GetMapping("UpdateCustomer")
-    public String updateCustomer(Model model) {
-        System.out.println(model.containsAttribute("updatedCustomer"));
+    public String updateCustomer() {
         return "updateCustomerForm";
     }
 
     @GetMapping("customers/{id}")
-    public String editCustomerById(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("updatedCustomer", customerService.findCustomerById(id));
+    public String editCustomerById(@PathVariable Long id, RedirectAttributes rda, HttpSession session) {
+        CustomerDetailedDTO customer = customerService.findCustomerById(id);
+
+        session.setAttribute("updatedCustomer", customer);
+        rda.addFlashAttribute("updatedCustomer", customer);
         return "redirect:/UpdateCustomer";
     }
 

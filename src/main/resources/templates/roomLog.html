@@ -160,11 +160,19 @@
         border: 0;
         height: 100px;
     }
+    p{
+        color: white;
+        font-family: "Caveat", sans-serif;
+        font-size: 50px;
+        margin: 0;
+    }
 </style>
 <body>
 <div class="header">
     <div class="logo">
-        <h1>Pensionat Koriander</h1>
+        <a th:href="@{http://localhost:8080}">
+            <h1>Pensionat Koriander</h1>
+        </a>
     </div>
 
     <div class="links">
@@ -182,10 +190,10 @@
 </div>
 
 <div class="table">
-    <h2>Room Log</h2>
+     <p th:inline="text">Log for Room: [[${roomName}]]</p>
     <table>
         <tr>
-            <th>Room Number</th>
+
             <th>Type</th>
             <th>Timestamp</th>
         </tr>
@@ -193,9 +201,9 @@
 
 
         <tr th:each="roomLog : ${roomEventList}">
-              <td th:text="${roomLog.roomNumber}"></td>
+
               <td th:text="${roomLog.type}"></td>
-            <td th:text="${roomLog.timeStamp}"></td>
+            <td th:text="${#temporals.format (roomLog.timeStamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
 
 
     </tr>

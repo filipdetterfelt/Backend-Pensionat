@@ -1,5 +1,6 @@
 package com.example.backendpensionat.Repos;
 
+import com.example.backendpensionat.Models.Room;
 import com.example.backendpensionat.Models.RoomEvents;
 import org.springframework.data.jpa.repository.JpaRepository;
 
