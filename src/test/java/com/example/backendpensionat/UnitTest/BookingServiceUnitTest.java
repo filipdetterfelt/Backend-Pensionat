@@ -19,8 +19,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,74 +68,142 @@ public class BookingServiceUnitTest {
 
     @Test
     void calculateTotalPrice_oneDayBooked_ShouldGiveNoDiscount() {
-        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(1L).get());
+        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(1L).orElseThrow(() -> noSuchElementException("Customer")));
         LocalDate startDate = LocalDate.of(2024, 1, 1);
         LocalDate endDate = LocalDate.of(2024, 1, 2);
-        Room room = roomRepo.findById(1L).get();
+        Room room = roomRepo.findById(1L).orElseThrow(() -> noSuchElementException("Room"));
 
-        double totalPrice = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
+        double expectedPrice = 1 * RoomType.SINGLE.getRoomTypePrice();
+        Double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
 
-        assertEquals(1 * RoomType.SINGLE.getRoomTypePrice(), totalPrice);
+        assertEquals(expectedPrice, result);
+        assertEquals(room.getPrice(), RoomType.SINGLE.getRoomTypePrice());
+        assertNotNull(result);
     }
 
     @Test
     void calculateTotalPrice_twoDaysBooked_shouldGiveDiscountHalfPercent() {
-        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(1L).get());
+        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(1L).orElseThrow(() -> noSuchElementException("Customer")));
+        Room room = roomRepo.findById(1L).orElseThrow(() -> noSuchElementException("Room"));
+
         LocalDate startDate = LocalDate.of(2024, 1, 1);
         LocalDate endDate = LocalDate.of(2024, 1, 3);
-        double totalPrice = 2 * RoomType.SINGLE.getRoomTypePrice();
-        Room room = roomRepo.findById(1L).get();
 
-        double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
+        double expectedPrice = 2 * RoomType.SINGLE.getRoomTypePrice();
+        Double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
 
-        assertEquals(totalPrice * 0.995, result);
+        assertEquals(expectedPrice * 0.995, result);
+        assertEquals(room.getPrice(), RoomType.SINGLE.getRoomTypePrice());
+        assertNotNull(result);
+    }
+
+    @Test
+    void calculateTotalPrice_oneDayBookedOverSunday_ShouldGiveDiscountTwoPercent() {
+        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(1L).orElseThrow(() -> noSuchElementException("Customer")));
+        Room room = roomRepo.findById(1L).orElseThrow(() -> noSuchElementException("Room"));
+
+        LocalDate startDate = LocalDate.of(2024, 1, 7);
+        LocalDate endDate = LocalDate.of(2024, 1, 8);
+
+        double expectedPrice = 1 * RoomType.SINGLE.getRoomTypePrice() * 0.98;
+        Double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
+
+        assertEquals(expectedPrice, result);
+        assertEquals(room.getPrice(), RoomType.SINGLE.getRoomTypePrice());
+        assertNotNull(result);
+    }
+
+    @Test
+    void calculateTotalPrice_twoDaysBookedOverSunday_ShouldGiveDiscountTwoAndHalfPercent() {
+        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(1L).orElseThrow(() -> noSuchElementException("Customer")));
+        Room room = roomRepo.findById(1L).orElseThrow(() -> noSuchElementException("Room"));
+
+        LocalDate startDate = LocalDate.of(2024, 1, 6);
+        LocalDate endDate = LocalDate.of(2024, 1, 8);
+
+        double expectedPrice = ((1 * RoomType.SINGLE.getRoomTypePrice() * 0.98) + (1 * RoomType.SINGLE.getRoomTypePrice())) * 0.995;
+        Double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
+
+        assertEquals(expectedPrice, result);
+        assertEquals(room.getPrice(), RoomType.SINGLE.getRoomTypePrice());
+        assertNotNull(result);
+    }
+
+    @Test
+    void calculateTotalPrice_oneDayBookedEndsOnSunday_shouldGiveNoDiscount() {
+        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(1L).orElseThrow(() -> noSuchElementException("Customer")));
+        Room room = roomRepo.findById(1L).orElseThrow(() -> noSuchElementException("Room"));
+
+        LocalDate startDate = LocalDate.of(2024, 1, 6);
+        LocalDate endDate = LocalDate.of(2024, 1, 7);
+
+        double expectedPrice = 1 * RoomType.SINGLE.getRoomTypePrice();
+        Double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
+
+        assertEquals(expectedPrice, result);
+        assertEquals(room.getPrice(), RoomType.SINGLE.getRoomTypePrice());
+        assertNotNull(result);
     }
 
     @Test
     void calculateTotalPrice_customerWithTenDaysBooked_ShouldGiveDiscountTwoPercent() {
-        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(2L).get());
+        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(2L).orElseThrow(() -> noSuchElementException("Customer")));
         Booking bookingTenDays = new Booking(1L, 0, 10 * RoomType.SINGLE.getRoomTypePrice(), LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 11), new Customer(), new Room());
+        Room room = roomRepo.findById(1L).orElseThrow(() -> noSuchElementException("Room"));
+
         when(bookingRepo.findById(1L)).thenReturn(Optional.of(bookingTenDays));
 
-        LocalDate startDate = LocalDate.of(2024, 1, 1);
-        LocalDate endDate = LocalDate.of(2024, 1, 2);
-        double expectedPrice = (1 * RoomType.SINGLE.getRoomTypePrice()) * 0.98;
-        Room room = roomRepo.findById(1L).get();
+        LocalDate startDate = LocalDate.of(2024, 1, 6);
+        LocalDate endDate = LocalDate.of(2024, 1, 7);
 
-        double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
+        double expectedPrice = (1 * RoomType.SINGLE.getRoomTypePrice()) * 0.98;
+        Double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
 
         assertEquals(expectedPrice, result);
+        assertEquals(room.getPrice(), RoomType.SINGLE.getRoomTypePrice());
+        assertNotNull(result);
     }
+
 
     @Test
     void calculateTotalPrice_customerWithTenDaysBooked_TwoDays_ShouldGiveDiscountTwoAndHalfPercent() {
-        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(2L).get());
+        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(2L).orElseThrow(() -> noSuchElementException("Customer")));
         Booking bookingTenDays = new Booking(1L, 0, 10 * RoomType.SINGLE.getRoomTypePrice(), LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 11), new Customer(), new Room());
+        Room room = roomRepo.findById(1L).orElseThrow(() -> noSuchElementException("Room"));
+
         when(bookingRepo.findById(1L)).thenReturn(Optional.of(bookingTenDays));
 
         LocalDate startDate = LocalDate.of(2024, 1, 1);
         LocalDate endDate = LocalDate.of(2024, 1, 3);
-        double expectedPrice = (2 * RoomType.SINGLE.getRoomTypePrice()) * 0.98 * 0.995;
-        Room room = roomRepo.findById(1L).get();
 
-        double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
+        double expectedPrice = (2 * RoomType.SINGLE.getRoomTypePrice()) * 0.98 * 0.995;
+        Double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
 
         assertEquals(expectedPrice, result);
+        assertEquals(room.getPrice(), RoomType.SINGLE.getRoomTypePrice());
+        assertNotNull(result);
     }
 
     @Test
-    void calculateTotalPrice_customerWithTenDaysBooked_TwoDaysWithOneDayOverSunday_ShouldGiveDiscountTwoPercentPlusDiscountedDay() {
-        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(2L).get());
+    void calculateTotalPrice_customerWithTenDaysBooked_TwoDaysWithOneDayOverSunday_ShouldGiveDiscountTwoAndHalfPercentPlusDiscountedDay() {
+        CustomerDetailedDTO customer = customerSut.cDetailedToDTO(customerRepo.findById(2L).orElseThrow(() -> noSuchElementException("Customer")));
         Booking bookingTenDays = new Booking(1L, 0, 10 * RoomType.SINGLE.getRoomTypePrice(), LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 11), new Customer(), new Room());
+        Room room = roomRepo.findById(1L).orElseThrow(() -> noSuchElementException("Room"));
+
         when(bookingRepo.findById(1L)).thenReturn(Optional.of(bookingTenDays));
 
         LocalDate startDate = LocalDate.of(2024, 1, 6);
         LocalDate endDate = LocalDate.of(2024, 1, 8);
-        double expectedPrice = (1 * RoomType.SINGLE.getRoomTypePrice() + (1 * RoomType.SINGLE.getRoomTypePrice() * 0.98))  * 0.98 * 0.995;
-        Room room = roomRepo.findById(1L).get();
 
-        double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
+        double expectedPrice = (1 * RoomType.SINGLE.getRoomTypePrice() + (1 * RoomType.SINGLE.getRoomTypePrice() * 0.98))  * 0.98 * 0.995;
+        Double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
 
         assertEquals(expectedPrice, result);
+        assertEquals(room.getPrice(), RoomType.SINGLE.getRoomTypePrice());
+        assertNotNull(result);
+    }
+
+    private NoSuchElementException noSuchElementException(String entityName) {
+        return new NoSuchElementException(entityName + " not found.");
     }
 }
