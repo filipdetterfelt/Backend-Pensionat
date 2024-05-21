@@ -45,7 +45,7 @@
                 <tr>
                     <td>
                         <label>
-                            <select name="customerInfo" id="customerBox">
+                            <select class="dropdown-box" name="customerInfo" id="customerBox">
                                 <option th:if="${bookingSearch != null}"
                                         th:value="${bookingSearch.customer.id}"
                                         th:text="${bookingSearch.customer.id + ': ' + bookingSearch.customer.firstName + ' ' + bookingSearch.customer.lastName}"
@@ -67,7 +67,7 @@
 
                     <td>
                         <label for="startDate">
-                            <input type="date" name="startDate" id="startDate"
+                            <input class="dropdown-box" type="date" name="startDate" id="startDate"
                                    th:value="${bookingSearch != null ? bookingSearch.startDate: ''}"
                                    onchange="updateEndDateOnChange()" required>
                         </label>
@@ -75,14 +75,14 @@
 
                     <td>
                         <label for="endDate">
-                            <input type="date" name="endDate" id="endDate"
+                            <input class="dropdown-box" type="date" name="endDate" id="endDate"
                                    th:value="${bookingSearch != null ? bookingSearch.endDate: ''}" required>
                         </label>
                     </td>
 
                     <td>
                         <label>
-                            <select id="roomTypeBox" name="roomType" onmousedown="clearDropDown()"
+                            <select class="dropdown-box" id="roomTypeBox" name="roomType" onmousedown="clearDropDown()"
                                     onchange="alternativeSubmit()">
                                 <option id="roomTypeSearch"
                                         th:if="${bookingSearch != null}"
@@ -109,7 +109,7 @@
                     <td>
                         <label>
                             <input type="hidden" name="amountOfBeds" id="hiddenBedBox" value="0">
-                            <select id="extraBedsBox" onchange="changeHiddenValue()">
+                            <select class="dropdown-box" id="extraBedsBox" onchange="changeHiddenValue()">
                                 <option disabled selected th:if="${bookingSearch == null}" th:value="${'Choose extra beds'}" th:text="${'Choose extra beds'}"></option>
                                 <option selected th:if="${bookingSearch != null}" th:value="${bookingSearch.amountOfBeds}" th:text="${bookingSearch.amountOfBeds}"></option>
                                 <option disabled selected th:if="${bookingSearch != null && bookingSearch.roomNumber == 0}" th:value="${'Choose extra beds'}" th:text="${'Choose extra beds'}"></option>
@@ -119,7 +119,7 @@
 
                     <td>
                         <label>
-                            <select id="roomNumberBox" name="roomNumber" onchange="updatePrice(); alternativeSubmit()">
+                            <select class="dropdown-box" id="roomNumberBox" name="roomNumber" onchange="updatePrice(); alternativeSubmit()">
                                 <option disabled selected th:if="${bookingSearch == null}" th:value="${'Room Number'}" th:text="${'Room Number'}"></option>
                                 <option selected th:if="${bookingSearch != null}" th:value="${bookingSearch.roomNumber}" th:text="${bookingSearch.roomNumber}"></option>
                                 <option disabled selected th:if="${bookingSearch != null && bookingSearch.roomNumber == 0}" th:value="${'Room Number'}" th:text="${'Room Number'}"></option>
@@ -137,7 +137,7 @@
 
                     <td>
                         <label for="priceBox"></label>
-                        <select id="priceBox" name="totalPrice">
+                        <select class="dropdown-box" id="priceBox" name="totalPrice">
                             <option selected
                                     th:if="${bookingSearch != null}"
                                     th:value="${bookingSearch.getTotalPrice()}"

@@ -27,7 +27,10 @@
     </div>
 </div>
 
-<div class="center-box"><h2>Edit Bookings</h2>
+<div class="table">
+    <h2>Edit Bookings</h2>
+</div>
+<div class="center-box">
     <form id="form" action="/bookings/edit/save" th:object="${booking}" method="post">
         <input type="hidden" name="bookingId" id="bookingId" th:field="*{id}"/>
         <input type="hidden" name="totalPrice" id="totalPrice" th:field="*{totalPrice}"/>
@@ -39,7 +42,7 @@
         <input type="date" id="endDate" onchange="alternativeSubmit()" name="endDate" th:field="*{endDate}" required/><br><br>
 
         <label for="roomType">Room:</label><br>
-        <select id="roomType" onmousedown="clearDropDown()" onchange="updateExtraBeds()" name="roomNumber" th:field="*{roomNumber}">
+        <select class="dropdown-box" id="roomType" onmousedown="clearDropDown()" onchange="updateExtraBeds()" name="roomNumber" th:field="*{roomNumber}">
             <option th:each="room: ${listFreeRooms}"
                     th:value="${room.getRoomNumber() + ' - ' + room.getRoomType()}"
                     th:text="${room.getRoomNumber() + ' - ' + room.getRoomType()}">
