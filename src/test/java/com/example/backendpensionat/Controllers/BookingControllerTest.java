@@ -57,7 +57,7 @@ class BookingControllerTest {
     private CustomerRepo customerRepo;
 
     @InjectMocks
-    private BookingServiceIMPL serviceIMPL = new BookingServiceIMPL(customerRepo, bookingRepo, roomRepo);
+    private BookingServiceIMPL serviceIMPL;
 
     @Test
     void TestAllBookings() throws Exception {
