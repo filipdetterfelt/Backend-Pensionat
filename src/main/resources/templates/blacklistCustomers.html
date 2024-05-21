@@ -40,32 +40,54 @@
         <input type="email" id="email" name="email" required><br><br>
         <input class="black-listed" type="submit" value="ADD TO BLACKLIST">
     </form>
+    </div>
     <br>
-    <form class="blacklist-form-inside" id="updateForm" method="get">
-        <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person has been Greenlisted</p>
-        <p th:if="${isBlacklisted == true}" class="alert alert-danger" role="alert">This person has been Blacklisted</p>
-        <h3>Update status</h3>
+<div class="table-update-blacklist">
+    <h2>Update status</h2>
+</div>
+<div class="blacklist-form">
+    <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person has been Greenlisted</p>
+    <p th:if="${isBlacklisted == true}" class="alert alert-danger" role="alert">This person has been Blacklisted</p>
+    <form class="addForm" id="updateForm" method="get">
         <label for="emailUpdate">EMAIL:</label><br>
         <input type="email" id="emailUpdate" name="email" required><br><br>
         <div class="buttons-box">
-            <button class="black-listed" onclick="changeAction('blacklist')">BLACKLIST</button>
-            <button class="green-listed" onclick="changeAction('green-list')">GREENLIST</button>
+            <button class="black-listed" onclick="validateAndSubmit('blacklist')">BLACKLIST</button>
+            <button class="green-listed" onclick="validateAndSubmit('green-list')">GREENLIST</button>
         </div>
     </form>
 </div>
 
 <script>
-    function changeAction(ca) {
-        const uf = document.getElementById('updateForm');
 
-        if (ca === 'blacklist') {
-            uf.action="/blacklist/updateFalse";
-        } else {
-            uf.action="/blacklist/updateTrue"
+    function validateAndSubmit(actionType) {
+        const emailField = document.getElementById('emailUpdate');
+        if (!emailField.value) {
+            alert('Please enter an email address.');
+            return;
         }
 
-        uf.submit();
+        const updateForm = document.getElementById('updateForm');
+        if (actionType === 'blacklist') {
+            updateForm.action = "/blacklist/updateFalse";
+        } else {
+            updateForm.action = "/blacklist/updateTrue";
+        }
+
+        updateForm.submit();
     }
+
+    // function changeAction(ca) {
+    //     const uf = document.getElementById('updateForm');
+    //
+    //     if (ca === 'blacklist') {
+    //         uf.action="/blacklist/updateFalse";
+    //     } else {
+    //         uf.action="/blacklist/updateTrue"
+    //     }
+    //
+    //     uf.submit();
+    // }
 </script>
 </body>
 </html>

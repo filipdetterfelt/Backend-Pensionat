@@ -278,6 +278,15 @@ input {
     margin-top: 230px;
 }
 
+.table-update-blacklist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+}
+
+
 .rooms-table {
     display: flex;
     flex-direction: column;
@@ -432,20 +441,6 @@ select {
     border-radius: 10px;
     background-color: #b4c4b5;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    color: #5e775f;
-    font-family: "Arial Black", sans-serif;
-    font-size: 12px;
-}
-
-.blacklist-form-inside {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 0;
-    padding: 0;
-    border-radius: 10px;
-    background-color: #b4c4b5;
     color: #5e775f;
     font-family: "Arial Black", sans-serif;
     font-size: 12px;
