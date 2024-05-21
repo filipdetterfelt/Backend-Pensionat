@@ -144,7 +144,6 @@ public class BookingController {
     public String editBookingById(@PathVariable Long id, HttpSession session, Model model) {
         BookingDetailedDTO bookingDTO = bookingService.findBookingById(id);
 
-
         String placeholder = bookingDTO.getRoom().getRoomNumber() + " - " + bookingDTO.getRoom().getRoomType();
         bookingDTO.setRoomNumber(placeholder);
 
