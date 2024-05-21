@@ -26,13 +26,15 @@
         <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
     </div>
     <div class="search-box">
-        <h3>Search contracts</h3>
+        <h3>Search Contracts</h3>
         <form action="/ContractCustomers/search" method="get">
             <input type="hidden" name="orderString" id="hiddenSort" th:value="${sortString}">
             <label for="search"></label>
             <input type="text" name="searchWord" id="search">
-            <button class="search-reset-btn" type="submit">Search</button>
-            <button class="search-reset-btn" onclick="resetSearch()">Reset</button>
+            <div class="btn-box">
+                <button class="search-reset-btn" type="submit">Search</button>
+                <button class="search-reset-btn" onclick="resetSearch()">Reset</button>
+            </div>
         </form>
     </div>
 </div>

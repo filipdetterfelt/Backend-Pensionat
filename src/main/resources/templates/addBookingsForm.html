@@ -64,19 +64,20 @@
                             </select>
                         </label>
                     </td>
-                    
+
                     <td>
-                        <label for="startDate"></label>
-                        <input type="date" name="startDate" id="startDate"
-                               th:value="${bookingSearch != null ? bookingSearch.startDate: ''}"
-                               onchange="updateEndDateOnChange()" required>
+                        <label for="startDate">
+                            <input type="date" name="startDate" id="startDate"
+                                   th:value="${bookingSearch != null ? bookingSearch.startDate: ''}"
+                                   onchange="updateEndDateOnChange()" required>
+                        </label>
                     </td>
 
                     <td>
-                        <label for="endDate"> </label>
-                        <input type="date" name="endDate"
-                               th:value="${bookingSearch != null ? bookingSearch.endDate: ''}"
-                               id="endDate" required>
+                        <label for="endDate">
+                            <input type="date" name="endDate" id="endDate"
+                                   th:value="${bookingSearch != null ? bookingSearch.endDate: ''}" required>
+                        </label>
                     </td>
 
                     <td>
@@ -128,7 +129,7 @@
                                         th:value="${room.roomNumber}"
                                         th:roomPrice="${room.getPrice()}"
                                         th:text="${room.getRoomNumber()}"
-                                        data-price="${room.getPrice()}"> <!-- Add data-price attribute -->
+                                        data-price="${room.getPrice()}">
                                 </option>
                             </select>
                         </label>

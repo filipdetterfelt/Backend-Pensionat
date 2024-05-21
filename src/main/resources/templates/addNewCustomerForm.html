@@ -27,8 +27,11 @@
         <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
     </div>
 </div>
+
+<div class="table">
+    <h2>Add New Customer</h2>
+</div>
 <div class="center-box">
-    <h2>Add customer</h2>
     <p th:if="${isAdded == false}" class="alert alert-danger" role="alert">This is updated</p>
     <p th:if="${wasBlackListed == true}" class="alert alert-danger" role="alert">This person is blacklisted</p>
     <form action="/bookings/add" th:object="${newCustomers}" method="post">

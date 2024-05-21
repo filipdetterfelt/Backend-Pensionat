@@ -27,29 +27,32 @@
     </div>
 </div>
 
-<div class="center-box">
+<div class="table">
     <h2>Update existing customer</h2>
+</div>
+<div class="center-box">
     <form action="/UpdateCustomers" th:object="${updatedCustomer}" method="post">
-        <input type="hidden" id="id" name="id" th:field="*{id}" required/>
+        <label for="id">ID:</label><br>
+        <input type="text" id="id" name="id" th:field="*{id}" required disabled/>
         <br><br>
 
-        <label for="ssn">Social Security Number:</label><br>
+        <label for="ssn">SSN:</label><br>
         <input type="text" id="ssn" name="ssn" th:field="*{ssn}" required pattern="[0-9]{12}" title="Please enter a 12-digit Social Security Number" disabled>
         <br><br>
 
-        <label for="mail">Email:</label><br>
+        <label for="mail">EMAIL:</label><br>
         <input type="email" id="mail" name="email" th:field="*{email}" required>
         <br><br>
 
-        <label for="fname">First Name:</label><br>
+        <label for="fname">FIRST NAME:</label><br>
         <input type="text" id="fname" name="firstName" th:field="*{firstName}" required pattern="[A-Öa-ö]+" title="Please enter letters only for First Name">
         <br><br>
 
-        <label for="lname">Last Name:</label><br>
+        <label for="lname">LAST NAME:</label><br>
         <input type="text" id="lname" name="lastName" th:field="*{lastName}" required pattern="[A-Öa-ö]+" title="Please enter letters only for Last Name">
         <br><br>
 
-        <label for="phone">Phone number:</label><br>
+        <label for="phone">PHONE:</label><br>
         <input type="tel" id="phone" name="phone" th:field="*{phone}" required pattern="[0-9]{0,10}"
                title="Please enter a 10-digit Phone number">
         <br><br>

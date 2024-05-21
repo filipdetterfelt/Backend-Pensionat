@@ -27,32 +27,31 @@
     </div>
 </div>
 
-<div class="center-box">
+<div class="table">
     <h2>Blacklist a Customer</h2>
+</div>
+<div class="blacklist-form">
     <p th:if="${isAdded == true}" class="alert alert-danger" role="alert">This person has been blacklisted</p>
     <p th:if="${blacklistExists == true}" class="alert alert-danger" role="alert">This person already exist in blacklist</p>
-    <div>
-        <form id="addForm" action="/blacklist/add" method="post">
-            <label for="name">NAME:</label><br>
-            <input type="text" id="name" name="name" required><br><br>
-            <label for="email">EMAIL:</label><br>
-            <input type="email" id="email" name="email" required><br><br>
-            <input class="black" type="submit" value="ADD TO BLACKLIST">
-        </form>
-    </div><br><br>
-    <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person has been Greenlisted</p>
-    <p th:if="${isBlacklisted == true}" class="alert alert-danger" role="alert">This person has been Blacklisted</p>
-    <div>
-        <form id="updateForm" method="get">
-            <h3 class="center-header">Update status</h3>
-            <label for="emailUpdate">EMAIL:</label><br>
-            <input type="email" id="emailUpdate" name="email" required><br><br>
-            <div class="buttons-box">
-                <button class="black" onclick="changeAction('blacklist')">BLACKLIST</button>
-                <button class="green" onclick="changeAction('greenlist')">GREENLIST</button>
-            </div>
-        </form>
-    </div>
+    <form id="addForm" action="/blacklist/add" method="post">
+        <label for="name">NAME:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="email">EMAIL:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        <input class="black-listed" type="submit" value="ADD TO BLACKLIST">
+    </form>
+    <br>
+    <form class="blacklist-form-inside" id="updateForm" method="get">
+        <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person has been Greenlisted</p>
+        <p th:if="${isBlacklisted == true}" class="alert alert-danger" role="alert">This person has been Blacklisted</p>
+        <h3>Update status</h3>
+        <label for="emailUpdate">EMAIL:</label><br>
+        <input type="email" id="emailUpdate" name="email" required><br><br>
+        <div class="buttons-box">
+            <button class="black-listed" onclick="changeAction('blacklist')">BLACKLIST</button>
+            <button class="green-listed" onclick="changeAction('green-list')">GREENLIST</button>
+        </div>
+    </form>
 </div>
 
 <script>
