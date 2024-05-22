@@ -51,8 +51,8 @@ public class WebSecurityConfig {
                 .logout((logout) -> {
                     logout.permitAll();
                     logout.logoutSuccessUrl("/");
-                    logout.deleteCookies("JSESSIONID");
-                    logout.invalidateHttpSession(true);
+                    //logout.deleteCookies("JSESSIONID");
+                    //logout.invalidateHttpSession(true);
                 })
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
