@@ -613,6 +613,11 @@ select {
     object-fit: cover;
     align-content: center;
     align-items: center;
+    /*Nerskald variant av bilden !*/
+    /*width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;*/
 }
 
 input::placeholder{
@@ -623,4 +628,8 @@ input::placeholder{
 .logo-login{
     position: fixed;
     top: 0;
+}
+
+.input-login{
+    text-align: center;
 }
