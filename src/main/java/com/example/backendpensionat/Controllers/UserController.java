@@ -1,7 +1,9 @@
 package com.example.backendpensionat.Controllers;
 
+import com.example.backendpensionat.Models.User;
 import com.example.backendpensionat.Services.Impl.UserDetailsServiceIMPL;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class UserController {
 
-    public UserDetailsServiceIMPL userDetailsService;
+    private final UserDetailsServiceIMPL userDetailsService;
 
     @GetMapping("/Users")
-    public String Users(){
+    public String users(Model model){
+        model.addAttribute("usersList",userDetailsService.listAllUsers());
+        model.addAttribute("deleteUser", new User());
         return "users";
     }
 
