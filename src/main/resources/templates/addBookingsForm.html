@@ -16,6 +16,9 @@
     </div>
 
     <div class="links">
+        <th:block sec:authorize="isAuthenticated()">
+            <button class="logout-btn-header" th:attr="onclick='window.location.href=`/logout`'">LOG OUT</button>
+        </th:block>
         <button class="btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
         <button class="btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
         <button class="btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
