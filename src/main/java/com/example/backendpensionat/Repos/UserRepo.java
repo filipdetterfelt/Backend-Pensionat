@@ -1,12 +1,13 @@
-package com.example.backendpensionat.Security;
+package com.example.backendpensionat.Repos;
 
+import com.example.backendpensionat.Models.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.UUID;
 
-public interface UserRepository extends CrudRepository<User, UUID> {
+public interface UserRepo extends CrudRepository<User, UUID> {
     @Query("SELECT u FROM User u WHERE u.username = :username")
     public User getUserByUsername(@Param("username") String username);
 }

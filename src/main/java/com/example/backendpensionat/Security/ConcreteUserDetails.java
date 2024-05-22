@@ -1,5 +1,7 @@
 package com.example.backendpensionat.Security;
 
+import com.example.backendpensionat.Models.Role;
+import com.example.backendpensionat.Models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

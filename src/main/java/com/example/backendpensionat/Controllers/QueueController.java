@@ -1,7 +1,7 @@
 package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.Models.Queue;
-import com.example.backendpensionat.Models.QueueRepository;
+import com.example.backendpensionat.Repos.QueueRepo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @Controller
 public class QueueController extends BaseController {
     @Autowired
-    QueueRepository queueRepository;
+    QueueRepo queueRepo;
 
     @GetMapping(path = "/queues")
     String empty(Model model) {
@@ -24,7 +24,7 @@ public class QueueController extends BaseController {
         model.addAttribute("activeFunction", "queues");
         setupVersion(model);
 
-        model.addAttribute("queues", queueRepository.findAll());
+        model.addAttribute("queues", queueRepo.findAll());
         return "queues";
     }
 
@@ -47,7 +47,7 @@ public class QueueController extends BaseController {
         f.setRoomIdCSV(queue.getRoomIdCSV());
         f.setMessagesToSend(queue.getMessagesToSend());
 
-        queueRepository.save(f);
+        queueRepo.save(f);
         return "redirect:/queues";
     }
 
@@ -57,7 +57,7 @@ public class QueueController extends BaseController {
     String Edit(@PathVariable("id") UUID id, Model model) {
         model.addAttribute("activeFunction", "queues");
 
-        var queue = queueRepository.findById(id).orElseThrow();
+        var queue = queueRepo.findById(id).orElseThrow();
 
         model.addAttribute("queue", queue);
 

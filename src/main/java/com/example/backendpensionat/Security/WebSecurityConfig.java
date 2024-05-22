@@ -1,5 +1,6 @@
 package com.example.backendpensionat.Security;
 
+import com.example.backendpensionat.Services.Impl.UserDetailsServiceIMPL;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,7 +19,7 @@ public class WebSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
+        return new UserDetailsServiceIMPL();
     }
 
     @Bean

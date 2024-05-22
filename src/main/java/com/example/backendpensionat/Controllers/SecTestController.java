@@ -1,7 +1,7 @@
 package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.Models.Queue;
-import com.example.backendpensionat.Models.QueueRepository;
+import com.example.backendpensionat.Repos.QueueRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class SecTestController extends BaseController {
     @Autowired
-    QueueRepository queueRepository;
+    QueueRepo queueRepo;
 
     @GetMapping(path="/admin")
     @PreAuthorize("hasAuthority('Admin')")

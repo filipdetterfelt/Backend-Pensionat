@@ -1,5 +1,9 @@
 package com.example.backendpensionat.Security;
 
+import com.example.backendpensionat.Models.Role;
+import com.example.backendpensionat.Models.User;
+import com.example.backendpensionat.Repos.RoleRepo;
+import com.example.backendpensionat.Repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,39 +14,39 @@ import java.util.ArrayList;
 public class UserDataSeeder {
 
     @Autowired
-    UserRepository userRepository;
+    UserRepo userRepo;
 
     @Autowired
-    RoleRepository roleRepository;
+    RoleRepo roleRepo;
 
     public void Seed(){
-        if (roleRepository.findByName("Admin") == null) {
+        if (roleRepo.findByName("Admin") == null) {
             addRole("Admin");
         }
-        if (roleRepository.findByName("Reception") == null) {
+        if (roleRepo.findByName("Reception") == null) {
             addRole("Reception");
         }
-        if(userRepository.getUserByUsername("stefan.holmberg@systementor.se") == null){
+        if(userRepo.getUserByUsername("stefan.holmberg@systementor.se") == null){
             addUser("admin@koriander.se","Admin");
         }
-        if(userRepository.getUserByUsername("oliver.holmberg@systementor.se") == null){
+        if(userRepo.getUserByUsername("oliver.holmberg@systementor.se") == null){
             addUser("reception@koriander.se","Reception");
         }
     }
 
     private void addUser(String mail, String group) {
         ArrayList<Role> roles = new ArrayList<>();
-        roles.add(roleRepository.findByName(group));
+        roles.add(roleRepo.findByName(group));
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hash = encoder.encode("Hejsan123#");
         User user = User.builder().enabled(true).password(hash).username(mail).roles(roles).build();
-        userRepository.save(user);
+        userRepo.save(user);
     }
 
     private void addRole(String name) {
         Role role = new Role();
-        roleRepository.save(Role.builder().name(name).build());
+        roleRepo.save(Role.builder().name(name).build());
     }
 
 }
