@@ -45,21 +45,21 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void sholdShowId() throws Exception{
+    public void shouldShowId() throws Exception{
         this.mockMvc.perform(get("/rooms")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Id")));
     }
 
     @Test
-    public void sholdShowRoomNumber() throws Exception{
+    public void shouldShowRoomNumber() throws Exception{
         this.mockMvc.perform(get("/rooms")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Room number")));
+                .andExpect(content().string(containsString("ROOM NO")));
     }
 
     @Test
-    public void sholdShowTotalPrice() throws Exception{
+    public void shouldShowPrice() throws Exception{
         this.mockMvc.perform(get("/rooms")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Total price")));
+                .andExpect(content().string(containsString("PRICE")));
     }
 
     @Test
