@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class ConcreteUserDetails implements UserDetails {
-    private User user;
+    private final User user;
 
     public ConcreteUserDetails(User user) {
         this.user = user;

@@ -23,7 +23,9 @@
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'" sec:authorized="hasRole('Admin') or isAuthenticated()">Users</button>
+        <th:block sec:authorize="hasAuthority('Admin')">
+            <button sec:authorize="isAuthenticated()" class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'">Users</button>
+        </th:block>
     </div>
     <br>
     <div>
