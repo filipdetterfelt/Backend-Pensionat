@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>Customers</title>
@@ -19,6 +22,9 @@
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <th:block sec:authorize="hasAuthority('Admin')">
+            <button sec:authorize="isAuthenticated()" class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'">USERS</button>
+        </th:block>
     </div>
     <br>
     <div>
@@ -54,11 +60,13 @@
                 </button>
             </td>
             <td>
-                <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post"
-                      th:if="${#lists.isEmpty(customer.getBookings())}">
-                    <input type="hidden" name="id" th:value="${customer.getId()}"/>
-                    <button class="delete-btn"  type="submit">DELETE</button>
-                </form>
+                <th:block sec:authorize="hasAuthority('Admin')">
+                    <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post"
+                          th:if="${#lists.isEmpty(customer.getBookings())}">
+                        <input type="hidden" name="id" th:value="${customer.getId()}"/>
+                        <button class="delete-btn"  type="submit">DELETE</button>
+                    </form>
+                </th:block>
             </td>
         </tr>
     </table>
