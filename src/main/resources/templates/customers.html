@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org/"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Customers</title>
@@ -17,13 +16,13 @@
     </div>
 
     <div class="links">
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
         <th:block sec:authorize="hasAuthority('Admin')">
-            <button sec:authorize="isAuthenticated()" class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'">USERS</button>
+            <button sec:authorize="isAuthenticated()" class="btn-header" th:attr="onclick='window.location.href=`/Users`'">USERS</button>
         </th:block>
     </div>
     <br>
