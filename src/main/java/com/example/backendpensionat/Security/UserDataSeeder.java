@@ -26,10 +26,10 @@ public class UserDataSeeder {
         if (roleRepo.findByName("Reception") == null) {
             addRole("Reception");
         }
-        if(userRepo.getUserByUsername("stefan.holmberg@koriander.se") == null){
+        if(userRepo.getUserByUsername("admin@koriander.se") == null){
             addUser("admin@koriander.se","Admin");
         }
-        if(userRepo.getUserByUsername("oliver.holmberg@koriander.se") == null){
+        if(userRepo.getUserByUsername("reception@koriander.se") == null){
             addUser("reception@koriander.se","Reception");
         }
     }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+        <a th:href="@{http://localhost:8080}">
+            <h1>Pensionat Koriander</h1>
+        </a>
+    </div>
+
+    <div class="links">
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'" sec:authorized="hasRole('Admin') or isAuthenticated()">Users</button>
+    </div>
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
+    </div>
+</div>
+
+<div class="table">
+    <h2>Customers</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>SSN</th>
+            <th>EMAIL</th>
+            <th>FIRST NAME</th>
+            <th>LAST NAME</th>
+            <th>PHONE</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+        </tr>
+        <tr th:each="customer: ${customersList}">
+            <td th:text="${customer.getId()}"></td>
+            <td th:text="${customer.getSsn()}"></td>
+            <td th:text="${customer.getEmail()}"></td>
+            <td th:text="${customer.getFirstName()}"></td>
+            <td th:text="${customer.getLastName()}"></td>
+            <td th:text="${customer.getPhone()}"></td>
+
+            <td>
+                <button class="edit-btn" th:data-url="'/customers/' + ${customer.id}"
+                        onclick="window.location.href = this.getAttribute('data-url')">EDIT
+                </button>
+            </td>
+            <td>
+                <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post"
+                      th:if="${#lists.isEmpty(customer.getBookings())}">
+                    <input type="hidden" name="id" th:value="${customer.getId()}"/>
+                    <button class="delete-btn"  type="submit">DELETE</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

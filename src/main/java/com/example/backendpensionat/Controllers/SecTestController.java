@@ -29,13 +29,13 @@ public class SecTestController extends BaseController {
         return "security/admin";
     }
 
-    @GetMapping(path="/customer")
-    @PreAuthorize("hasAuthority('Customer')")
+    @GetMapping(path="/reception")
+    @PreAuthorize("hasAuthority('Reception')")
     public String Mew( Model model){
 
         model.addAttribute("queue", new Queue());
         model.addAttribute("activeFunction", "queues");
-        return "security/customer";
+        return "security/reception";
     }
 
     @GetMapping(path="/profile")

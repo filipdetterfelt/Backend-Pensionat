@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>Pensionat Koriander</title>
@@ -19,6 +22,9 @@
             <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
             <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
             <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+            <th:block sec:authorize="isAuthenticated()">
+                <button class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'">Users</button>
+            </th:block>
         </div>
         <br>
         <div>

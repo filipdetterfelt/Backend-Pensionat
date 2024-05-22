@@ -2,6 +2,7 @@ package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.Services.Impl.BlacklistServiceIMPL;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
