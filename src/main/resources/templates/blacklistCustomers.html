@@ -22,7 +22,7 @@
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
-        <th:block sec:authorize="hasRole('SYSTEMADMIN')">
+        <th:block sec:authorize="hasAuthority('Admin')">
             <button sec:authorize="isAuthenticated()" class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'">Users</button>
         </th:block>
     </div>

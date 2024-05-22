@@ -7,7 +7,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -38,18 +40,22 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        //                        .loginPage("/login")
         http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/",  "/js/**", "/styles/styles.css", "/images/**", "/login/**", "/logout","/queues/**" ).permitAll()
+                        .requestMatchers("/",  "/js/**", "/styles/styles.css", "/images/**", "/login/**", "/logout").permitAll()
+                        .requestMatchers("/users").hasRole("Admin")
                         .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form
-//                        .loginPage("/login")
-                                .permitAll()
+                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll
                 )
                 .logout((logout) -> {
                     logout.permitAll();
                     logout.logoutSuccessUrl("/");
+                    logout.deleteCookies("JSESSIONID");
+                    logout.invalidateHttpSession(true);
                 })
+                .sessionManagement((session) -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
