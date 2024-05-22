@@ -18,7 +18,7 @@
 
     <div class="links">
         <th:block sec:authorize="!hasAuthority('Admin') or !hasAuthority('Reception')">
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/login`'">LOG IN</button>
+        <button sec:authorize="!isAuthenticated()" class="add-btn-header" th:attr="onclick='window.location.href=`/login`'">LOG IN</button>
         </th:block>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
