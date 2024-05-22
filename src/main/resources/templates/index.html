@@ -9,31 +9,31 @@
     <link rel="stylesheet" type="text/css" href="/styles/styles.css">
 </head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <a th:href="@{http://localhost:8080}">
-                <h1>Pensionat Koriander</h1>
-            </a>
-        </div>
+<div class="header">
+    <div class="logo">
+        <a th:href="@{http://localhost:8080}">
+            <h1>Pensionat Koriander</h1>
+        </a>
+    </div>
 
-        <div class="links">
-            <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
-            <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
-            <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
-            <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
-            <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
-            <th:block sec:authorize="hasAuthority('Admin')">
-                <button sec:authorize="isAuthenticated()" class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'">USERS</button>
-            </th:block>
-        </div>
-        <br>
-        <div>
-            <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
-            <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
-        </div>
+    <div class="links">
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <th:block sec:authorize="hasAuthority('Admin')">
+            <button sec:authorize="isAuthenticated()" class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'">USERS</button>
+        </th:block>
     </div>
-    <div class="start-page">
-        <img src="/images/Pensionat-Koriander.png" alt="Pensionat-Koriander-House">
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
     </div>
+</div>
+<div class="start-page">
+    <img src="/images/Pensionat-Koriander.png" alt="Pensionat-Koriander-House">
+</div>
 </body>
 </html>
