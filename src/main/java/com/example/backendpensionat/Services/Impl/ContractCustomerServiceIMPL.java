@@ -19,8 +19,12 @@ import java.util.stream.Collectors;
 @Service
 public class ContractCustomerServiceIMPL implements ContractCustomerService {
 
-    @Autowired
+
     ContractCustomerRepo contractCustomerRepo;
+
+    public ContractCustomerServiceIMPL(ContractCustomerRepo contractCustomerRepo) {
+        this.contractCustomerRepo = contractCustomerRepo;
+    }
 
     @PersistenceContext
     private EntityManager entityManager;
