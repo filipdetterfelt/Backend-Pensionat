@@ -19,9 +19,6 @@
         <th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
             <p>Du är inloggad som Admin</p>
         </th:block>
-        <th:block th:if="${#authorization.expression('hasRole(''ROLE_RECEPTION'')')}">
-            <p>Du är inloggad som receptionist.</p>
-        </th:block>
     </div>
 
     <div class="links">

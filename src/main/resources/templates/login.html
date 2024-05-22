@@ -6,11 +6,24 @@
     <link rel="stylesheet" type="text/css" href="/styles/styles.css">
 </head>
 <body>
+
+
+<div class="login-page">
+    <img src="/images/Pensionat-Koriander.png" alt="Pensionat-Koriander-House">
+</div>
+<div class="logo logo-login">
+    <a th:href="@{http://localhost:8080}">
+        <h1>Pensionat Koriander</h1>
+    </a>
+</div>
+<div class ="log-in-panel">
     <h2>Please Sign in</h2>
     <form action="/login" method="post">
         <input type="text" name="username" placeholder ="Username"><br><br>
         <input type="password" name="password" placeholder ="Password"><br><br>
         <button class="sign-in-btn" type="submit">Sign in</button>
     </form>
+</div>
+
 </body>
 </html>
