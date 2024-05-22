@@ -15,6 +15,14 @@
             <h1>Pensionat Koriander</h1>
         </a>
     </div>
+    <div class="login-info">
+        <th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <p>Du är inloggad som Admin</p>
+        </th:block>
+        <th:block th:if="${#authorization.expression('hasRole(''ROLE_RECEPTION'')')}">
+            <p>Du är inloggad som receptionist.</p>
+        </th:block>
+    </div>
 
     <div class="links">
         <th:block sec:authorize="!hasAuthority('Admin') or !hasAuthority('Reception')">
@@ -29,6 +37,7 @@
             <button sec:authorize="isAuthenticated()" class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'">USERS</button>
         </th:block>
     </div>
+
     <br>
     <div>
         <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
