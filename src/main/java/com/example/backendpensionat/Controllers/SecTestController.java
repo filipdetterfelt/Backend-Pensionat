@@ -14,38 +14,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequiredArgsConstructor
 public class SecTestController extends BaseController {
-    @Autowired
-    QueueRepo queueRepo;
-
-    @GetMapping(path="/admin")
-    @PreAuthorize("hasAuthority('Admin')")
-    public String empty(Model model)
-    {
-
-        model.addAttribute("activeFunction", "queues");
-        setupVersion(model);
-
-        model.addAttribute("page", "Admin");
-        return "security/admin";
-    }
-
-    @GetMapping(path="/reception")
-    @PreAuthorize("hasAuthority('Reception')")
-    public String Mew( Model model){
-
-        model.addAttribute("queue", new Queue());
-        model.addAttribute("activeFunction", "queues");
-        return "security/reception";
-    }
-
-    @GetMapping(path="/profile")
-    @PreAuthorize("isAuthenticated()")
-    public String Edit(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        String username = auth.getName();
-
-        model.addAttribute("username", username);
-        return "security/profile";
-    }
+//    @Autowired
+//    QueueRepo queueRepo;
+//
+//    @GetMapping(path="/admin")
+//    @PreAuthorize("hasAuthority('Admin')")
+//    public String empty(Model model)
+//    {
+//
+//        model.addAttribute("activeFunction", "queues");
+//        setupVersion(model);
+//
+//        model.addAttribute("page", "Admin");
+//        return "security/admin";
+//    }
+//
+//    @GetMapping(path="/reception")
+//    @PreAuthorize("hasAuthority('Reception')")
+//    public String Mew( Model model){
+//
+//        model.addAttribute("queue", new Queue());
+//        model.addAttribute("activeFunction", "queues");
+//        return "security/reception";
+//    }
+//
+//    @GetMapping(path="/profile")
+//    @PreAuthorize("isAuthenticated()")
+//    public String Edit(Model model){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//
+//        String username = auth.getName();
+//
+//        model.addAttribute("username", username);
+//        return "security/profile";
+//    }
 }
