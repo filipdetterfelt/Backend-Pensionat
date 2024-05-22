@@ -21,9 +21,13 @@
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
         <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT
+            CUSTOMERS
+        </button>
         <th:block sec:authorize="hasAuthority('Admin')">
-            <button sec:authorize="isAuthenticated()" class="add-btn-header" th:attr="onclick='window.location.href=`/Users`'">USERS</button>
+            <button sec:authorize="isAuthenticated()" class="add-btn-header"
+                    th:attr="onclick='window.location.href=`/Users`'">USERS
+            </button>
         </th:block>
     </div>
     <br>
@@ -47,8 +51,10 @@
         <tr th:each="user: ${usersList}">
             <td th:text="${user.id}"></td>
             <td th:text="${user.username}"></td>
-            <td th:text="${user.roles}"></td>
-
+            <td>
+                <span th:each="role, iterStat : ${user.roles}"
+                      th:text="${role.name} + (${iterStat.last} ? '' : ', ')"></span>
+            </td>
 
 
             <td>
