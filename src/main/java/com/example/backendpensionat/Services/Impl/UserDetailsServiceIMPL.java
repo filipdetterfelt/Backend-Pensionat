@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserDetailsServiceIMPL implements UserDetailsService {
@@ -32,4 +34,15 @@ public class UserDetailsServiceIMPL implements UserDetailsService {
         return userRepo.findAll();
     }
 
+    public Optional<User> findUserById(UUID id){
+        return userRepo.findById(id);
+    }
+
+    public void changeUser(User user) {
+        User u = userRepo.getUserByUsername(user.getUsername());
+        user.setUsername(u.getUsername());
+        user.setPassword(u.getPassword());
+        user.setRoles(u.getRoles());
+        userRepo.save(user);
+    }
 }
