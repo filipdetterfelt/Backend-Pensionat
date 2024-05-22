@@ -42,16 +42,10 @@
             <th>Timestamp</th>
         </tr>
 
-
-
         <tr th:each="roomLog : ${roomEventList}">
-
-              <td th:text="${roomLog.type}"></td>
+            <td th:text="${roomLog.type}"></td>
             <td th:text="${#temporals.format (roomLog.timeStamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
-
-
-    </tr>
-
+        </tr>
     </table>
 </div>
 
