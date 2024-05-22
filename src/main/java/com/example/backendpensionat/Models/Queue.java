@@ -7,8 +7,8 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter
 @Setter
+@Getter
 @Entity
 public class Queue {
 
@@ -16,18 +16,6 @@ public class Queue {
     @GeneratedValue(strategy= GenerationType.UUID)
     @Column(name = "Id")
     private UUID id;
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setRoomIdCSV(String roomIdCSV) {
-        this.roomIdCSV = roomIdCSV;
-    }
 
     @Column(name="Name")
     private String name;
@@ -39,7 +27,4 @@ public class Queue {
     private int messagesToSend;
 
 
-    public void setMessagesToSend(int messagesToSend) {
-        this.messagesToSend = messagesToSend;
-    }
 }
