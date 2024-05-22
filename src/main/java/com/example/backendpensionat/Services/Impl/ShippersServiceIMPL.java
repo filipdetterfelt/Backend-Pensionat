@@ -17,6 +17,12 @@ import java.util.Optional;
 @Service
 public class ShippersServiceIMPL implements ShippersService {
 
+    ShippersRepo shippersRepo;
+
+    public ShippersServiceIMPL(ShippersRepo shippersRepo) {
+        this.shippersRepo = shippersRepo;
+    }
+
     @Override
     public List<ShippersDetailedDTO> getShippersFromJSON(URL url) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -71,8 +77,7 @@ public class ShippersServiceIMPL implements ShippersService {
     }
 
 
-    @Autowired
-    ShippersRepo shippersRepo;
+
 
     @Override
     public Shippers saveShipper(ShippersDetailedDTO dto){

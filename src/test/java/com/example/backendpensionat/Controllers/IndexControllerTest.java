@@ -37,7 +37,7 @@ public class IndexControllerTest {
 
     @Test public void shouldShowBooking() throws Exception{
         this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Booking")));
+                .andExpect(content().string(containsString("ADD BOOKING")));
     }
 
     @Test public void shouldReturnError() throws Exception{
