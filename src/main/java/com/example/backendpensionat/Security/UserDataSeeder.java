@@ -32,6 +32,12 @@ public class UserDataSeeder {
         if(userRepo.getUserByUsername("reception@koriander.se") == null){
             addUser("reception@koriander.se","Reception");
         }
+        if (roleRepo.findByName("Admin2") == null) {
+            addRole("Admin2");
+        }
+        if (userRepo.getUserByUsername("admin2@koriander.se") == null) {
+            addUser("admin2@koriander.se","Admin2");
+        }
     }
 
     private void addUser(String mail, String group) {
