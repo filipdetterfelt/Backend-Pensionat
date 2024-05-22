@@ -34,38 +34,37 @@
 </div>
 
 <div class="table">
-    <h2>Customers</h2>
+    <h2>Users</h2>
     <table>
         <tr>
             <th>ID</th>
-            <th>SSN</th>
-            <th>EMAIL</th>
-            <th>FIRST NAME</th>
-            <th>LAST NAME</th>
-            <th>PHONE</th>
+            <th>USER NAME</th>
+            <th>ROLES</th>
+            <th>PASSWORD</th>
             <th>EDIT</th>
             <th>DELETE</th>
+
         </tr>
-        <tr th:each="customer: ${customersList}">
-            <td th:text="${customer.getId()}"></td>
-            <td th:text="${customer.getSsn()}"></td>
-            <td th:text="${customer.getEmail()}"></td>
-            <td th:text="${customer.getFirstName()}"></td>
-            <td th:text="${customer.getLastName()}"></td>
-            <td th:text="${customer.getPhone()}"></td>
+        <tr th:each="user: ${usersList}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.roles}"></td>
+            <td th:text="${user.password}"></td>
+
 
             <td>
-                <button class="edit-btn" th:data-url="'/customers/' + ${customer.id}"
+                <button class="edit-btn" th:data-url="'/users/' + ${user.id}"
                         onclick="window.location.href = this.getAttribute('data-url')">EDIT
                 </button>
             </td>
+
             <td>
-                <form th:action="@{/deleteCustomer}" th:object="${deleteCustomer}" method="post"
-                      th:if="${#lists.isEmpty(customer.getBookings())}">
-                    <input type="hidden" name="id" th:value="${customer.getId()}"/>
-                    <button class="delete-btn"  type="submit">DELETE</button>
-                </form>
+                <button class="edit-btn" th:data-url="'/users/' + ${user.id}"
+                        onclick="window.location.href = this.getAttribute('data-url')">DELETE
+                </button>
             </td>
+
+
         </tr>
     </table>
 </div>
