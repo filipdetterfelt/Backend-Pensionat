@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
 </head>
 <body>
     <h2>Please Sign in</h2>
-    <form>
-        <input type="text" placeholder ="Username"><br><br>
-        <input type="text" placeholder ="Password"><br><br>
-        <button>Sign in</button>
+    <form action="/login" method="post">
+        <input type="text" name="username" placeholder ="Username"><br><br>
+        <input type="password" name="password" placeholder ="Password"><br><br>
+        <button class="sign-in-btn" type="submit">Sign in</button>
     </form>
 </body>
 </html>
