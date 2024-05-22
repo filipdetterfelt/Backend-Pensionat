@@ -1,0 +1,50 @@
+# Ignore build output directories
+/out/
+build/
+target/
+
+# Ignore Maven and Gradle specific files
+.mvn/
+.gradle/
+!gradle-wrapper.jar
+
+# Ignore temporary files created by IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/dataSources.xml
+.idea/**/sqldialects.xml
+.idea/**/dynamic.xml
+.idea/**/webServers.xml
+.idea/**/deployment.xml
+.idea/**/vcs.xml
+
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore dependency directories
+lib/
+
+# Ignore Eclipse specific files (if applicable)
+.classpath
+.project
+.settings/
+
+*.sln.iml
+
+.env
