@@ -41,7 +41,7 @@
     <h2>Users</h2>
     <table>
         <tr>
-            <th>ID</th>
+            <!--<th>ID</th>-->
             <th>USER NAME</th>
             <th>ROLES</th>
             <th>EDIT</th>
@@ -49,7 +49,7 @@
 
         </tr>
         <tr th:each="user: ${usersList}">
-            <td th:text="${user.id}"></td>
+           <!-- <td th:text="${user.id}"></td>-->
             <td th:text="${user.username}"></td>
             <td>
                 <span th:each="role, iterStat : ${user.roles}"
