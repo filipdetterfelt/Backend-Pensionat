@@ -1,6 +1,8 @@
 package com.example.backendpensionat.Services.Impl;
 
+import com.example.backendpensionat.Models.Role;
 import com.example.backendpensionat.Models.User;
+import com.example.backendpensionat.Repos.RoleRepo;
 import com.example.backendpensionat.Security.ConcreteUserDetails;
 import com.example.backendpensionat.Repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +30,5 @@ public class UserDetailsServiceIMPL implements UserDetailsService {
         }
 
         return new ConcreteUserDetails(user);
-    }
-
-    public Iterable<User> listAllUsers() {
-        return userRepo.findAll();
-    }
-
-    public Optional<User> findUserById(UUID id){
-        return userRepo.findById(id);
-    }
-
-    public void changeUser(User user) {
-        User u = userRepo.getUserByUsername(user.getUsername());
-        user.setUsername(u.getUsername());
-        user.setPassword(u.getPassword());
-        user.setRoles(u.getRoles());
-        userRepo.save(user);
     }
 }
