@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class UserDataSeeder {
@@ -32,17 +33,15 @@ public class UserDataSeeder {
         if(userRepo.getUserByUsername("reception@koriander.se") == null){
             addUser("reception@koriander.se","Reception");
         }
-        if (roleRepo.findByName("Admin2") == null) {
-            addRole("Admin2");
-        }
-        if (userRepo.getUserByUsername("admin2@koriander.se") == null) {
-            addUser("admin2@koriander.se","Admin2");
-        }
     }
 
     private void addUser(String mail, String group) {
-        ArrayList<Role> roles = new ArrayList<>();
-        roles.add(roleRepo.findByName(group));
+        Set<Role> roles = new HashSet<>();
+        Role role = roleRepo.findByName(group);
+
+        if(role != null) {
+            roles.add(role);
+        }
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hash = encoder.encode("Hejsan123#");
@@ -51,7 +50,6 @@ public class UserDataSeeder {
     }
 
     private void addRole(String name) {
-        Role role = new Role();
         roleRepo.save(Role.builder().name(name).build());
     }
 
