@@ -19,9 +19,7 @@ public class BackendPensionatApplication {
 	public static void main(String[] args) {
 		Dotenv dotenv = Dotenv.load();
 
-		System.setProperty("DB_URL", Objects.requireNonNull(dotenv.get("DB_URL")));
-		System.setProperty("DB_USER", Objects.requireNonNull(dotenv.get("DB_USER")));
-		System.setProperty("DB_PASSWORD", Objects.requireNonNull(dotenv.get("DB_PASSWORD")));
+		dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
 
 		if (args.length == 0) {
 			SpringApplication.run(BackendPensionatApplication.class, args);
