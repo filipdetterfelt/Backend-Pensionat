@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Collection;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -27,5 +26,5 @@ public class User {
     private boolean enabled;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles;
+    private Set<Role> roles;
 }
