@@ -11,8 +11,8 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/forgotpassword")
-    public String forgotpassword() {
-        return "redirect:/forgotPassword";
+    @GetMapping("/forgotPassword")
+    public String forgotPw() {
+        return "forgotPassword";
     }
 }
