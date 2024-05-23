@@ -137,7 +137,7 @@ public class BookingController {
 
         bookingService.saveBooking(booking);
 
-        return "redirect:/bookings";
+        return "redirect:/sendConfirmationEmail";
     }
 
     @GetMapping("/bookings/edit/{id}")
