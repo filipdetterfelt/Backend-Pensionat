@@ -16,7 +16,7 @@ public class EmailServiceIMPL {
     public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setFrom("speiner.m@gmail.com");
+        message.setFrom("Koriander@gmail.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
