@@ -6,7 +6,9 @@ import com.example.backendpensionat.Services.Impl.UserServiceIMPL;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @AllArgsConstructor
 @Controller
@@ -31,4 +33,8 @@ public class LoginController {
     }
 
 
+    @PostMapping("/changePassword")
+    public String changePw(@RequestParam("password") String password) {
+        return "redirect:/changePassword";
+    }
 }
