@@ -16,13 +16,13 @@
     </div>
 
     <div class="links">
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
-        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
         <th:block sec:authorize="hasAuthority('Admin')">
-            <button class="add-btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
+            <button class="btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
         </th:block>
     </div>
     <br>
