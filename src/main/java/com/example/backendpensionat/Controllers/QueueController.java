@@ -15,53 +15,53 @@ import java.util.UUID;
 
 @Controller
 public class QueueController extends BaseController {
-    @Autowired
-    QueueRepo queueRepo;
-
-    @GetMapping(path = "/queues")
-    String empty(Model model) {
-
-        model.addAttribute("activeFunction", "queues");
-        setupVersion(model);
-
-        model.addAttribute("queues", queueRepo.findAll());
-        return "queues";
-    }
-
-    @GetMapping(path = "/queues/new")
-    String Mew(Model model) {
-
-        model.addAttribute("queue", new Queue());
-        model.addAttribute("activeFunction", "queues");
-        return "newqueue";
-    }
-
-    @PostMapping(path = "/queues/new")
-    String SaveNew(@Valid Queue queue, BindingResult result, Model model) {
-        model.addAttribute("activeFunction", "queues");
-        if (result.hasErrors()) {
-            return "newqueue";
-        }
-        var f = new Queue();
-        f.setName(queue.getName());
-        f.setRoomIdCSV(queue.getRoomIdCSV());
-        f.setMessagesToSend(queue.getMessagesToSend());
-
-        queueRepo.save(f);
-        return "redirect:/queues";
-    }
-
-
-    @GetMapping(path = "/queues/edit/{id}")
-    @PreAuthorize("isAuthenticated()")
-    String Edit(@PathVariable("id") UUID id, Model model) {
-        model.addAttribute("activeFunction", "queues");
-
-        var queue = queueRepo.findById(id).orElseThrow();
-
-        model.addAttribute("queue", queue);
-
-        model.addAttribute("activeFunction", "queues");
-        return "editqueue";
-    }
+//    @Autowired
+//    QueueRepo queueRepo;
+//
+//    @GetMapping(path = "/queues")
+//    String empty(Model model) {
+//
+//        model.addAttribute("activeFunction", "queues");
+//        setupVersion(model);
+//
+//        model.addAttribute("queues", queueRepo.findAll());
+//        return "queues";
+//    }
+//
+//    @GetMapping(path = "/queues/new")
+//    String Mew(Model model) {
+//
+//        model.addAttribute("queue", new Queue());
+//        model.addAttribute("activeFunction", "queues");
+//        return "newqueue";
+//    }
+//
+//    @PostMapping(path = "/queues/new")
+//    String SaveNew(@Valid Queue queue, BindingResult result, Model model) {
+//        model.addAttribute("activeFunction", "queues");
+//        if (result.hasErrors()) {
+//            return "newqueue";
+//        }
+//        var f = new Queue();
+//        f.setName(queue.getName());
+//        f.setRoomIdCSV(queue.getRoomIdCSV());
+//        f.setMessagesToSend(queue.getMessagesToSend());
+//
+//        queueRepo.save(f);
+//        return "redirect:/queues";
+//    }
+//
+//
+//    @GetMapping(path = "/queues/edit/{id}")
+//    @PreAuthorize("isAuthenticated()")
+//    String Edit(@PathVariable("id") UUID id, Model model) {
+//        model.addAttribute("activeFunction", "queues");
+//
+//        var queue = queueRepo.findById(id).orElseThrow();
+//
+//        model.addAttribute("queue", queue);
+//
+//        model.addAttribute("activeFunction", "queues");
+//        return "editqueue";
+//    }
 }

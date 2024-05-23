@@ -80,7 +80,7 @@ a {
     margin: 5px;
 }
 
-.add-btn-header {
+.btn-header {
     width: 190px;
     height: 40px;
     margin-top: 5px;
@@ -93,7 +93,7 @@ a {
     font-size: 12px;
 }
 
-.add-btn-header:hover {
+.btn-header:hover {
     width: 190px;
     height: 40px;
     margin-top: 5px;
@@ -102,6 +102,58 @@ a {
     background-color: #b4bda1;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     color: #5e775f;
+    font-family: "Arial Black", serif;
+    font-size: 12px;
+}
+
+.login-btn-header {
+    width: 190px;
+    height: 40px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 0;
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #5e775f;
+    font-family: "Arial Black", serif;
+    font-size: 12px;
+}
+
+.login-btn-header:hover {
+    width: 190px;
+    height: 40px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 0;
+    background-color: #d0d0d0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #5e775f;
+    font-family: "Arial Black", serif;
+    font-size: 12px;
+}
+
+.logout-btn-header {
+    width: 190px;
+    height: 40px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 0;
+    background-color: #6b1d1d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #f5ebd9;
+    font-family: "Arial Black", serif;
+    font-size: 12px;
+}
+
+.logout-btn-header:hover {
+    width: 190px;
+    height: 40px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 0;
+    background-color: #b23b3b;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #f5ebd9;
     font-family: "Arial Black", serif;
     font-size: 12px;
 }

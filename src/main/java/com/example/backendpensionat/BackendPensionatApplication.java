@@ -1,6 +1,7 @@
 package com.example.backendpensionat;
 
 import com.example.backendpensionat.Security.UserDataSeeder;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +17,12 @@ public class BackendPensionatApplication {
 	private UserDataSeeder userDataSeeder;
 
 	public static void main(String[] args) {
+		Dotenv dotenv = Dotenv.load();
+
+		System.setProperty("DB_URL", Objects.requireNonNull(dotenv.get("DB_URL")));
+		System.setProperty("DB_USER", Objects.requireNonNull(dotenv.get("DB_USER")));
+		System.setProperty("DB_PASSWORD", Objects.requireNonNull(dotenv.get("DB_PASSWORD")));
+
 		if (args.length == 0) {
 			SpringApplication.run(BackendPensionatApplication.class, args);
 		} else if (Objects.equals(args[0], "SyncContractCustomers")) {
