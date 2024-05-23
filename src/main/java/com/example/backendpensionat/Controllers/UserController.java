@@ -1,10 +1,13 @@
 package com.example.backendpensionat.Controllers;
 
+import com.example.backendpensionat.DTO.UserEditDTO;
 import com.example.backendpensionat.Models.User;
 import com.example.backendpensionat.Services.Impl.UserDetailsServiceIMPL;
+import com.example.backendpensionat.Services.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,39 +23,34 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserDetailsServiceIMPL userDetailsService;
+    private final UserService userService;
 
-    @GetMapping("/Users")
+    @GetMapping("/users")
     public String users(Model model){
-        model.addAttribute("usersList",userDetailsService.listAllUsers());
+        model.addAttribute("usersList",userService.listAllUsers());
         model.addAttribute("deleteUser", new User());
         return "users";
     }
 
-    @GetMapping("/Users/{id}")
-    public String userDetails(@PathVariable UUID id, RedirectAttributes rda , HttpSession session){
-        Optional<User> user = userDetailsService.findUserById(id);
+    @GetMapping("/users/edit/{id}")
+    public String userDetails(@PathVariable UUID id, RedirectAttributes rda , Model model){
+        Optional<User> user = userService.findUserById(id);
         if(user.isPresent()) {
-
-
-            session.setAttribute("updatedUser", user);
-            rda.addFlashAttribute("updatedUser", user);
-            return "redirect:/editUsers";
+            model.addAttribute("user", user.get());
+            model.addAttribute("allRoles", userService.listAllRoles());
+            return "editUsers";
         }
-        else{
+        else {
             rda.addFlashAttribute("errorMessage", "User not found");
-            return "redirect:/Users";
+            return "redirect:/users";
         }
     }
 
-    @PostMapping("/updateUsers")
-    public String updateUsers(@ModelAttribute("updatedUser") User user, HttpSession session){
-        User u = (User) session.getAttribute("updatedUser");
-        user.setUsername(u.getUsername());
-        user.setPassword(u.getPassword());
-        user.setRoles(u.getRoles());
-        userDetailsService.changeUser(user);
-        return "editUsers";
+    @PostMapping("/users/edit/save")
+    public String updateUsers(@ModelAttribute("user") UserEditDTO user, HttpSession session){
+        System.out.println(user.roleIds);
+        userService.changeUser(user);
+        return "redirect:/users";
     }
 
 }
