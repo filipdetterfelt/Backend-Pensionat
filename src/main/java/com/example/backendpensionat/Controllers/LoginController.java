@@ -10,4 +10,9 @@ public class LoginController {
     public String login() {
         return "login";
     }
+
+    @GetMapping("/forgotPassword")
+    public String forgottenPw() {
+        return "forgotPassword";
+    }
 }
