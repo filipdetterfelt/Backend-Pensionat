@@ -46,8 +46,13 @@ public class WebSecurityConfig {
                         .requestMatchers("/users").hasAuthority("Admin")
                         .anyRequest().authenticated()
                 )
-                //.formLogin(formLogin -> formLogin.loginPage("/login")
-               .formLogin(AbstractAuthenticationFilterConfigurer::permitAll
+                .formLogin(formLogin -> formLogin
+                                .loginPage("/login")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/", true)
+                                .failureUrl("/login?error=true")
+                                .permitAll()
+             //  .formLogin(AbstractAuthenticationFilterConfigurer::permitAll
                 )
                 .logout((logout) -> {
                     logout.permitAll();
