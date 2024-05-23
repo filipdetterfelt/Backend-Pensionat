@@ -27,7 +27,6 @@ public class SyncMockData implements CommandLineRunner {
     private final RoomRepo roomRepo;
     private final BookingRepo bookingRepo;
     private final CustomerRepo customerRepo;
-    private final UserRepo userRepo;
 
     @Override
     public void run(String... args) {
@@ -133,14 +132,6 @@ public class SyncMockData implements CommandLineRunner {
             room3.getBookings().add(booking4);
 
             bookingRepo.saveAll(List.of(booking1, booking2, booking3, booking4));
-
-        User user1 = User.builder()
-                .username("Micke")
-                .password("password")
-                .enabled(true)
-                .build();
-
-        userRepo.save(user1);
 
 
     }
