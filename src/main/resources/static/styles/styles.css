@@ -191,7 +191,7 @@ a {
     height: 100px;
 }
 
-.start-page img {
+.start-page img .login-pic{
     display: block;
     width: 100%;
     height: 100%;
