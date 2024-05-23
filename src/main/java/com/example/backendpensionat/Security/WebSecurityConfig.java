@@ -42,7 +42,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                               // .loginPage("/login")
         http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/",  "/js/**", "/styles/styles.css", "/images/**", "/login/**", "/logout", "/sendConfirmationEmail","/forgotPassword").permitAll()
+                        .requestMatchers("/",  "/js/**", "/styles/styles.css", "/images/**", "/login/**", "/logout", "/sendConfirmationEmail","/sendForgotPwEmail","/forgotPassword").permitAll()
                         .requestMatchers("/users").hasAuthority("Admin")
                         .anyRequest().authenticated()
                 )
