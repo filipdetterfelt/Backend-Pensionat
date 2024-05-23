@@ -26,7 +26,7 @@
         </button>
         <th:block sec:authorize="hasAuthority('Admin')">
             <button sec:authorize="isAuthenticated()" class="add-btn-header"
-                    th:attr="onclick='window.location.href=`/Users`'">USERS
+                    th:attr="onclick='window.location.href=`/users`'">USERS
             </button>
         </th:block>
     </div>
@@ -58,13 +58,13 @@
 
 
             <td>
-                <button class="edit-btn" th:data-url="'/users/' + ${user.id}"
+                <button class="edit-btn" th:data-url="'/users/edit/' + ${user.id}"
                         onclick="window.location.href = this.getAttribute('data-url')">EDIT
                 </button>
             </td>
 
             <td>
-                <button class="edit-btn" th:data-url="'/users/' + ${user.id}"
+                <button class="edit-btn" th:data-url="'/users/delete/' + ${user.id}"
                         onclick="window.location.href = this.getAttribute('data-url')">DELETE
                 </button>
             </td>

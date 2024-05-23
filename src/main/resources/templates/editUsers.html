@@ -5,9 +5,57 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Users</title>
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
 </head>
 <body>
+<div class="header">
+    <div class="logo">
+        <a th:href="@{http://localhost:8080}">
+            <h1>Pensionat Koriander</h1>
+        </a>
+    </div>
+
+    <div class="links">
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="add-btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <th:block sec:authorize="hasAuthority('Admin')">
+            <button class="add-btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
+        </th:block>
+    </div>
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
+    </div>
+</div>
+
+<div class="table">
+    <h2>Update existing user</h2>
+</div>
+
+<div class="center-box">
+    <form action="/users/edit/save" th:object="${user}" method="post">
+        <input type="hidden" name="id" th:field="*{id}"/>
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" th:field="*{username}" required/><br><br>
+
+        <label for="password">Enter new Password(Leave blank to keep old):</label><br>
+        <input type="password" id="password" th:field="*{password}"/><br><br>
+
+        <label>Roles</label><br>
+        <div id="roles" th:each="role : ${allRoles}">
+            <input type="checkbox" name="roleIds" th:value="${role.id}"
+                   th:checked="${user.roles.contains(role)}" th:text="${role.name}"/><br>
+        </div>
+        <br><br>
+
+        <button class="add-btn" type="submit">SAVE</button>
+    </form>
+</div>
 
 </body>
 </html>
