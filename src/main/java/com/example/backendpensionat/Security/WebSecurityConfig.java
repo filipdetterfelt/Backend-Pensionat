@@ -43,7 +43,7 @@ public class WebSecurityConfig {
                               // .loginPage("/login")
         http.authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/",  "/js/**", "/styles/styles.css", "/images/**", "/login/**", "/logout").permitAll()
-                        .requestMatchers("/users").hasRole("Admin")
+                        .requestMatchers("/users").hasAuthority("Admin")
                         .anyRequest().authenticated()
                 )
                 //.formLogin(formLogin -> formLogin.loginPage("/login")
