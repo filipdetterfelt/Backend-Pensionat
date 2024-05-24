@@ -7,6 +7,7 @@ import com.example.backendpensionat.Repos.RoleRepo;
 import com.example.backendpensionat.Repos.UserRepo;
 import com.example.backendpensionat.Services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -14,12 +15,8 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class UserServiceIMPL implements UserService {
-
     private final UserRepo userRepo;
-
-
     private final RoleRepo roleRepo;
-
 
     @Override
     public Iterable<User> listAllUsers() {
@@ -47,10 +44,15 @@ public class UserServiceIMPL implements UserService {
         Set<Role> roles = findAllById(user.getRoleIds());
 
         if(userFromDB.isPresent()){
+            String password = user.getPassword() == null ? userFromDB.get().getPassword() : hashPassword(user.getPassword());
             userFromDB.get().setUsername(user.getUsername());
-            userFromDB.get().setPassword(user.getPassword() == null ? userFromDB.get().getPassword() : user.getPassword());
+            userFromDB.get().setPassword(password);
             userFromDB.get().getRoles().addAll(roles);
             userRepo.save(userFromDB.get());
         }
+    }
+
+    private String hashPassword(String password){
+        return new BCryptPasswordEncoder().encode(password);
     }
 }
