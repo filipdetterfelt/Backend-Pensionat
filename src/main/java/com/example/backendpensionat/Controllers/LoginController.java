@@ -1,5 +1,6 @@
 package com.example.backendpensionat.Controllers;
 
+import com.example.backendpensionat.Security.EmailProperties;
 import com.example.backendpensionat.Services.Impl.EmailServiceIMPL;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
     private final EmailServiceIMPL emailServiceIMPL;
-
+    private final EmailProperties emailProperties;
 
     @GetMapping("/login")
     public String login() {
@@ -26,10 +27,9 @@ public class LoginController {
 
     @RequestMapping("/sendForgotPwEmail")
     public String sendForgotPwEmail() {
-        emailServiceIMPL.sendEmail("filip.exempel@mail.se","Reset your password", "Click on this link to reset");
+        emailServiceIMPL.sendEmail(emailProperties.getForgotPasswordRecipient(),"Reset your password", "Click on this link to reset");
         return "forgotPassword";
     }
-
 
     @PostMapping("/changePassword")
     public String changePw(@RequestParam("password") String password) {

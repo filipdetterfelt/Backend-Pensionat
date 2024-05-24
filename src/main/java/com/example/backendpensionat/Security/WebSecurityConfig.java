@@ -10,7 +10,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -74,13 +73,10 @@ public class WebSecurityConfig {
                                 .defaultSuccessUrl("/", true)
                                 .failureUrl("/login?error=true")
                                 .permitAll()
-             //  .formLogin(AbstractAuthenticationFilterConfigurer::permitAll
                 )
                 .logout((logout) -> {
                     logout.permitAll();
                     logout.logoutSuccessUrl("/");
-                    //logout.deleteCookies("JSESSIONID");
-                    //logout.invalidateHttpSession(true);
                 })
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))

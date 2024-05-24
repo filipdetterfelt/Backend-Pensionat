@@ -158,7 +158,10 @@ a {
     font-size: 12px;
 }
 
-.add-btn, .save-btn {
+.add-btn,
+.save-btn,
+.sign-in-btn,
+.forgot-pw {
     width: 170px;
     height: 30px;
     margin: 5px;
@@ -169,9 +172,13 @@ a {
     font-size: 12px;
     color: #5e775f;
     background-color: #f5ebd9;
+    align-content: center;
 }
 
-.add-btn:hover, .save-btn:hover {
+.add-btn:hover,
+.save-btn:hover,
+.sign-in-btn:hover,
+.forgot-pw:hover {
     width: 170px;
     height: 30px;
     margin: 5px;
@@ -621,32 +628,6 @@ select {
     font-size: 12px;
 }
 
-.sign-in-btn, .forgot-pw {
-    width: 170px;
-    height: 30px;
-    margin: 5px;
-    border-radius: 5px;
-    border: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    font-family: "Arial Black", serif;
-    font-size: 12px;
-    color: #5e775f;
-    background-color: #f5ebd9;
-}
-
-.sign-in-btn:hover, .forgot-pw:hover {
-    width: 170px;
-    height: 30px;
-    margin: 5px;
-    border-radius: 5px;
-    border: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    font-family: "Arial Black", serif;
-    font-size: 12px;
-    color: #5e775f;
-    background-color: #dcd0bb;
-}
-
 .log-in-panel {
     position: fixed;
     display: flex;
@@ -665,7 +646,7 @@ select {
     font-size: 12px;
 }
 
-.login-page img .forgot-pw {
+.login-page img {
     display: block;
     overflow-y: hidden;
     width: 100%;

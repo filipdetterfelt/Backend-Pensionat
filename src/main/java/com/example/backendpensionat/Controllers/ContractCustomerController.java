@@ -75,11 +75,4 @@ public class ContractCustomerController {
         model.addAttribute("fullInfoCCustomer", customer);
         return "fullInformation";
     }
-
-    /*@PostMapping("deleteContractCustomer")
-    public String removeContractCustomer(@ModelAttribute("deleteContractCustomer")ContractCustomerDetailedDTO cCustomer){
-        cCustomer.setBookings(new ArrayList<ContractCustomerDTO>());
-        contractCustomerService.removeContractCustomer(cCustomer);
-        return "redirect:/ContractCustomers";
-    }*/
 }
