@@ -138,7 +138,10 @@ public class BookingController {
 
         bookingService.saveBooking(booking);
 
+        CustomerDetailedDTO detaliedCustomer = customerService.findCustomerById(customerId);
+
         rda.addFlashAttribute("booking", booking);
+        rda.addFlashAttribute("customer", detaliedCustomer);
         return "redirect:/sendConfirmationEmail";
     }
 
