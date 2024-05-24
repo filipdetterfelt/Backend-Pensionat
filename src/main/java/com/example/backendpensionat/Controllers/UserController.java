@@ -48,8 +48,26 @@ public class UserController {
 
     @PostMapping("/users/edit/save")
     public String updateUsers(@ModelAttribute("user") UserEditDTO user, HttpSession session){
-        System.out.println(user.roleIds);
         userService.changeUser(user);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable UUID id){
+        userService.deleteUser(id);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/users/add")
+    public String addUser(Model model){
+        model.addAttribute("user", new UserEditDTO());
+        model.addAttribute("allRoles", userService.listAllRoles());
+        return "addUser";
+    }
+
+    @PostMapping("/users/add/save")
+    public String saveUser(@ModelAttribute("user") UserEditDTO user){
+        userService.addUser(user);
         return "redirect:/users";
     }
 
