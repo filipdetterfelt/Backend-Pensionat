@@ -119,7 +119,8 @@ public class BookingController {
             @RequestParam("endDate") LocalDate endDate,
             @RequestParam("amountOfBeds") int extraBeds,
             @RequestParam("roomNumber") Long roomNo,
-            @RequestParam("totalPrice") Double totalPrice) {
+            @RequestParam("totalPrice") Double totalPrice,
+            RedirectAttributes rda) {
 
         Long customerId = Long.parseLong(id.split(": ")[0]);
 
@@ -137,7 +138,8 @@ public class BookingController {
 
         bookingService.saveBooking(booking);
 
-        return "redirect:/bookings";
+        rda.addFlashAttribute("booking", booking);
+        return "redirect:/sendConfirmationEmail";
     }
 
     @GetMapping("/bookings/edit/{id}")

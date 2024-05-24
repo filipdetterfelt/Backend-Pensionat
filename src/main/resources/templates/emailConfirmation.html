@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+        <a th:href="@{http://localhost:8080}">
+            <h1>Pensionat Koriander</h1>
+        </a>
+    </div>
+
+    <div class="links">
+        <th:block sec:authorize="isAuthenticated()">
+            <button class="logout-btn-header" th:attr="onclick='window.location.href=`/logout`'">LOG OUT</button>
+        </th:block>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <th:block sec:authorize="hasAuthority('Admin')">
+            <button sec:authorize="isAuthenticated()" class="btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
+        </th:block>
+    </div>
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
+    </div>
+</div>
+
+<div class="table">
+    <h2>Booking Completed!</h2>
+    <br>
+    <h3>Your booking details:</h3>
+    <table>
+        <tr>
+            <th>ROOM NO</th>
+            <th>CUSTOMER NO</th>
+            <th>CHECK-IN DATE</th>
+            <th>CHECK-OUT DATE</th>
+            <th>ROOM TYPE</th>
+            <th>EXTRA BEDS</th>
+            <th>PRICE</th>
+        </tr>
+
+        <tr>
+            <td th:text="${booking.getRoom().getRoomNumber()}"></td>
+            <td th:text="${booking.getCustomerDTO().getId()}"></td>
+            <td th:text="${booking.getStartDate()}"></td>
+            <td th:text="${booking.getEndDate()}"></td>
+            <td th:text="${booking.getRoom().getRoomType()}"></td>
+            <td th:text="${booking.getAmountOfBeds()}"></td>
+            <td th:text="${booking.getTotalPrice()}"></td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+</html>
