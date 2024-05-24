@@ -6,19 +6,19 @@ import com.example.backendpensionat.Models.User;
 import com.example.backendpensionat.Repos.RoleRepo;
 import com.example.backendpensionat.Repos.UserRepo;
 import com.example.backendpensionat.Services.UserService;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceIMPL implements UserService {
-    @Autowired
-    private UserRepo userRepo;
 
-    @Autowired
-    private RoleRepo roleRepo;
+    private final UserRepo userRepo;
+
+
+    private final RoleRepo roleRepo;
 
 
     @Override
@@ -41,7 +41,6 @@ public class UserServiceIMPL implements UserService {
         return new HashSet<>(roleRepo.findAllById(listOfIDs));
     }
 
-    @Transactional
     @Override
     public void changeUser(UserEditDTO user) {
         Optional<User> userFromDB = userRepo.findById(user.getId());
