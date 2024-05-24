@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
@@ -7,6 +9,40 @@
 </head>
 <body>
 
+<div class="header">
+    <div class="logo">
+        <a th:href="@{http://localhost:8080}">
+            <h1>Pensionat Koriander</h1>
+        </a>
+    </div>
+    <div class="login-info">
+        <th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <p>Du är inloggad som Admin</p>
+        </th:block>
+    </div>
+
+    <div class="links">
+        <th:block sec:authorize="!hasAuthority('Admin') or !hasAuthority('Reception')">
+            <button sec:authorize="!isAuthenticated()" class="login-btn-header" th:attr="onclick='window.location.href=`/login`'">LOG IN</button>
+        </th:block>
+        <th:block sec:authorize="isAuthenticated()">
+            <button class="logout-btn-header" th:attr="onclick='window.location.href=`/logout`'">LOG OUT</button>
+        </th:block>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <th:block sec:authorize="hasAuthority('Admin')">
+            <button sec:authorize="isAuthenticated()" class="btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
+        </th:block>
+    </div>
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
+    </div>
+</div>
 
 <div class="login-page">
     <img src="/images/Pensionat-Koriander.png" alt="Pensionat-Koriander-House" class="login-pic">
@@ -17,13 +53,18 @@
     </a>
 </div>
 <div class ="log-in-panel">
-    <h2 class="pls-sign-in">Please Sign in</h2>
+    <h2 class="sign-in">Sign in</h2>
     <form action="/login" method="post">
-        <input class="input-login" type="text" name="username" placeholder ="Username"><br><br>
-        <input class="input-login" type="password" name="password" placeholder ="Password"><br><br>
-        <button class="sign-in-btn" type="submit">SIGN IN</button><br><br>
-        <a href="/forgotPassword" class="forgot-pw"  type="submit">FORGOT PASSWORD</a>
-
+        <label>
+            <input class="login-input" type="text" name="username" placeholder ="Username">
+        </label><br>
+        <label>
+            <input class="login-input" type="password" name="password" placeholder ="Password">
+        </label><br>
+        <div class="sign-in-btn-box">
+            <button class="sign-in-btn" type="submit">SIGN IN</button>
+            <a href="/forgotPassword" class="forgot-pw"  type="submit">FORGOT PASSWORD</a>
+        </div>
     </form>
 </div>
 

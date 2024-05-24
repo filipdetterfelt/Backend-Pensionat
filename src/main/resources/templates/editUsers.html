@@ -16,6 +16,9 @@
     </div>
 
     <div class="links">
+        <th:block sec:authorize="isAuthenticated()">
+            <button class="logout-btn-header" th:attr="onclick='window.location.href=`/logout`'">LOG OUT</button>
+        </th:block>
         <button class="btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
         <button class="btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
         <button class="btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
@@ -39,20 +42,22 @@
 <div class="center-box">
     <form action="/users/edit/save" th:object="${user}" method="post">
         <input type="hidden" name="id" th:field="*{id}"/>
-        <label for="email">Email:</label><br>
+        <label for="email">EMAIL:</label><br>
         <input type="text" id="email" th:field="*{username}" required/><br><br>
 
-        <label for="password">Enter new Password(Leave blank to keep old):</label><br>
+        <label for="password">ENTER NEW PASSWORD
+            <br>
+            (LEAVE BLANK TO KEEP OLD):</label><br>
         <input type="password" id="password" th:field="*{password}"/><br><br>
 
-        <label>Roles</label><br>
+        <label>ROLES</label><br>
         <div id="roles" th:each="role : ${allRoles}">
-            <input type="checkbox" name="roleIds" th:value="${role.id}"
-                   th:checked="${user.roles.contains(role)}" th:text="${role.name}"/><br>
-        </div>
-        <br><br>
-
-        <button class="add-btn" type="submit">SAVE</button>
+            <label>
+                <input type="checkbox" name="roleIds" th:value="${role.id}"
+                       th:checked="${user.roles.contains(role)}" th:text="${role.name}"/>
+            </label>
+        </div><br>
+        <button class="delete-btn" type="submit">SAVE</button>
     </form>
 </div>
 
