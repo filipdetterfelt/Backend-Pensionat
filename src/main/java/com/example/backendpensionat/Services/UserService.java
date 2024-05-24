@@ -19,4 +19,8 @@ public interface UserService {
     Set<Role> findAllById(List<UUID> listOfIDs);
 
     void changeUser(UserEditDTO user);
+
+    void deleteUser(UUID id);
+
+    void addUser(UserEditDTO user);
 }

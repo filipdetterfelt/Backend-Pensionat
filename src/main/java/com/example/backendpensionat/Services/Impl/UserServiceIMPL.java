@@ -43,13 +43,29 @@ public class UserServiceIMPL implements UserService {
         Optional<User> userFromDB = userRepo.findById(user.getId());
         Set<Role> roles = findAllById(user.getRoleIds());
 
-        if(userFromDB.isPresent()){
-            String password = user.getPassword() == null ? userFromDB.get().getPassword() : hashPassword(user.getPassword());
+        if(userFromDB.isPresent()) {
+            String password = user.getPassword().isEmpty() ? userFromDB.get().getPassword() : hashPassword(user.getPassword());
             userFromDB.get().setUsername(user.getUsername());
             userFromDB.get().setPassword(password);
-            userFromDB.get().getRoles().addAll(roles);
+            userFromDB.get().setRoles(roles);
             userRepo.save(userFromDB.get());
         }
+    }
+
+    @Override
+    public void deleteUser(UUID id) {
+        userRepo.deleteById(id);
+    }
+
+    @Override
+    public void addUser(UserEditDTO user) {
+        Set<Role> roles = findAllById(user.getRoleIds());
+        userRepo.save(User.builder()
+                .username(user.getUsername())
+                .password(hashPassword(user.getPassword()))
+                .enabled(true)
+                .roles(roles)
+                .build());
     }
 
     private String hashPassword(String password){
