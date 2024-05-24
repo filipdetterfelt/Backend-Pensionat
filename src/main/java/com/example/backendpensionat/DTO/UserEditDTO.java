@@ -16,5 +16,6 @@ public class UserEditDTO {
     public UUID id;
     public String username;
     public String password;
+    public boolean enabled;
     public List<UUID> roleIds;
 }
