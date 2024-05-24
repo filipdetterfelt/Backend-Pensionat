@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+        <a th:href="@{http://localhost:8080}">
+            <h1>Pensionat Koriander</h1>
+        </a>
+    </div>
+
+    <div class="links">
+        <th:block sec:authorize="isAuthenticated()">
+            <button class="logout-btn-header" th:attr="onclick='window.location.href=`/logout`'">LOG OUT</button>
+        </th:block>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/customers`'">CUSTOMERS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS
+        </button>
+        <th:block sec:authorize="hasAuthority('Admin')">
+            <button class="btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
+        </th:block>
+    </div>
+    <br>
+    <div>
+        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
+        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
+    </div>
+</div>
+
+<div class="table">
+    <h2>Update existing user</h2>
+</div>
+
+<div class="center-box">
+    <form class="edit-user-form" action="/users/add/save" th:object="${user}" method="post">
+        <label for="email">EMAIL:</label><br>
+        <input type="text" id="email" th:field="*{username}" required/><br><br>
+
+        <label for="password">ENTER NEW PASSWORD</label><br>
+        <input type="password" id="password" th:field="*{password}" required/><br><br>
+
+        <label>CHOOSE ROLES</label><br><br>
+        <div class="roles-div">
+            <div id="roles" th:each="role : ${allRoles}" class="role-item">
+                <label for="checkbox"></label>
+                <input type="checkbox" id="checkbox" name="roleIds" th:value="${role.id}"/>
+                <span class="label-text" th:text="${role.name}"></span>
+            </div>
+        </div>
+        <br>
+        <button class="save-btn" type="submit">SAVE</button>
+    </form>
+</div>
+
+</body>
+</html>
