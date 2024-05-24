@@ -28,7 +28,7 @@ public class LoginController {
 
     @RequestMapping("/sendForgotPwEmail")
     public String sendForgotPwEmail() {
-        emailTestSender.sendTestEmail();
+        emailServiceIMPL.sendEmail("filip.exempel@mail.se","Reset your password", "Click on this link to reset");
         return "forgotPassword";
     }
 
