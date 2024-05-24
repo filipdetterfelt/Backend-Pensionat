@@ -23,7 +23,8 @@
         <button class="btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
         <button class="btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
         <button class="btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
-        <button class="btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS
+        </button>
         <th:block sec:authorize="hasAuthority('Admin')">
             <button class="btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
         </th:block>
@@ -40,24 +41,25 @@
 </div>
 
 <div class="center-box">
-    <form action="/users/edit/save" th:object="${user}" method="post">
+    <form class="edit-user-form" action="/users/edit/save" th:object="${user}" method="post">
         <input type="hidden" name="id" th:field="*{id}"/>
         <label for="email">EMAIL:</label><br>
         <input type="text" id="email" th:field="*{username}" required/><br><br>
 
-        <label for="password">ENTER NEW PASSWORD
-            <br>
-            (LEAVE BLANK TO KEEP OLD):</label><br>
-        <input type="password" id="password" th:field="*{password}"/><br><br>
+        <label for="password">ENTER NEW PASSWORD</label><br>
+        <input type="password" id="password" th:field="*{password}" placeholder="Leave blank to keep current"/><br><br>
 
-        <label>ROLES</label><br>
-        <div id="roles" th:each="role : ${allRoles}">
-            <label>
-                <input type="checkbox" name="roleIds" th:value="${role.id}"
-                       th:checked="${user.roles.contains(role)}" th:text="${role.name}"/>
-            </label>
-        </div><br>
-        <button class="delete-btn" type="submit">SAVE</button>
+        <label>ROLES</label><br><br>
+        <div class="roles-div">
+            <div id="roles" th:each="role : ${allRoles}" class="role-item">
+                <label for="checkbox"></label>
+                <input type="checkbox" id="checkbox" name="roleIds" th:value="${role.id}" th:checked="${user.roles.contains(role)}"/>
+
+                <span class="label-text" th:text="${role.name}"></span>
+            </div>
+        </div>
+        <br>
+        <button class="save-btn" type="submit">SAVE</button>
     </form>
 </div>
 
