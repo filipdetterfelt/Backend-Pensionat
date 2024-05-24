@@ -53,4 +53,21 @@ public class UserServiceIMPL implements UserService {
             userRepo.save(userFromDB.get());
         }
     }
+
+    @Override
+    public void createPasswordResetTokenForUser(){
+
+    }
+
+    @Override
+    public void validatePasswordResetToken(){
+
+    }
+
+    @Override
+    public void getUserByPasswordResetToken(){
+
+    }
+
+
 }
