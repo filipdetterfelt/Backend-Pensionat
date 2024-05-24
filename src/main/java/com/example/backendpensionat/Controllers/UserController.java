@@ -2,12 +2,8 @@ package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.DTO.UserEditDTO;
 import com.example.backendpensionat.Models.User;
-import com.example.backendpensionat.Services.Impl.UserDetailsServiceIMPL;
 import com.example.backendpensionat.Services.UserService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.Banner;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/users/edit/save")
-    public String updateUsers(@ModelAttribute("user") UserEditDTO user, HttpSession session){
+    public String updateUsers(@ModelAttribute("user") UserEditDTO user){
         userService.changeUser(user);
         return "redirect:/users";
     }
