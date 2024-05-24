@@ -17,5 +17,4 @@ public class EmailConfirmationTemplateDTO {
     String CheckOutDate;
     String Price;
     String Farwell;
-
 }
