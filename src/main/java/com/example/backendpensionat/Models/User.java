@@ -33,7 +33,7 @@ public class User {
     )
     private Set<Role> roles;
 
-    public void updatePassword() {
+    public void updatePassword(User user, String password) {
 
     }
 }

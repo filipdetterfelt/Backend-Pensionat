@@ -19,4 +19,7 @@ public interface UserService {
     Set<Role> findAllById(List<UUID> listOfIDs);
 
     void changeUser(UserEditDTO user);
+    void createPasswordResetTokenForUser(String email, String token);
+    String validatePasswordResetToken(String token);
+    User getUserByPasswordResetToken(String token);
 }

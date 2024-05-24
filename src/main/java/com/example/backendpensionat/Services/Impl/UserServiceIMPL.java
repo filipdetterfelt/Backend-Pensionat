@@ -8,6 +8,8 @@ import com.example.backendpensionat.Repos.UserRepo;
 import com.example.backendpensionat.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
 import java.util.*;
 
 
@@ -55,18 +57,18 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
-    public void createPasswordResetTokenForUser(){
+    public void createPasswordResetTokenForUser(String email, String token){
 
     }
 
     @Override
-    public void validatePasswordResetToken(){
-
+    public String validatePasswordResetToken(String token){
+        return "";
     }
 
     @Override
-    public void getUserByPasswordResetToken(){
-
+    public User getUserByPasswordResetToken(String token){
+        return null;
     }
 
 
