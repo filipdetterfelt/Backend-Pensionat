@@ -4,20 +4,20 @@ import com.example.backendpensionat.Models.User;
 import com.example.backendpensionat.Services.Impl.EmailServiceIMPL;
 import com.example.backendpensionat.Services.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
+@EnableAsync
 public class LoginController {
     private final EmailServiceIMPL emailServiceIMPL;
     private UserService userService;
-
 
     @GetMapping("/login")
     public String login() {
@@ -29,14 +29,22 @@ public class LoginController {
         return "forgotPassword";
     }
 
-//    @RequestMapping("/sendForgotPwEmail")
-//    public String sendForgotPwEmail(@RequestParam("username") String username, RedirectAttributes rda, Model model) {
-//        User user = userService.findUserByUsername(username);
-//        model.addAttribute("username", username);
-//        String resetURL = "http://localhost:8080/resetPassword?token=123456";
-//        emailServiceIMPL.sendEmail(user.getUsername(), "Reset your password", "Click on this link to reset" + resetURL);
-//        return "redirect:/forgotPassword";
-//    }
+    @RequestMapping("/sendForgotPwEmail")
+    public String sendForgotPwEmail(@RequestParam("username") String username, RedirectAttributes rda, Model model) {
+        Optional<User> user = Optional.ofNullable(userService.findUserByUsername(username));
+
+        if (user.isPresent()) {
+            model.addAttribute("username", username);
+            String resetURL = "http://localhost:8080/changePassword";
+            String emailContent = "Click on link below to reset your password: <br><a href=\"" + resetURL + "\">Reset Password</a>";
+            emailServiceIMPL.sendEmailHTML(username, "Reset your password", emailContent);
+            rda.addFlashAttribute("successfulMessage", true);
+            return "redirect:/forgotPassword";
+        } else {
+            rda.addFlashAttribute("errorMessage", true);
+            return "redirect:/forgotPassword";
+        }
+    }
 
     @GetMapping("/changePassword")
     public String changePw() {

@@ -39,8 +39,8 @@
     <h2>Blacklist a Customer</h2>
 </div>
 <div class="blacklist-form">
-    <p th:if="${isAdded == true}" class="alert alert-danger" role="alert">This person has been blacklisted</p>
-    <p th:if="${blacklistExists == true}" class="alert alert-danger" role="alert">This person already exist in blacklist</p>
+    <p th:if="${isAdded == true}" class="alert alert-danger" role="alert">This person is now blacklisted</p>
+    <p th:if="${blacklistExists == true}" class="alert alert-danger" role="alert">This person exists in blacklist</p>
     <form id="addForm" action="/blacklist/add" method="post">
         <label for="name">NAME:</label><br>
         <input type="text" id="name" name="name" required><br><br>
@@ -54,8 +54,8 @@
     <h2>Update status</h2>
 </div>
 <div class="blacklist-form">
-    <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person has been Greenlisted</p>
-    <p th:if="${isBlacklisted == true}" class="alert alert-danger" role="alert">This person has been Blacklisted</p>
+    <p th:if="${isGreenlisted == true}" class="alert alert-success" role="alert">This person is Greenlisted</p>
+    <p th:if="${isBlacklisted == true}" class="alert alert-danger" role="alert">This person is Blacklisted</p>
     <form class="addForm" id="updateForm" method="get">
         <label for="emailUpdate">EMAIL:</label><br>
         <input type="email" id="emailUpdate" name="email" required><br><br>
