@@ -56,7 +56,6 @@ public class CustomerController {
     }
 
     @PostMapping("deleteCustomer")
-//    @PreAuthorize("hasAuthority('Admin')")
     public String removeCustomer(@ModelAttribute("deleteCustomer") CustomerDetailedDTO customer) {
         customer.setBookings(new ArrayList<>());
         customerService.removeCustomer(customer);
