@@ -4,27 +4,18 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
-    <title>Log in</title>
+    <title>Edit Users</title>
     <link rel="stylesheet" type="text/css" href="/styles/styles.css">
 </head>
 <body>
-
 <div class="header">
     <div class="logo">
         <a th:href="@{http://localhost:8080}">
             <h1>Pensionat Koriander</h1>
         </a>
     </div>
-    <div class="login-info">
-        <th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <p>Du är inloggad som Admin</p>
-        </th:block>
-    </div>
 
     <div class="links">
-        <th:block sec:authorize="!hasAuthority('Admin') or !hasAuthority('Reception')">
-            <button sec:authorize="!isAuthenticated()" class="login-btn-header" th:attr="onclick='window.location.href=`/login`'">LOG IN</button>
-        </th:block>
         <th:block sec:authorize="isAuthenticated()">
             <button class="logout-btn-header" th:attr="onclick='window.location.href=`/logout`'">LOG OUT</button>
         </th:block>
@@ -32,9 +23,10 @@
         <button class="btn-header" th:attr="onclick='window.location.href=`/blacklistCustomers`'">BLACKLIST</button>
         <button class="btn-header" th:attr="onclick='window.location.href=`/bookings`'">BOOKINGS</button>
         <button class="btn-header" th:attr="onclick='window.location.href=`/rooms`'">ROOMS</button>
-        <button class="btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
+        <button class="btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS
+        </button>
         <th:block sec:authorize="hasAuthority('Admin')">
-            <button sec:authorize="isAuthenticated()" class="btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
+            <button class="btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
         </th:block>
         <th:block sec:authorize="hasAuthority('Admin')">
             <button sec:authorize="isAuthenticated()" class="btn-header" th:attr="onclick='window.location.href=`/emailTemplate`'">Email Template</button>
@@ -47,29 +39,47 @@
     </div>
 </div>
 
-<div class="login-page">
-    <img src="/images/Pensionat-Koriander.png" alt="Pensionat-Koriander-House" class="login-pic">
+<div class="table">
+    <h2>Edit Email Template</h2>
 </div>
-<div class="logo logo-login">
-    <a th:href="@{http://localhost:8080}">
-        <h1>Pensionat Koriander</h1>
-    </a>
-</div>
-<div class ="log-in-panel">
-    <h2 class="sign-in">Sign in</h2>
-    <form action="/login" method="post">
-        <label>
-            <input class="login-input" type="text" name="username" placeholder ="Username">
-        </label><br>
-        <label>
-            <input class="login-input" type="password" name="password" placeholder ="Password">
-        </label><br>
-        <div class="sign-in-btn-box">
-            <button class="sign-in-btn" type="submit">SIGN IN</button>
-            <a href="/forgotPassword" class="forgot-pw"  type="submit">FORGOT PASSWORD</a>
+
+<p th:if="${wasChanged == true}" id="changedMessage" class="alert alert-success" role="alert">Email Template was changed</p>
+<div class="center-box">
+    <form action="/emailTemplate" th:object="${emailTemplate}" method="post">
+        <div class="input-div">
+            <input type="hidden" name="id" th:field="*{id}" id="">
+            <label for="subject">Subject:</label><br>
+            <input class="emailInput" type="text" name="" id="subject" th:field="*{subject}"><br><br>
+            <label for="greetingsPhrase1">Greeting Phrase 1:</label><br>
+            <input class="emailInput" type="text" name="" id="greetingsPhrase1" th:field="*{greetingPhrase1}"><br><br>
+            <label for="greetingsPhrase2">Greeting Phrase 2:</label><br>
+            <textarea class="emailInput" type="text" name="" id="greetingsPhrase2" th:field="*{greetingPhrase2}"></textarea><br><br>
+            <label for="roomNumber">Room Number Row:</label><br>
+            <input class="emailInput" type="text" name="" id="roomNumber" th:field="*{roomNumber}"><br><br>
+            <label for="roomType">Room Type Row:</label><br>
+            <input class="emailInput" type="text" name="" id="roomType" th:field="*{roomType}"><br><br>
+            <label for="checkinDate">Checkin Date Row:</label><br>
+            <input class="emailInput" type="text" name="" id="checkinDate" th:field="*{checkInDate}"><br><br>
+            <label for="checkoutDate">Checkout Date Row:</label><br>
+            <input class="emailInput" type="text" name="" id="checkoutDate" th:field="*{checkOutDate}"><br><br>
+            <label for="price">Price Row:</label><br>
+            <input class="emailInput" type="text" name="" id="price" th:field="*{price}"><br><br>
+            <label for="farewell">Farewell Message:</label><br>
+            <textarea class="emailInput" type="text" name="" id="farewell" th:field="*{farewell}"></textarea><br><br>
+            <button class="save-btn" type="submit">SAVE</button>
         </div>
     </form>
 </div>
 
+<script>
+    const paragraph = document.getElementById('changedMessage')
+
+    function hideParagraph() {
+        paragraph.style.display = 'none';
+    }
+
+    setTimeout(hideParagraph, 5000);
+
+</script>
 </body>
 </html>
