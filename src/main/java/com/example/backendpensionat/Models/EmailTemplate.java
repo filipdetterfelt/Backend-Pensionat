@@ -15,11 +15,13 @@ import lombok.NoArgsConstructor;
 public class EmailTemplate {
     @Id
     private Long id;
-    String Hälsningsfras;
-    String RoomNumber;
-    String RoomType;
-    String CheckInDate;
-    String CheckOutDate;
-    String Price;
-    String Farwell;
+    private String subject;
+    private String greetingPhrase1;
+    private String greetingPhrase2;
+    private String roomNumber;
+    private String roomType;
+    private String checkInDate;
+    private String checkOutDate;
+    private String price;
+    private String farewell;
 }

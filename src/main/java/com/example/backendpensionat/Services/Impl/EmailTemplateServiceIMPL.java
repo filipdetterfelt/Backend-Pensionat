@@ -7,33 +7,34 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailTemplateServiceIMPL {
-
     public EmailTemplate DTOtoEmailTemplate(EmailTemplateDTO EmailTemplateDTO){
         return EmailTemplate.builder()
                 .id(EmailTemplateDTO.getId())
-                .Hälsningsfras(EmailTemplateDTO.getHälsningsfras())
-                .RoomNumber(EmailTemplateDTO.getRoomNumber())
-                .RoomType(EmailTemplateDTO.getRoomType())
-                .CheckInDate(EmailTemplateDTO.getCheckInDate())
-                .CheckOutDate(EmailTemplateDTO.getCheckOutDate())
-                .Price(EmailTemplateDTO.getPrice())
-                .Farwell(EmailTemplateDTO.getFarwell())
+                .subject(EmailTemplateDTO.getSubject())
+                .greetingPhrase1(EmailTemplateDTO.getGreetingPhrase1())
+                .greetingPhrase2(EmailTemplateDTO.getGreetingPhrase2())
+                .roomNumber(EmailTemplateDTO.getRoomNumber())
+                .roomType(EmailTemplateDTO.getRoomType())
+                .checkInDate(EmailTemplateDTO.getCheckInDate())
+                .checkOutDate(EmailTemplateDTO.getCheckOutDate())
+                .price(EmailTemplateDTO.getPrice())
+                .farewell(EmailTemplateDTO.getFarewell())
                 .build();
-
     }
 
     public EmailTemplateDTO emailTemplateToDTO(EmailTemplate emailTemplate){
         return EmailTemplateDTO.builder()
                 .id(emailTemplate.getId())
-                .Hälsningsfras(emailTemplate.getHälsningsfras())
-                .RoomNumber(emailTemplate.getRoomNumber())
-                .RoomType(emailTemplate.getRoomType())
-                .CheckInDate(emailTemplate.getCheckInDate())
-                .CheckOutDate(emailTemplate.getCheckOutDate())
-                .Price(emailTemplate.getPrice())
-                .Farwell(emailTemplate.getFarwell())
+                .subject(emailTemplate.getSubject())
+                .greetingPhrase1(emailTemplate.getGreetingPhrase1())
+                .greetingPhrase2(emailTemplate.getGreetingPhrase2())
+                .roomNumber(emailTemplate.getRoomNumber())
+                .roomType(emailTemplate.getRoomType())
+                .checkInDate(emailTemplate.getCheckInDate())
+                .checkOutDate(emailTemplate.getCheckOutDate())
+                .price(emailTemplate.getPrice())
+                .farewell(emailTemplate.getFarewell())
                 .build();
-
     }
 
 }
