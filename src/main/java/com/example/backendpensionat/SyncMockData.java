@@ -145,20 +145,5 @@ public class SyncMockData implements CommandLineRunner {
 
         emailTemplateRepo.save(emailTemplate1);
 
-//        EmailTemplate emailTemplate2 = EmailTemplate.builder()
-//                .id(1L)
-//                .subject("adsfasdfasdf")
-//                .greetingPhrase1("asdfasdfsadf")
-//                .greetingPhrase2("asdfasdf")
-//                .roomNumber("adsfasdf")
-//                .roomType("Radsfasdfsadf")
-//                .checkInDate("Caaadsfasf")
-//                .checkOutDate("asdfasdf")
-//                .price("asdfasdfasdf")
-//                .farewell("asdfasdfasdfasdfasdf")
-//                .build();
-
-
-
     }
 }
