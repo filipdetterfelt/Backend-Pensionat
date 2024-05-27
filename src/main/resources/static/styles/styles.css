@@ -686,7 +686,7 @@ select {
     font-size: 12px;
 }
 
-.sign-in-btn, .forgot-pw, .reset-pw-btn {
+.sign-in-btn, .forgot-pw-btn, .reset-pw-btn {
     width: 170px;
     height: 30px;
     margin: 5px;
@@ -700,7 +700,7 @@ select {
     align-content: center;
 }
 
-.sign-in-btn:hover, .forgot-pw:hover {
+.sign-in-btn:hover, .forgot-pw-btn:hover {
     width: 170px;
     height: 30px;
     margin: 5px;
@@ -765,7 +765,7 @@ textarea {
     text-align: start;
 }
 
-.login-page img .forgot-pw {
+.login-page img {
     display: block;
     overflow-y: hidden;
     width: 100%;

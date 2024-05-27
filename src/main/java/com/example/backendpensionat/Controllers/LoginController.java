@@ -2,6 +2,7 @@ package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.Models.User;
 import com.example.backendpensionat.Services.Impl.EmailServiceIMPL;
+import com.example.backendpensionat.Services.Impl.UserServiceIMPL;
 import com.example.backendpensionat.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -17,7 +18,7 @@ import java.util.Optional;
 @EnableAsync
 public class LoginController {
     private final EmailServiceIMPL emailServiceIMPL;
-    private UserService userService;
+    private UserServiceIMPL userService;
 
     @GetMapping("/login")
     public String login() {
@@ -35,7 +36,7 @@ public class LoginController {
 
         if (user.isPresent()) {
             model.addAttribute("username", username);
-            String resetURL = "http://localhost:8080/changePassword"+username;
+            String resetURL = "http://localhost:8080/changePassword";
             String emailContent = "Click on link below to reset your password: <br><a href=\"" + resetURL + "\">Reset Password</a>";
             emailServiceIMPL.sendEmailHTML(username, "Reset your password", emailContent);
             rda.addFlashAttribute("successfulMessage", true);

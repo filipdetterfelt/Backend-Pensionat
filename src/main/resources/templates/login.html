@@ -51,9 +51,11 @@
         </label><br>
         <div class="sign-in-btn-box">
             <button class="sign-in-btn" type="submit">SIGN IN</button>
-            <a href="/forgotPassword" class="forgot-pw" type="submit">FORGOT PASSWORD</a>
         </div>
     </form>
+    <div class="sign-in-btn-box">
+        <button class="forgot-pw-btn" th:attr="onclick='window.location.href=`/forgotPassword`'">FORGOT PASSWORD</button>
+    </div>
 </div>
 
 <div class="start-page">
