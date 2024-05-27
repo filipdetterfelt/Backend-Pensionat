@@ -73,7 +73,7 @@ public class WebSecurityConfig {
                                 "/sendConfirmationEmail",
                                 "/sendForgotPwEmail",
                                 "/forgotPassword",
-                                "/changePassword").permitAll()
+                                "/resetPassword/**").permitAll()
                         .requestMatchers("/users").hasAuthority("Admin")
                         .anyRequest().authenticated()
                 )
