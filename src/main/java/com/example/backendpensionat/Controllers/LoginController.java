@@ -35,7 +35,7 @@ public class LoginController {
 
         if (user.isPresent()) {
             model.addAttribute("username", username);
-            String resetURL = "http://localhost:8080/changePassword";
+            String resetURL = "http://localhost:8080/changePassword"+username;
             String emailContent = "Click on link below to reset your password: <br><a href=\"" + resetURL + "\">Reset Password</a>";
             emailServiceIMPL.sendEmailHTML(username, "Reset your password", emailContent);
             rda.addFlashAttribute("successfulMessage", true);
