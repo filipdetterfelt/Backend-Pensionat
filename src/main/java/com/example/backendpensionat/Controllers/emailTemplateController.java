@@ -5,7 +5,9 @@ import com.example.backendpensionat.Repos.EmailTemplateRepo;
 import com.example.backendpensionat.Services.Impl.EmailTemplateServiceIMPL;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @AllArgsConstructor
 @Controller
@@ -14,9 +16,15 @@ public class emailTemplateController {
     EmailTemplateServiceIMPL emailTemplateServiceIMPL;
 
     @GetMapping("/emailTemplate")
-    public String emailTemplate() {
+    public String emailTemplate(Model model) {
         EmailTemplateDTO emailTemplateDTO = emailTemplateServiceIMPL.emailTemplateToDTO(emailTemplateRepo.findById(1L).get());
+        model.addAttribute("emailTemplate", emailTemplateDTO);
         return "emailTemplate";
     }
 
+    @PostMapping("/emailTemplate")
+    public String emailTemplate(EmailTemplateDTO emailTemplateDTO) {
+        emailTemplateRepo.save(emailTemplateServiceIMPL.DTOtoEmailTemplate(emailTemplateDTO));
+        return "redirect:/emailTemplate";
+    }
 }
