@@ -28,6 +28,9 @@
         <th:block sec:authorize="hasAuthority('Admin')">
             <button class="btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
         </th:block>
+        <th:block sec:authorize="hasAuthority('Admin')">
+            <button sec:authorize="isAuthenticated()" class="btn-header" th:attr="onclick='window.location.href=`/emailTemplate`'">Email Template</button>
+        </th:block>
     </div>
     <br>
     <div>

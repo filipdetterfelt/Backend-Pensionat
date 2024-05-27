@@ -1,14 +1,8 @@
 package com.example.backendpensionat;
 
 import com.example.backendpensionat.Enums.RoomType;
-import com.example.backendpensionat.Models.Booking;
-import com.example.backendpensionat.Models.Customer;
-import com.example.backendpensionat.Models.Room;
-import com.example.backendpensionat.Models.User;
-import com.example.backendpensionat.Repos.BookingRepo;
-import com.example.backendpensionat.Repos.CustomerRepo;
-import com.example.backendpensionat.Repos.RoomRepo;
-import com.example.backendpensionat.Repos.UserRepo;
+import com.example.backendpensionat.Models.*;
+import com.example.backendpensionat.Repos.*;
 import com.example.backendpensionat.Security.UserDataSeeder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -27,6 +21,7 @@ public class SyncMockData implements CommandLineRunner {
     private final RoomRepo roomRepo;
     private final BookingRepo bookingRepo;
     private final CustomerRepo customerRepo;
+    private final EmailTemplateRepo emailTemplateRepo;
 
     @Override
     public void run(String... args) {
@@ -132,6 +127,37 @@ public class SyncMockData implements CommandLineRunner {
             room3.getBookings().add(booking4);
 
             bookingRepo.saveAll(List.of(booking1, booking2, booking3, booking4));
+
+            EmailTemplate emailTemplate1 = EmailTemplate.builder()
+                    .id(1L)
+                    .subject("Booking confirmation Pensionat Koriander")
+                    .greetingPhrase1("Dear")
+                    .greetingPhrase2("Thank you for booking a room at Pensionat Koriander. Your booking is confirmed.")
+                    .roomNumber("Room number")
+                    .roomType("Room type")
+                    .checkInDate("Check-in date")
+                    .checkOutDate("Check-out date")
+                    .price("Price")
+                    .farewell("We are looking forward to welcoming you at Pensionat Koriander.\n\n" +
+                            "Best regards,\n" +
+                            "Pensionat Koriander")
+                    .build();
+
+        emailTemplateRepo.save(emailTemplate1);
+
+//        EmailTemplate emailTemplate2 = EmailTemplate.builder()
+//                .id(1L)
+//                .subject("adsfasdfasdf")
+//                .greetingPhrase1("asdfasdfsadf")
+//                .greetingPhrase2("asdfasdf")
+//                .roomNumber("adsfasdf")
+//                .roomType("Radsfasdfsadf")
+//                .checkInDate("Caaadsfasf")
+//                .checkOutDate("asdfasdf")
+//                .price("asdfasdfasdf")
+//                .farewell("asdfasdfasdfasdfasdf")
+//                .build();
+
 
 
     }
