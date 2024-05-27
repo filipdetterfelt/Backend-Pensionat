@@ -37,21 +37,8 @@
             <button sec:authorize="isAuthenticated()" class="btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
         </th:block>
     </div>
-    <br>
-    <div>
-        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
-        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
-    </div>
 </div>
 
-<div class="login-page">
-    <img src="/images/Pensionat-Koriander.png" alt="Pensionat-Koriander-House" class="login-pic">
-</div>
-<div class="logo logo-login">
-    <a th:href="@{http://localhost:8080}">
-        <h1>Pensionat Koriander</h1>
-    </a>
-</div>
 <div class ="log-in-panel">
     <h2 class="sign-in">Sign in</h2>
     <form action="/login" method="post">
@@ -63,9 +50,13 @@
         </label><br>
         <div class="sign-in-btn-box">
             <button class="sign-in-btn" type="submit">SIGN IN</button>
-            <a href="/forgotPassword" class="forgot-pw"  type="submit">FORGOT PASSWORD</a>
+            <a href="/forgotPassword" class="forgot-pw" type="submit">FORGOT PASSWORD</a>
         </div>
     </form>
+</div>
+
+<div class="start-page">
+    <img src="/images/Pensionat-Koriander.png" alt="Pensionat-Koriander-House">
 </div>
 
 </body>

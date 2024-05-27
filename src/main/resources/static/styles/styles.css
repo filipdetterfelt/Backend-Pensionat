@@ -56,7 +56,7 @@ h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 200px;
+    margin-top: 140px;
 }
 
 .links {
@@ -169,6 +169,7 @@ a {
     font-size: 12px;
     color: #5e775f;
     background-color: #f5ebd9;
+    align-content: center;
 }
 
 .add-btn:hover, .save-btn:hover {
@@ -445,7 +446,7 @@ input[type="password"]::placeholder {
     justify-content: center;
 }
 
-.sign-in-btn-box {
+.sign-in-btn-box, .reset-pw-btn-box {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -668,7 +669,7 @@ select {
     font-size: 12px;
 }
 
-.sign-in-btn, .forgot-pw {
+.sign-in-btn, .forgot-pw, .reset-pw-btn {
     width: 170px;
     height: 30px;
     margin: 5px;
@@ -679,6 +680,7 @@ select {
     font-size: 12px;
     color: #5e775f;
     background-color: #f5ebd9;
+    align-content: center;
 }
 
 .sign-in-btn:hover, .forgot-pw:hover {
@@ -747,6 +749,11 @@ input::placeholder {
 }
 
 .sign-in {
+    color: #5e775f;
+    margin-bottom: 5px;
+}
+
+.reset-pw {
     color: #5e775f;
     margin-bottom: 5px;
 }
