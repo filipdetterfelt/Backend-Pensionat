@@ -786,7 +786,8 @@ textarea {
 
 input::placeholder {
     text-align: center;
-    color: black;
+    color: #5e775f;
+    opacity: 1;
 }
 
 .logo-login {
