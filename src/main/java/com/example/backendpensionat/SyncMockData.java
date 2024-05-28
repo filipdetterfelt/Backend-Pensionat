@@ -130,5 +130,21 @@ public class SyncMockData implements CommandLineRunner {
 
             bookingRepo.saveAll(List.of(booking1, booking2, booking3, booking4));*/
 
+        EmailTemplate emailTemplate1 = EmailTemplate.builder()
+                .id(1L)
+                .subject("Booking confirmation Pensionat Koriander")
+                .greetingPhrase1("Dear")
+                .greetingPhrase2("Thank you for booking a room at Pensionat Koriander. Your booking is confirmed.")
+                .roomNumber("Room number")
+                .roomType("Room type")
+                .checkInDate("Check-in date")
+                .checkOutDate("Check-out date")
+                .price("Price")
+                .farewell("We are looking forward to welcoming you at Pensionat Koriander.\n\n" +
+                        "Best regards,\n" +
+                        "Pensionat Koriander")
+                .build();
+
+        emailTemplateRepo.save(emailTemplate1);
     }
 }
