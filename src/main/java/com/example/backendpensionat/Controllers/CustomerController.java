@@ -1,11 +1,9 @@
 package com.example.backendpensionat.Controllers;
 
 import com.example.backendpensionat.DTO.CustomerDetailedDTO;
-import com.example.backendpensionat.Models.Customer;
 import com.example.backendpensionat.Services.CustomerService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +54,6 @@ public class CustomerController {
     }
 
     @PostMapping("deleteCustomer")
-//    @PreAuthorize("hasAuthority('Admin')")
     public String removeCustomer(@ModelAttribute("deleteCustomer") CustomerDetailedDTO customer) {
         customer.setBookings(new ArrayList<>());
         customerService.removeCustomer(customer);

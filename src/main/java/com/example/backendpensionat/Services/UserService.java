@@ -23,4 +23,8 @@ public interface UserService {
     void deleteUser(UUID id);
 
     void addUser(UserEditDTO user);
+
+    void resetPassword(UserEditDTO user);
+
+    User findUserByUsername(String username);
 }

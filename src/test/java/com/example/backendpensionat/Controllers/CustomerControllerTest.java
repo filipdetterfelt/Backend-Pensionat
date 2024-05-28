@@ -79,7 +79,7 @@ class CustomerControllerTest {
 
     @Test
     void testUpdateCustomers() throws Exception {
-        mockMvc.perform(post("/UpdateCustomers"))
+        mockMvc.perform(post("/updateCustomers"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/customers"));
@@ -107,6 +107,6 @@ class CustomerControllerTest {
         mockMvc.perform(get("/customers/" + customerId))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/UpdateCustomer"));
+                .andExpect(redirectedUrl("/updateCustomer"));
     }
 }

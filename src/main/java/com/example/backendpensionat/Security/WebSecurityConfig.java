@@ -64,7 +64,16 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                               // .loginPage("/login")
         http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/",  "/js/**", "/styles/styles.css", "/images/**", "/login/**", "/logout", "/sendConfirmationEmail","/sendForgotPwEmail","/forgotPassword").permitAll()
+                        .requestMatchers("/",
+                                "/js/**",
+                                "/styles/styles.css",
+                                "/images/**",
+                                "/login/**",
+                                "/logout",
+                                "/sendConfirmationEmail",
+                                "/sendForgotPwEmail",
+                                "/forgotPassword",
+                                "/resetPassword/**").permitAll()
                         .requestMatchers("/users").hasAuthority("Admin")
                         .anyRequest().authenticated()
                 )
@@ -79,8 +88,6 @@ public class WebSecurityConfig {
                 .logout((logout) -> {
                     logout.permitAll();
                     logout.logoutSuccessUrl("/");
-                    //logout.deleteCookies("JSESSIONID");
-                    //logout.invalidateHttpSession(true);
                 })
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))

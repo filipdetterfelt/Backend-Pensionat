@@ -29,6 +29,11 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
+    public User findUserByUsername(String username){
+        return userRepo.getUserByUsername(username);
+    }
+
+    @Override
     public Set<Role> listAllRoles(){
         return new HashSet<>(roleRepo.findAll());
     }
@@ -70,5 +75,17 @@ public class UserServiceIMPL implements UserService {
 
     private String hashPassword(String password){
         return new BCryptPasswordEncoder().encode(password);
+    }
+
+    @Override
+    public void resetPassword(UserEditDTO user) {
+        Optional<User> userFromDB = userRepo.findById(user.getId());
+
+        if(userFromDB.isPresent()) {
+            String password = user.getPassword().isEmpty() ? userFromDB.get().getPassword() : hashPassword(user.getPassword());
+            userFromDB.get().setUsername(user.getUsername());
+            userFromDB.get().setPassword(password);
+            userRepo.save(userFromDB.get());
+        }
     }
 }

@@ -34,15 +34,8 @@
         <button class="btn-header" th:attr="onclick='window.location.href=`/ContractCustomers`'">CONTRACT CUSTOMERS</button>
         <th:block sec:authorize="hasAuthority('Admin')">
             <button sec:authorize="isAuthenticated()" class="btn-header" th:attr="onclick='window.location.href=`/users`'">USERS</button>
+            <button sec:authorize="isAuthenticated()" class="btn-header" th:attr="onclick='window.location.href=`/emailTemplate`'">EMAIL TEMPLATE</button>
         </th:block>
-        <th:block sec:authorize="hasAuthority('Admin')">
-            <button sec:authorize="isAuthenticated()" class="btn-header" th:attr="onclick='window.location.href=`/emailTemplate`'">Email Template</button>
-        </th:block>
-    </div>
-    <br>
-    <div>
-        <button class="add-btn" th:attr="onclick='location.href=`/addNewCustomer`'">ADD CUSTOMER</button>
-        <button class="add-btn" th:attr="onclick='location.href=`/newCurrentCustomer`'">ADD BOOKING</button>
     </div>
 </div>
 <div class="start-page">
