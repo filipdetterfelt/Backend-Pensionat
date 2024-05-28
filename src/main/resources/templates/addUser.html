@@ -40,7 +40,7 @@
 <div class="table">
     <h2>Add User</h2>
 </div>
-
+<p th:if="${param.alreadyExists}" class="alert alert-danger" role="alert">A user with this email already exists in your system</p>
 <div class="center-box">
     <form class="edit-user-form" action="/users/add/save" th:object="${user}" method="post">
         <label for="email">EMAIL:</label><br>
