@@ -42,8 +42,12 @@
 </div>
 <div class="center-box">
     <p th:if="${isAdded == false}" class="alert alert-danger" role="alert">This is updated</p>
-    <p th:if="${wasBlackListed == true}" class="alert alert-danger" role="alert">This person is blacklisted</p>
-    <form action="/bookings/add" th:object="${newCustomers}" method="post">
+    <p th:if="${param.wasBlackListed}" class="alert alert-danger" role="alert">This person is blacklisted</p>
+    <p th:if="${param.ssnExist}" class="alert alert-danger" role="alert">Social security number does already exist in our system</p>
+    <p th:if="${param.emailExist}" class="alert alert-danger" role="alert">Email does already exist in our system</p>
+    <input type="hidden" th:if="${param.bookingAddButton}" class="hidden" value="/bookings/add"/>
+
+    <form id="form" action="/addCustomer" th:object="${newCustomers}" method="post">
         <label for="ssn">SSN:</label><br>
         <input type="text" id="ssn" name="ssn" required pattern="[0-9]{12}"
                title="Please enter a 12-digit Social Security Number"><br><br>
@@ -65,6 +69,19 @@
 
         <input class="submit-btn" type="submit" value="SUBMIT">
     </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const action = document.querySelector('.hidden')
+            const form = document.getElementById('form')
+            console.log(form)
+            console.log(action)
+
+            if(action !== null) {
+                form.action = action.value;
+            }
+        })
+    </script>
 </div>
 </body>
 </html>
