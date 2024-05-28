@@ -34,20 +34,24 @@ public class EmailServiceIMPL {
 
     public String sendForgotPasswordEmail(User user) {
         try {
-            SimpleMailMessage email = new SimpleMailMessage();
+//            SimpleMailMessage email = new SimpleMailMessage();
             String resetLink = generateResetToken(user);
             String message = String.format("""
-                    Hello!
-                   
-                    Please click on this link to reset your password: %s.
-                    
-                    Regards Koriander crew""", resetLink);
+                <html>
+                    <body>
+                        <p>Hello!</p>
+                        <p>Please click on this link to reset your password: <a href="%s">Reset Password</a>.</p>
+                        <p>Regards, Koriander crew</p>
+                    </body>
+                </html>
+            """, resetLink);
 
-            email.setFrom("Koriander@gmail.com");
-            email.setTo(user.getUsername());
-            email.setSubject("Password Recovery");
-            email.setText(message);
-            mailSender.send(email);
+            sendEmailHTML(user.getUsername(), "Password Recovery", message);
+//            email.setFrom("Koriander@gmail.com");
+//            email.setTo(user.getUsername());
+//            email.setSubject("Password Recovery");
+//            email.setText(message);
+//            mailSender.send(email);
             System.out.println("success");
             return "success";
         } catch (Exception e) {

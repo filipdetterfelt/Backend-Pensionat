@@ -175,7 +175,11 @@ a {
     font-size: 12px;
 }
 
-.add-btn, .save-btn {
+.add-btn,
+.save-btn,
+.sign-in-btn,
+.forgot-pw-btn,
+.reset-pw-btn{
     width: 170px;
     height: 30px;
     margin: 5px;
@@ -189,7 +193,10 @@ a {
     align-content: center;
 }
 
-.add-btn:hover, .save-btn:hover {
+.add-btn:hover,
+.save-btn:hover,
+.sign-in-btn:hover,
+.forgot-pw-btn:hover {
     width: 170px;
     height: 30px;
     margin: 5px;
@@ -553,7 +560,7 @@ select {
     font-size: 14px;
     color: #5e775f;
     background-color: white;
-    text-align: start;
+    text-align: center;
 }
 
 .dropdown-box {
@@ -686,51 +693,34 @@ select {
     font-size: 12px;
 }
 
-.sign-in-btn, .forgot-pw-btn, .reset-pw-btn {
-    width: 170px;
-    height: 30px;
-    margin: 5px;
-    border-radius: 5px;
-    border: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    font-family: "Arial Black", serif;
-    font-size: 12px;
-    color: #5e775f;
-    background-color: #f5ebd9;
-    align-content: center;
-}
+/*.sign-in-btn, .forgot-pw-btn, .reset-pw-btn {*/
+/*    width: 170px;*/
+/*    height: 30px;*/
+/*    margin: 5px;*/
+/*    border-radius: 5px;*/
+/*    border: 0;*/
+/*    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);*/
+/*    font-family: "Arial Black", serif;*/
+/*    font-size: 12px;*/
+/*    color: #5e775f;*/
+/*    background-color: #f5ebd9;*/
+/*    align-content: center;*/
+/*}*/
 
-.sign-in-btn:hover, .forgot-pw-btn:hover {
-    width: 170px;
-    height: 30px;
-    margin: 5px;
-    border-radius: 5px;
-    border: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    font-family: "Arial Black", serif;
-    font-size: 12px;
-    color: #5e775f;
-    background-color: #dcd0bb;
-}
+/*.sign-in-btn:hover, .forgot-pw-btn:hover {*/
+/*    width: 170px;*/
+/*    height: 30px;*/
+/*    margin: 5px;*/
+/*    border-radius: 5px;*/
+/*    border: 0;*/
+/*    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);*/
+/*    font-family: "Arial Black", serif;*/
+/*    font-size: 12px;*/
+/*    color: #5e775f;*/
+/*    background-color: #dcd0bb;*/
+/*}*/
 
-.log-in-panel {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    padding: 20px;
-    margin-top: 100px;
-    top: 20%;
-    border-radius: 10px;
-    background-color: #b4c4b5;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    color: #5e775f;
-    font-family: "Arial Black", sans-serif;
-    font-size: 12px;
-}
-
+.log-in-panel,
 .change-password-panel {
     position: fixed;
     display: flex;
@@ -748,6 +738,24 @@ select {
     font-family: "Arial Black", sans-serif;
     font-size: 12px;
 }
+
+/*.change-password-panel {*/
+/*    position: fixed;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    border: 1px solid black;*/
+/*    padding: 20px;*/
+/*    margin-top: 100px;*/
+/*    top: 20%;*/
+/*    border-radius: 10px;*/
+/*    background-color: #b4c4b5;*/
+/*    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);*/
+/*    color: #5e775f;*/
+/*    font-family: "Arial Black", sans-serif;*/
+/*    font-size: 12px;*/
+/*}*/
 
 textarea {
     width: 200px;
@@ -797,6 +805,8 @@ input::placeholder {
     text-align: center;
     font-family: "Arial", sans-serif;
     margin: 5px;
+    align-content: center;
+    align-items: center;
 }
 
 .sign-in {
