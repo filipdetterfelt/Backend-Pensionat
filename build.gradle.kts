@@ -42,6 +42,7 @@ dependencies {
     testImplementation("com.h2database:h2")
     implementation("org.springframework.boot:spring-boot-starter-mail:3.2.5")
 }
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }

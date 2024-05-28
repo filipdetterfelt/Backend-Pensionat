@@ -4,7 +4,6 @@ import com.example.backendpensionat.DTO.BlacklistDetailedDTO;
 import com.example.backendpensionat.Services.BlacklistService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,15 +21,9 @@ public class BlacklistServiceIMPL implements BlacklistService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${blacklist.service.check-url}")
-    private String checkUrl;
-
-    @Value("${blacklist.service.list-url}")
-    private String listUrl;
-
     @Override
     public BlacklistDetailedDTO checkBlackList(String email) {
-        String url = checkUrl + "/" + email;
+        String url = "https://javabl.systementor.se/api/koriander/blacklistcheck/" + email;
         return restTemplate.getForObject(url, BlacklistDetailedDTO.class);
     }
 
@@ -53,7 +46,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
         if (isTest) {
             url = getClass().getClassLoader().getResource("./XmlJsonFiles/blacklist.json");
         } else {
-            url = new URL(listUrl);
+            url = new URL("https://javabl.systementor.se/api/koriander/blacklist");
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -72,7 +65,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
         newBlacklistedCustomer.setOk(false);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(listUrl))
+                .uri(URI.create("https://javabl.systementor.se/api/koriander/blacklist"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
@@ -100,7 +93,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
         String jsonBody = "{\"name\": \"" + existingCustomer.getName() + "\", \"isOk\":\"" + existingCustomer.isOk() + "\"}";
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(listUrl + email))
+                .uri(URI.create("https://javabl.systementor.se/api/koriander/blacklist/" + email))
                 .header("Content-Type", "application/json")
                 .PUT(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
