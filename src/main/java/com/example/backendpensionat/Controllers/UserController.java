@@ -63,6 +63,10 @@ public class UserController {
 
     @PostMapping("/users/add/save")
     public String saveUser(@ModelAttribute("user") UserEditDTO user){
+        User userDB = userService.findUserByUsername(user.username);
+        if(userDB != null) {
+            return "redirect:/users/add?alreadyExists";
+        }
         userService.addUser(user);
         return "redirect:/users";
     }
