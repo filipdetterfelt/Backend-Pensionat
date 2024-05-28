@@ -93,20 +93,21 @@ public class BookingServiceIMPL implements BookingService {
     public Double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double roomPrice, CustomerDetailedDTO customer) {
         long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate);
         List<Double> dayPrices = new ArrayList<>();
+        double totalPercent = 0;
 
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
             if(dateIsSunday(date)) {
-                dayPrices.add(twoPercentOff(roomPrice));
+                dayPrices.add(roomPrice * 0.98);
             } else {
                 dayPrices.add(roomPrice);
             }
         }
         double totalPrice = dayPrices.stream().reduce(Double::sum).orElse(0.0);
 
-        totalPrice =  numberOfDays >= 2? halfPercentOff(totalPrice): totalPrice;
-        totalPrice = hasBookedTenDaysThisYear(customer.getBookings())? twoPercentOff(totalPrice): totalPrice;
+        totalPercent +=  numberOfDays >= 2? 0.005: 0;
+        totalPercent += hasBookedTenDaysThisYear(customer.getBookings())? 0.02: 0;
 
-        return totalPrice;
+        return totalPrice * (1.0-totalPercent);
     }
 
     public boolean dateIsSunday(LocalDate date) {
@@ -116,14 +117,6 @@ public class BookingServiceIMPL implements BookingService {
         c.setTime(d);
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         return dayOfWeek == 1;
-    }
-
-    public Double twoPercentOff(Double price) {
-        return price * 0.98;
-    }
-
-    public Double halfPercentOff(Double price) {
-        return price * 0.995;
     }
 
     public boolean hasBookedTenDaysThisYear(List<BookingDTO> customerBookings) {

@@ -1,15 +1,17 @@
 package com.example.backendpensionat;
 
 import com.example.backendpensionat.Enums.RoomType;
-import com.example.backendpensionat.Models.*;
-import com.example.backendpensionat.Repos.*;
-import com.example.backendpensionat.Security.UserDataSeeder;
+import com.example.backendpensionat.Models.Customer;
+import com.example.backendpensionat.Models.EmailTemplate;
+import com.example.backendpensionat.Models.Room;
+import com.example.backendpensionat.Repos.BookingRepo;
+import com.example.backendpensionat.Repos.CustomerRepo;
+import com.example.backendpensionat.Repos.EmailTemplateRepo;
+import com.example.backendpensionat.Repos.RoomRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
 
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +84,7 @@ public class SyncMockData implements CommandLineRunner {
 
             roomRepo.saveAll(List.of(room1, room2, room3));
 
-            Booking booking1 = Booking.builder()
+            /*Booking booking1 = Booking.builder()
                     .amountOfBeds(0)
                     .startDate(LocalDate.of(2024, 5, 1))
                     .endDate(LocalDate.of(2024, 5, 6))
@@ -116,9 +118,9 @@ public class SyncMockData implements CommandLineRunner {
                     .totalPrice(RoomType.getRoomType(2).getRoomTypePrice()*3)
                     .customer(customer2)
                     .room(room3)
-                    .build();
+                    .build();*/
 
-            customer1.getBookings().add(booking1);
+     /*       customer1.getBookings().add(booking1);
             customer2.getBookings().add(booking2);
             customer2.getBookings().add(booking4);
             customer3.getBookings().add(booking3);
@@ -126,7 +128,7 @@ public class SyncMockData implements CommandLineRunner {
             room2.getBookings().add(booking2);
             room3.getBookings().add(booking4);
 
-            bookingRepo.saveAll(List.of(booking1, booking2, booking3, booking4));
+            bookingRepo.saveAll(List.of(booking1, booking2, booking3, booking4));*/
 
             EmailTemplate emailTemplate1 = EmailTemplate.builder()
                     .id(1L)
@@ -138,9 +140,11 @@ public class SyncMockData implements CommandLineRunner {
                     .checkInDate("Check-in date")
                     .checkOutDate("Check-out date")
                     .price("Price")
-                    .farewell("We are looking forward to welcoming you at Pensionat Koriander.\n\n" +
-                            "Best regards,\n" +
-                            "Pensionat Koriander")
+                    .farewell("""
+                            We are looking forward to welcoming you at Pensionat Koriander.
+
+                            Best regards,
+                            Pensionat Koriander""")
                     .build();
 
         emailTemplateRepo.save(emailTemplate1);

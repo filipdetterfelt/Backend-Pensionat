@@ -185,12 +185,16 @@ public class BookingController {
 
     @PostMapping("/bookings/edit/save")
     public String updateBookingPost(@ModelAttribute("booking") BookingDetailedDTO bookingDTO) {
+        System.out.println("Room Number: " + bookingDTO.getRoomNumber());
         String roomNo = bookingDTO.getRoomNumber().split(" - ")[0];
         RoomDetailedDTO room = roomService.findRoomNumber(Long.parseLong(roomNo));
         CustomerDTO customer = customerService.findCustomerByBookingID(bookingDTO.getId());
+        CustomerDetailedDTO customer1 = customerService.findCustomerById(customer.getId());
+        System.out.println(room.getRoomType());
 
         bookingDTO.setCustomerDTO(customer);
         bookingDTO.setRoom(room);
+        bookingDTO.setTotalPrice(bookingService.calculateTotalPrice(bookingDTO.getStartDate(), bookingDTO.getEndDate(), room.getPrice(), customer1));
 
         bookingService.updateBooking(bookingDTO);
         return "redirect:/bookings";

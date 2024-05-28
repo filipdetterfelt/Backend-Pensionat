@@ -176,7 +176,7 @@ public class BookingServiceUnitTest {
         LocalDate startDate = LocalDate.of(2024, 1, 1);
         LocalDate endDate = LocalDate.of(2024, 1, 3);
 
-        double expectedPrice = (2 * RoomType.SINGLE.getRoomTypePrice()) * 0.98 * 0.995;
+        double expectedPrice = (2 * RoomType.SINGLE.getRoomTypePrice()) * 0.975;
         Double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
 
         assertEquals(expectedPrice, result);
@@ -195,7 +195,7 @@ public class BookingServiceUnitTest {
         LocalDate startDate = LocalDate.of(2024, 1, 6);
         LocalDate endDate = LocalDate.of(2024, 1, 8);
 
-        double expectedPrice = (1 * RoomType.SINGLE.getRoomTypePrice() + (1 * RoomType.SINGLE.getRoomTypePrice() * 0.98))  * 0.98 * 0.995;
+        double expectedPrice = (1 * RoomType.SINGLE.getRoomTypePrice() + (1 * RoomType.SINGLE.getRoomTypePrice() * 0.98))  * 0.975;
         Double result = bookingSut.calculateTotalPrice(startDate, endDate, room.getPrice(), customer);
 
         assertEquals(expectedPrice, result);

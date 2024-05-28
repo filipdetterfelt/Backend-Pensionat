@@ -44,7 +44,7 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
-    @PostMapping("UpdateCustomers")
+    @PostMapping("updateCustomers")
     public String updateCustomer(@ModelAttribute("updatedCustomer") CustomerDetailedDTO customer, HttpSession session) {
         CustomerDetailedDTO c = (CustomerDetailedDTO)session.getAttribute("updatedCustomer");
         customer.setBookings(c.getBookings());
