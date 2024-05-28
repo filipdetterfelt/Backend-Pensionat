@@ -5,6 +5,7 @@ import com.example.backendpensionat.Services.BlacklistService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.client.RestTemplate;
@@ -25,12 +26,15 @@ public class BlacklistServiceIntegrationTest {
     @MockBean
     private RestTemplate restTemplate;
 
+    @Value("${blacklist.service.check-url}")
+    private String checkUrl;
+
     @Test
     public void whenCheckBlacklistWithValidEmail_thenShouldReturnDetailedDTO() {
         BlacklistDetailedDTO mockResponse = new BlacklistDetailedDTO();
         mockResponse.setEmail("test@example.com");
         mockResponse.setOk(true);
-        when(restTemplate.getForObject("https://javabl.systementor.se/api/koriander/blacklistcheck/test@example.com", BlacklistDetailedDTO.class))
+        when(restTemplate.getForObject(checkUrl + "/test@example.com", BlacklistDetailedDTO.class))
                 .thenReturn(mockResponse);
 
         BlacklistDetailedDTO result = sut.checkBlackList("test@example.com");

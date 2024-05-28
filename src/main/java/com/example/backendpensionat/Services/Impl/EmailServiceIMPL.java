@@ -6,6 +6,7 @@ import com.example.backendpensionat.Repos.TokenRepo;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -22,10 +23,15 @@ public class EmailServiceIMPL {
 
     private final TokenRepo tokenRepo;
 
+    @Value("${EMAIL_FROM}")
+    private String emailFrom;
+
+    @Value("${RESET_PASSWORD_URL}")
+    private String resetPasswordUrl;
 
     public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("Koriander@gmail.com");
+        message.setFrom(emailFrom);
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
@@ -34,7 +40,6 @@ public class EmailServiceIMPL {
 
     public String sendForgotPasswordEmail(User user) {
         try {
-//            SimpleMailMessage email = new SimpleMailMessage();
             String resetLink = generateResetToken(user);
             String message = String.format("""
                 <html>
@@ -47,11 +52,6 @@ public class EmailServiceIMPL {
             """, resetLink);
 
             sendEmailHTML(user.getUsername(), "Password Recovery", message);
-//            email.setFrom("Koriander@gmail.com");
-//            email.setTo(user.getUsername());
-//            email.setSubject("Password Recovery");
-//            email.setText(message);
-//            mailSender.send(email);
             System.out.println("success");
             return "success";
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class EmailServiceIMPL {
 
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            message.setFrom("koriander@gmail.com");
+            message.setFrom(emailFrom);
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(content, true);
@@ -73,7 +73,6 @@ public class EmailServiceIMPL {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     private String generateResetToken(User user) {
@@ -89,8 +88,7 @@ public class EmailServiceIMPL {
 
         tokenRepo.save(resetToken);
 
-        String endpointUrl = "http://localhost:8080/resetPassword";
-        return endpointUrl + "/" + resetToken.getToken();
+        return resetPasswordUrl + "/" + resetToken.getToken();
     }
 
 
@@ -98,7 +96,4 @@ public class EmailServiceIMPL {
         LocalDateTime currentTime = LocalDateTime.now();
         return currentTime.isAfter(expireDate);
     }
-
-
-
 }
