@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,13 +52,10 @@ public class BookingController {
     }
 
     @PostMapping("/bookings/add")
-    public String addBookingFromNewCustomer(@ModelAttribute("newCustomers") CustomerDetailedDTO customer,
-                                            Model model,
-                                            RedirectAttributes rda) {
+    public String addBookingFromNewCustomer(@ModelAttribute("newCustomers") CustomerDetailedDTO customer, Model model) {
         BlacklistDetailedDTO blacklist = blacklistService.checkBlackList(customer.getEmail());
         if (!blacklist.isOk()) {
-            rda.addFlashAttribute("wasBlackListed", true);
-            return "redirect:/addNewCustomer";
+            return "redirect:/addNewCustomer?wasBlackListed";
         }
 
         customer.setBookings(new ArrayList<>());
@@ -123,8 +119,12 @@ public class BookingController {
             RedirectAttributes rda) {
 
         Long customerId = Long.parseLong(id.split(": ")[0]);
+        CustomerDetailedDTO customer = customerService.findCustomerById(customerId);
 
-        CustomerDTO customer = CustomerDTO.builder().id(customerId).build();
+        if(!blacklistService.checkBlackList(customer.getEmail()).isOk()) {
+            return "redirect:/bookings/add?blacklisted";
+        }
+
         RoomDetailedDTO room = roomService.findRoomNumber(roomNo);
 
         BookingDetailedDTO booking = BookingDetailedDTO.builder()
@@ -132,16 +132,16 @@ public class BookingController {
                 .startDate(startDate)
                 .endDate(endDate)
                 .totalPrice(totalPrice)
-                .customerDTO(customer)
+                .customerDTO(CustomerDTO.builder().id(customerId).build())
                 .room(room)
                 .build();
 
         bookingService.saveBooking(booking);
 
-        CustomerDetailedDTO detaliedCustomer = customerService.findCustomerById(customerId);
+        CustomerDetailedDTO detailedCustomer = customerService.findCustomerById(customerId);
 
         rda.addFlashAttribute("booking", booking);
-        rda.addFlashAttribute("customer", detaliedCustomer);
+        rda.addFlashAttribute("customer", detailedCustomer);
         return "redirect:/sendConfirmationEmail";
     }
 

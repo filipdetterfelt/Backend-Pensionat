@@ -38,6 +38,8 @@
 
     <div class="table">
         <h2>Add Bookings</h2>
+        <p th:if="${param.blacklisted}" class="alert alert-danger" role="alert">This customer is currently blacklisted</p>
+        <br>
         <form id="form" action="/bookings/add/save" method="post">
             <table>
                 <tr>
