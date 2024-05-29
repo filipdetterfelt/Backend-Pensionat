@@ -120,21 +120,6 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
         return contractCustomerRepo.findById(id).get();
     }
 
-//    public ContractCustomerDetailedDTO dtoToDetailedcCustomer(ContractCustomer cC){
-//        return ContractCustomerDetailedDTO.builder()
-//                .externalId(cC.externalId)
-//                .companyName(cC.companyName)
-//                .contactName(cC.contactName)
-//                .contactTitle(cC.contactTitle)
-//                .streetAddress(cC.streetAddress)
-//                .city(cC.city)
-//                .postalCode(cC.postalCode)
-//                .country(cC.country)
-//                .phone(cC.phone)
-//                .fax(cC.fax).build();
-//    }
-
-
     public ContractCustomerDTO CmsToDTO(ContractCustomer ContractCustomer) {
         return ContractCustomerDTO.builder()
                 .internalId(ContractCustomer.id)
