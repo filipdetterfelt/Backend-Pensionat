@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.net.URL;
+
 @ComponentScan
 @RequiredArgsConstructor
 public class SyncShippers implements CommandLineRunner {
@@ -13,6 +15,6 @@ public class SyncShippers implements CommandLineRunner {
     private final IntegrationPropertiesConfig integrationPropertiesConfig;
     @Override
     public void run(String... args) throws Exception {
-        shippersService.getAndSaveShippers(integrationPropertiesConfig.getShippersUrl());
+        shippersService.getAndSaveShippers(new URL(integrationPropertiesConfig.getShippersUrl()));
     }
 }

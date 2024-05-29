@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ShippersService {
     List<ShippersDetailedDTO> getShippersFromJSON(URL url) throws IOException;
-    void getAndSaveShippers(String url) throws IOException;
+    void getAndSaveShippers(URL url) throws IOException;
 
     ShippersDetailedDTO shippersToDTO(Shippers Shippers);
     Shippers DTOtoShippers(ShippersDetailedDTO ShippersDetailedDTO);

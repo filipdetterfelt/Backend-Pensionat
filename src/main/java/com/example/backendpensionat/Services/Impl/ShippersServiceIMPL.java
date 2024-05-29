@@ -37,8 +37,7 @@ public class ShippersServiceIMPL implements ShippersService {
     }
 
     @Override
-    public void getAndSaveShippers(String path) throws IOException {
-        URL url = new URL(path);
+    public void getAndSaveShippers(URL url) throws IOException {
 
         for(ShippersDetailedDTO s: getShippersFromJSON(url)) {
             Optional<Shippers> shipper = shippersRepo.findShippersByExternalId(s.externalId);

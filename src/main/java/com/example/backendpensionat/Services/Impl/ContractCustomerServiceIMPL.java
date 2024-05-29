@@ -46,13 +46,7 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
     }
 
     @Override
-    public void getAndSaveContractCustomers(Boolean isTest) throws IOException {
-        URL url;
-        if (isTest) {
-            url = getClass().getClassLoader().getResource(integrationPropertiesConfig.getContractCustomersPathUrl());
-        } else {
-            url = new URL(integrationPropertiesConfig.getContractCustomersUrl());
-        }
+    public void getAndSaveContractCustomers(URL url) throws IOException {
 
         for(ContractCustomerDTO cc: getContractCustomersFromXML(url)) {
             Optional<ContractCustomer> contractCustomer = contractCustomerRepo.findContractCustomerByExternalId(cc.externalId);

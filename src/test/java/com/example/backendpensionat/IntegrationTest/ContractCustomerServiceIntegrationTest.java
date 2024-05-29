@@ -4,10 +4,12 @@ import com.example.backendpensionat.DTO.ContractCustomerDTO;
 import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Repos.ContractCustomerRepo;
 import com.example.backendpensionat.Services.ContractCustomerService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,12 +26,22 @@ public class ContractCustomerServiceIntegrationTest {
     @Autowired
     IntegrationPropertiesConfig integrationPropertiesConfig;
 
+    URL url;
+    URL localUrl;
+
+    @BeforeEach()
+    void setUp() throws MalformedURLException {
+        url = new URL(integrationPropertiesConfig.getContractCustomersUrl());
+        localUrl = getClass().getClassLoader().getResource(integrationPropertiesConfig.getContractCustomersPathUrl());
+    }
+
+
     @Test
     void getContractCustomersFromXMLTest() throws Exception {
-        URL url = new URL(integrationPropertiesConfig.getContractCustomersUrl());
-        assertDoesNotThrow(() -> sut.getContractCustomersFromXML(url));
 
-        List<ContractCustomerDTO> contractCustomers = sut.getContractCustomersFromXML(url);
+        assertDoesNotThrow(() -> sut.getContractCustomersFromXML(localUrl));
+
+        List<ContractCustomerDTO> contractCustomers = sut.getContractCustomersFromXML(localUrl);
         assertFalse(contractCustomers.isEmpty());
         assertNotNull(contractCustomers.get(0).externalId);
         assertNotNull(contractCustomers.get(0).companyName);
@@ -47,7 +59,7 @@ public class ContractCustomerServiceIntegrationTest {
     @Test
     void getAndSaveContractCustomers() throws IOException {
         contractCustomerRepo.deleteAll();
-        sut.getAndSaveContractCustomers(true);
+        sut.getAndSaveContractCustomers(localUrl);
 
         assertEquals(3, contractCustomerRepo.count());
     }

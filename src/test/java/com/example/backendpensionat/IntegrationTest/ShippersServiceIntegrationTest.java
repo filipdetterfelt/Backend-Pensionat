@@ -4,10 +4,12 @@ import com.example.backendpensionat.DTO.ShippersDetailedDTO;
 import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Repos.ShippersRepo;
 import com.example.backendpensionat.Services.ShippersService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,12 +26,18 @@ class ShippersServiceIntegrationTest {
     @Autowired
     IntegrationPropertiesConfig integrationPropertiesConfig;
 
+    URL localUrl;
+
+    @BeforeEach()
+    void setUp() {
+        localUrl = getClass().getClassLoader().getResource(integrationPropertiesConfig.getLocalPathShippers());
+    }
+
     @Test
     void getShippersFromJson() throws Exception {
-        URL url = new URL(integrationPropertiesConfig.getShippersUrl());
-        assertDoesNotThrow(() -> sut.getShippersFromJSON(url));
+        assertDoesNotThrow(() -> sut.getShippersFromJSON(localUrl));
 
-        List<ShippersDetailedDTO> shipper = sut.getShippersFromJSON(url);
+        List<ShippersDetailedDTO> shipper = sut.getShippersFromJSON(localUrl);
         assertFalse(shipper.isEmpty());
         assertNull(shipper.get(0).internalId);
         assertNotNull(shipper.get(0).externalId);
@@ -48,7 +56,7 @@ class ShippersServiceIntegrationTest {
     @Test
     void getAndSaveContractCustomers() throws IOException {
         shippersRepo.deleteAll();
-        sut.getAndSaveShippers(integrationPropertiesConfig.getLocalPathShippers());
+        sut.getAndSaveShippers(localUrl);
 
         assertEquals(3, shippersRepo.count());
     }

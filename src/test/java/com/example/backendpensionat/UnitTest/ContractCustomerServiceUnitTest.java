@@ -30,7 +30,7 @@ public class ContractCustomerServiceUnitTest {
 
     @BeforeEach()
     void setUp() {
-        getClass().getClassLoader().getResource(integrationPropertiesConfig.getContractCustomersPathUrl());
+        localUrl = getClass().getClassLoader().getResource(integrationPropertiesConfig.getContractCustomersPathUrl());
         sut = new ContractCustomerServiceIMPL(contractCustomerRepo);
     }
 
@@ -56,7 +56,7 @@ public class ContractCustomerServiceUnitTest {
     void getAndSaveContractCustomersShouldInsertNewRecords() throws IOException {
         when(contractCustomerRepo.findContractCustomerByExternalId(Mockito.anyLong())).thenReturn(Optional.empty());
 
-        sut.getAndSaveContractCustomers(true);
+        sut.getAndSaveContractCustomers(localUrl);
 
         verify(contractCustomerRepo, times(3)).save(argThat(customer -> customer.id == null));
     }
@@ -70,7 +70,7 @@ public class ContractCustomerServiceUnitTest {
         when(contractCustomerRepo.findContractCustomerByExternalId(Mockito.anyLong())).thenReturn(Optional.empty());
         when(contractCustomerRepo.findContractCustomerByExternalId(1L)).thenReturn(Optional.of(existingCustomer));
 
-        sut.getAndSaveContractCustomers(true);
+        sut.getAndSaveContractCustomers(localUrl);
 
         verify(contractCustomerRepo, times(2)).save(argThat(customer -> customer.externalId != 1L));
         verify(contractCustomerRepo, times(1)).save(argThat(customer -> customer.externalId == 1L));

@@ -67,7 +67,7 @@ public class ShippersServiceUnitTest {
     void getAndSaveShippersShouldInsertNewRecords() throws IOException {
         when(shippersRepo.findShippersByExternalId(Mockito.anyLong())).thenReturn(Optional.empty());
 
-        sut.getAndSaveShippers(localUrl.toString());
+        sut.getAndSaveShippers(localUrl);
 
         verify(shippersRepo, times(3)).save(argThat(shipper -> shipper.getId() == null));
     }
@@ -81,7 +81,7 @@ public class ShippersServiceUnitTest {
         when(shippersRepo.findShippersByExternalId(Mockito.anyLong())).thenReturn(Optional.empty());
         when(shippersRepo.findShippersByExternalId(1L)).thenReturn(Optional.of(existingCustomer));
 
-        sut.getAndSaveShippers(localUrl.toString());
+        sut.getAndSaveShippers(localUrl);
 
         verify(shippersRepo, times(2)).save(argThat(shipper -> shipper.getExternalId() != 1L));
         verify(shippersRepo, times(1)).save(argThat(shipper -> shipper.getExternalId() == 1L));

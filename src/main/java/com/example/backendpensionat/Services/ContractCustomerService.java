@@ -17,7 +17,7 @@ public interface ContractCustomerService {
     List<ContractCustomerDTO> listAllContractCustomers();
     ContractCustomer findcCustomerById(Long id);
     List<ContractCustomerDTO> getContractCustomersFromXML(URL url) throws IOException;
-    void getAndSaveContractCustomers(Boolean isTest) throws IOException;
+    void getAndSaveContractCustomers(URL url) throws IOException;
 
 }
 
