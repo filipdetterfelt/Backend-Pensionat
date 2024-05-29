@@ -51,7 +51,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
         if (isTest) {
             url = getClass().getClassLoader().getResource("./XmlJsonFiles/blacklist.json");
         } else {
-            url = new URL("https://javabl.systementor.se/api/koriander/blacklist");
+            url = new URL(blacklistPropertiesConfig.getBlacklistUrl());
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -70,7 +70,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
         newBlacklistedCustomer.setOk(false);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://javabl.systementor.se/api/koriander/blacklist"))
+                .uri(URI.create(blacklistPropertiesConfig.getBlacklistUrl()))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
@@ -98,7 +98,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
         String jsonBody = "{\"name\": \"" + existingCustomer.getName() + "\", \"isOk\":\"" + existingCustomer.isOk() + "\"}";
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://javabl.systementor.se/api/koriander/blacklist/" + email))
+                .uri(URI.create(blacklistPropertiesConfig.getBlacklistUrl() + "/"+ email))
                 .header("Content-Type", "application/json")
                 .PUT(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
