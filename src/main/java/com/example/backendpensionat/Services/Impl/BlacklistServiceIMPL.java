@@ -1,9 +1,11 @@
 package com.example.backendpensionat.Services.Impl;
 import com.example.backendpensionat.DTO.BlacklistDTO;
 import com.example.backendpensionat.DTO.BlacklistDetailedDTO;
+import com.example.backendpensionat.PropertiesConfigs.BlacklistPropertiesConfig;
 import com.example.backendpensionat.Services.BlacklistService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,9 +23,12 @@ public class BlacklistServiceIMPL implements BlacklistService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    @Autowired
+    BlacklistPropertiesConfig blacklistPropertiesConfig;
+
     @Override
     public BlacklistDetailedDTO checkBlackList(String email) {
-        String url = "https://javabl.systementor.se/api/koriander/blacklistcheck/" + email;
+        String url = blacklistPropertiesConfig.getCheckBlacklistUrl() + "/"+  email;
         return restTemplate.getForObject(url, BlacklistDetailedDTO.class);
     }
 
