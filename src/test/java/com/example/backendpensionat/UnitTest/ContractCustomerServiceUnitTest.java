@@ -22,14 +22,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class ContractCustomerServiceUnitTest {
     @Autowired
-
     IntegrationPropertiesConfig integrationPropertiesConfig;
+
     private final ContractCustomerRepo contractCustomerRepo = mock(ContractCustomerRepo.class);
-    URL localUrl = getClass().getClassLoader().getResource(integrationPropertiesConfig.getContractCustomersPathUrl());
+    URL localUrl;
     ContractCustomerService sut;
 
     @BeforeEach()
     void setUp() {
+        getClass().getClassLoader().getResource(integrationPropertiesConfig.getContractCustomersPathUrl());
         sut = new ContractCustomerServiceIMPL(contractCustomerRepo);
     }
 

@@ -15,4 +15,6 @@ public interface ShippersService {
 
     ShippersDetailedDTO shippersToDTO(Shippers Shippers);
     Shippers DTOtoShippers(ShippersDetailedDTO ShippersDetailedDTO);
+
+    Shippers saveShipper(ShippersDetailedDTO dto);
 }

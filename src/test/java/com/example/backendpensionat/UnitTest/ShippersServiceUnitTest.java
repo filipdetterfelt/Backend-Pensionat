@@ -7,11 +7,16 @@ import com.example.backendpensionat.Repos.ShippersRepo;
 import com.example.backendpensionat.Services.Impl.ShippersServiceIMPL;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -19,18 +24,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
+
 @SpringBootTest
+@TestPropertySource(locations ="classpath:application.properties")
 public class ShippersServiceUnitTest {
 
     @Autowired
     IntegrationPropertiesConfig integrationPropertiesConfig;
 
     private final ShippersRepo shippersRepo = mock(ShippersRepo.class);
-    URL localUrl = getClass().getClassLoader().getResource(integrationPropertiesConfig.getLocalPathShippers());
+    URL localUrl;
     ShippersServiceIMPL sut;
 
     @BeforeEach()
     void setUp() {
+        localUrl = getClass().getClassLoader().getResource(integrationPropertiesConfig.getLocalPathShippers());
+        System.out.println(localUrl);
         sut = new ShippersServiceIMPL(shippersRepo);
     }
 
@@ -58,7 +67,7 @@ public class ShippersServiceUnitTest {
     void getAndSaveShippersShouldInsertNewRecords() throws IOException {
         when(shippersRepo.findShippersByExternalId(Mockito.anyLong())).thenReturn(Optional.empty());
 
-        sut.getAndSaveShippers(true);
+        sut.getAndSaveShippers(localUrl.toString());
 
         verify(shippersRepo, times(3)).save(argThat(shipper -> shipper.getId() == null));
     }
@@ -72,7 +81,7 @@ public class ShippersServiceUnitTest {
         when(shippersRepo.findShippersByExternalId(Mockito.anyLong())).thenReturn(Optional.empty());
         when(shippersRepo.findShippersByExternalId(1L)).thenReturn(Optional.of(existingCustomer));
 
-        sut.getAndSaveShippers(true);
+        sut.getAndSaveShippers(localUrl.toString());
 
         verify(shippersRepo, times(2)).save(argThat(shipper -> shipper.getExternalId() != 1L));
         verify(shippersRepo, times(1)).save(argThat(shipper -> shipper.getExternalId() == 1L));

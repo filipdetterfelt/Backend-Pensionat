@@ -48,7 +48,7 @@ class ShippersServiceIntegrationTest {
     @Test
     void getAndSaveContractCustomers() throws IOException {
         shippersRepo.deleteAll();
-        sut.getAndSaveShippers(true);
+        sut.getAndSaveShippers(integrationPropertiesConfig.getLocalPathShippers());
 
         assertEquals(3, shippersRepo.count());
     }
