@@ -2,11 +2,15 @@ package com.example.backendpensionat.UnitTest;
 
 import com.example.backendpensionat.DTO.ShippersDetailedDTO;
 import com.example.backendpensionat.Models.Shippers;
+import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Repos.ShippersRepo;
 import com.example.backendpensionat.Services.Impl.ShippersServiceIMPL;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -15,10 +19,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
-
+@SpringBootTest
 public class ShippersServiceUnitTest {
+
+    @Autowired
+    IntegrationPropertiesConfig integrationPropertiesConfig;
+
     private final ShippersRepo shippersRepo = mock(ShippersRepo.class);
-    URL localUrl = getClass().getClassLoader().getResource("./XmlJsonFiles/shippers.json");
+    URL localUrl = getClass().getClassLoader().getResource(integrationPropertiesConfig.getLocalPathShippers());
     ShippersServiceIMPL sut;
 
     @BeforeEach()

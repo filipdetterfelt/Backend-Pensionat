@@ -37,13 +37,9 @@ public class ShippersServiceIMPL implements ShippersService {
     }
 
     @Override
-    public void getAndSaveShippers(boolean isTest) throws IOException {
-        URL url;
-        if (isTest) {
-            url = getClass().getClassLoader().getResource(integrationPropertiesConfig.getLocalPathShippers());
-        } else {
-            url = new URL(integrationPropertiesConfig.getShippersUrl());
-        }
+    public void getAndSaveShippers(String path) throws IOException {
+        URL url = new URL(path);
+
         for(ShippersDetailedDTO s: getShippersFromJSON(url)) {
             Optional<Shippers> shipper = shippersRepo.findShippersByExternalId(s.externalId);
             if(shipper.isEmpty()) {
