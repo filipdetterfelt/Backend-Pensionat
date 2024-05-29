@@ -1,13 +1,17 @@
-package com.exampleCustomer.backendpensionat.UnitTest;
+package com.example.backendpensionat.UnitTest;
 
 import com.example.backendpensionat.DTO.ContractCustomerDTO;
 import com.example.backendpensionat.Models.ContractCustomer;
+import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Repos.ContractCustomerRepo;
 import com.example.backendpensionat.Services.ContractCustomerService;
 import com.example.backendpensionat.Services.Impl.ContractCustomerServiceIMPL;
 import org.mockito.Mockito;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -15,9 +19,13 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest
 public class ContractCustomerServiceUnitTest {
+    @Autowired
+
+    IntegrationPropertiesConfig integrationPropertiesConfig;
     private final ContractCustomerRepo contractCustomerRepo = mock(ContractCustomerRepo.class);
-    URL localUrl = getClass().getClassLoader().getResource("./XmlJsonFiles/contractCustomers.xml");
+    URL localUrl = getClass().getClassLoader().getResource(integrationPropertiesConfig.getContractCustomersPathUrl());
     ContractCustomerService sut;
 
     @BeforeEach()

@@ -1,6 +1,7 @@
 package com.example.backendpensionat.IntegrationTest;
 
 import com.example.backendpensionat.Models.RoomEventHappenings.*;
+import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Services.RoomEventService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,12 @@ public class RoomEventServiceIntegrationTest {
     @Autowired
     RoomEventService sut;
 
+    @Autowired
+    IntegrationPropertiesConfig integrationPropertiesConfig;
+
     @Test
     public void getRoomEventsFromJson() throws IOException {
-        ClassPathResource resource = new ClassPathResource("XmlJsonFiles/roomEvent.json");
+        ClassPathResource resource = new ClassPathResource(integrationPropertiesConfig.getLocalPathRoomevent());
         List<String> messages = Arrays.stream(new String(Files.readAllBytes(Paths.get(resource.getURI())))
                 .replaceAll("\\[", "")
                 .replaceAll("]", "")

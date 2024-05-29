@@ -49,7 +49,7 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
     public void getAndSaveContractCustomers(Boolean isTest) throws IOException {
         URL url;
         if (isTest) {
-            url = getClass().getClassLoader().getResource("./XmlJsonFiles/contractCustomers.xml");
+            url = getClass().getClassLoader().getResource(integrationPropertiesConfig.getContractCustomersPathUrl());
         } else {
             url = new URL(integrationPropertiesConfig.getContractCustomersUrl());
         }

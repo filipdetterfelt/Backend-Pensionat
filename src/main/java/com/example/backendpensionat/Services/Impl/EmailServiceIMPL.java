@@ -2,10 +2,12 @@ package com.example.backendpensionat.Services.Impl;
 
 import com.example.backendpensionat.Models.PasswordResetToken;
 import com.example.backendpensionat.Models.User;
+import com.example.backendpensionat.PropertiesConfigs.DataPropertiesConfig;
 import com.example.backendpensionat.Repos.TokenRepo;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -22,10 +24,11 @@ public class EmailServiceIMPL {
 
     private final TokenRepo tokenRepo;
 
+    private final DataPropertiesConfig dataPropertiesConfig;
 
     public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("Koriander@gmail.com");
+        message.setFrom(dataPropertiesConfig.getFromEmail());
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
@@ -65,7 +68,7 @@ public class EmailServiceIMPL {
 
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            message.setFrom("koriander@gmail.com");
+            message.setFrom(dataPropertiesConfig.getFromEmail());
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(content, true);
@@ -89,7 +92,7 @@ public class EmailServiceIMPL {
 
         tokenRepo.save(resetToken);
 
-        String endpointUrl = "http://localhost:8080/resetPassword";
+        String endpointUrl = dataPropertiesConfig.getResetPasswordUrl();
         return endpointUrl + "/" + resetToken.getToken();
     }
 

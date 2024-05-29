@@ -1,6 +1,7 @@
 package com.example.backendpensionat.IntegrationTest;
 
 import com.example.backendpensionat.DTO.ShippersDetailedDTO;
+import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Repos.ShippersRepo;
 import com.example.backendpensionat.Services.ShippersService;
 import org.junit.jupiter.api.Test;
@@ -20,9 +21,12 @@ class ShippersServiceIntegrationTest {
     @Autowired
     ShippersService sut;
 
+    @Autowired
+    IntegrationPropertiesConfig integrationPropertiesConfig;
+
     @Test
     void getShippersFromJson() throws Exception {
-        URL url = new URL("https://javaintegration.systementor.se/shippers");
+        URL url = new URL(integrationPropertiesConfig.getShippersUrl());
         assertDoesNotThrow(() -> sut.getShippersFromJSON(url));
 
         List<ShippersDetailedDTO> shipper = sut.getShippersFromJSON(url);

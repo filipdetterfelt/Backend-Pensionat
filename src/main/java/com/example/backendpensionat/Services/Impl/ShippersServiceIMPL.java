@@ -2,6 +2,7 @@ package com.example.backendpensionat.Services.Impl;
 
 import com.example.backendpensionat.DTO.ShippersDetailedDTO;
 import com.example.backendpensionat.Models.Shippers;
+import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Repos.ShippersRepo;
 import com.example.backendpensionat.Services.ShippersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,6 +19,9 @@ import java.util.Optional;
 public class ShippersServiceIMPL implements ShippersService {
 
     ShippersRepo shippersRepo;
+
+    @Autowired
+    IntegrationPropertiesConfig integrationPropertiesConfig;
 
     public ShippersServiceIMPL(ShippersRepo shippersRepo) {
         this.shippersRepo = shippersRepo;
@@ -36,9 +40,9 @@ public class ShippersServiceIMPL implements ShippersService {
     public void getAndSaveShippers(boolean isTest) throws IOException {
         URL url;
         if (isTest) {
-            url = getClass().getClassLoader().getResource("./XmlJsonFiles/shippers.json");
+            url = getClass().getClassLoader().getResource(integrationPropertiesConfig.getLocalPathShippers());
         } else {
-            url = new URL("https://javaintegration.systementor.se/shippers");
+            url = new URL(integrationPropertiesConfig.getShippersUrl());
         }
         for(ShippersDetailedDTO s: getShippersFromJSON(url)) {
             Optional<Shippers> shipper = shippersRepo.findShippersByExternalId(s.externalId);

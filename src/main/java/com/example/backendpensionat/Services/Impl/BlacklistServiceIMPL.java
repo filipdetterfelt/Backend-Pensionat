@@ -49,7 +49,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
     public List<BlacklistDTO> getBlacklist(boolean isTest) throws IOException {
         URL url;
         if (isTest) {
-            url = getClass().getClassLoader().getResource("./XmlJsonFiles/blacklist.json");
+            url = getClass().getClassLoader().getResource(integrationPropertiesConfig.getBlacklistPathUrl());
         } else {
             url = new URL(integrationPropertiesConfig.getBlacklistUrl());
         }

@@ -8,19 +8,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "integration")
+@ConfigurationProperties(prefix = "userdata")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class IntegrationPropertiesConfig {
-    String baseUrl;
-    String checkBlacklistUrl;
-    String blacklistUrl;
-    String contractCustomersUrl;
-    String shippersUrl;
-    String localPathRoomevent;
-    String localPathShippers;
-    String contractCustomersPathUrl;
-    String blacklistPathUrl;
+public class DataPropertiesConfig {
+    String fromEmail;
+    String resetPasswordUrl;
 }
