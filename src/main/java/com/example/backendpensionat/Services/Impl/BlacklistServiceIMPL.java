@@ -1,7 +1,7 @@
 package com.example.backendpensionat.Services.Impl;
 import com.example.backendpensionat.DTO.BlacklistDTO;
 import com.example.backendpensionat.DTO.BlacklistDetailedDTO;
-import com.example.backendpensionat.PropertiesConfigs.BlacklistPropertiesConfig;
+import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Services.BlacklistService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -24,11 +24,11 @@ public class BlacklistServiceIMPL implements BlacklistService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
-    BlacklistPropertiesConfig blacklistPropertiesConfig;
+    IntegrationPropertiesConfig integrationPropertiesConfig;
 
     @Override
     public BlacklistDetailedDTO checkBlackList(String email) {
-        String url = blacklistPropertiesConfig.getCheckBlacklistUrl() + "/"+  email;
+        String url = integrationPropertiesConfig.getCheckBlacklistUrl() + "/"+  email;
         return restTemplate.getForObject(url, BlacklistDetailedDTO.class);
     }
 
@@ -51,7 +51,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
         if (isTest) {
             url = getClass().getClassLoader().getResource("./XmlJsonFiles/blacklist.json");
         } else {
-            url = new URL(blacklistPropertiesConfig.getBlacklistUrl());
+            url = new URL(integrationPropertiesConfig.getBlacklistUrl());
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -70,7 +70,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
         newBlacklistedCustomer.setOk(false);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(blacklistPropertiesConfig.getBlacklistUrl()))
+                .uri(URI.create(integrationPropertiesConfig.getBlacklistUrl()))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
@@ -98,7 +98,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
         String jsonBody = "{\"name\": \"" + existingCustomer.getName() + "\", \"isOk\":\"" + existingCustomer.isOk() + "\"}";
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(blacklistPropertiesConfig.getBlacklistUrl() + "/"+ email))
+                .uri(URI.create(integrationPropertiesConfig.getBlacklistUrl() + "/"+ email))
                 .header("Content-Type", "application/json")
                 .PUT(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();

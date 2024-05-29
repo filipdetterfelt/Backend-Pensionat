@@ -1,6 +1,7 @@
 package com.example.backendpensionat.IntegrationTest;
 
 import com.example.backendpensionat.DTO.ContractCustomerDTO;
+import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Repos.ContractCustomerRepo;
 import com.example.backendpensionat.Services.ContractCustomerService;
 import org.junit.jupiter.api.Test;
@@ -20,11 +21,12 @@ public class ContractCustomerServiceIntegrationTest {
     @Autowired
     ContractCustomerService sut;
 
-
+    @Autowired
+    IntegrationPropertiesConfig integrationPropertiesConfig;
 
     @Test
     void getContractCustomersFromXMLTest() throws Exception {
-        URL url = new URL("https://javaintegration.systementor.se/customers");
+        URL url = new URL(integrationPropertiesConfig.getContractCustomersUrl());
         assertDoesNotThrow(() -> sut.getContractCustomersFromXML(url));
 
         List<ContractCustomerDTO> contractCustomers = sut.getContractCustomersFromXML(url);

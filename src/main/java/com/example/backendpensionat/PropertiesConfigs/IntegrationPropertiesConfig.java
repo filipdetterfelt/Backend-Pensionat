@@ -13,8 +13,9 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BlacklistPropertiesConfig {
+public class IntegrationPropertiesConfig {
     String baseUrl;
     String checkBlacklistUrl;
     String blacklistUrl;
+    String contractCustomersUrl;
 }

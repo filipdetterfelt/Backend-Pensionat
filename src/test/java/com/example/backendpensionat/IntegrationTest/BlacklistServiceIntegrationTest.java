@@ -1,7 +1,7 @@
 package com.example.backendpensionat.IntegrationTest;
 import com.example.backendpensionat.DTO.BlacklistDTO;
 import com.example.backendpensionat.DTO.BlacklistDetailedDTO;
-import com.example.backendpensionat.PropertiesConfigs.BlacklistPropertiesConfig;
+import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Services.BlacklistService;
 
 import org.junit.jupiter.api.Test;
@@ -27,14 +27,14 @@ public class BlacklistServiceIntegrationTest {
     private RestTemplate restTemplate;
 
     @Autowired
-    BlacklistPropertiesConfig blacklistPropertiesConfig;
+    IntegrationPropertiesConfig integrationPropertiesConfig;
 
     @Test
     public void whenCheckBlacklistWithValidEmail_thenShouldReturnDetailedDTO() {
         BlacklistDetailedDTO mockResponse = new BlacklistDetailedDTO();
         mockResponse.setEmail("test@example.com");
         mockResponse.setOk(true);
-        when(restTemplate.getForObject(blacklistPropertiesConfig.getCheckBlacklistUrl() + "/" +  mockResponse.getEmail(), BlacklistDetailedDTO.class))
+        when(restTemplate.getForObject(integrationPropertiesConfig.getCheckBlacklistUrl() + "/" +  mockResponse.getEmail(), BlacklistDetailedDTO.class))
                 .thenReturn(mockResponse);
 
         BlacklistDetailedDTO result = sut.checkBlackList("test@example.com");

@@ -2,6 +2,7 @@ package com.example.backendpensionat.Services.Impl;
 
 import com.example.backendpensionat.DTO.*;
 import com.example.backendpensionat.Models.ContractCustomer;
+import com.example.backendpensionat.PropertiesConfigs.IntegrationPropertiesConfig;
 import com.example.backendpensionat.Repos.ContractCustomerRepo;
 import com.example.backendpensionat.Services.ContractCustomerService;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
@@ -21,6 +22,9 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
 
 
     ContractCustomerRepo contractCustomerRepo;
+
+    @Autowired
+    IntegrationPropertiesConfig integrationPropertiesConfig;
 
     public ContractCustomerServiceIMPL(ContractCustomerRepo contractCustomerRepo) {
         this.contractCustomerRepo = contractCustomerRepo;
@@ -47,7 +51,7 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
         if (isTest) {
             url = getClass().getClassLoader().getResource("./XmlJsonFiles/contractCustomers.xml");
         } else {
-            url = new URL("https://javaintegration.systementor.se/customers");
+            url = new URL(integrationPropertiesConfig.getContractCustomersUrl());
         }
 
         for(ContractCustomerDTO cc: getContractCustomersFromXML(url)) {
@@ -116,19 +120,19 @@ public class ContractCustomerServiceIMPL implements ContractCustomerService {
         return contractCustomerRepo.findById(id).get();
     }
 
-    public ContractCustomerDetailedDTO dtoToDetailedcCustomer(ContractCustomer cC){
-        return ContractCustomerDetailedDTO.builder()
-                .externalId(cC.externalId)
-                .companyName(cC.companyName)
-                .contactName(cC.contactName)
-                .contactTitle(cC.contactTitle)
-                .streetAddress(cC.streetAddress)
-                .city(cC.city)
-                .postalCode(cC.postalCode)
-                .country(cC.country)
-                .phone(cC.phone)
-                .fax(cC.fax).build();
-    }
+//    public ContractCustomerDetailedDTO dtoToDetailedcCustomer(ContractCustomer cC){
+//        return ContractCustomerDetailedDTO.builder()
+//                .externalId(cC.externalId)
+//                .companyName(cC.companyName)
+//                .contactName(cC.contactName)
+//                .contactTitle(cC.contactTitle)
+//                .streetAddress(cC.streetAddress)
+//                .city(cC.city)
+//                .postalCode(cC.postalCode)
+//                .country(cC.country)
+//                .phone(cC.phone)
+//                .fax(cC.fax).build();
+//    }
 
 
     public ContractCustomerDTO CmsToDTO(ContractCustomer ContractCustomer) {
