@@ -98,7 +98,7 @@ public class BlacklistServiceIMPL implements BlacklistService {
         String jsonBody = "{\"name\": \"" + existingCustomer.getName() + "\", \"isOk\":\"" + existingCustomer.isOk() + "\"}";
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(blacklistPropertiesConfig.getCheckBlacklistUrl() + "/"+ email))
+                .uri(URI.create(blacklistPropertiesConfig.getBlacklistUrl() + "/"+ email))
                 .header("Content-Type", "application/json")
                 .PUT(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
