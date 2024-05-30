@@ -38,6 +38,7 @@ dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test:6.3.0")
     implementation("com.rabbitmq:amqp-client:5.21.0")
     testImplementation("com.h2database:h2")
     implementation("org.springframework.boot:spring-boot-starter-mail:3.2.5")
