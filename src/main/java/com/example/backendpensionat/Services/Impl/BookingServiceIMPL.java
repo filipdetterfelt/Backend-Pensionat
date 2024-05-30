@@ -76,7 +76,7 @@ public class BookingServiceIMPL implements BookingService {
 
     @Override
     public BookingDetailedDTO findBookingById(Long id) {
-        return bDetailedToDTO(Objects.requireNonNull(bookingRepo.findById(id).orElse(null)));
+        return bDetailedToDTO(bookingRepo.findById(id).orElseThrow(() -> new NoSuchElementException("Booking not found")));
     }
 
     @Override

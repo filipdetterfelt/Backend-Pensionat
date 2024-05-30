@@ -147,6 +147,8 @@ public class BookingController {
 
     @GetMapping("/bookings/edit/{id}")
     public String editBookingById(@PathVariable Long id, HttpSession session, Model model) {
+        System.out.println("ID passed to findBookingById: " + id);
+
         BookingDetailedDTO bookingDTO = bookingService.findBookingById(id);
 
         String placeholder = bookingDTO.getRoom().getRoomNumber() + " - " + bookingDTO.getRoom().getRoomType();
@@ -168,10 +170,14 @@ public class BookingController {
     public String editRefresh(@ModelAttribute BookingDetailedDTO booking, RedirectAttributes rda, HttpSession session) {
         RoomSearchDTO roomSearch = new RoomSearchDTO(booking.getStartDate(), booking.getEndDate(), 0);
         List<RoomDetailedDTO> listFreeRooms = roomService.listFreeRooms(roomSearch);
-        CustomerDetailedDTO customer = customerService.findCustomerById(((CustomerDTO) session.getAttribute("customer")).getId());
 
-        booking.setCustomerDTO((CustomerDTO) session.getAttribute("customer"));
-        booking.setRoom((RoomDetailedDTO) session.getAttribute("room"));
+        CustomerDTO customerFromSession = (CustomerDTO) session.getAttribute("customer");
+        RoomDetailedDTO roomFromSession = (RoomDetailedDTO) session.getAttribute("room");
+        CustomerDetailedDTO customer = customerService.findCustomerById(customerFromSession.getId());
+
+        booking.setCustomerDTO(customerFromSession);
+        booking.setRoom(roomFromSession);
+
         Double totalPrice = bookingService.calculateTotalPrice(booking.getStartDate(), booking.getEndDate(), booking.getRoom().getRoomType().getRoomTypePrice(), customer);
 
         booking.setTotalPrice(totalPrice);
@@ -179,7 +185,6 @@ public class BookingController {
         rda.addFlashAttribute("listFreeRooms", listFreeRooms);
         rda.addFlashAttribute("refreshed", true);
         rda.addFlashAttribute("booking", booking);
-        System.out.println(booking.getTotalPrice());
         return "redirect:/bookings/edit/" + booking.getId();
     }
 
